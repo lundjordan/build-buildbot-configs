@@ -14,11 +14,11 @@ releaseConfig['productName']         = 'fennec'
 releaseConfig['appName']             = 'mobile'
 releaseConfig['relbranchPrefix']     = 'MOBILE'
 #  Current version info
-releaseConfig['version']             = '15.0b7'
-releaseConfig['appVersion']          = '15.0'
+releaseConfig['version']             = '16.0b1'
+releaseConfig['appVersion']          = '16.0'
 releaseConfig['milestone']           = releaseConfig['appVersion']
 releaseConfig['buildNumber']         = 1
-releaseConfig['baseTag']             = 'FENNEC_15_0b7'
+releaseConfig['baseTag']             = 'FENNEC_16_0b1'
 #  Next (nightly) version info
 releaseConfig['nextAppVersion']      = releaseConfig['appVersion']
 releaseConfig['nextMilestone']       = releaseConfig['milestone']
@@ -27,14 +27,10 @@ releaseConfig['sourceRepositories']  = {
     'mobile': {
         'name': 'mozilla-beta',
         'path': 'releases/mozilla-beta',
-        'revision': 'b341598d33da',
+        'revision': '3aa844edaa00',
         'relbranch': None,
         'bumpFiles': {
             'mobile/android/confvars.sh': {
-                'version': releaseConfig['appVersion'],
-                'nextVersion': releaseConfig['nextAppVersion']
-            },
-            'mobile/xul/confvars.sh': {
                 'version': releaseConfig['appVersion'],
                 'nextVersion': releaseConfig['nextAppVersion']
             },
@@ -66,7 +62,7 @@ releaseConfig['otherReposToTag']     = {
 }
 
 # Platform configuration
-releaseConfig['enUSPlatforms']        = ('android-xul', 'android')
+releaseConfig['enUSPlatforms']        = ('android', 'android-armv6')
 releaseConfig['notifyPlatforms']      = releaseConfig['enUSPlatforms']
 releaseConfig['manuallySignedPlatforms']      = releaseConfig['enUSPlatforms']
 releaseConfig['unittestPlatforms']    = ()
@@ -98,7 +94,7 @@ releaseConfig['partnerRepackPlatforms'] = ()
 # mozconfigs
 releaseConfig['mozconfigs']          = {
     'android': 'mobile/android/config/mozconfigs/android/release',
-    'android-xul': 'mobile/xul/config/mozconfigs/android/release',
+    'android-armv6': 'mobile/android/config/mozconfigs/android-armv6/release',
 }
 releaseConfig['releaseChannel']      = 'beta'
 
@@ -123,10 +119,10 @@ releaseConfig['single_locale_options'] = {
 
 releaseConfig['multilocale_config'] = {
     'platforms': {
-        'android-xul':
-            'multi_locale/release_mozilla-beta_android-xul.json',
         'android':
             'multi_locale/release_mozilla-beta_android.json',
+        'android-armv6':
+            'multi_locale/release_mozilla-beta_android-armv6.json',
     },
     'multilocaleOptions': [
         '--tag-override=%s_RELEASE' % releaseConfig['baseTag'],

@@ -9,14 +9,13 @@ STAGING_SLAVES = {
     'leopard': dict([("talos-r3-leopard-%03i" % x, {}) for x in [1, 2, 10]]),
     'snowleopard': dict([("talos-r4-snow-%03i" % x, {}) for x in [1, 2, 3, 10]]),
     'lion': dict([("talos-r4-lion-%03i" % x, {}) for x in [1, 2, 3, 10]]),
+    'mountainlion': dict([("talos-mtnlion-r5-%03i" % x, {}) for x in [1, 2, 3, 10]]),
     'tegra_android': dict(
         [('tegra-%03i' % x, {'http_port': '30%03i' % x, 'ssl_port': '31%03i' % x}) for x in range(10,30)]
     ),
 }
 
 STAGING_SLAVES['leopard-o'] = STAGING_SLAVES['leopard']
-STAGING_SLAVES['tegra_android-xul'] = STAGING_SLAVES['tegra_android']
-STAGING_SLAVES['tegra_android-o'] = STAGING_SLAVES['tegra_android']
 
 SLAVES = deepcopy(STAGING_SLAVES)
 
@@ -24,7 +23,7 @@ for p, slaves in pc.SLAVES.items() + pc.TRY_SLAVES.items():
     if p not in SLAVES:
         SLAVES[p] = deepcopy(slaves)
     else:
-        SLAVES[p] = SLAVES[p].items() + slaves.items()
+        SLAVES[p] = dict(SLAVES[p].items() + slaves.items())
 
 TRY_SLAVES = deepcopy(SLAVES)
 

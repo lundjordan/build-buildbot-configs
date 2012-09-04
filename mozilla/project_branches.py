@@ -30,6 +30,9 @@ PROJECT_BRANCHES = {
             'win32': {
                 'pgo_platform': 'win64',
             },
+            'win64': {
+                'enable_pymake': True,
+            },
         },
     },
     'devtools':{
@@ -37,7 +40,7 @@ PROJECT_BRANCHES = {
         'enabled_products': ['firefox'],
         'platforms': {
             'macosx64': {
-                'slave_platforms': ['snowleopard', 'lion'],
+                'slave_platforms': ['snowleopard', 'lion', 'mountainlion'],
             },
             'android': {
                 'enable_opt_unittests': False,
@@ -219,18 +222,6 @@ PROJECT_BRANCHES = {
                 'enable_talos': False,
                 'tegra_android': {},
             },
-            'android-xul': {
-                'enable_opt_unittests': False,
-                'enable_debug_unittests': False,
-                'enable_talos': False,
-                'tegra_android': {},
-            },
-            'linux-android': {
-                'enable_opt_unittests': False,
-                'enable_debug_unittests': False,
-                'enable_talos': False,
-                'tegra_android': {},
-            },
         },
     },
     'ash': {},
@@ -252,12 +243,18 @@ PROJECT_BRANCHES = {
         'platforms': {
             'win32': {
                 'nightly_signing_servers': 'nightly-signing',
+                'enable_pymake': False,
             },
             'win64': {
                 'nightly_signing_servers': 'nightly-signing',
+                'enable_pymake': False,
             },
-            'win32-debug': {},
-            'win32-metro': {},
+            'win32-debug': {
+                'enable_pymake': False,
+            },
+            'win32-metro': {
+                'enable_pymake': False,
+            },
         },
         'enable_talos': False,
     },
