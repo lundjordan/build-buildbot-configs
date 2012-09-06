@@ -99,7 +99,7 @@ PLATFORMS['win32']['env_name'] = 'win32-perf'
 PLATFORMS['win32']['xp'] = {'name': "Rev3 WINNT 5.1"}
 PLATFORMS['win32']['win7'] = {'name': "Rev3 WINNT 6.1"}
 PLATFORMS['win32']['stage_product'] = 'firefox'
-PLATFORMS['win32']['mozharness_python'] = ['c:/mozilla-build/python25/python', '-u']
+PLATFORMS['win32']['mozharness_python'] = ['c:/mozilla-build/python27/python', '-u']
 
 PLATFORMS['win64']['slave_platforms'] = ['w764']
 PLATFORMS['win64']['env_name'] = 'win64-perf'
@@ -107,7 +107,7 @@ PLATFORMS['win64']['w764'] = {'name': "Rev3 WINNT 6.1 x64",
                               'download_symbols': False,
                              }
 PLATFORMS['win64']['stage_product'] = 'firefox'
-PLATFORMS['win64']['mozharness_python'] = ['c:/mozilla-build/python25/python', '-u']
+PLATFORMS['win64']['mozharness_python'] = ['c:/mozilla-build/python27/python', '-u']
 
 PLATFORMS['linux']['slave_platforms'] = ['fedora']
 PLATFORMS['linux']['env_name'] = 'linux-perf'
