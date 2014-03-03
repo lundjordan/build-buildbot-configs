@@ -129,9 +129,6 @@ PLATFORM_VARS = {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
                     '--config', 'builds/releng_base_linux_32_builds.py',
-                    # XX TEMP ONLY FOR TESTING, REMOVE WITH PATCH
-                    '--branch', 'mozilla-central',
-                    '--build-pool', 'staging',
                 ],
                 'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                    '-f', '../reboot_count.txt','-n', '1', '-z'],
@@ -236,9 +233,6 @@ PLATFORM_VARS = {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
                     '--config', 'builds/releng_base_linux_64_builds.py',
-                    # XX TEMP ONLY FOR TESTING, REMOVE WITH PATCH
-                    '--branch', 'mozilla-central',
-                    '--build-pool', 'staging',
                 ],
                 'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                    '-f', '../reboot_count.txt','-n', '1', '-z'],
@@ -325,10 +319,7 @@ PLATFORM_VARS = {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
                     '--config', 'builds/releng_base_linux_64_builds.py',
-                    # XX TEMP ONLY FOR TESTING, REMOVE WITH PATCH
                     '--custom-build-variant', 'asan',
-                    '--branch', 'mozilla-central',
-                    '--build-pool', 'staging',
                 ],
                 'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                    '-f', '../reboot_count.txt','-n', '1', '-z'],
@@ -416,9 +407,6 @@ PLATFORM_VARS = {
                 'extra_args': [
                     '--config', 'builds/releng_base_linux_64_builds.py',
                     '--custom-build-variant', 'asan-and-debug',
-                    # XX TEMP ONLY FOR TESTING, REMOVE WITH PATCH
-                    '--branch', 'mozilla-central',
-                    '--build-pool', 'staging',
                 ],
                 'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                    '-f', '../reboot_count.txt','-n', '1', '-z'],
@@ -507,9 +495,6 @@ PLATFORM_VARS = {
                 'extra_args': [
                     '--config', 'builds/releng_base_linux_64_builds.py',
                     '--custom-build-variant', 'stat-and-debug',
-                    # XX TEMP ONLY FOR TESTING, REMOVE WITH PATCH
-                    '--branch', 'mozilla-central',
-                    '--build-pool', 'staging',
                 ],
                 'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                    '-f', '../reboot_count.txt','-n', '1', '-z'],
@@ -786,9 +771,6 @@ PLATFORM_VARS = {
                 'extra_args': [
                     '--config', 'builds/releng_base_linux_32_builds.py',
                     '--custom-build-variant', 'debug',
-                    # XX TEMP ONLY FOR TESTING, REMOVE WITH PATCH
-                    '--branch', 'mozilla-central',
-                    '--build-pool', 'staging',
                 ],
                 'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                    '-f', '../reboot_count.txt','-n', '1', '-z'],
@@ -881,9 +863,6 @@ PLATFORM_VARS = {
                 'extra_args': [
                     '--config', 'builds/releng_base_linux_64_builds.py',
                     '--custom-build-variant', 'debug',
-                    # XX TEMP ONLY FOR TESTING, REMOVE WITH PATCH
-                    '--branch', 'mozilla-central',
-                    '--build-pool', 'staging',
                 ],
                 'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                    '-f', '../reboot_count.txt','-n', '1', '-z'],
