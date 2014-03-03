@@ -182,6 +182,10 @@ PROJECT_BRANCHES = {
     'cypress': {
         'mozharness_tag': 'default',
         'enable_talos': True,
+        # once ready, we can flip this switch and any platform with
+        # mozharness_config in its build config will use mozharness instead
+        # of MozharnessBuildFactory
+        'enable_mozharness_desktop_builds': True,
     },
     'date': {
         'lock_platforms': True,
