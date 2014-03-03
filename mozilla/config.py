@@ -39,8 +39,10 @@ GLOBAL_VARS = {
     'graph_selector': '/server/collect.cgi',
     'compare_locales_repo_path': 'build/compare-locales',
     'compare_locales_tag': 'RELEASE_AUTOMATION',
-    'mozharness_repo_path': 'build/mozharness',
-    'mozharness_tag': 'production',
+    # XXX DELETE THIS LOCAL CODE BEFORE PATCH
+    'mozharness_repo_path': 'users/jlund_mozilla.com/mozharness/',
+    'mozharness_tag': 'default',
+    ###
     'multi_locale_merge': True,
     'default_build_space': 5,
     'default_l10n_space': 3,
@@ -123,11 +125,24 @@ SYMBOL_SERVER_MOBILE_PATH = GLOBAL_VARS['symbol_server_mobile_path']
 
 PLATFORM_VARS = {
         'linux': {
+            'mozharness_config': {
+                'script_name': 'scripts/fx_desktop_build.py',
+                'extra_args': [
+                    '--config', 'builds/releng_base_linux_32_builds.py',
+                    # XX TEMP ONLY FOR TESTING, REMOVE WITH PATCH
+                    '--branch', 'mozilla-central',
+                    '--build-pool', 'staging',
+                ],
+                'reboot_command': ['scripts/external_tools/count_and_reboot.py',
+                                   '-f', '../reboot_count.txt','-n', '1', '-z'],
+            },
+            'dep_signing_servers': 'dep-signing',
+            'base_name': 'Linux %(branch)s',
+
             'product_name': 'firefox',
             'unittest_platform': 'linux-opt',
             'app_name': 'browser',
             'brand_name': 'Minefield',
-            'base_name': 'Linux %(branch)s',
             'mozconfig': 'linux/%(branch)s/nightly',
             'src_mozconfig': 'browser/config/mozconfigs/linux32/nightly',
             'src_xulrunner_mozconfig': 'xulrunner/config/mozconfigs/linux32/xulrunner',
@@ -167,7 +182,6 @@ PLATFORM_VARS = {
             'test_pretty_names': True,
             'l10n_check_test': True,
             'nightly_signing_servers': 'dep-signing',
-            'dep_signing_servers': 'dep-signing',
             'tooltool_manifest_src': 'browser/config/tooltool-manifests/linux32/releng.manifest',
             'tooltool_script': '/builds/tooltool.py',
             'use_mock': True,
@@ -218,6 +232,18 @@ PLATFORM_VARS = {
             ],
         },
         'linux64': {
+            'mozharness_config': {
+                'script_name': 'scripts/fx_desktop_build.py',
+                'extra_args': [
+                    '--config', 'builds/releng_base_linux_64_builds.py',
+                    # XX TEMP ONLY FOR TESTING, REMOVE WITH PATCH
+                    '--branch', 'mozilla-central',
+                    '--build-pool', 'staging',
+                ],
+                'reboot_command': ['scripts/external_tools/count_and_reboot.py',
+                                   '-f', '../reboot_count.txt','-n', '1', '-z'],
+            },
+
             'product_name': 'firefox',
             'unittest_platform': 'linux64-opt',
             'app_name': 'browser',
@@ -295,6 +321,19 @@ PLATFORM_VARS = {
             ],
         },
         'linux64-asan': {
+            'mozharness_config': {
+                'script_name': 'scripts/fx_desktop_build.py',
+                'extra_args': [
+                    '--config', 'builds/releng_base_linux_64_builds.py',
+                    # XX TEMP ONLY FOR TESTING, REMOVE WITH PATCH
+                    '--custom-build-variant', 'asan',
+                    '--branch', 'mozilla-central',
+                    '--build-pool', 'staging',
+                ],
+                'reboot_command': ['scripts/external_tools/count_and_reboot.py',
+                                   '-f', '../reboot_count.txt','-n', '1', '-z'],
+            },
+
             'product_name': 'firefox',
             'unittest_platform': 'linux64-asan-opt',
             'app_name': 'browser',
@@ -372,6 +411,19 @@ PLATFORM_VARS = {
             'consider_for_nightly': False,
         },
         'linux64-asan-debug': {
+            'mozharness_config': {
+                'script_name': 'scripts/fx_desktop_build.py',
+                'extra_args': [
+                    '--config', 'builds/releng_base_linux_64_builds.py',
+                    '--custom-build-variant', 'asan-and-debug',
+                    # XX TEMP ONLY FOR TESTING, REMOVE WITH PATCH
+                    '--branch', 'mozilla-central',
+                    '--build-pool', 'staging',
+                ],
+                'reboot_command': ['scripts/external_tools/count_and_reboot.py',
+                                   '-f', '../reboot_count.txt','-n', '1', '-z'],
+            },
+
             'enable_nightly': True,
             'product_name': 'firefox',
             'unittest_platform': 'linux64-asan-debug',
@@ -450,6 +502,18 @@ PLATFORM_VARS = {
             'consider_for_nightly': False,
         },
         'linux64-st-an-debug': {
+            'mozharness_config': {
+                'script_name': 'scripts/fx_desktop_build.py',
+                'extra_args': [
+                    '--config', 'builds/releng_base_linux_64_builds.py',
+                    '--custom-build-variant', 'stat-and-debug',
+                    # XX TEMP ONLY FOR TESTING, REMOVE WITH PATCH
+                    '--branch', 'mozilla-central',
+                    '--build-pool', 'staging',
+                ],
+                'reboot_command': ['scripts/external_tools/count_and_reboot.py',
+                                   '-f', '../reboot_count.txt','-n', '1', '-z'],
+            },
             'enable_nightly': False,
             'product_name': 'firefox',
             'unittest_platform': 'linux64-st-an-debug',
@@ -717,6 +781,18 @@ PLATFORM_VARS = {
             'consider_for_nightly': False,
         },
         'linux-debug': {
+            'mozharness_config': {
+                'script_name': 'scripts/fx_desktop_build.py',
+                'extra_args': [
+                    '--config', 'builds/releng_base_linux_32_builds.py',
+                    '--custom-build-variant', 'debug',
+                    # XX TEMP ONLY FOR TESTING, REMOVE WITH PATCH
+                    '--branch', 'mozilla-central',
+                    '--build-pool', 'staging',
+                ],
+                'reboot_command': ['scripts/external_tools/count_and_reboot.py',
+                                   '-f', '../reboot_count.txt','-n', '1', '-z'],
+            },
             'enable_nightly': False,
             'enable_xulrunner': False,
             'product_name': 'firefox',
@@ -800,6 +876,18 @@ PLATFORM_VARS = {
             ],
         },
         'linux64-debug': {
+            'mozharness_config': {
+                'script_name': 'scripts/fx_desktop_build.py',
+                'extra_args': [
+                    '--config', 'builds/releng_base_linux_64_builds.py',
+                    '--custom-build-variant', 'debug',
+                    # XX TEMP ONLY FOR TESTING, REMOVE WITH PATCH
+                    '--branch', 'mozilla-central',
+                    '--build-pool', 'staging',
+                ],
+                'reboot_command': ['scripts/external_tools/count_and_reboot.py',
+                                   '-f', '../reboot_count.txt','-n', '1', '-z'],
+            },
             'enable_nightly': False,
             'enable_xulrunner': False,
             'product_name': 'firefox',
