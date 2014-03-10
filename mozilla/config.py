@@ -40,6 +40,8 @@ GLOBAL_VARS = {
     'compare_locales_repo_path': 'build/compare-locales',
     'compare_locales_tag': 'RELEASE_AUTOMATION',
     # XXX DELETE THIS LOCAL CODE BEFORE PATCH
+    # 'mozharness_repo_path': 'build/mozharness',
+    # 'mozharness_tag': 'production',
     'mozharness_repo_path': 'users/jlund_mozilla.com/mozharness/',
     'mozharness_tag': 'default',
     ###
