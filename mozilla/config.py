@@ -789,7 +789,7 @@ PLATFORM_VARS = {
             'builds_before_reboot': localconfig.BUILDS_BEFORE_REBOOT,
             'download_symbols': True,
             'packageTests': True,
-            'build_space': 14,
+            'build_space': 15,
             'slaves': SLAVES['mock'],
             'platform_objdir': OBJDIR,
             'stage_product': 'firefox',
@@ -2249,7 +2249,8 @@ for b in BRANCHES.keys():
 
 # Migrate branches to win64-rev2 platform (bug 918414)
 disabled_branches = set([x for x in BRANCHES.keys() if x not in PROJECT_BRANCHES.keys() + ['try', 'mozilla-central', 'mozilla-aurora', 'mozilla-beta', 'mozilla-release']] + ['b2g-inbound', 'mozilla-inbound'])
-win64_rev1_masters = ['buildbot-master82']
+# Disabled for bug 980976
+win64_rev1_masters = []#['buildbot-master82']
 mixed_branches = ['mozilla-inbound', 'b2g-inbound']
 for b in mixed_branches:
     if b not in disabled_branches:

@@ -533,6 +533,22 @@ JITTEST = [
         'script_maxtime': 7200,
     }),
 ]
+JITTEST_CHUNKED = [
+    ('jittest-1', {
+        'use_mozharness': True,
+        'script_path': 'scripts/desktop_unittest.py',
+        'extra_args': ['--jittest-suite', 'jittest1'],
+        'blob_upload': True,
+        'script_maxtime': 7200,
+    }),
+    ('jittest-2', {
+        'use_mozharness': True,
+        'script_path': 'scripts/desktop_unittest.py',
+        'extra_args': ['--jittest-suite', 'jittest2'],
+        'blob_upload': True,
+        'script_maxtime': 7200,
+    }),
+]
 MOZBASE = [
     ('mozbase', {
         'use_mozharness': True,
@@ -541,7 +557,6 @@ MOZBASE = [
         'script_maxtime': 7200,
     }),
 ]
-
 WEB_PLATFORM_TESTS = [
     ('web-platform-tests', {
         'use_mozharness': True,
@@ -552,10 +567,13 @@ WEB_PLATFORM_TESTS = [
     }),
 ]
 
+JETPACK = [
+    ('jetpack', ['jetpack'])
+]
 
 UNITTEST_SUITES = {
-    'opt_unittest_suites': MOCHITEST + REFTEST_NO_IPC + XPCSHELL + CPPUNIT,
-    'debug_unittest_suites': MOCHITEST + REFTEST_NO_IPC + XPCSHELL + CPPUNIT + MARIONETTE,
+    'opt_unittest_suites': MOCHITEST + REFTEST_NO_IPC + XPCSHELL + CPPUNIT + JETPACK,
+    'debug_unittest_suites': MOCHITEST + REFTEST_NO_IPC + XPCSHELL + CPPUNIT + MARIONETTE + JETPACK,
 }
 
 
@@ -1731,21 +1749,29 @@ BRANCHES['try']['platforms']['win32']['win7-ix']['debug_unittest_suites'] = MOCH
 BRANCHES['cedar']['platforms']['macosx64']['mavericks']['opt_unittest_suites'] = UNITTEST_SUITES['opt_unittest_suites'][:]
 BRANCHES['cedar']['platforms']['macosx64']['mavericks']['debug_unittest_suites'] = UNITTEST_SUITES['debug_unittest_suites'][:]
 
+######## elm
+MOCHITEST_BROWSER_CHROME = [
+    ('mochitest-browser-chrome', {
+        'use_mozharness': True,
+        'script_path': 'scripts/desktop_unittest.py',
+        'extra_args': ['--mochitest-suite', 'browser-chrome'],
+        'blob_upload': True,
+        'script_maxtime': 9900,
+    }),
+]
+BRANCHES['elm']['platforms']['linux']['talos_slave_platforms'] = []
+BRANCHES['elm']['platforms']['linux64']['talos_slave_platforms'] = []
+BRANCHES['elm']['platforms']['linux']['fedora']['opt_unittest_suites'] = []
+BRANCHES['elm']['platforms']['linux64']['fedora64']['opt_unittest_suites'] = []
+BRANCHES['elm']['platforms']['linux']['ubuntu32_vm']['opt_unittest_suites'] = []
+BRANCHES['elm']['platforms']['linux64']['ubuntu64_vm']['opt_unittest_suites'] = []
+BRANCHES['elm']['platforms']['linux']['fedora']['debug_unittest_suites'] = MOCHITEST_BROWSER_CHROME[:]
+BRANCHES['elm']['platforms']['linux64']['fedora64']['debug_unittest_suites'] = MOCHITEST_BROWSER_CHROME[:]
+BRANCHES['elm']['platforms']['linux']['ubuntu32_vm']['debug_unittest_suites'] = MOCHITEST_BROWSER_CHROME[:]
+BRANCHES['elm']['platforms']['linux64']['ubuntu64_vm']['debug_unittest_suites'] = MOCHITEST_BROWSER_CHROME[:]
+
 # Enable mavericks testing on select branches only
 delete_slave_platform(BRANCHES, PLATFORMS, {'macosx64': 'mavericks'}, branch_exclusions=['cedar'])
-
-# Load jetpack for branches that have at least FF21
-for name, branch in items_at_least(BRANCHES, 'gecko_version', 21):
-    for pf in PLATFORMS:
-        if pf not in branch['platforms']:
-            continue
-        for slave_pf in branch['platforms'][pf].get(
-                'slave_platforms', PLATFORMS[pf]['slave_platforms']):
-            if slave_pf not in branch['platforms'][pf]:
-                continue
-            branch['platforms'][pf][slave_pf]['opt_unittest_suites'].append(('jetpack', ['jetpack']))
-            branch['platforms'][pf][slave_pf]['debug_unittest_suites'].append(('jetpack', ['jetpack']))
-
 
 # cppunittest jobs ride the train with 28, so they need to be disabled
 # for branches running an older version.
@@ -1770,17 +1796,24 @@ for platform in PLATFORMS.keys():
 for platform in PLATFORMS.keys():
     if platform not in (BRANCHES['cedar']['platforms'] or BRANCHES['try']['platforms']):
         continue
+
+    # run in chunks on linux only
+    if platform in ['linux', 'linux64', 'linux64-asan']:
+        jittests = JITTEST_CHUNKED
+    else:
+        jittests = JITTEST
+ 
     for slave_platform in PLATFORMS[platform]['slave_platforms']:
         # cedar
         if slave_platform in BRANCHES['cedar']['platforms'][platform]:
             if 'fedora' in slave_platform:
                 continue  # Don't use rev3 mini's with this stuff
-            BRANCHES['cedar']['platforms'][platform][slave_platform]['opt_unittest_suites'] += JITTEST[:]
-            BRANCHES['cedar']['platforms'][platform][slave_platform]['debug_unittest_suites'] += JITTEST[:]
+            BRANCHES['cedar']['platforms'][platform][slave_platform]['opt_unittest_suites'] += jittests[:]
+            BRANCHES['cedar']['platforms'][platform][slave_platform]['debug_unittest_suites'] += jittests[:]
         # try
         if slave_platform in BRANCHES['try']['platforms'][platform]:
-            BRANCHES['try']['platforms'][platform][slave_platform]['opt_unittest_suites'] += JITTEST[:]
-            BRANCHES['try']['platforms'][platform][slave_platform]['debug_unittest_suites'] += JITTEST[:]
+            BRANCHES['try']['platforms'][platform][slave_platform]['opt_unittest_suites'] += jittests[:]
+            BRANCHES['try']['platforms'][platform][slave_platform]['debug_unittest_suites'] += jittests[:]
 
 # Enable 3 chunks mochitest-bc on cedar https://bugzilla.mozilla.org/show_bug.cgi?id=819963
 for platform in PLATFORMS.keys():
@@ -1854,6 +1887,10 @@ def get_ubuntu_unittests(branch, test_type):
 # Remove Ubuntu platform from the release trains,
 # use either Fedora or Ubuntu for other branches
 for branch in BRANCHES:
+    # Remove the elm exception when we fix b2g reftests
+    # and debug mochitest-browser-chrome bug 837017 and bug 850105
+    if branch == "elm":
+        continue
     if branch in NON_UBUNTU_BRANCHES:
         # Remove Ubuntu completely
         if 'linux64' in BRANCHES[branch]['platforms']:
