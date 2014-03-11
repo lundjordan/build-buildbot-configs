@@ -39,7 +39,7 @@ GLOBAL_VARS = {
     'graph_selector': '/server/collect.cgi',
     'compare_locales_repo_path': 'build/compare-locales',
     'compare_locales_tag': 'RELEASE_AUTOMATION',
-    # XXX DELETE THIS LOCAL CODE BEFORE PATCH
+    # XXX JLUND DELETE THIS LOCAL CODE BEFORE PATCH
     # 'mozharness_repo_path': 'build/mozharness',
     # 'mozharness_tag': 'production',
     'mozharness_repo_path': 'users/jlund_mozilla.com/mozharness/',
@@ -135,6 +135,7 @@ PLATFORM_VARS = {
                 'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                    '-f', '../reboot_count.txt','-n', '1', '-z'],
             },
+            'has_desktop_mozharness_build': True,
             'dep_signing_servers': 'dep-signing',
             'base_name': 'Linux %(branch)s',
 
@@ -239,6 +240,7 @@ PLATFORM_VARS = {
                 'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                    '-f', '../reboot_count.txt','-n', '1', '-z'],
             },
+            'has_desktop_mozharness_build': True,
 
             'product_name': 'firefox',
             'unittest_platform': 'linux64-opt',
@@ -326,6 +328,7 @@ PLATFORM_VARS = {
                 'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                    '-f', '../reboot_count.txt','-n', '1', '-z'],
             },
+            'has_desktop_mozharness_build': True,
 
             'product_name': 'firefox',
             'unittest_platform': 'linux64-asan-opt',
@@ -413,6 +416,7 @@ PLATFORM_VARS = {
                 'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                    '-f', '../reboot_count.txt','-n', '1', '-z'],
             },
+            'has_desktop_mozharness_build': True,
 
             'enable_nightly': True,
             'product_name': 'firefox',
@@ -501,6 +505,8 @@ PLATFORM_VARS = {
                 'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                    '-f', '../reboot_count.txt','-n', '1', '-z'],
             },
+            'has_desktop_mozharness_build': True,
+
             'enable_nightly': False,
             'product_name': 'firefox',
             'unittest_platform': 'linux64-st-an-debug',
@@ -777,6 +783,8 @@ PLATFORM_VARS = {
                 'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                    '-f', '../reboot_count.txt','-n', '1', '-z'],
             },
+            'has_desktop_mozharness_build': True,
+
             'enable_nightly': False,
             'enable_xulrunner': False,
             'product_name': 'firefox',
@@ -869,6 +877,8 @@ PLATFORM_VARS = {
                 'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                    '-f', '../reboot_count.txt','-n', '1', '-z'],
             },
+            'has_desktop_mozharness_build': True,
+
             'enable_nightly': False,
             'enable_xulrunner': False,
             'product_name': 'firefox',
