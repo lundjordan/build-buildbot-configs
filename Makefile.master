@@ -1,5 +1,5 @@
 PWD=$(shell pwd)
-BUILDBOT=$(PWD)/bin/buildbot
+BUILDBOT=$(PWD)/../bin/buildbot
 HG=hg
 PRODUCTION_MASTERS=tools/buildfarm/maintenance/production-masters.json
 export PYTHONDONTWRITEBYTECODE=1
@@ -16,9 +16,10 @@ reconfig:
 checkconfig:
 	cd master && $(BUILDBOT) checkconfig
 update:
-	(cd buildbotcustom && $(HG) pull && $(HG) update -C)
-	(cd buildbot-configs && $(HG) pull && $(HG) update -C)
-	(cd tools && $(HG) pull && $(HG) update -C)
-	(python buildbot-configs/update-master-json.py $(PRODUCTION_MASTERS) master/master_config.json)
+	echo "NOT DOING ANYTHING"
+	# (cd buildbotcustom && $(HG) pull && $(HG) update -C)
+	# (cd buildbot-configs && $(HG) pull && $(HG) update -C)
+	# (cd tools && $(HG) pull && $(HG) update -C)
+	# (python buildbot-configs/update-master-json.py $(PRODUCTION_MASTERS) master/master_config.json)
 version:
 	$(BUILDBOT) --version
