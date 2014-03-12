@@ -323,7 +323,7 @@ PLATFORM_VARS = {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
                     '--config', 'builds/releng_base_linux_64_builds.py',
-                    '--custom-build-variant', 'asan',
+                    '--custom-build-variant-cfg', 'asan',
                 ],
                 'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                    '-f', '../reboot_count.txt','-n', '1', '-z'],
@@ -411,7 +411,7 @@ PLATFORM_VARS = {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
                     '--config', 'builds/releng_base_linux_64_builds.py',
-                    '--custom-build-variant', 'asan-and-debug',
+                    '--custom-build-variant-cfg', 'asan-and-debug',
                 ],
                 'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                    '-f', '../reboot_count.txt','-n', '1', '-z'],
@@ -500,7 +500,7 @@ PLATFORM_VARS = {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
                     '--config', 'builds/releng_base_linux_64_builds.py',
-                    '--custom-build-variant', 'stat-and-debug',
+                    '--custom-build-variant-cfg', 'stat-and-debug',
                 ],
                 'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                    '-f', '../reboot_count.txt','-n', '1', '-z'],
@@ -778,7 +778,7 @@ PLATFORM_VARS = {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
                     '--config', 'builds/releng_base_linux_32_builds.py',
-                    '--custom-build-variant', 'debug',
+                    '--custom-build-variant-cfg', 'debug',
                 ],
                 'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                    '-f', '../reboot_count.txt','-n', '1', '-z'],
@@ -872,7 +872,7 @@ PLATFORM_VARS = {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
                     '--config', 'builds/releng_base_linux_64_builds.py',
-                    '--custom-build-variant', 'debug',
+                    '--custom-build-variant-cfg', 'debug',
                 ],
                 'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                    '-f', '../reboot_count.txt','-n', '1', '-z'],
