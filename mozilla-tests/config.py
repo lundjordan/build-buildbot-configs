@@ -23,7 +23,6 @@ MOZHARNESS_REBOOT_CMD = ['scripts/external_tools/count_and_reboot.py',
 
 TALOS_DIRTY_OPTS = {'talosAddOns': ['profiles/dirtyDBs.zip', 'profiles/dirtyMaxDBs.zip']}
 
-TALOS_TP_OPTS = {'plugins': {'32': 'zips/flash32_10_3_183_5.zip', '64': 'zips/flash64_11_0_d1_98.zip'}, 'pagesets': ['zips/tp5.zip']}
 TALOS_TP_NEW_OPTS = {'plugins': {'32': 'zips/flash32_10_3_183_5.zip', '64': 'zips/flash64_11_0_d1_98.zip'}, 'pagesets': ['zips/tp5n.zip']}
 
 BRANCHES = {
@@ -145,7 +144,7 @@ PLATFORMS['win64']['mozharness_config'] = {
 }
 
 PLATFORMS['linux']['slave_platforms'] = ['fedora', 'ubuntu32_vm']
-PLATFORMS['linux']['talos_slave_platforms'] = ['fedora', 'ubuntu32_hw']
+PLATFORMS['linux']['talos_slave_platforms'] = ['ubuntu32_hw']
 PLATFORMS['linux']['env_name'] = 'linux-perf'
 PLATFORMS['linux']['fedora'] = {'name': "Rev3 Fedora 12"}
 PLATFORMS['linux']['ubuntu32_vm'] = {'name': 'Ubuntu VM 12.04'}
@@ -160,7 +159,7 @@ PLATFORMS['linux']['mozharness_config'] = {
 }
 
 PLATFORMS['linux64']['slave_platforms'] = ['fedora64', 'ubuntu64_vm']
-PLATFORMS['linux64']['talos_slave_platforms'] = ['fedora64', 'ubuntu64_hw']
+PLATFORMS['linux64']['talos_slave_platforms'] = ['ubuntu64_hw']
 PLATFORMS['linux64']['env_name'] = 'linux-perf'
 PLATFORMS['linux64']['fedora64'] = {'name': "Rev3 Fedora 12x64"}
 PLATFORMS['linux64']['ubuntu64_vm'] = {'name': 'Ubuntu VM 12.04 x64'}
@@ -423,21 +422,21 @@ MOCHITEST_BC_3 = [
         'script_path': 'scripts/desktop_unittest.py',
         'extra_args': ['--mochitest-suite', 'browser-chrome-1'],
         'blob_upload': True,
-        'script_maxtime': 7200,
+        'script_maxtime': 4200,
     }),
     ('mochitest-browser-chrome-2', {
         'use_mozharness': True,
         'script_path': 'scripts/desktop_unittest.py',
         'extra_args': ['--mochitest-suite', 'browser-chrome-2'],
         'blob_upload': True,
-        'script_maxtime': 7200,
+        'script_maxtime': 4200,
     }),
     ('mochitest-browser-chrome-3', {
         'use_mozharness': True,
         'script_path': 'scripts/desktop_unittest.py',
         'extra_args': ['--mochitest-suite', 'browser-chrome-3'],
         'blob_upload': True,
-        'script_maxtime': 7200,
+        'script_maxtime': 4200,
     }),
 ]
 
@@ -567,13 +566,10 @@ WEB_PLATFORM_TESTS = [
     }),
 ]
 
-JETPACK = [
-    ('jetpack', ['jetpack'])
-]
 
 UNITTEST_SUITES = {
-    'opt_unittest_suites': MOCHITEST + REFTEST_NO_IPC + XPCSHELL + CPPUNIT + JETPACK,
-    'debug_unittest_suites': MOCHITEST + REFTEST_NO_IPC + XPCSHELL + CPPUNIT + MARIONETTE + JETPACK,
+    'opt_unittest_suites': MOCHITEST + REFTEST_NO_IPC + XPCSHELL + CPPUNIT,
+    'debug_unittest_suites': MOCHITEST + REFTEST_NO_IPC + XPCSHELL + CPPUNIT + MARIONETTE,
 }
 
 
@@ -1749,29 +1745,32 @@ BRANCHES['try']['platforms']['win32']['win7-ix']['debug_unittest_suites'] = MOCH
 BRANCHES['cedar']['platforms']['macosx64']['mavericks']['opt_unittest_suites'] = UNITTEST_SUITES['opt_unittest_suites'][:]
 BRANCHES['cedar']['platforms']['macosx64']['mavericks']['debug_unittest_suites'] = UNITTEST_SUITES['debug_unittest_suites'][:]
 
-######## elm
-MOCHITEST_BROWSER_CHROME = [
-    ('mochitest-browser-chrome', {
-        'use_mozharness': True,
-        'script_path': 'scripts/desktop_unittest.py',
-        'extra_args': ['--mochitest-suite', 'browser-chrome'],
-        'blob_upload': True,
-        'script_maxtime': 9900,
-    }),
-]
-BRANCHES['elm']['platforms']['linux']['talos_slave_platforms'] = []
-BRANCHES['elm']['platforms']['linux64']['talos_slave_platforms'] = []
-BRANCHES['elm']['platforms']['linux']['fedora']['opt_unittest_suites'] = []
-BRANCHES['elm']['platforms']['linux64']['fedora64']['opt_unittest_suites'] = []
-BRANCHES['elm']['platforms']['linux']['ubuntu32_vm']['opt_unittest_suites'] = []
-BRANCHES['elm']['platforms']['linux64']['ubuntu64_vm']['opt_unittest_suites'] = []
-BRANCHES['elm']['platforms']['linux']['fedora']['debug_unittest_suites'] = MOCHITEST_BROWSER_CHROME[:]
-BRANCHES['elm']['platforms']['linux64']['fedora64']['debug_unittest_suites'] = MOCHITEST_BROWSER_CHROME[:]
-BRANCHES['elm']['platforms']['linux']['ubuntu32_vm']['debug_unittest_suites'] = MOCHITEST_BROWSER_CHROME[:]
-BRANCHES['elm']['platforms']['linux64']['ubuntu64_vm']['debug_unittest_suites'] = MOCHITEST_BROWSER_CHROME[:]
+# Disable mochitest-browser-chrome on mozilla-b2g branches
+for branch in [x for x in BRANCHES.keys() if x.startswith('mozilla-b2g')]:
+    for platform in ['linux', 'linux64']:
+        if platform not in BRANCHES[branch]['platforms']:
+            continue
+        for slave_platform in ['fedora', 'fedora64']:
+            if slave_platform not in BRANCHES[branch]['platforms'][platform]:
+                continue
+            slave_p = BRANCHES[branch]['platforms'][platform][slave_platform]
+            slave_p['debug_unittest_suites'] = [x for x in slave_p['debug_unittest_suites']
+                                                if x[0] if not x[0].startswith('mochitest-browser-chrome')]
 
 # Enable mavericks testing on select branches only
 delete_slave_platform(BRANCHES, PLATFORMS, {'macosx64': 'mavericks'}, branch_exclusions=['cedar'])
+
+# Load jetpack for branches that have at least FF21
+for name, branch in items_at_least(BRANCHES, 'gecko_version', 21):
+    for pf in PLATFORMS:
+        if pf not in branch['platforms']:
+            continue
+        for slave_pf in branch['platforms'][pf].get(
+                'slave_platforms', PLATFORMS[pf]['slave_platforms']):
+            if slave_pf not in branch['platforms'][pf]:
+                continue
+            branch['platforms'][pf][slave_pf]['opt_unittest_suites'].append(('jetpack', ['jetpack']))
+            branch['platforms'][pf][slave_pf]['debug_unittest_suites'].append(('jetpack', ['jetpack']))
 
 # cppunittest jobs ride the train with 28, so they need to be disabled
 # for branches running an older version.
@@ -1802,7 +1801,7 @@ for platform in PLATFORMS.keys():
         jittests = JITTEST_CHUNKED
     else:
         jittests = JITTEST
- 
+
     for slave_platform in PLATFORMS[platform]['slave_platforms']:
         # cedar
         if slave_platform in BRANCHES['cedar']['platforms'][platform]:
@@ -1865,6 +1864,7 @@ for platform in PLATFORMS.keys():
             BRANCHES['cedar']['platforms'][platform][slave_platform]['opt_unittest_suites'] += MOZBASE[:]
             BRANCHES['cedar']['platforms'][platform][slave_platform]['debug_unittest_suites'] += MOZBASE[:]
 
+# MERGE DAY: Remove this on 3/17 merge day
 NON_UBUNTU_BRANCHES = set([name for name, branch in items_before(BRANCHES, 'gecko_version', 21)])
 
 
@@ -1887,10 +1887,7 @@ def get_ubuntu_unittests(branch, test_type):
 # Remove Ubuntu platform from the release trains,
 # use either Fedora or Ubuntu for other branches
 for branch in BRANCHES:
-    # Remove the elm exception when we fix b2g reftests
-    # and debug mochitest-browser-chrome bug 837017 and bug 850105
-    if branch == "elm":
-        continue
+    # MERGE DAY: Remove this loop on 3/17 merge day
     if branch in NON_UBUNTU_BRANCHES:
         # Remove Ubuntu completely
         if 'linux64' in BRANCHES[branch]['platforms']:
@@ -1931,20 +1928,9 @@ for branch in BRANCHES:
                             except KeyError:
                                 pass
 
-# TODO get rid of this block after disabling fedora tests everywhere
-NON_UBUNTU_TALOS_BRANCHES = []
-for branch in set(BRANCHES.keys()) - set(NON_UBUNTU_TALOS_BRANCHES):
-    for s in SUITES.iterkeys():
-        if nested_haskey(BRANCHES[branch], 'suites', s, 'options'):
-            options = list(BRANCHES[branch]['suites'][s]['options'])
-            # filter out fedora
-            options[1] = [x for x in options[1] if x not in ('fedora', 'fedora64')]
-            BRANCHES[branch]['suites'][s]['options'] = tuple(options)
-        tests_key = '%s_tests' % s
-        if tests_key in BRANCHES[branch]:
-            tests = list(BRANCHES[branch]['%s_tests' % s])
-            tests[3] = [x for x in tests[3] if x not in ('fedora', 'fedora64')]
-            BRANCHES[branch]['%s_tests' % s] = tuple(tests)
+# Bug 982225 - mozilla-inbound
+BRANCHES['mozilla-inbound']['platforms']['linux']['ubuntu32_vm']['debug_unittest_suites'] += MOCHITEST_BC_3[:]
+BRANCHES['mozilla-inbound']['platforms']['linux64']['ubuntu64_vm']['debug_unittest_suites'] += MOCHITEST_BC_3[:]
 
 # TALOS: If you set 'talos_slave_platforms' for a branch you will only get that subset of platforms
 for branch in BRANCHES.keys():
