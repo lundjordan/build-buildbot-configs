@@ -39,12 +39,8 @@ GLOBAL_VARS = {
     'graph_selector': '/server/collect.cgi',
     'compare_locales_repo_path': 'build/compare-locales',
     'compare_locales_tag': 'RELEASE_AUTOMATION',
-    # XXX JLUND DELETE THIS LOCAL CODE BEFORE PATCH
-    # 'mozharness_repo_path': 'build/mozharness',
-    # 'mozharness_tag': 'production',
-    'mozharness_repo_path': 'users/jlund_mozilla.com/mozharness/',
-    'mozharness_tag': 'default',
-    ###
+    'mozharness_repo_path': 'build/mozharness',
+    'mozharness_tag': 'production',
     'multi_locale_merge': True,
     'default_build_space': 5,
     'default_l10n_space': 3,
@@ -116,6 +112,24 @@ GLOBAL_VARS = {
             'toolkit',
             ],
     'use_old_updater': False,
+    # currently we have the logic that if we a platform uses mozharness as
+    # the build step logic, it will have 'mozharness_config' in its dict.
+    # But we need to differentiate when that platform is a FF
+    # desktop build opposed to the existing other mozharness builds (ie: b2g,
+    # spider, etc). This list serves that purpose:
+    'mozharness_desktop_build_platforms': [
+        'linux', 'linux64', 'linux64-asan', 'linux64-asan-debug',
+        'linux64-st-an-debug', 'linux-debug', 'linux64-debug'
+    ],
+    # rather than repeat these options in each of these options in
+    # every platform, let's define the arguments here and when we want to
+    # turn an existing platform into say a 'nightly' version, add the options
+    #  from here and append it to 'extra_options'
+    'mozharness_desktop_extra_args': {
+        'nightly': ['--enable-pgo', '--enable-nightly'],
+        'pgo': ['--enable-pgo'],
+        'non-unified': ['--custom-build-variant', 'non-unified'],
+    }
 }
 GLOBAL_VARS.update(localconfig.GLOBAL_VARS.copy())
 
@@ -135,7 +149,6 @@ PLATFORM_VARS = {
                 'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                    '-f', '../reboot_count.txt','-n', '1', '-z'],
             },
-            'has_desktop_mozharness_build': True,
             'dep_signing_servers': 'dep-signing',
             'base_name': 'Linux %(branch)s',
 
@@ -240,7 +253,6 @@ PLATFORM_VARS = {
                 'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                    '-f', '../reboot_count.txt','-n', '1', '-z'],
             },
-            'has_desktop_mozharness_build': True,
 
             'product_name': 'firefox',
             'unittest_platform': 'linux64-opt',
@@ -328,7 +340,6 @@ PLATFORM_VARS = {
                 'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                    '-f', '../reboot_count.txt','-n', '1', '-z'],
             },
-            'has_desktop_mozharness_build': True,
 
             'product_name': 'firefox',
             'unittest_platform': 'linux64-asan-opt',
@@ -416,7 +427,6 @@ PLATFORM_VARS = {
                 'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                    '-f', '../reboot_count.txt','-n', '1', '-z'],
             },
-            'has_desktop_mozharness_build': True,
 
             'enable_nightly': True,
             'product_name': 'firefox',
@@ -505,7 +515,6 @@ PLATFORM_VARS = {
                 'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                    '-f', '../reboot_count.txt','-n', '1', '-z'],
             },
-            'has_desktop_mozharness_build': True,
 
             'enable_nightly': False,
             'product_name': 'firefox',
@@ -783,7 +792,6 @@ PLATFORM_VARS = {
                 'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                    '-f', '../reboot_count.txt','-n', '1', '-z'],
             },
-            'has_desktop_mozharness_build': True,
 
             'enable_nightly': False,
             'enable_xulrunner': False,
@@ -877,7 +885,6 @@ PLATFORM_VARS = {
                 'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                    '-f', '../reboot_count.txt','-n', '1', '-z'],
             },
-            'has_desktop_mozharness_build': True,
 
             'enable_nightly': False,
             'enable_xulrunner': False,
