@@ -128,10 +128,9 @@ GLOBAL_VARS = {
     # every platform, let's define the arguments here and when we want to
     # turn an existing platform into say a 'nightly' version, add the options
     #  from here and append it to 'extra_options'
-    'mozharness_desktop_extra_args': {
+    'mozharness_desktop_extra_options': {
         'nightly': ['--enable-pgo', '--enable-nightly'],
         'pgo': ['--enable-pgo'],
-        'non-unified': ['--custom-build-variant', 'non-unified'],
     }
 }
 GLOBAL_VARS.update(localconfig.GLOBAL_VARS.copy())
@@ -256,6 +255,13 @@ PLATFORM_VARS = {
                 'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                    '-f', '../reboot_count.txt','-n', '1', '-z'],
             },
+            # because non-unified platforms are defined at misc level,
+            # we can not add a new platform in config.py for this but instead
+            #  add another config on all non-unified able platforms
+            'mozharness_non_unified_extra_args': [
+                '--config', 'builds/releng_base_linux_64_builds.py',
+                '--custom-build-variant-cfg', 'non-unified',
+            ],
 
             'product_name': 'firefox',
             'unittest_platform': 'linux64-opt',
@@ -888,6 +894,13 @@ PLATFORM_VARS = {
                 'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                    '-f', '../reboot_count.txt','-n', '1', '-z'],
             },
+            # because non-unified platforms are defined at misc level,
+            # we can not add a new platform in config.py for this but instead
+            #  add another config on all non-unified able platforms
+            'mozharness_non_unified_extra_args': [
+                '--config', 'builds/releng_base_linux_64_builds.py',
+                '--custom-build-variant-cfg', 'debug-and-non-unified',
+            ],
 
             'enable_nightly': False,
             'enable_xulrunner': False,
