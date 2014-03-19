@@ -1794,12 +1794,12 @@ BRANCHES['try']['platforms']['linux64']['ubuntu64_vm']['debug_unittest_suites'] 
 ######## cedar
 BRANCHES['cedar']['platforms']['macosx64']['mavericks']['opt_unittest_suites'] = UNITTEST_SUITES['opt_unittest_suites'][:]
 BRANCHES['cedar']['platforms']['macosx64']['mavericks']['debug_unittest_suites'] = UNITTEST_SUITES['debug_unittest_suites'][:]
-BRANCHES['cedar']['platforms']['win32']['xp-ix']['opt_unittest_suites'] = UNITTEST_SUITES['opt_unittest_suites'] + REFTEST_OMTC
-BRANCHES['cedar']['platforms']['win32']['win7-ix']['opt_unittest_suites'] = UNITTEST_SUITES['opt_unittest_suites'] + REFTEST_OMTC
-BRANCHES['cedar']['platforms']['win32']['win8']['opt_unittest_suites'] = UNITTEST_SUITES['opt_unittest_suites'] + REFTEST_OMTC
-BRANCHES['cedar']['platforms']['win32']['xp-ix']['debug_unittest_suites'] = UNITTEST_SUITES['debug_unittest_suites'] + REFTEST_OMTC
-BRANCHES['cedar']['platforms']['win32']['win7-ix']['debug_unittest_suites'] = UNITTEST_SUITES['debug_unittest_suites'] + REFTEST_OMTC
-BRANCHES['cedar']['platforms']['win32']['win8']['debug_unittest_suites'] = UNITTEST_SUITES['debug_unittest_suites'] + REFTEST_OMTC
+BRANCHES['cedar']['platforms']['win32']['xp-ix']['opt_unittest_suites'] += REFTEST_OMTC[:]
+BRANCHES['cedar']['platforms']['win32']['win7-ix']['opt_unittest_suites'] += REFTEST_OMTC[:]
+BRANCHES['cedar']['platforms']['win32']['win8']['opt_unittest_suites'] += REFTEST_OMTC[:]
+BRANCHES['cedar']['platforms']['win32']['xp-ix']['debug_unittest_suites'] += REFTEST_OMTC[:]
+BRANCHES['cedar']['platforms']['win32']['win7-ix']['debug_unittest_suites'] += REFTEST_OMTC[:]
+BRANCHES['cedar']['platforms']['win32']['win8']['debug_unittest_suites'] += REFTEST_OMTC[:]
 
 # Disable mochitest-browser-chrome on mozilla-b2g branches
 for branch in [x for x in BRANCHES.keys() if x.startswith('mozilla-b2g')]:
