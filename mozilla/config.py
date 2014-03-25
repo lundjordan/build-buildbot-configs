@@ -2233,7 +2233,8 @@ for branch in branches:
         BRANCHES[branch]['platforms']['linux']['env']['LD_LIBRARY_PATH'] = '/tools/gcc-4.3.3/installed/lib'
         BRANCHES[branch]['platforms']['linux']['unittest-env'] = {
             'LD_LIBRARY_PATH': '/tools/gcc-4.3.3/installed/lib',
-        }
+
+            }
     if 'linux64' in BRANCHES[branch]['platforms']:
         BRANCHES[branch]['platforms']['linux64']['env']['LD_LIBRARY_PATH'] = '/tools/gcc-4.3.3/installed/lib64'
         BRANCHES[branch]['platforms']['linux64']['unittest-env'] = {
@@ -2377,6 +2378,12 @@ for b in ('b2g-inbound',):
 # Bug 950206 - Enable 32-bit Windows builds on Date, test those builds on tst-w64-ec2-XXXX
 BRANCHES['date']['platforms']['win32']['unittest_platform'] = 'win64-opt'
 
+
+for b in BRANCHES:
+    for p in BRANCHES[b]['platforms'].keys():
+        if BRANCHES[b]['platforms'][p].get('slaves'):
+            BRANCHES[b]['platforms'][p]['slaves'] = []
+
 if __name__ == "__main__":
     import sys
     import pprint
@@ -2388,6 +2395,8 @@ if __name__ == "__main__":
         items = dict(BRANCHES.items() + PROJECTS.items())
 
     for k, v in sorted(items.iteritems()):
-        out = pprint.pformat(v)
-        for l in out.splitlines():
-            print '%s: %s' % (k, l)
+        if k in ['cypress']:
+            print "###### %s" % k
+            out = pprint.pformat(v)
+            for l in out.splitlines():
+                print '%s' % (l,)
