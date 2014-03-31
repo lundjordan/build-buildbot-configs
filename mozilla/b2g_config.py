@@ -36,6 +36,7 @@ GLOBAL_VARS.update({
         'leo_eng': {},
         'hamachi': {},
         'hamachi_eng': {},
+        'tarako': {},
         'tarako_eng': {},
         'nexus-4': {},
         'nexus-4_eng': {},
@@ -322,6 +323,7 @@ PLATFORM_VARS = {
             '--gecko-languages-file', 'build/b2g/locales/all-locales',
         ],
         'gecko_languages_file': 'build/b2g/locales/all-locales',
+        'tooltool_manifest_src': 'b2g/config/tooltool-manifests/win32/releng.manifest',
     },
     'linux32_gecko_localizer': {
         'product_name': 'b2g',
@@ -586,6 +588,7 @@ PLATFORM_VARS = {
             '--gecko-languages-file', 'build/b2g/locales/all-locales',
         ],
         'gecko_languages_file': 'build/b2g/locales/all-locales',
+        'tooltool_manifest_src': 'b2g/config/tooltool-manifests/win32/releng.manifest',
     },
     'inari': {
         'mozharness_config': {
@@ -678,6 +681,23 @@ PLATFORM_VARS = {
             # b2g_build.py will checkout gecko from hg and look up a tooltool manifest given by the
             # --target name below
             'extra_args': ['--target', 'hamachi', '--config', 'b2g/releng-fota-eng.py',
+                           '--gaia-languages-file', 'locales/languages_dev.json',
+                           '--gecko-languages-file', 'gecko/b2g/locales/all-locales'],
+            'reboot_command': ['bash', '-c', 'sudo reboot; sleep 600'],
+        },
+        'stage_product': 'b2g',
+        'product_name': 'b2g',
+        'base_name': builder_prefix + '_%(branch)s_%(platform)s',
+        'slaves': SLAVES['mock'],
+        'enable_periodic': False,
+        'enable_dep': True,
+    },
+    'tarako': {
+        'mozharness_config': {
+            'script_name': 'scripts/b2g_build.py',
+            # b2g_build.py will checkout gecko from hg and look up a tooltool manifest given by the
+            # --target name below
+            'extra_args': ['--target', 'tarako', '--config', 'b2g/releng-fota-updates.py',
                            '--gaia-languages-file', 'locales/languages_dev.json',
                            '--gecko-languages-file', 'gecko/b2g/locales/all-locales'],
             'reboot_command': ['bash', '-c', 'sudo reboot; sleep 600'],
@@ -931,7 +951,16 @@ BRANCHES = {
         'gecko_version': 28,
         'b2g_version': (1, 3, 0),
         'platforms': {
-            'tarako_eng': {}
+            'emulator': {},
+            'emulator-debug': {},
+            'emulator-jb': {},
+            'emulator-jb-debug': {},
+            'linux32_gecko': {},
+            'linux64_gecko': {},
+            'macosx64_gecko': {},
+            'win32_gecko': {},
+            'tarako': {},
+            'tarako_eng': {},
         },
         'lock_platforms': True,
     },
@@ -1041,6 +1070,12 @@ BRANCHES['mozilla-central']['platforms']['helix']['enable_nightly'] = True
 BRANCHES['mozilla-central']['platforms']['helix_eng']['enable_nightly'] = True
 BRANCHES['mozilla-central']['platforms']['helix_eng']['consider_for_nightly'] = False
 BRANCHES['mozilla-central']['platforms']['wasabi']['enable_nightly'] = True
+BRANCHES['mozilla-central']['platforms']['emulator']['enable_nightly'] = True
+BRANCHES['mozilla-central']['platforms']['emulator-debug']['enable_nightly'] = True
+BRANCHES['mozilla-central']['platforms']['emulator-jb']['enable_nightly'] = True
+BRANCHES['mozilla-central']['platforms']['emulator-jb-debug']['enable_nightly'] = True
+BRANCHES['mozilla-central']['platforms']['emulator-kk']['enable_nightly'] = True
+BRANCHES['mozilla-central']['platforms']['emulator-kk-debug']['enable_nightly'] = True
 
 ######## mozilla-aurora
 # This is a path, relative to HGURL, where the repository is located
@@ -1066,6 +1101,12 @@ BRANCHES['mozilla-aurora']['platforms']['helix']['enable_nightly'] = True
 BRANCHES['mozilla-aurora']['platforms']['helix_eng']['enable_nightly'] = True
 BRANCHES['mozilla-aurora']['platforms']['helix_eng']['consider_for_nightly'] = False
 BRANCHES['mozilla-aurora']['platforms']['wasabi']['enable_nightly'] = True
+BRANCHES['mozilla-aurora']['platforms']['emulator']['enable_nightly'] = True
+BRANCHES['mozilla-aurora']['platforms']['emulator-debug']['enable_nightly'] = True
+BRANCHES['mozilla-aurora']['platforms']['emulator-jb']['enable_nightly'] = True
+BRANCHES['mozilla-aurora']['platforms']['emulator-jb-debug']['enable_nightly'] = True
+BRANCHES['mozilla-aurora']['platforms']['emulator-kk']['enable_nightly'] = True
+BRANCHES['mozilla-aurora']['platforms']['emulator-kk-debug']['enable_nightly'] = True
 
 ######## mozilla-b2g28_v1_3t
 # This is a path, relative to HGURL, where the repository is located
@@ -1075,11 +1116,16 @@ BRANCHES['mozilla-b2g28_v1_3t']['gaia_l10n_root'] = 'https://hg.mozilla.org/rele
 BRANCHES['mozilla-b2g28_v1_3t']['gecko_l10n_root'] = 'https://hg.mozilla.org/releases/l10n/mozilla-beta'
 # Build every night since we have external dependencies like gaia which need
 # building
-BRANCHES['mozilla-b2g28_v1_3t']['enable_nightly_lastgood'] = False
 BRANCHES['mozilla-b2g28_v1_3t']['start_hour'] = [0]
 BRANCHES['mozilla-b2g28_v1_3t']['start_minute'] = [40]
 BRANCHES['mozilla-b2g28_v1_3t']['aus2_base_upload_dir'] = 'fake'
 BRANCHES['mozilla-b2g28_v1_3t']['aus2_base_upload_dir_l10n'] = 'fake'
+BRANCHES['mozilla-b2g28_v1_3t']['platforms']['linux32_gecko']['enable_nightly'] = False
+BRANCHES['mozilla-b2g28_v1_3t']['platforms']['linux64_gecko']['enable_nightly'] = False
+BRANCHES['mozilla-b2g28_v1_3t']['platforms']['macosx64_gecko']['enable_nightly'] = False
+BRANCHES['mozilla-b2g28_v1_3t']['platforms']['win32_gecko']['enable_nightly'] = False
+BRANCHES['mozilla-b2g28_v1_3t']['platforms']['tarako']['enable_nightly'] = True
+BRANCHES['mozilla-b2g28_v1_3t']['platforms']['tarako_eng']['enable_nightly'] = True
 
 ######## mozilla-b2g28_v1_3
 # This is a path, relative to HGURL, where the repository is located
@@ -1089,7 +1135,6 @@ BRANCHES['mozilla-b2g28_v1_3']['gaia_l10n_root'] = 'https://hg.mozilla.org/relea
 BRANCHES['mozilla-b2g28_v1_3']['gecko_l10n_root'] = 'https://hg.mozilla.org/releases/l10n/mozilla-beta'
 # Build every night since we have external dependencies like gaia which need
 # building
-BRANCHES['mozilla-b2g28_v1_3']['enable_nightly_lastgood'] = False
 BRANCHES['mozilla-b2g28_v1_3']['enable_perproduct_builds'] = True
 BRANCHES['mozilla-b2g28_v1_3']['start_hour'] = [0, 16]
 BRANCHES['mozilla-b2g28_v1_3']['start_minute'] = [40]
@@ -1128,6 +1173,12 @@ BRANCHES['mozilla-b2g28_v1_3']['platforms']['linux32_gecko_localizer']['enable_n
 BRANCHES['mozilla-b2g28_v1_3']['platforms']['linux64_gecko_localizer']['enable_nightly'] = False
 BRANCHES['mozilla-b2g28_v1_3']['platforms']['macosx64_gecko_localizer']['enable_nightly'] = False
 BRANCHES['mozilla-b2g28_v1_3']['platforms']['win32_gecko_localizer']['enable_nightly'] = False
+BRANCHES['mozilla-b2g28_v1_3']['platforms']['emulator']['enable_nightly'] = True
+BRANCHES['mozilla-b2g28_v1_3']['platforms']['emulator-debug']['enable_nightly'] = True
+BRANCHES['mozilla-b2g28_v1_3']['platforms']['emulator-jb']['enable_nightly'] = True
+BRANCHES['mozilla-b2g28_v1_3']['platforms']['emulator-jb-debug']['enable_nightly'] = True
+BRANCHES['mozilla-b2g28_v1_3']['platforms']['emulator-kk']['enable_nightly'] = True
+BRANCHES['mozilla-b2g28_v1_3']['platforms']['emulator-kk-debug']['enable_nightly'] = True
 
 ######## mozilla-b2g26_v1_2
 # This is a path, relative to HGURL, where the repository is located
@@ -1137,7 +1188,6 @@ BRANCHES['mozilla-b2g26_v1_2']['gaia_l10n_root'] = 'https://hg.mozilla.org/relea
 BRANCHES['mozilla-b2g26_v1_2']['gecko_l10n_root'] = 'https://hg.mozilla.org/releases/l10n/mozilla-beta'
 # Build every night since we have external dependencies like gaia which need
 # building
-BRANCHES['mozilla-b2g26_v1_2']['enable_nightly_lastgood'] = False
 BRANCHES['mozilla-b2g26_v1_2']['enable_perproduct_builds'] = True
 BRANCHES['mozilla-b2g26_v1_2']['start_hour'] = [0, 16]
 BRANCHES['mozilla-b2g26_v1_2']['start_minute'] = [40]
@@ -1185,7 +1235,6 @@ BRANCHES['mozilla-b2g18']['gaia_l10n_root'] = 'https://hg.mozilla.org/releases/g
 BRANCHES['mozilla-b2g18']['gecko_l10n_root'] = 'https://hg.mozilla.org/releases/l10n/mozilla-beta'
 # Build every night since we have external dependencies like gaia which need
 # building
-BRANCHES['mozilla-b2g18']['enable_nightly_lastgood'] = False
 BRANCHES['mozilla-b2g18']['enable_perproduct_builds'] = True
 BRANCHES['mozilla-b2g18']['start_hour'] = [4]
 BRANCHES['mozilla-b2g18']['start_minute'] = [12]
@@ -1240,7 +1289,6 @@ BRANCHES['mozilla-b2g18_v1_1_0_hd']['gaia_l10n_root'] = 'https://hg.mozilla.org/
 BRANCHES['mozilla-b2g18_v1_1_0_hd']['gecko_l10n_root'] = 'https://hg.mozilla.org/releases/l10n/mozilla-beta'
 # Build every night since we have external dependencies like gaia which need
 # building
-BRANCHES['mozilla-b2g18_v1_1_0_hd']['enable_nightly_lastgood'] = False
 BRANCHES['mozilla-b2g18_v1_1_0_hd']['enable_perproduct_builds'] = True
 BRANCHES['mozilla-b2g18_v1_1_0_hd']['start_hour'] = [4]
 BRANCHES['mozilla-b2g18_v1_1_0_hd']['start_minute'] = [22]
@@ -1354,6 +1402,8 @@ for branch in BRANCHES:
 # MERGE DAY: tarako is for B2G 1.3t only (gecko28)
 for branch in BRANCHES:
     if branch not in ('mozilla-b2g28_v1_3t',):
+        if 'tarako' in BRANCHES[branch]['platforms']:
+            del BRANCHES[branch]['platforms']['tarako']
         if 'tarako_eng' in BRANCHES[branch]['platforms']:
             del BRANCHES[branch]['platforms']['tarako_eng']
 
@@ -1381,7 +1431,7 @@ for branch in BRANCHES:
     if branch not in ('mozilla-aurora', 'mozilla-central', 'b2g-inbound',
                       'mozilla-inbound', 'fx-team', 'try',
                       'mozilla-b2g26_v1_2', 'birch', 'cedar',
-                      'mozilla-b2g28_v1_3'):
+                      'mozilla-b2g28_v1_3', 'mozilla-b2g28_v1_3t'):
         for p in BRANCHES[branch]['platforms'].keys():
             if p.startswith("emulator-jb"):
                 del BRANCHES[branch]['platforms'][p]

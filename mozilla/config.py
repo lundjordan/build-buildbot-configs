@@ -87,6 +87,7 @@ GLOBAL_VARS = {
     'enable_nightly': True,
     'enabled_products': ['firefox', 'mobile'],
     'enable_valgrind': True,
+    'enable_xulrunner': False,
     'valgrind_platforms': ('linux64',),
 
     # List of keys in BRANCH_PROJECTS that will be activated for the BRANCH
@@ -195,7 +196,7 @@ PLATFORM_VARS = {
             'l10n_check_test': True,
             'nightly_signing_servers': 'dep-signing',
             'tooltool_manifest_src': 'browser/config/tooltool-manifests/linux32/releng.manifest',
-            'tooltool_script': '/builds/tooltool.py',
+            'tooltool_script': ['/builds/tooltool.py'],
             'use_mock': True,
             'mock_target': 'mozilla-centos6-x86_64',
             'mock_packages': \
@@ -308,7 +309,7 @@ PLATFORM_VARS = {
             'nightly_signing_servers': 'dep-signing',
             'dep_signing_servers': 'dep-signing',
             'tooltool_manifest_src': 'browser/config/tooltool-manifests/linux64/releng.manifest',
-            'tooltool_script': '/builds/tooltool.py',
+            'tooltool_script': ['/builds/tooltool.py'],
             'use_mock': True,
             'mock_target': 'mozilla-centos6-x86_64',
             'mock_packages': \
@@ -739,6 +740,8 @@ PLATFORM_VARS = {
             # must be overridden explicitly.
             'nightly_signing_servers': 'dep-signing',
             'dep_signing_servers': 'dep-signing',
+            'tooltool_manifest_src': 'browser/config/tooltool-manifests/win32/releng.manifest',
+            'tooltool_script': ['python', '/c/mozilla-build/tooltool.py'],
         },
         'win64': {
             'product_name': 'firefox',
@@ -787,6 +790,8 @@ PLATFORM_VARS = {
             # The status of this build doesn't affect the last good revision
             # algorithm for nightlies
             'consider_for_nightly': False,
+            'tooltool_manifest_src': 'browser/config/tooltool-manifests/win64/releng.manifest',
+            'tooltool_script': ['python', '/c/mozilla-build/tooltool.py'],
         },
         'linux-debug': {
             'mozharness_config': {
@@ -1039,6 +1044,8 @@ PLATFORM_VARS = {
             'talos_masters': None,
             'nightly_signing_servers': 'dep-signing',
             'dep_signing_servers': 'dep-signing',
+            'tooltool_manifest_src': 'browser/config/tooltool-manifests/win32/releng.manifest',
+            'tooltool_script': ['python', '/c/mozilla-build/tooltool.py'],
         },
         'win64-debug': {
             'enable_nightly': False,
@@ -1075,6 +1082,8 @@ PLATFORM_VARS = {
             'nightly_signing_servers': 'dep-signing',
             'dep_signing_servers': 'dep-signing',
             'consider_for_nightly': False,
+            'tooltool_manifest_src': 'browser/config/tooltool-manifests/win64/releng.manifest',
+            'tooltool_script': ['python', '/c/mozilla-build/tooltool.py'],
         },
         'android': {
             'product_name': 'firefox',
@@ -1131,8 +1140,7 @@ PLATFORM_VARS = {
                 'CCACHE_COMPRESS': '1',
                 'CCACHE_UMASK': '002',
                 'LC_ALL': 'C',
-                'JAVA_HOME': '/tools/jdk6',
-                'PATH': '/tools/jdk6/bin:/opt/local/bin:/tools/python/bin:/tools/buildbot/bin:/usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:/home/',
+                'PATH': '/opt/local/bin:/tools/python/bin:/tools/buildbot/bin:/usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:/home/',
             },
             'enable_opt_unittests': False,
             'talos_masters': GLOBAL_VARS['talos_masters'],
@@ -1197,7 +1205,6 @@ PLATFORM_VARS = {
                 'CCACHE_COMPRESS': '1',
                 'CCACHE_UMASK': '002',
                 'LC_ALL': 'C',
-                'JAVA_HOME': '/tools/jdk6',
                 'PATH': '/tools/buildbot/bin:/usr/local/bin:/bin:/usr/bin',
             },
             'enable_opt_unittests': False,
@@ -1260,7 +1267,6 @@ PLATFORM_VARS = {
                 'CCACHE_COMPRESS': '1',
                 'CCACHE_UMASK': '002',
                 'LC_ALL': 'C',
-                'JAVA_HOME': '/tools/jdk6',
                 'PATH': '/tools/buildbot/bin:/usr/local/bin:/bin:/usr/bin',
             },
             'enable_opt_unittests': False,
@@ -1330,8 +1336,7 @@ PLATFORM_VARS = {
                 'CCACHE_COMPRESS': '1',
                 'CCACHE_UMASK': '002',
                 'LC_ALL': 'C',
-                'JAVA_HOME': '/tools/jdk6',
-                'PATH': '/tools/jdk6/bin:/opt/local/bin:/tools/python/bin:/tools/buildbot/bin:/usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:/home/',
+                'PATH': '/opt/local/bin:/tools/python/bin:/tools/buildbot/bin:/usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:/home/',
             },
             'enable_opt_unittests': False,
             'talos_masters': GLOBAL_VARS['talos_masters'],
@@ -1398,7 +1403,6 @@ PLATFORM_VARS = {
                 'CCACHE_COMPRESS': '1',
                 'CCACHE_UMASK': '002',
                 'LC_ALL': 'C',
-                'JAVA_HOME': '/tools/jdk6',
                 'PATH': '/tools/buildbot/bin:/usr/local/bin:/bin:/usr/bin',
             },
             'enable_opt_unittests': False,
@@ -1611,6 +1615,16 @@ BRANCHES = {
             'android-noion': {},
         },
     },
+    'mozilla-b2g28_v1_3t': {
+        'branch_projects': [],
+        'lock_platforms': True,
+        'gecko_version': 28,
+        'platforms': {
+            # desktop per bug 986213
+            'linux64': {},
+            'linux64-debug': {},
+        },
+    },
     'mozilla-b2g18': {
         'branch_projects': [],
         'lock_platforms': True,
@@ -1742,7 +1756,7 @@ for branch in BRANCHES.keys():
 # HGURL + repo_path should be a valid repository
 BRANCHES['mozilla-central']['repo_path'] = 'mozilla-central'
 BRANCHES['mozilla-central']['l10n_repo_path'] = 'l10n-central'
-BRANCHES['mozilla-central']['enable_nightly_lastgood'] = False
+BRANCHES['mozilla-central']['enable_perproduct_builds'] = True
 BRANCHES['mozilla-central']['enable_weekly_bundle'] = True
 BRANCHES['mozilla-central']['start_hour'] = [3]
 BRANCHES['mozilla-central']['start_minute'] = [2]
@@ -1880,7 +1894,6 @@ BRANCHES['mozilla-beta']['enable_perproduct_builds'] = True
 ######## mozilla-aurora
 BRANCHES['mozilla-aurora']['repo_path'] = 'releases/mozilla-aurora'
 BRANCHES['mozilla-aurora']['l10n_repo_path'] = 'releases/l10n/mozilla-aurora'
-BRANCHES['mozilla-aurora']['enable_nightly_lastgood'] = False
 BRANCHES['mozilla-aurora']['enable_perproduct_builds'] = True
 BRANCHES['mozilla-aurora']['enable_weekly_bundle'] = True
 BRANCHES['mozilla-aurora']['start_hour'] = [0]
@@ -1972,7 +1985,6 @@ BRANCHES['mozilla-b2g26_v1_2']['repo_path'] = 'releases/mozilla-b2g26_v1_2'
 BRANCHES['mozilla-b2g26_v1_2']['update_channel'] = 'nightly-b2g26'
 BRANCHES['mozilla-b2g26_v1_2']['l10n_repo_path'] = 'releases/l10n/mozilla-beta'
 BRANCHES['mozilla-b2g26_v1_2']['enable_weekly_bundle'] = True
-BRANCHES['mozilla-b2g26_v1_2']['enable_nightly_lastgood'] = False
 BRANCHES['mozilla-b2g26_v1_2']['enable_perproduct_builds'] = True
 BRANCHES['mozilla-b2g26_v1_2']['start_hour'] = [3]
 BRANCHES['mozilla-b2g26_v1_2']['start_minute'] = [45]
@@ -2005,7 +2017,6 @@ BRANCHES['mozilla-b2g28_v1_3']['repo_path'] = 'releases/mozilla-b2g28_v1_3'
 BRANCHES['mozilla-b2g28_v1_3']['update_channel'] = 'nightly-b2g28'
 BRANCHES['mozilla-b2g28_v1_3']['l10n_repo_path'] = 'releases/l10n/mozilla-beta'
 BRANCHES['mozilla-b2g28_v1_3']['enable_weekly_bundle'] = True
-BRANCHES['mozilla-b2g28_v1_3']['enable_nightly_lastgood'] = False
 BRANCHES['mozilla-b2g28_v1_3']['enable_perproduct_builds'] = True
 BRANCHES['mozilla-b2g28_v1_3']['start_hour'] = [3]
 BRANCHES['mozilla-b2g28_v1_3']['start_minute'] = [45]
@@ -2033,12 +2044,18 @@ BRANCHES['mozilla-b2g28_v1_3']['enable_hsts_update'] = True
 BRANCHES['mozilla-b2g28_v1_3']['enable_valgrind'] = False
 BRANCHES['mozilla-b2g28_v1_3']['enabled_products'] = ['firefox', 'mobile']
 
+######## mozilla-b2g28_v1_3t
+BRANCHES['mozilla-b2g28_v1_3t']['repo_path'] = 'releases/mozilla-b2g28_v1_3t'
+BRANCHES['mozilla-b2g28_v1_3t']['enable_l10n'] = False
+BRANCHES['mozilla-b2g28_v1_3t']['enable_nightly'] = False
+BRANCHES['mozilla-b2g28_v1_3t']['enable_xulrunner'] = False
+BRANCHES['mozilla-b2g28_v1_3t']['enable_valgrind'] = False
+
 ######## mozilla-b2g18
 BRANCHES['mozilla-b2g18']['repo_path'] = 'releases/mozilla-b2g18'
 BRANCHES['mozilla-b2g18']['update_channel'] = 'nightly-b2g18'
 BRANCHES['mozilla-b2g18']['l10n_repo_path'] = 'releases/l10n/mozilla-release'
 BRANCHES['mozilla-b2g18']['enable_weekly_bundle'] = False
-BRANCHES['mozilla-b2g18']['enable_nightly_lastgood'] = False
 BRANCHES['mozilla-b2g18']['enable_perproduct_builds'] = True
 BRANCHES['mozilla-b2g18']['start_hour'] = [3]
 BRANCHES['mozilla-b2g18']['start_minute'] = [45]
@@ -2070,7 +2087,6 @@ BRANCHES['mozilla-b2g18_v1_1_0_hd']['repo_path'] = 'releases/mozilla-b2g18_v1_1_
 BRANCHES['mozilla-b2g18_v1_1_0_hd']['update_channel'] = 'nightly-b2g18_v1_1_0_hd'
 BRANCHES['mozilla-b2g18_v1_1_0_hd']['l10n_repo_path'] = 'releases/l10n/mozilla-release'
 BRANCHES['mozilla-b2g18_v1_1_0_hd']['enable_weekly_bundle'] = False
-BRANCHES['mozilla-b2g18_v1_1_0_hd']['enable_nightly_lastgood'] = False
 BRANCHES['mozilla-b2g18_v1_1_0_hd']['enable_perproduct_builds'] = True
 BRANCHES['mozilla-b2g18_v1_1_0_hd']['start_hour'] = [3]
 BRANCHES['mozilla-b2g18_v1_1_0_hd']['start_minute'] = [45]
@@ -2352,15 +2368,17 @@ for name, branch in items_before(BRANCHES, 'gecko_version', 22):
 
 # Only run non-unified builds on m-c and derived branches
 for branch in ("mozilla-aurora", "mozilla-beta", "mozilla-release",
-               "mozilla-esr24", "mozilla-b2g28_v1_3", "mozilla-b2g26_v1_2",
-               "mozilla-b2g18", "mozilla-b2g18_v1_1_0_hd", "try"):
+               "mozilla-esr24", "mozilla-b2g28_v1_3", "mozilla-b2g28_v1_3t",
+               "mozilla-b2g26_v1_2", "mozilla-b2g18",
+               "mozilla-b2g18_v1_1_0_hd", "try"):
     for pc in BRANCHES[branch]['platforms'].values():
         if 'enable_nonunified_build' in pc:
             pc['enable_nonunified_build'] = False
 
 # Static analysis happens only on m-c and derived branches.
 for branch in ("mozilla-aurora", "mozilla-beta", "mozilla-release",
-               "mozilla-esr24", "mozilla-b2g28_v1_3", "mozilla-b2g26_v1_2",
+               "mozilla-esr24", "mozilla-b2g28_v1_3",
+               "mozilla-b2g28_v1_3t", "mozilla-b2g26_v1_2",
                "mozilla-b2g18", "mozilla-b2g18_v1_1_0_hd"):
     if 'linux64-st-an-debug' in BRANCHES[branch]['platforms']:
         del BRANCHES[branch]['platforms']['linux64-st-an-debug']

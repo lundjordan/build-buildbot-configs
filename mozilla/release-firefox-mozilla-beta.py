@@ -22,23 +22,29 @@ releaseConfig['messagePrefix']       = '[release] '
 releaseConfig['productName']         = 'firefox'
 releaseConfig['appName']             = 'browser'
 #  Current version info
-releaseConfig['version']             = '29.0b1'
+releaseConfig['version']             = '29.0b3'
 releaseConfig['appVersion']          = '29.0'
 releaseConfig['milestone']           = releaseConfig['appVersion']
-releaseConfig['buildNumber']         = 2
-releaseConfig['baseTag']             = 'FIREFOX_29_0b1'
+releaseConfig['buildNumber']         = 1
+releaseConfig['baseTag']             = 'FIREFOX_29_0b3'
 releaseConfig['partialUpdates']      = {
 
-    '28.0b8': {
-        'appVersion': '28.0',
-        'buildNumber': 1,
-        'baseTag': 'FIREFOX_28_0b8',
+    '29.0b1': {
+        'appVersion': '29.0',
+        'buildNumber': 2,
+        'baseTag': 'FIREFOX_29_0b1',
     },
 
     '28.0b9': {
         'appVersion': '28.0',
         'buildNumber': 1,
         'baseTag': 'FIREFOX_28_0b9',
+    },
+
+    '29.0b2': {
+        'appVersion': '29.0',
+        'buildNumber': 1,
+        'baseTag': 'FIREFOX_29_0b2',
     },
 
 }
@@ -50,7 +56,7 @@ releaseConfig['sourceRepositories']  = {
     'mozilla': {
         'name': 'mozilla-beta',
         'path': 'releases/mozilla-beta',
-        'revision': '2f7d3415f79f',
+        'revision': '4b5fc53392dc',
         'relbranch': None,
         'bumpFiles': {
             'browser/config/version.txt': {
@@ -128,6 +134,8 @@ releaseConfig['xulrunner_mozconfigs']          = {
     'win32': 'xulrunner/config/mozconfigs/win32/xulrunner',
 }
 releaseConfig['releaseChannel']      = 'beta'
+releaseConfig['testChannels']        = ['releasetest', 'betatest']
+releaseConfig['testChannelRuleIds']  = [25,26]
 
 # Partner repack configuration
 releaseConfig['doPartnerRepacks']    = True
@@ -135,7 +143,7 @@ releaseConfig['partnersRepoPath']    = 'build/partner-repacks'
 
 # Tuxedo/Bouncer configuration
 releaseConfig['tuxedoServerUrl']     = 'https://bounceradmin.mozilla.com/api'
-releaseConfig['bouncer_submitter_config'] = 'releases/bouncer_firefox.py'
+releaseConfig['bouncer_submitter_config'] = 'releases/bouncer_firefox_beta.py'
 
 # Misc configuration
 releaseConfig['enable_repo_setup'] = False
@@ -143,3 +151,8 @@ releaseConfig['enableAutomaticPushToMirrors'] = True
 releaseConfig['use_mock'] = True
 releaseConfig['mock_platforms'] = ('linux','linux64')
 releaseConfig['ftpSymlinkName'] = 'latest-beta'
+
+releaseConfig['bouncer_aliases'] = {
+    'Firefox-%(version)s': 'firefox-beta-latest',
+    'Firefox-%(version)s-stub': 'firefox-beta-stub',
+}

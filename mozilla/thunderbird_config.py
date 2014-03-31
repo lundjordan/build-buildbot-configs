@@ -86,6 +86,7 @@ GLOBAL_VARS.update({
             'toolkit',
             'security/manager',
         ],
+    'default_l10n_space': 4,
     'scratchbox_path': '/builds/scratchbox/moz_scratchbox',
     'scratchbox_home': '/scratchbox/users/cltbld/home/cltbld',
     'use_old_updater': False,
@@ -146,7 +147,7 @@ PLATFORM_VARS = {
             'nightly_signing_servers': 'dep-signing',
             'dep_signing_servers': 'dep-signing',
             'tooltool_manifest_src': 'mail/config/tooltool-manifests/linux32/releng.manifest',
-            'tooltool_script': '/builds/tooltool.py',
+            'tooltool_script': ['/builds/tooltool.py'],
             'use_mock': True,
             'mock_target': 'mozilla-centos6-x86_64',
             'mock_packages': \
@@ -241,7 +242,7 @@ PLATFORM_VARS = {
             'nightly_signing_servers': 'dep-signing',
             'dep_signing_servers': 'dep-signing',
             'tooltool_manifest_src': 'mail/config/tooltool-manifests/linux64/releng.manifest',
-            'tooltool_script': '/builds/tooltool.py',
+            'tooltool_script': ['/builds/tooltool.py'],
             'use_mock': True,
             'mock_target': 'mozilla-centos6-x86_64',
             'mock_packages': \
@@ -360,6 +361,7 @@ PLATFORM_VARS = {
             'l10n_check_test': False,
             'nightly_signing_servers': 'dep-signing',
             'dep_signing_servers': 'dep-signing',
+            'tooltool_manifest_src': 'mail/config/tooltool-manifests/win32/releng.manifest',
         },
         'win64': {
             'product_name': 'thunderbird',
@@ -404,6 +406,7 @@ PLATFORM_VARS = {
             'talos_masters': None,
             'test_pretty_names': True,
             'l10n_check_test': False,
+            'tooltool_manifest_src': 'mail/config/tooltool-manifests/win64/releng.manifest',
         },
         'linux-debug': {
             'enable_nightly': False,
@@ -610,6 +613,7 @@ PLATFORM_VARS = {
             'talos_masters': None,
             'nightly_signing_servers': 'dep-signing',
             'dep_signing_servers': 'dep-signing',
+            'tooltool_manifest_src': 'mail/config/tooltool-manifests/win32/releng.manifest',
         },
 }
 
