@@ -707,12 +707,16 @@ PLATFORM_VARS = {
         },
         'win32': {
             'mozharness_config': {
+                'mozharness_python': ['c:/mozilla-build/python27/python', '-u'],
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
                     '--config', 'builds/releng_base_windows_32_builds.py',
                 ],
-                'reboot_command': ['scripts/external_tools/count_and_reboot.py',
-                                   '-f', '../reboot_count.txt','-n', '1', '-z'],
+                'reboot_command': [
+                    'c:/mozilla-build/python27/python', '-u',
+                    'scripts/external_tools/count_and_reboot.py',
+                    '-f', '../reboot_count.txt','-n', '1', '-z'
+                ],
             },
             'product_name': 'firefox',
             'unittest_platform': 'win32-opt',
