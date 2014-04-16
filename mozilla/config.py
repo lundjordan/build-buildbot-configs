@@ -706,6 +706,14 @@ PLATFORM_VARS = {
             'enable_ccache': True,
         },
         'win32': {
+            'mozharness_config': {
+                'script_name': 'scripts/fx_desktop_build.py',
+                'extra_args': [
+                    '--config', 'builds/releng_base_windows_32_builds.py',
+                ],
+                'reboot_command': ['scripts/external_tools/count_and_reboot.py',
+                                   '-f', '../reboot_count.txt','-n', '1', '-z'],
+            },
             'product_name': 'firefox',
             'unittest_platform': 'win32-opt',
             'app_name': 'browser',
