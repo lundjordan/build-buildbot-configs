@@ -120,7 +120,8 @@ GLOBAL_VARS = {
     # spider, etc). This list serves that purpose:
     'mozharness_desktop_build_platforms': [
         'linux', 'linux64', 'linux64-asan', 'linux64-asan-debug',
-        'linux64-st-an-debug', 'linux-debug', 'linux64-debug'
+        'linux64-st-an-debug', 'linux-debug', 'linux64-debug',
+        'win32'
     ],
     # rather than repeat these options in each of these options in
     # every platform, let's define the arguments here and when we want to
