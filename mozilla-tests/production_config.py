@@ -93,6 +93,7 @@ SLAVES['ubuntu64_hw-b2g-emulator'] = SLAVES['ubuntu64_hw']
 SLAVES['mountainlion-b2gdt'] = SLAVES['mountainlion']
 SLAVES['vm_android_2_3'] = SLAVES['ubuntu64_vm']
 SLAVES['win8_64'] = SLAVES['win8']
+SLAVES['ubuntu64_hw_mobile'] = SLAVES['ubuntu64_hw']
 
 TRY_SLAVES = {}
 
@@ -146,6 +147,10 @@ BRANCHES = {
         'tinderbox_tree': 'Mozilla-B2g28-v1.3t',
         'mobile_tinderbox_tree': 'Mozilla-B2g28-v1.3t',
     },
+    'mozilla-b2g30_v1_4': {
+        'tinderbox_tree': 'Mozilla-B2g30-v1.4',
+        'mobile_tinderbox_tree': 'Mozilla-B2g30-v1.4',
+    },
     'mozilla-beta': {
         'tinderbox_tree': 'Mozilla-Beta',
         'mobile_tinderbox_tree': 'Mozilla-Beta',
@@ -185,3 +190,4 @@ PROJECTS = {
         'tinderbox_tree': 'Jetpack',
     },
 }
+B2G_PROJECTS = {}
