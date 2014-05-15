@@ -9,6 +9,9 @@ WIN64_REV2     = ['ix-mn-w0864-%03d' % x for x in range(1,3)] + \
 MOCK_DL120G7   = ['bld-centos6-hp-%03d' % x for x in range(1, 6)]
 LINUX64_EC2    = ['dev-linux64-ec2-%03d' % x for x in range(1, 50)]
 
+# XXX JLUND LOCAL DEV STAGING CHANGE
+LINUX64_EC2.append('dev-linux64-ec2-jlund2')
+
 STAGING_SLAVES = {
     'win32':            WIN32_IXS,
     'win64':            WIN64_IXS,

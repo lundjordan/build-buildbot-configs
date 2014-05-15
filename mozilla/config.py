@@ -39,8 +39,11 @@ GLOBAL_VARS = {
     'graph_selector': '/server/collect.cgi',
     'compare_locales_repo_path': 'build/compare-locales',
     'compare_locales_tag': 'RELEASE_AUTOMATION',
-    'mozharness_repo_path': 'build/mozharness',
-    'mozharness_tag': 'production',
+    # XXX JLUND LOCAL DEV MASTER CHANGE
+    # 'mozharness_repo_path': 'build/mozharness',
+    # 'mozharness_tag': 'production',
+    'mozharness_repo_path': 'users/jlund_mozilla.com/mozharness/',
+    'mozharness_tag': 'default',
     'multi_locale_merge': True,
     'default_build_space': 5,
     'default_l10n_space': 3,
