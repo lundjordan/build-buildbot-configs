@@ -28,7 +28,6 @@ BRANCHES = {
     # 'birch': {},
     'cedar': {},
     'cypress': {},
-    'elm': {},
     'pine': {},
     'fx-team': {},
     'graphics': {},
@@ -60,17 +59,16 @@ BRANCHES = {
         'gecko_version': 30,
         'b2g_version': (1, 4, 0),
     },
-    'mozilla-aurora': {
-        'gecko_version': 30,
-        'b2g_version': (1, 4, 0),
-    },
+#    'mozilla-aurora': {
+#        'gecko_version': 32,
+#        'b2g_version': (2, 0, 0),
+#    },
     'mozilla-central': {},
     'mozilla-inbound': {},
     'b2g-inbound': {},
     'services-central': {},
-    'try': {'coallesce_jobs': False},
+    'try': {},
     'gaia-try': {
-        'coallesce_jobs': False,
         'lock_platforms': True,
         'platforms': {
             'linux32_gecko': {},
@@ -339,6 +337,8 @@ MOCHITEST_DESKTOP = [
      ),
 ]
 
+MOCHITEST_OOP_DESKTOP = [('mochitest-oop-1', MOCHITEST_DESKTOP[0][1])]
+
 REFTEST = [
     ('reftest-1', {'suite': 'reftest',
                    'use_mozharness': True,
@@ -516,6 +516,8 @@ REFTEST_DESKTOP_SANITY = [
      ),
 ]
 
+REFTEST_DESKTOP_OOP_SANITY = [('reftest-oop', REFTEST_DESKTOP_SANITY[0][1])]
+
 JSREFTEST = [
     ('jsreftest-1', {'suite': 'jsreftest',
                      'use_mozharness': True,
@@ -611,6 +613,8 @@ GAIA_UNITTESTS = [(
     },
 )]
 
+GAIA_UNITTESTS_OOP = [('gaia-unit-oop', GAIA_UNITTESTS[0][1])]
+
 GAIA_UI = [(
     'gaia-ui-test', {
         'suite': 'gaia-ui-test',
@@ -619,6 +623,8 @@ GAIA_UI = [(
         'blob_upload': True,
     },
 )]
+
+GAIA_UI_OOP = [('gaia-ui-test-oop', GAIA_UI[0][1])]
 
 ALL_UNITTESTS = MOCHITEST + REFTEST + CRASHTEST + MARIONETTE + XPCSHELL
 
@@ -638,10 +644,10 @@ PLATFORM_UNITTEST_VARS = {
         'builds_before_reboot': 1,
         'unittest-env': {'DISPLAY': ':0'},
         'enable_opt_unittests': True,
-        'enable_debug_unittests': False,
+        'enable_debug_unittests': True,
         'ubuntu32_vm-b2gdt': {
             'opt_unittest_suites': MOCHITEST_DESKTOP[:] + REFTEST_DESKTOP_SANITY[:],
-            'debug_unittest_suites': [],
+            'debug_unittest_suites': MOCHITEST_DESKTOP[:] + REFTEST_DESKTOP_SANITY[:],
             'suite_config': {
                 'gaia-integration': {
                     'extra_args': [
@@ -752,10 +758,10 @@ PLATFORM_UNITTEST_VARS = {
         'builds_before_reboot': 1,
         'unittest-env': {'DISPLAY': ':0'},
         'enable_opt_unittests': True,
-        'enable_debug_unittests': False,
+        'enable_debug_unittests': True,
         'ubuntu64_vm-b2gdt': {
-            'opt_unittest_suites': GAIA_UI[:] + MOCHITEST_DESKTOP[:] + GAIA_INTEGRATION[:] + REFTEST_DESKTOP_SANITY[:] + GAIA_UNITTESTS[:],
-            'debug_unittest_suites': [],
+            'opt_unittest_suites': GAIA_UI[:] + MOCHITEST_DESKTOP[:] + GAIA_INTEGRATION[:] + REFTEST_DESKTOP_SANITY[:] + GAIA_UNITTESTS[:] + GAIA_LINTER[:],
+            'debug_unittest_suites': GAIA_UI[:] + MOCHITEST_DESKTOP[:] + GAIA_INTEGRATION[:] + REFTEST_DESKTOP_SANITY[:] + GAIA_UNITTESTS[:] + GAIA_LINTER[:],
             'suite_config': {
                 'gaia-integration': {
                     'extra_args': [
@@ -777,9 +783,21 @@ PLATFORM_UNITTEST_VARS = {
                         '--cfg', 'b2g/gaia_unit_production_config.py',
                     ],
                 },
+                'gaia-unit-oop': {
+                    'extra_args': [
+                        '--cfg', 'b2g/gaia_unit_production_config.py',
+                        '--browser-arg', '-oop',
+                    ],
+                },
                 'gaia-ui-test': {
                     'extra_args': [
                         '--cfg', 'marionette/gaia_ui_test_prod_config.py',
+                    ],
+                },
+                'gaia-ui-test-oop': {
+                    'extra_args': [
+                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
+                        '--app-arg', '-oop',
                     ],
                 },
                 'mochitest-1': {
@@ -789,11 +807,27 @@ PLATFORM_UNITTEST_VARS = {
                         '--this-chunk', 1, '--total-chunks', 1,
                     ],
                 },
+                'mochitest-oop-1': {
+                    'extra_args': [
+                        '--cfg', 'b2g/desktop_automation_config.py',
+                        '--test-suite', 'mochitest',
+                        '--this-chunk', 1, '--total-chunks', 1,
+                        '--browser-arg', '-oop',
+                    ],
+                },
                 'reftest': {
                     'extra_args': [
                         '--cfg', 'b2g/desktop_automation_config.py',
                         '--test-suite', 'reftest',
                         '--test-manifest', 'tests/layout/reftests/reftest-sanity/reftest.list',
+                    ],
+                },
+                'reftest-oop': {
+                    'extra_args': [
+                        '--cfg', 'b2g/desktop_automation_config.py',
+                        '--test-suite', 'reftest',
+                        '--test-manifest', 'tests/layout/reftests/reftest-sanity/reftest.list',
+                        '--browser-arg', '-oop',
                     ],
                 },
                 'reftest-1': {
@@ -883,10 +917,10 @@ PLATFORM_UNITTEST_VARS = {
             "PAGER": '/bin/cat',
         },
         'enable_opt_unittests': True,
-        'enable_debug_unittests': False,
+        'enable_debug_unittests': True,
         'mountainlion-b2gdt': {
             'opt_unittest_suites': GAIA_UI[:],
-            'debug_unittest_suites': [],
+            'debug_unittest_suites': GAIA_UI[:],
             'suite_config': {
                 'gaia-integration': {
                     'extra_args': [
@@ -1570,7 +1604,8 @@ BRANCHES['cedar']['platforms']['emulator']['ubuntu64_vm-b2g-emulator']['opt_unit
 BRANCHES['cedar']['platforms']['emulator']['ubuntu64_vm-b2g-emulator']['debug_unittest_suites'] = MOCHITEST_EMULATOR_DEBUG[:] + REFTEST + CRASHTEST + MARIONETTE + XPCSHELL
 BRANCHES['cedar']['platforms']['emulator-jb']['ubuntu64_vm-b2g-emulator-jb']['opt_unittest_suites'] = MOCHITEST_EMULATOR_JB[:]
 BRANCHES['cedar']['platforms']['linux32_gecko']['ubuntu32_vm-b2gdt']['opt_unittest_suites'] += GAIA_UI + REFTEST_DESKTOP
-BRANCHES['cedar']['platforms']['linux64_gecko']['ubuntu64_vm-b2gdt']['opt_unittest_suites'] += REFTEST_DESKTOP + GAIA_BUILD + GAIA_LINTER
+BRANCHES['cedar']['platforms']['linux64_gecko']['ubuntu64_vm-b2gdt']['opt_unittest_suites'] += \
+  REFTEST_DESKTOP + GAIA_BUILD + MOCHITEST_OOP_DESKTOP + GAIA_UI_OOP + GAIA_UNITTESTS_OOP + REFTEST_DESKTOP_OOP_SANITY
 BRANCHES['cedar']['platforms']['macosx64_gecko']['mountainlion-b2gdt']['opt_unittest_suites'] += MOCHITEST_DESKTOP + REFTEST_DESKTOP_SANITY + GAIA_INTEGRATION
 BRANCHES['pine']['branch_name'] = "Pine"
 BRANCHES['pine']['repo_path'] = "projects/pine"
@@ -1595,8 +1630,8 @@ BRANCHES['mozilla-b2g26_v1_2']['platforms']['emulator']['enable_debug_unittests'
 BRANCHES['mozilla-b2g28_v1_3']['repo_path'] = "releases/mozilla-b2g28_v1_3"
 BRANCHES['mozilla-b2g28_v1_3t']['repo_path'] = "releases/mozilla-b2g28_v1_3t"
 BRANCHES['mozilla-b2g30_v1_4']['repo_path'] = "releases/mozilla-b2g30_v1_4"
-BRANCHES['mozilla-aurora']['branch_name'] = "Mozilla-Aurora"
-BRANCHES['mozilla-aurora']['repo_path'] = "releases/mozilla-aurora"
+#BRANCHES['mozilla-aurora']['branch_name'] = "Mozilla-Aurora"
+#BRANCHES['mozilla-aurora']['repo_path'] = "releases/mozilla-aurora"
 BRANCHES['mozilla-central']['branch_name'] = "Firefox"
 BRANCHES['mozilla-inbound']['repo_path'] = "integration/mozilla-inbound"
 BRANCHES['b2g-inbound']['branch_name'] = "B2g-Inbound"
@@ -1605,6 +1640,15 @@ BRANCHES['services-central']['repo_path'] = "services/services-central"
 BRANCHES['try']['pgo_strategy'] = "try"
 BRANCHES['try']['enable_try'] = True
 BRANCHES['gaia-try']['repo_path'] = "integration/gaia-try"
+# Temporary redirect for debugging: bug 1008351
+BRANCHES['gaia-try']['mozharness_repo'] = "https://hg.mozilla.org/users/jford_mozilla.com/mozharness"
+BRANCHES['gaia-try']['mozharness_tag'] = "default"
+
+# Run at scale
+BRANCHES['mozilla-inbound']['platforms']['linux64_gecko']['ubuntu64_vm-b2gdt']['opt_unittest_suites'] += \
+    GAIA_BUILD
+BRANCHES['b2g-inbound']['platforms']['linux64_gecko']['ubuntu64_vm-b2gdt']['opt_unittest_suites'] += \
+    GAIA_BUILD
 
 # explicitly set slave platforms per branch
 for branch in BRANCHES.keys():
@@ -1629,6 +1673,15 @@ for branch in BRANCHES.keys():
         if 'emulator' in BRANCHES[branch]['platforms']:
             BRANCHES[branch]['platforms']['emulator']['enable_debug_unittests'] = False
 
+# Disable gecko-debug unittests on older branches, Bug 91611
+OLD_BRANCHES = set([name for name, branch in items_before(BRANCHES, 'gecko_version', 30)])
+for b in BRANCHES.keys():
+    if b != 'cedar' or b in OLD_BRANCHES:
+        for platform in ['linux32_gecko', 'linux64_gecko', 'macosx64_gecko']:
+             if platform in BRANCHES[b]['platforms']:
+                 BRANCHES[b]['platforms'][platform]['enable_debug_unittests'] = False
+
+
 # Disable b2g desktop reftest-sanity on cedar
 for slave_platform in (('linux64_gecko', 'ubuntu64_vm-b2gdt'),
                        ('linux32_gecko', 'ubuntu32_vm-b2gdt')):
@@ -1638,6 +1691,22 @@ for slave_platform in (('linux64_gecko', 'ubuntu64_vm-b2gdt'),
                                           if x[0] if x[0] != 'reftest']
         slave_p['debug_unittest_suites'] = [x for x in slave_p['debug_unittest_suites']
                                             if x[0] if x[0] != 'reftest']
+
+# Disable linter tests on branches older than gecko 31
+OLD_BRANCHES = set([name for name, branch in items_before(BRANCHES, 'gecko_version', 31)])
+excluded_tests = ['gaia-linter']
+for b in BRANCHES.keys():
+    branch = BRANCHES[b]
+    if b in OLD_BRANCHES:
+        for slave_platform in (('linux64_gecko', 'ubuntu64_vm-b2gdt'),
+                               ('linux32_gecko', 'ubuntu32_vm-b2gdt'),
+                               ('macosx64_gecko', 'mountainlion-b2gdt')):
+            if nested_haskey(branch['platforms'], slave_platform[0], slave_platform[1]):
+                slave_p = branch['platforms'][slave_platform[0]][slave_platform[1]]
+                slave_p['opt_unittest_suites'] = [x for x in slave_p['opt_unittest_suites']
+                                                  if x[0] not in excluded_tests]
+                slave_p['debug_unittest_suites'] = [x for x in slave_p['debug_unittest_suites']
+                                                    if x[0] not in excluded_tests]
 
 # Disable b2g desktop reftest-sanity, gaia-integration and gaia-unit tests on older branches
 OLD_BRANCHES = set([name for name, branch in items_before(BRANCHES, 'gecko_version', 29)])
@@ -1732,26 +1801,38 @@ for pf, pf_config in BRANCHES['gaia-try']['platforms'].items():
                 '-c', 'b2g/gaia_try.py',
             ])
             if 'linux32' in pf:
-                suite_config['extra_args'].extend([
+                suite_config['opt_extra_args'] = [
                     '--installer-url',
-                    'https://ftp.mozilla.org/pub/mozilla.org/b2g/nightly/latest-mozilla-central/b2g-%d.0a1.multi.linux-i686.tar.bz2' % mc_gecko_version,
+                    'https://ftp.mozilla.org/pub/mozilla.org/b2g/tinderbox-builds/mozilla-central-%s/latest/en-US/b2g-%d.0a1.en-US.linux-i686.tar.bz2' % (pf, mc_gecko_version),
                     '--test-url',
-                    'http://ftp.mozilla.org/pub/mozilla.org/b2g/nightly/latest-mozilla-central/b2g-%d.0a1.multi.linux-i686.tests.zip' % mc_gecko_version,
-                ])
+                    'https://ftp.mozilla.org/pub/mozilla.org/b2g/tinderbox-builds/mozilla-central-%s/latest/en-US/b2g-%d.0a1.en-US.linux-i686.tests.zip' % (pf, mc_gecko_version),
+                ]
             elif 'linux64' in pf:
-                suite_config['extra_args'].extend([
+                suite_config['opt_extra_args'] = [
                     '--installer-url',
-                    'http://ftp.mozilla.org/pub/mozilla.org/b2g/nightly/latest-mozilla-central/b2g-%d.0a1.multi.linux-x86_64.tar.bz2' % mc_gecko_version,
+                    'https://ftp.mozilla.org/pub/mozilla.org/b2g/tinderbox-builds/mozilla-central-%s/latest/en-US/b2g-%d.0a1.en-US.linux-x86_64.tar.bz2' % (pf, mc_gecko_version),
                     '--test-url',
-                    'http://ftp.mozilla.org/pub/mozilla.org/b2g/nightly/latest-mozilla-central/b2g-%d.0a1.multi.linux-x86_64.tests.zip' % mc_gecko_version,
-                ])
+                    'https://ftp.mozilla.org/pub/mozilla.org/b2g/tinderbox-builds/mozilla-central-%s/latest/en-US/b2g-%d.0a1.en-US.linux-x86_64.tests.zip' % (pf, mc_gecko_version),
+                ]
+                suite_config['debug_extra_args'] = [
+                    '--installer-url',
+                    'https://ftp.mozilla.org/pub/mozilla.org/b2g/tinderbox-builds/mozilla-central-%s-debug/latest/en-US/b2g-%d.0a1.en-US.linux-x86_64.tar.bz2' % (pf, mc_gecko_version),
+                    '--test-url',
+                    'https://ftp.mozilla.org/pub/mozilla.org/b2g/tinderbox-builds/mozilla-central-%s-debug/latest/en-US/b2g-%d.0a1.en-US.linux-x86_64.tests.zip' % (pf, mc_gecko_version),
+                ]
             elif 'macosx64' in pf:
-                suite_config['extra_args'].extend([
+                suite_config['opt_extra_args'] = [
                     '--installer-url',
-                    'http://ftp.mozilla.org/pub/mozilla.org/b2g/nightly/latest-mozilla-central/b2g-%d.0a1.multi.mac64.dmg' % mc_gecko_version,
+                    'https://ftp.mozilla.org/pub/mozilla.org/b2g/tinderbox-builds/mozilla-central-%s/latest/en-US/b2g-%d.0a1.en-US.mac64.dmg' % (pf, mc_gecko_version),
                     '--test-url',
-                    'http://ftp.mozilla.org/pub/mozilla.org/b2g/nightly/latest-mozilla-central/b2g-%d.0a1.multi.mac64.tests.zip' % mc_gecko_version,
-                ])
+                    'https://ftp.mozilla.org/pub/mozilla.org/b2g/tinderbox-builds/mozilla-central-%s/latest/en-US/b2g-%d.0a1.en-US.mac64.tests.zip' % (pf, mc_gecko_version),
+                ]
+                suite_config['debug_extra_args'] = [
+                    '--installer-url',
+                    'https://ftp.mozilla.org/pub/mozilla.org/b2g/tinderbox-builds/mozilla-central-%s-debug/latest/en-US/b2g-%d.0a1.en-US.mac64.dmg' % (pf, mc_gecko_version),
+                    '--test-url',
+                    'https://ftp.mozilla.org/pub/mozilla.org/b2g/tinderbox-builds/mozilla-central-%s-debug/latest/en-US/b2g-%d.0a1.en-US.mac64.tests.zip' % (pf, mc_gecko_version),
+                ]
 
 
 if __name__ == "__main__":

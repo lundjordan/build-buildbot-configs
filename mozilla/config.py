@@ -195,7 +195,7 @@ PLATFORM_VARS = {
             'enable_checktests': True,
             'enable_build_analysis': True,
             'talos_masters': GLOBAL_VARS['talos_masters'],
-            'test_pretty_names': True,
+            'test_pretty_names': False,
             'l10n_check_test': True,
             'nightly_signing_servers': 'dep-signing',
             'tooltool_manifest_src': 'browser/config/tooltool-manifests/linux32/releng.manifest',
@@ -310,7 +310,7 @@ PLATFORM_VARS = {
             'enable_checktests': True,
             'enable_build_analysis': True,
             'talos_masters': GLOBAL_VARS['talos_masters'],
-            'test_pretty_names': True,
+            'test_pretty_names': False,
             'l10n_check_test': True,
             'nightly_signing_servers': 'dep-signing',
             'dep_signing_servers': 'dep-signing',
@@ -695,7 +695,7 @@ PLATFORM_VARS = {
             'enable_opt_unittests': False,
             'enable_checktests': True,
             'talos_masters': GLOBAL_VARS['talos_masters'],
-            'test_pretty_names': True,
+            'test_pretty_names': False,
             # These refer to items in passwords.secrets
             # nightly_signing_servers defaults to dep-signing because we don't want
             # random new branches to accidentally use nightly-signing, which signs
@@ -761,7 +761,7 @@ PLATFORM_VARS = {
             },
             'enable_checktests': True,
             'talos_masters': GLOBAL_VARS['talos_masters'],
-            'test_pretty_names': True,
+            'test_pretty_names': False,
             'l10n_check_test': True,
             # These refer to items in passwords.secrets
             # nightly_signing_servers defaults to dep-signing because we don't want
@@ -815,7 +815,7 @@ PLATFORM_VARS = {
             'enable_opt_unittests': False,
             'enable_checktests': True,
             'talos_masters': GLOBAL_VARS['talos_masters'],
-            'test_pretty_names': True,
+            'test_pretty_names': False,
             'l10n_check_test': True,
             # The status of this build doesn't affect the last good revision
             # algorithm for nightlies
@@ -2442,7 +2442,7 @@ for branch in ("mozilla-aurora", "mozilla-beta", "mozilla-release",
                "mozilla-esr24", "mozilla-b2g28_v1_3", "mozilla-b2g28_v1_3t",
                "mozilla-b2g30_v1_4",
                "mozilla-b2g26_v1_2", "mozilla-b2g18",
-               "mozilla-b2g18_v1_1_0_hd", "try", "holly"):
+               "mozilla-b2g18_v1_1_0_hd", "try", "holly", "elm"):
     for pc in BRANCHES[branch]['platforms'].values():
         if 'enable_nonunified_build' in pc:
             pc['enable_nonunified_build'] = False
@@ -2455,6 +2455,14 @@ for branch in ("mozilla-aurora", "mozilla-beta", "mozilla-release",
                "mozilla-b2g18", "mozilla-b2g18_v1_1_0_hd"):
     if 'linux64-st-an-debug' in BRANCHES[branch]['platforms']:
         del BRANCHES[branch]['platforms']['linux64-st-an-debug']
+
+# Only test pretty names on train branches, not m-c or project branches.
+# That's also forced on nonunified builds in buildbotcustom.
+for branch in ("mozilla-aurora", "mozilla-beta", "mozilla-release",
+               "mozilla-esr24"):
+    for platform in ("linux", "linux64", "macosx64", "win32", "win64"):
+        if platform in BRANCHES[branch]['platforms']:
+            BRANCHES[branch]['platforms'][platform]['test_pretty_names'] = True
 
 # Exact rooting landed for desktop only in 28.
 for name, branch in items_before(BRANCHES, 'gecko_version', 28):
