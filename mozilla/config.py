@@ -1615,6 +1615,11 @@ apply_localconfig(BRANCH_PROJECTS, localconfig.BRANCH_PROJECTS)
 # platforms (if different from the default set).
 BRANCHES = {
     'mozilla-central': {
+        # once ready, we can flip this switch and any platform with
+        # mozharness_config in its build config will use mozharness instead
+        # of MozharnessBuildFactory
+        # XXX DEV LOCAL CHANGE
+        'desktop_mozharness_builds_enabled': True,
     },
     'mozilla-release': {
         'branch_projects': []
