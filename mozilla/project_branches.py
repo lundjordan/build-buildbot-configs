@@ -157,6 +157,7 @@ PROJECT_BRANCHES = {
         }
     },
     'cedar': {
+        'repo_path': 'users/jlund_mozilla.com/mozilla-central',
         'mozharness_tag': 'default',
         'enable_talos': True,
         'talos_suites': {
