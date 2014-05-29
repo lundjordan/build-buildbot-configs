@@ -157,6 +157,7 @@ PROJECT_BRANCHES = {
         }
     },
     'cedar': {
+        # XXX LOCAL CHANGE
         'repo_path': 'users/jlund_mozilla.com/mozilla-central',
         'mozharness_tag': 'default',
         'enable_talos': True,
@@ -172,7 +173,8 @@ PROJECT_BRANCHES = {
         # once ready, we can flip this switch and any platform with
         # mozharness_config in its build config will use mozharness instead
         # of MozharnessBuildFactory
-        'desktop_mozharness_builds_enabled': True,
+        # XXX LOCAL CHANGE
+        # 'desktop_mozharness_builds_enabled': True,
     },
     'cypress': {
         'mozharness_tag': 'default',
