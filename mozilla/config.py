@@ -149,6 +149,7 @@ GLOBAL_ENV = {
 PLATFORM_VARS = {
         'linux': {
             'mozharness_config': {
+                'mozharness_python': '/tools/buildbot/bin/python',
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
                     '--config', 'builds/releng_base_linux_32_builds.py',
@@ -255,6 +256,7 @@ PLATFORM_VARS = {
         },
         'linux64': {
             'mozharness_config': {
+                'mozharness_python': '/tools/buildbot/bin/python',
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
                     '--config', 'builds/releng_base_linux_64_builds.py',
@@ -350,6 +352,7 @@ PLATFORM_VARS = {
         },
         'linux64-asan': {
             'mozharness_config': {
+                'mozharness_python': '/tools/buildbot/bin/python',
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
                     '--config', 'builds/releng_base_linux_64_builds.py',
@@ -438,6 +441,7 @@ PLATFORM_VARS = {
         },
         'linux64-asan-debug': {
             'mozharness_config': {
+                'mozharness_python': '/tools/buildbot/bin/python',
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
                     '--config', 'builds/releng_base_linux_64_builds.py',
@@ -527,6 +531,7 @@ PLATFORM_VARS = {
         },
         'linux64-st-an-debug': {
             'mozharness_config': {
+                'mozharness_python': '/tools/buildbot/bin/python',
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
                     '--config', 'builds/releng_base_linux_64_builds.py',
@@ -649,6 +654,7 @@ PLATFORM_VARS = {
         },
         'linux64-mulet': {
             'mozharness_config': {
+                'mozharness_python': '/tools/buildbot/bin/python',
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
                     '--config', 'builds/releng_base_linux_64_builds.py',
@@ -719,6 +725,7 @@ PLATFORM_VARS = {
         },
         'macosx64': {
             'mozharness_config': {
+                'mozharness_python': '/tools/buildbot/bin/python',
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
                     '--config', 'builds/releng_base_mac_64_builds.py',
@@ -898,6 +905,7 @@ PLATFORM_VARS = {
         },
         'linux-debug': {
             'mozharness_config': {
+                'mozharness_python': '/tools/buildbot/bin/python',
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
                     '--config', 'builds/releng_base_linux_32_builds.py',
@@ -993,6 +1001,7 @@ PLATFORM_VARS = {
         },
         'linux64-debug': {
             'mozharness_config': {
+                'mozharness_python': '/tools/buildbot/bin/python',
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
                     '--config', 'builds/releng_base_linux_64_builds.py',
@@ -1075,6 +1084,7 @@ PLATFORM_VARS = {
         },
         'macosx64-debug': {
             'mozharness_config': {
+                'mozharness_python': '/tools/buildbot/bin/python',
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
                     '--config', 'builds/releng_base_mac_64_builds.py',
