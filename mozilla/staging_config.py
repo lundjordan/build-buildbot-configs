@@ -5,8 +5,8 @@ MAC_LION_MINIS = ['bld-lion-r5-%03d' % x for x in range(89, 93)]
 WIN32_IXS      = []
 WIN64_IXS      = []
 WIN64_REV2     = ['ix-mn-w0864-%03d' % x for x in range(1,3)] + \
-                 ['w64-ix-slave%02i' % x for x in [4, 5, 22, 80]]
-MOCK_DL120G7   = ['bld-centos6-hp-%03d' % x for x in range(1, 6)]
+                 ['b-2008-ix-%04d' % x for x in [182, 183]]
+MOCK_DL120G7   = ['b-linux64-hp-%04d' % x for x in range(20,25)]
 LINUX64_EC2    = ['dev-linux64-ec2-%03d' % x for x in range(1, 50)]
 
 STAGING_SLAVES = {
@@ -79,39 +79,45 @@ SYMBOL_SERVER_HOST = 'dev-stage01.srv.releng.scl3.mozilla.com'
 BRANCHES = {
     'mozilla-central': {
         'enable_blocklist_update': False,
-        'blocklist_update_on_closed_tree': False,
+        'enable_hsts_update': False,
+        'enable_hpkp_update': False,
+        'file_update_on_closed_tree': False,
     },
     'mozilla-release': {
         'enable_blocklist_update': False,
-        'blocklist_update_on_closed_tree': False,
+        'enable_hsts_update': False,
+        'enable_hpkp_update': False,
+        'file_update_on_closed_tree': False,
     },
     'mozilla-beta': {
         'enable_blocklist_update': False,
-        'blocklist_update_on_closed_tree': False,
+        'enable_hsts_update': False,
+        'enable_hpkp_update': False,
+        'file_update_on_closed_tree': False,
     },
     'mozilla-aurora': {
         'enable_blocklist_update': False,
-        'blocklist_update_on_closed_tree': False,
+        'enable_hsts_update': False,
+        'enable_hpkp_update': False,
+        'file_update_on_closed_tree': False,
     },
     'mozilla-esr24': {
         'enable_blocklist_update': False,
-        'blocklist_update_on_closed_tree': False,
+        'enable_hsts_update': False,
+        'enable_hpkp_update': False,
+        'file_update_on_closed_tree': False,
     },
-    'mozilla-b2g18': {
+    'mozilla-esr31': {
         'enable_blocklist_update': False,
-        'blocklist_update_on_closed_tree': False,
-    },
-    'mozilla-b2g18_v1_1_0_hd': {
-        'enable_blocklist_update': False,
-        'blocklist_update_on_closed_tree': False,
-    },
-    'mozilla-b2g26_v1_2': {
-        'enable_blocklist_update': False,
-        'blocklist_update_on_closed_tree': False,
+        'enable_hsts_update': False,
+        'enable_hpkp_update': False,
+        'file_update_on_closed_tree': False,
     },
     'mozilla-b2g28_v1_3': {
         'enable_blocklist_update': False,
-        'blocklist_update_on_closed_tree': False,
+        'enable_hsts_update': False,
+        'enable_hpkp_update': False,
+        'file_update_on_closed_tree': False,
     },
     'try': {
         'download_base_url': 'http://dev-stage01.srv.releng.scl3.mozilla.com/pub/mozilla.org/firefox',
