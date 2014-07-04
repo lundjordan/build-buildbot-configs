@@ -1,13 +1,6 @@
 PROJECT_BRANCHES = {
     ### PLEASE ADD NEW BRANCHES ALPHABETICALLY (twigs at the bottom, also alphabetically)
-    'build-system': {
-        'pgo_strategy': 'periodic',
-        'platforms': {
-            'win32': {
-                'pgo_platform': 'win64',
-            },
-        },
-    },
+    # 'build-system': {},  # Bug 1010674
     'fx-team': {
         'enable_perproduct_builds': True,
         'repo_path': 'integration/fx-team',
@@ -63,11 +56,7 @@ PROJECT_BRANCHES = {
             },
         },
     },
-    'services-central': {
-        'repo_path': 'services/services-central',
-        'enable_weekly_bundle': True,
-        'pgo_strategy': 'periodic',
-    },
+    #'services-central': {},  # Bug 1010674
     'ux': {
         'branch_name': 'UX',
         'mobile_branch_name': 'UX',
@@ -116,6 +105,8 @@ PROJECT_BRANCHES = {
             'macosx64': {},
             'linux-debug': {},
             'linux64-debug': {},
+            'linux64-br-haz': {},
+            'linux64-sh-haz': {},
             'macosx64-debug': {},
             'win32-debug': {},
         },
@@ -126,36 +117,13 @@ PROJECT_BRANCHES = {
             'android-x86': {
                 'enable_opt_unittests': True,
             },
+            'android-armv6': {
+                'enable_opt_unittests': True,
+            }
+
         },
     },
-    'birch': {
-        'enable_merging': False,
-        'pgo_strategy': 'periodic',
-        'enable_l10n': True,
-        'enable_l10n_onchange': False,
-        'l10n_platforms': ['linux', 'linux64'],
-        'l10n_tree': 'fxcentral',
-        'l10n_repo_path': 'l10n-central',
-        'enUS_binaryURL': '/nightly/latest-birch',
-        'enable_valgrind': False,
-        'branch_projects': [],
-        'enable_nightly': False,
-        'lock_platforms': True,
-        'platforms': {
-            'linux': {
-                'enable_opt_unittests': False,
-                'enable_debug_unittests': False,
-                'talos_slave_platforms': [],
-            },
-            'linux-debug': {},
-            'linux64': {
-                'enable_opt_unittests': False,
-                'enable_debug_unittests': False,
-                'talos_slave_platforms': [],
-            },
-            'linux64-debug': {},
-        }
-    },
+    #'birch': {},  # Bug 1010674
     'cedar': {
         # XXX LOCAL CHANGE
         'repo_path': 'users/jlund_mozilla.com/mozilla-central',
@@ -202,21 +170,22 @@ PROJECT_BRANCHES = {
     },
     'elm': {
         'branch_projects': [],
-        'enable_talos': False,
+        'enable_talos': True,
         'enable_valgrind': False,
         'lock_platforms': True,
         'platforms': {
             'linux': {},
             'linux64': {},
-            'win32': {},
-            'macosx64': {},
             'linux-debug': {},
             'linux64-debug': {},
-            'macosx64-debug': {},
-            'win32-debug': {},
         },
     },
-    'fig': {},
+    'fig': {
+        'lock_platforms': True,
+        'platforms': {
+            'linux64-mulet': {},
+        }
+    },
     'gum': {},
     'holly': {
         'branch_projects': [],

@@ -62,8 +62,10 @@ GLOBAL_VARS.update({
     'app_name': 'mail',     # Not valid for mobile builds
     'brand_name': 'Daily', # Not valid for mobile builds
     'enable_blocklist_update': False,
-    'blocklist_update_on_closed_tree': False,
-    'blocklist_update_set_approval': True,
+    'enable_hsts_update': False,
+    'enable_hpkp_update': False,
+    'file_update_on_closed_tree': False,
+    'file_update_set_approval': True,
     'enable_nightly': True,
     'enable_perproduct_builds': True,
     'enabled_products': ['thunderbird'],
@@ -100,6 +102,12 @@ SYMBOL_SERVER_PATH = GLOBAL_VARS['symbol_server_path']
 SYMBOL_SERVER_POST_UPLOAD_CMD = GLOBAL_VARS['symbol_server_post_upload_cmd']
 builder_prefix = "TB "
 
+GLOBAL_ENV = {
+    'MOZ_CRASHREPORTER_NO_REPORT': '1',
+    'TINDERBOX_OUTPUT': '1',
+    'MOZ_AUTOMATION': '1',
+}
+
 PLATFORM_VARS = {
         'linux': {
             'product_name': 'thunderbird',
@@ -131,8 +139,6 @@ PLATFORM_VARS = {
                 'SYMBOL_SERVER_PATH': SYMBOL_SERVER_PATH,
                 'POST_SYMBOL_UPLOAD_CMD': SYMBOL_SERVER_POST_UPLOAD_CMD,
                 'SYMBOL_SERVER_SSH_KEY': "/home/mock_mozilla/.ssh/tbirdbld_dsa",
-                'TINDERBOX_OUTPUT': '1',
-                'MOZ_CRASHREPORTER_NO_REPORT': '1',
                 'CCACHE_DIR': '/builds/ccache',
                 'CCACHE_COMPRESS': '1',
                 'CCACHE_UMASK': '002',
@@ -148,6 +154,7 @@ PLATFORM_VARS = {
             'nightly_signing_servers': 'dep-signing',
             'dep_signing_servers': 'dep-signing',
             'tooltool_manifest_src': 'mail/config/tooltool-manifests/linux32/releng.manifest',
+            'tooltool_l10n_manifest_src': 'mail/config/tooltool-manifests/linux32/l10n.manifest',
             'tooltool_script': ['/builds/tooltool.py'],
             'use_mock': True,
             'mock_target': 'mozilla-centos6-x86_64',
@@ -227,8 +234,6 @@ PLATFORM_VARS = {
                 'POST_SYMBOL_UPLOAD_CMD': SYMBOL_SERVER_POST_UPLOAD_CMD,
                 'SYMBOL_SERVER_SSH_KEY': "/home/mock_mozilla/.ssh/tbirdbld_dsa",
                 'MOZ_SYMBOLS_EXTRA_BUILDID': 'linux64',
-                'TINDERBOX_OUTPUT': '1',
-                'MOZ_CRASHREPORTER_NO_REPORT': '1',
                 'CCACHE_DIR': '/builds/ccache',
                 'CCACHE_COMPRESS': '1',
                 'CCACHE_UMASK': '002',
@@ -244,6 +249,7 @@ PLATFORM_VARS = {
             'nightly_signing_servers': 'dep-signing',
             'dep_signing_servers': 'dep-signing',
             'tooltool_manifest_src': 'mail/config/tooltool-manifests/linux64/releng.manifest',
+            'tooltool_l10n_manifest_src': 'mail/config/tooltool-manifests/linux64/l10n.manifest',
             'tooltool_script': ['/builds/tooltool.py'],
             'use_mock': True,
             'mock_target': 'mozilla-centos6-x86_64',
@@ -301,8 +307,6 @@ PLATFORM_VARS = {
                 'POST_SYMBOL_UPLOAD_CMD': SYMBOL_SERVER_POST_UPLOAD_CMD,
                 'SYMBOL_SERVER_SSH_KEY': "/Users/cltbld/.ssh/tbirdbld_dsa",
                 'MOZ_SYMBOLS_EXTRA_BUILDID': 'macosx64',
-                'TINDERBOX_OUTPUT': '1',
-                'MOZ_CRASHREPORTER_NO_REPORT': '1',
                 'CHOWN_ROOT': '~/bin/chown_root',
                 'CHOWN_REVERT': '~/bin/chown_revert',
                 'LC_ALL': 'C',
@@ -318,6 +322,7 @@ PLATFORM_VARS = {
             'nightly_signing_servers': 'mac-dep-signing',
             'dep_signing_servers': 'mac-dep-signing',
             'tooltool_manifest_src': 'mail/config/tooltool-manifests/macosx64/releng.manifest',
+            'tooltool_l10n_manifest_src': 'mail/config/tooltool-manifests/macosx64/l10n.manifest',
             'enable_ccache': True,
         },
         'win32': {
@@ -351,8 +356,6 @@ PLATFORM_VARS = {
                 'SYMBOL_SERVER_PATH': SYMBOL_SERVER_PATH,
                 'POST_SYMBOL_UPLOAD_CMD': SYMBOL_SERVER_POST_UPLOAD_CMD,
                 'SYMBOL_SERVER_SSH_KEY': "/c/Users/cltbld/.ssh/tbirdbld_dsa",
-                'TINDERBOX_OUTPUT': '1',
-                'MOZ_CRASHREPORTER_NO_REPORT': '1',
                 'PDBSTR_PATH': '/c/Program Files (x86)/Windows Kits/8.0/Debuggers/x64/srcsrv/pdbstr.exe',
                 'HG_SHARE_BASE_DIR': 'c:/builds/hg-shared',
                 'PATH': "${MOZILLABUILD}nsis-2.46u;${MOZILLABUILD}python27;${MOZILLABUILD}buildbotve\\scripts;${PATH}",
@@ -365,6 +368,7 @@ PLATFORM_VARS = {
             'nightly_signing_servers': 'dep-signing',
             'dep_signing_servers': 'dep-signing',
             'tooltool_manifest_src': 'mail/config/tooltool-manifests/win32/releng.manifest',
+            'tooltool_l10n_manifest_src': 'mail/config/tooltool-manifests/win32/l10n.manifest',
             'tooltool_script': ['python', '/c/mozilla-build/tooltool.py'],
         },
         'win64': {
@@ -399,8 +403,6 @@ PLATFORM_VARS = {
                 'POST_SYMBOL_UPLOAD_CMD': SYMBOL_SERVER_POST_UPLOAD_CMD,
                 'SYMBOL_SERVER_SSH_KEY': "/c/Users/cltbld/.ssh/tbirdbld_dsa",
                 'MOZ_SYMBOLS_EXTRA_BUILDID': 'win64',
-                'TINDERBOX_OUTPUT': '1',
-                'MOZ_CRASHREPORTER_NO_REPORT': '1',
                 'PDBSTR_PATH': '/c/Program Files (x86)/Windows Kits/8.0/Debuggers/x64/srcsrv/pdbstr.exe',
                 'HG_SHARE_BASE_DIR': 'c:/builds/hg-shared',
                 'PATH': "${MOZILLABUILD}nsis-2.46u;${MOZILLABUILD}python27;${MOZILLABUILD}buildbotve\\scripts;${PATH}",
@@ -411,6 +413,7 @@ PLATFORM_VARS = {
             'test_pretty_names': True,
             'l10n_check_test': False,
             'tooltool_manifest_src': 'mail/config/tooltool-manifests/win64/releng.manifest',
+            'tooltool_l10n_manifest_src': 'mail/config/tooltool-manifests/win64/l10n.manifest',
             'tooltool_script': ['python', '/c/mozilla-build/tooltool.py'],
         },
         'linux-debug': {
@@ -437,7 +440,6 @@ PLATFORM_VARS = {
                 'DISPLAY': ':2',
                 'LD_LIBRARY_PATH': '%s/mozilla/dist/bin' % OBJDIR,
                 'XPCOM_DEBUG_BREAK': 'stack-and-abort',
-                'MOZ_CRASHREPORTER_NO_REPORT': '1',
                 'CCACHE_DIR': '/builds/ccache',
                 'CCACHE_COMPRESS': '1',
                 'CCACHE_UMASK': '002',
@@ -518,7 +520,6 @@ PLATFORM_VARS = {
                 'DISPLAY': ':2',
                 'LD_LIBRARY_PATH': '%s/mozilla/dist/bin' % OBJDIR,
                 'XPCOM_DEBUG_BREAK': 'stack-and-abort',
-                'MOZ_CRASHREPORTER_NO_REPORT': '1',
                 'CCACHE_DIR': '/builds/ccache',
                 'CCACHE_COMPRESS': '1',
                 'CCACHE_UMASK': '002',
@@ -575,7 +576,6 @@ PLATFORM_VARS = {
                 'MOZ_OBJDIR': OBJDIR,
                 'HG_SHARE_BASE_DIR': '/builds/hg-shared',
                 'XPCOM_DEBUG_BREAK': 'stack-and-abort',
-                'MOZ_CRASHREPORTER_NO_REPORT': '1',
                 'LC_ALL': 'C',
                 'PATH': '/tools/python/bin:/tools/buildbot/bin:/opt/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin',
                 'CCACHE_DIR': '/builds/ccache',
@@ -611,7 +611,6 @@ PLATFORM_VARS = {
             'env': {
                 'MOZ_OBJDIR': OBJDIR,
                 'XPCOM_DEBUG_BREAK': 'stack-and-abort',
-                'MOZ_CRASHREPORTER_NO_REPORT': '1',
                 'HG_SHARE_BASE_DIR': 'c:/builds/hg-shared',
                 'PATH': "${MOZILLABUILD}nsis-2.46u;${MOZILLABUILD}python27;${MOZILLABUILD}buildbotve\\scripts;${PATH}",
             },
@@ -625,6 +624,11 @@ PLATFORM_VARS = {
         },
 }
 
+for platform in PLATFORM_VARS.values():
+    if 'env' not in platform:
+        platform['env'] = deepcopy(GLOBAL_ENV)
+    else:
+        platform['env'].update((k, v) for k, v in GLOBAL_ENV.items() if k not in platform['env'])
 
 # All branches (not in project_branches) that are to be built MUST be listed here, along with their
 # platforms (if different from the default set).
@@ -768,7 +772,7 @@ BRANCHES['comm-central']['create_partial_l10n'] = True
 BRANCHES['comm-central']['aus2_base_upload_dir'] = '/opt/aus2/incoming/2/Thunderbird/comm-central'
 BRANCHES['comm-central']['aus2_base_upload_dir_l10n'] = '/opt/aus2/incoming/2/Thunderbird/comm-central'
 BRANCHES['comm-central']['enable_blocklist_update'] = True
-BRANCHES['comm-central']['blocklist_update_on_closed_tree'] = False
+BRANCHES['comm-central']['file_update_on_closed_tree'] = False
 BRANCHES['comm-central']['platforms']['linux']['nightly_signing_servers'] = 'nightly-signing'
 BRANCHES['comm-central']['platforms']['linux64']['nightly_signing_servers'] = 'nightly-signing'
 BRANCHES['comm-central']['platforms']['win32']['nightly_signing_servers'] = 'nightly-signing'
@@ -808,7 +812,7 @@ BRANCHES['comm-esr24']['create_partial'] = True
 BRANCHES['comm-esr24']['aus2_base_upload_dir'] = '/opt/aus2/incoming/2/Thunderbird/comm-esr24'
 BRANCHES['comm-esr24']['aus2_base_upload_dir_l10n'] = '/opt/aus2/incoming/2/Thunderbird/comm-esr24'
 BRANCHES['comm-esr24']['enable_blocklist_update'] = False
-BRANCHES['comm-esr24']['blocklist_update_on_closed_tree'] = False
+BRANCHES['comm-esr24']['file_update_on_closed_tree'] = False
 BRANCHES['comm-esr24']['enable_valgrind'] = False
 
 ######## comm-beta
@@ -849,7 +853,7 @@ BRANCHES['comm-beta']['enable_nightly'] = False
 # uploaded to. Any platforms with 'debug' in them will not have snippets
 # generated.
 BRANCHES['comm-beta']['enable_blocklist_update'] = True
-BRANCHES['comm-beta']['blocklist_update_on_closed_tree'] = False
+BRANCHES['comm-beta']['file_update_on_closed_tree'] = False
 BRANCHES['comm-beta']['enable_valgrind'] = False
 
 ######## comm-aurora
@@ -895,7 +899,7 @@ BRANCHES['comm-aurora']['create_partial_l10n'] = True
 BRANCHES['comm-aurora']['aus2_base_upload_dir'] = '/opt/aus2/incoming/2/Thunderbird/comm-aurora'
 BRANCHES['comm-aurora']['aus2_base_upload_dir_l10n'] = '/opt/aus2/incoming/2/Thunderbird/comm-aurora'
 BRANCHES['comm-aurora']['enable_blocklist_update'] = True
-BRANCHES['comm-aurora']['blocklist_update_on_closed_tree'] = False
+BRANCHES['comm-aurora']['file_update_on_closed_tree'] = False
 BRANCHES['comm-aurora']['enable_valgrind'] = False
 BRANCHES['comm-aurora']['platforms']['linux']['nightly_signing_servers'] = 'nightly-signing'
 BRANCHES['comm-aurora']['platforms']['linux64']['nightly_signing_servers'] = 'nightly-signing'

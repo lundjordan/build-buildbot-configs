@@ -31,9 +31,7 @@ else:
         'mozilla-aurora',
         'mozilla-release',
         'mozilla-esr24',
-        'mozilla-b2g18',
-        'mozilla-b2g18_v1_1_0_hd',
-        'mozilla-b2g26_v1_2',
+        'mozilla-esr31',
         'mozilla-b2g28_v1_3',
         'mozilla-b2g28_v1_3t',
         'mozilla-b2g30_v1_4',
@@ -55,10 +53,7 @@ else:
     ACTIVE_B2G_BRANCHES = ACTIVE_B2G_PROJECT_BRANCHES[:]
     ACTIVE_B2G_BRANCHES.extend([
         'mozilla-central',
-        #'mozilla-aurora',
-        'mozilla-b2g18',
-        'mozilla-b2g18_v1_1_0_hd',
-        'mozilla-b2g26_v1_2',
+        'mozilla-aurora',
         'mozilla-b2g28_v1_3',
         'mozilla-b2g28_v1_3t',
         'mozilla-b2g30_v1_4',

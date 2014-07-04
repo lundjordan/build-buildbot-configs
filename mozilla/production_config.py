@@ -3,15 +3,13 @@ LINUX_IXS      = []
 LINUX64_IXS    = []
 WIN32_IXS      = []
 WIN64_IXS      = []
-WIN64_REV2     = ['w64-ix-slave%02i' % x for x in range(6,30) + range(42,44) + range(75,100) if x not in [22,80,85,86]] + \
-                 ['w64-ix-slave%03i' % x for x in range(100,110) + range(111,158)] + \
-                 ['b-2008-ix-%04i' % x for x in range(1,18)]
-MOCK_DL120G7   = ['bld-centos6-hp-%03d' % x for x in range(6,10) + range(12,14) + range(15,20)]
+WIN64_REV2     = ['b-2008-ix-%04i' % x for x in range(1,18) + range(65,89) + range(90,159) + range(161,173) + [184]] + \
+                 ['b-2008-sm-%04d' % x for x in range(33, 65)]
+MOCK_DL120G7   = ['b-linux64-hp-%04d' % x for x in range(25,36)]
 LINUX64_EC2    = ['bld-linux64-ec2-%03d' % x for x in range(1, 50) + range(301, 350)] + \
-                 ['bld-linux64-spot-%03d' % x for x in range(1, 200) + range(300,500)] + \
+                 ['bld-linux64-spot-%03d' % x for x in range(1, 300) + range(300, 600)] + \
                  ['bld-linux64-spot-%d' % x for x in range(1000, 1100)]
-MOCK_IX        = ['bld-linux64-ix-%03d' % x for x in range(28, 38)] + \
-                 ['b-linux64-ix-%04d' % x for x in range(1, 12)]
+MOCK_IX        = ['b-linux64-ix-%04d' % x for x in range(1, 12)]
 
 if set(WIN64_REV2).intersection(set(WIN64_IXS)):
     raise Exception('WIN64_REV2 and WIN64_IXS overlap')
@@ -37,15 +35,10 @@ TRY_WIN64_IXS  = []
 TRY_LINUX64_EC2 = ['try-linux64-ec2-%03d' % x for x in range(1, 60) + range(301,340)] + \
     ['try-linux64-spot-%03d' % x for x in range(1, 200) + range(300,500)] + \
     ['try-linux64-spot-%d' % x for x in range(1000, 1100)]
-TRY_WIN64_REV2 = ['w64-ix-slave%02i' % x for x in [3] + range(32,75) if x not in [42,43]] + \
-                 ['w64-ix-slave%03i' % x for x in [110] + range(159,171)] + \
-                 ['b-2008-ix-%04i' % x for x in range(18, 65) + range(173,15)] + \
-                 ['b-2008-sm-%04d' % x for x in range(1, 65)]
-TRY_MOCK_DL120G7 = ['bld-centos6-hp-%03d' % x for x in range(24,33) + [35] + range(40,43)] + \
-                   ['b-linux64-hp-%03d' % x for x in range(1, 7)] + \
-                   ['b-linux64-hp-%04d' % x for x in range(1, 20)] + \
-                   ['b-linux64-ix-%04d' % x for x in range(12, 14)]
-TRY_MOCK_IX      = ['bld-linux64-ix-%03d' % x for x in range(49,51)]
+TRY_WIN64_REV2 = ['b-2008-ix-%04i' % x for x in range(18, 65) + range(173,182)] + \
+                 ['b-2008-sm-%04d' % x for x in range(1, 33)]
+TRY_MOCK_DL120G7 = ['b-linux64-hp-%04d' % x for x in range(1, 20)]
+TRY_MOCK_IX      = ['b-linux64-ix-%04d' % x for x in range(12,14)]
 TRY_LION         = ['bld-lion-r5-%03d' % x for x in range(16,40) + [87]]
 if set(TRY_WIN64_REV2).intersection(set(TRY_WIN64_IXS)):
     raise Exception('TRY_WIN64_REV2 and TRY_WIN64_IXS overlap')
@@ -121,20 +114,10 @@ BRANCHES = {
         'tinderbox_tree': 'Mozilla-Esr24',
         'mobile_tinderbox_tree': 'Mozilla-Esr24',
     },
-    'mozilla-b2g18': {
-        'packaged_unittest_tinderbox_tree': 'Mozilla-B2g18',
-        'tinderbox_tree': 'Mozilla-B2g18',
-        'mobile_tinderbox_tree': 'Mozilla-B2g18',
-    },
-    'mozilla-b2g18_v1_1_0_hd': {
-        'packaged_unittest_tinderbox_tree': 'Mozilla-B2g18-v1.1.0hd',
-        'tinderbox_tree': 'Mozilla-B2g18-v1.1.0hd',
-        'mobile_tinderbox_tree': 'Mozilla-B2g18-v1.1.0hd',
-    },
-    'mozilla-b2g26_v1_2': {
-        'packaged_unittest_tinderbox_tree': 'Mozilla-B2g26-v1.2',
-        'tinderbox_tree': 'Mozilla-B2g26-v1.2',
-        'mobile_tinderbox_tree': 'Mozilla-B2g26-v1.2',
+    'mozilla-esr31': {
+        'packaged_unittest_tinderbox_tree': 'Mozilla-Esr31',
+        'tinderbox_tree': 'Mozilla-Esr31',
+        'mobile_tinderbox_tree': 'Mozilla-Esr31',
     },
     'mozilla-b2g28_v1_3': {
         'packaged_unittest_tinderbox_tree': 'Mozilla-B2g28-v1.3',

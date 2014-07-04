@@ -23,9 +23,6 @@ for i in range(1,131):
 for i in range(1,131):
     SLAVES['win8']['t-w864-ix-%03i' % i] = {}
 
-for i in range(2,30) + range(31,41) + range(42,81) + range(82,84) + range(85,171):
-    SLAVES['snowleopard']['talos-r4-snow-%03i' % i] = {}
-
 for i in range(1,167):
     SLAVES['snowleopard']['t-snow-r4-%04i' % i] = {}
 
@@ -73,7 +70,7 @@ for i in range(1,100) + range(301,400):
 for i in range(1,1000):
     SLAVES['ubuntu64_vm']['tst-linux64-spot-%03i' % i] = {}
 
-for i in range(1000, 1100):
+for i in range(1000, 1300):
     SLAVES['ubuntu64_vm']['tst-linux64-spot-%i' % i] = {}
 
 for i in range(1,56):
@@ -86,7 +83,6 @@ for i in range(1,3):
     SLAVES['win64_vm']['tst-w64-ec2-%03i' % i] = {}
 
 SLAVES['tegra_android-armv6'] = SLAVES['tegra_android']
-SLAVES['tegra_android-noion'] = SLAVES['tegra_android']
 SLAVES['ubuntu64-asan_vm'] = SLAVES['ubuntu64_vm']
 # Use "-b2g" suffix to make misc.py generate unique builder names
 SLAVES['ubuntu32_vm-b2gdt'] = SLAVES['ubuntu32_vm']
@@ -94,12 +90,15 @@ SLAVES['ubuntu64_vm-b2g'] = SLAVES['ubuntu64_vm']
 SLAVES['ubuntu64_vm-b2gdt'] = SLAVES['ubuntu64_vm']
 SLAVES['ubuntu64_vm-b2g-emulator'] = SLAVES['ubuntu64_vm']
 SLAVES['ubuntu64_vm-b2g-emulator-jb'] = SLAVES['ubuntu64_vm']
+SLAVES['ubuntu64_vm-b2g-emulator-kk'] = SLAVES['ubuntu64_vm']
 SLAVES['ubuntu64_hw-b2g'] = SLAVES['ubuntu64_hw']
 SLAVES['ubuntu64_hw-b2g-emulator'] = SLAVES['ubuntu64_hw']
 SLAVES['mountainlion-b2gdt'] = SLAVES['mountainlion']
-SLAVES['vm_android_2_3'] = SLAVES['ubuntu64_vm']
 SLAVES['win8_64'] = SLAVES['win8']
 SLAVES['ubuntu64_hw_mobile'] = SLAVES['ubuntu64_hw']
+SLAVES['ubuntu64_vm_mobile'] = SLAVES['ubuntu64_vm']
+SLAVES['ubuntu64_hw_armv6_mobile'] = SLAVES['ubuntu64_hw']
+SLAVES['ubuntu64_vm_armv6_mobile'] = SLAVES['ubuntu64_vm']
 
 TRY_SLAVES = {}
 
@@ -133,17 +132,9 @@ BRANCHES = {
         'tinderbox_tree': 'Mozilla-Esr24',
         'mobile_tinderbox_tree': 'Mozilla-Esr24',
     },
-    'mozilla-b2g18': {
-        'tinderbox_tree': 'Mozilla-B2g18',
-        'mobile_tinderbox_tree': 'Mozilla-B2g18',
-    },
-    'mozilla-b2g18_v1_1_0_hd': {
-        'tinderbox_tree': 'Mozilla-B2g18-v1.1.0hd',
-        'mobile_tinderbox_tree': 'Mozilla-B2g18-v1.1.0hd',
-    },
-    'mozilla-b2g26_v1_2': {
-        'tinderbox_tree': 'Mozilla-B2g26-v1.2',
-        'mobile_tinderbox_tree': 'Mozilla-B2g26-v1.2',
+    'mozilla-esr31': {
+        'tinderbox_tree': 'Mozilla-Esr31',
+        'mobile_tinderbox_tree': 'Mozilla-Esr31',
     },
     'mozilla-b2g28_v1_3': {
         'tinderbox_tree': 'Mozilla-B2g28-v1.3',
