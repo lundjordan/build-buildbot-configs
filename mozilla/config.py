@@ -121,7 +121,7 @@ GLOBAL_VARS = {
     'mozharness_desktop_build_platforms': [
         'linux', 'linux64', 'linux64-asan', 'linux64-asan-debug',
         'linux64-st-an-debug', 'linux-debug', 'linux64-debug',
-        'win32'
+        'win32', 'win32-debug', 'macosx64', 'macosx64-debug'
     ],
     # rather than repeat these options in each of these options in
     # every platform, let's define the arguments here and when we want to
@@ -718,6 +718,14 @@ PLATFORM_VARS = {
             ],
         },
         'macosx64': {
+            'mozharness_config': {
+                'script_name': 'scripts/fx_desktop_build.py',
+                'extra_args': [
+                    '--config', 'builds/releng_base_mac_64_builds.py',
+                ],
+                'reboot_command': ['scripts/external_tools/count_and_reboot.py',
+                                   '-f', '../reboot_count.txt', '-n', '1', '-z'],
+            },
             'product_name': 'firefox',
             'unittest_platform': 'macosx64-opt',
             'app_name': 'browser',
@@ -1066,6 +1074,15 @@ PLATFORM_VARS = {
             ],
         },
         'macosx64-debug': {
+            'mozharness_config': {
+                'script_name': 'scripts/fx_desktop_build.py',
+                'extra_args': [
+                    '--config', 'builds/releng_base_mac_64_builds.py',
+                    '--custom-build-variant-cfg', 'debug',
+                ],
+                'reboot_command': ['scripts/external_tools/count_and_reboot.py',
+                                   '-f', '../reboot_count.txt', '-n', '1', '-z'],
+            },
             'enable_nightly': False,
             'enable_xulrunner': False,
             'product_name': 'firefox',
@@ -1111,6 +1128,19 @@ PLATFORM_VARS = {
             'enable_ccache': True,
         },
         'win32-debug': {
+            'mozharness_config': {
+                'mozharness_python': ['c:/mozilla-build/python27/python', '-u'],
+                'script_name': 'scripts/fx_desktop_build.py',
+                'extra_args': [
+                    '--config', 'builds/releng_base_windows_32_builds.py',
+                    '--custom-build-variant-cfg', 'debug',
+                ],
+                'reboot_command': [
+                    'c:/mozilla-build/python27/python', '-u',
+                    'scripts/external_tools/count_and_reboot.py',
+                    '-f', '../reboot_count.txt','-n', '1', '-z'
+                ],
+            },
             'enable_nightly': False,
             'enable_xulrunner': False,
             'product_name': 'firefox',
