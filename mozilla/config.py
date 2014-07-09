@@ -118,10 +118,11 @@ GLOBAL_VARS = {
     # But we need to differentiate when that platform is a FF
     # desktop build opposed to the existing other mozharness builds (ie: b2g,
     # spider, etc). This list serves that purpose:
+    # XXXX JLUND
     'mozharness_desktop_build_platforms': [
         'linux', 'linux64', 'linux64-asan', 'linux64-asan-debug',
         'linux64-st-an-debug', 'linux-debug', 'linux64-debug',
-        'win32', 'win32-debug', 'macosx64', 'macosx64-debug'
+        'win32', 'win32-debug', 'macosx64', 'macosx64-debug',
     ],
     # rather than repeat these options in each of these options in
     # every platform, let's define the arguments here and when we want to
@@ -734,6 +735,13 @@ PLATFORM_VARS = {
                 'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                    '-f', '../reboot_count.txt', '-n', '1', '-z'],
             },
+            # because non-unified platforms are defined at misc level,
+            # we can not add a new platform in config.py for this but instead
+            #  add another config on all non-unified able platforms
+            'mozharness_non_unified_extra_args': [
+                '--config', 'builds/releng_base_mac_64_builds.py',
+                '--custom-build-variant-cfg', 'non-unified',
+            ],
             'product_name': 'firefox',
             'unittest_platform': 'macosx64-opt',
             'app_name': 'browser',
@@ -802,6 +810,13 @@ PLATFORM_VARS = {
                     '-f', '../reboot_count.txt','-n', '1', '-z'
                 ],
             },
+            # because non-unified platforms are defined at misc level,
+            # we can not add a new platform in config.py for this but instead
+            #  add another config on all non-unified able platforms
+            'mozharness_non_unified_extra_args': [
+                '--config', 'builds/releng_base_win_32_builds.py',
+                '--custom-build-variant-cfg', 'non-unified',
+            ],
             'product_name': 'firefox',
             'unittest_platform': 'win32-opt',
             'app_name': 'browser',
@@ -1094,6 +1109,13 @@ PLATFORM_VARS = {
                 'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                    '-f', '../reboot_count.txt', '-n', '1', '-z'],
             },
+            # because non-unified platforms are defined at misc level,
+            # we can not add a new platform in config.py for this but instead
+            #  add another config on all non-unified able platforms
+            'mozharness_non_unified_extra_args': [
+                '--config', 'builds/releng_base_mac_64_builds.py',
+                '--custom-build-variant-cfg', 'debug-and-non-unified',
+            ],
             'enable_nightly': False,
             'enable_xulrunner': False,
             'product_name': 'firefox',
@@ -1152,6 +1174,13 @@ PLATFORM_VARS = {
                     '-f', '../reboot_count.txt','-n', '1', '-z'
                 ],
             },
+            # because non-unified platforms are defined at misc level,
+            # we can not add a new platform in config.py for this but instead
+            #  add another config on all non-unified able platforms
+            'mozharness_non_unified_extra_args': [
+                '--config', 'builds/releng_base_win_32_builds.py',
+                '--custom-build-variant-cfg', 'debug-and-non-unified',
+            ],
             'enable_nightly': False,
             'enable_xulrunner': False,
             'product_name': 'firefox',
