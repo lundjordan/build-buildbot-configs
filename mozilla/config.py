@@ -814,7 +814,7 @@ PLATFORM_VARS = {
             # we can not add a new platform in config.py for this but instead
             #  add another config on all non-unified able platforms
             'mozharness_non_unified_extra_args': [
-                '--config', 'builds/releng_base_win_32_builds.py',
+                '--config', 'builds/releng_base_windows_32_builds.py',
                 '--custom-build-variant-cfg', 'non-unified',
             ],
             'product_name': 'firefox',
@@ -1178,7 +1178,7 @@ PLATFORM_VARS = {
             # we can not add a new platform in config.py for this but instead
             #  add another config on all non-unified able platforms
             'mozharness_non_unified_extra_args': [
-                '--config', 'builds/releng_base_win_32_builds.py',
+                '--config', 'builds/releng_base_windows_32_builds.py',
                 '--custom-build-variant-cfg', 'debug-and-non-unified',
             ],
             'enable_nightly': False,
