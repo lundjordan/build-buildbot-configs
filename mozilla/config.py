@@ -118,7 +118,6 @@ GLOBAL_VARS = {
     # But we need to differentiate when that platform is a FF
     # desktop build opposed to the existing other mozharness builds (ie: b2g,
     # spider, etc). This list serves that purpose:
-    # XXXX JLUND
     'mozharness_desktop_build_platforms': [
         'linux', 'linux64', 'linux64-asan', 'linux64-asan-debug',
         'linux64-st-an-debug', 'linux-debug', 'linux64-debug',
@@ -129,7 +128,7 @@ GLOBAL_VARS = {
     # turn an existing platform into say a 'nightly' version, add the options
     #  from here and append it to 'extra_options'
     'mozharness_desktop_extra_options': {
-        'nightly': ['--enable-pgo', '--enable-nightly'],
+        'nightly': ['--enable-nightly'],
         'pgo': ['--enable-pgo'],
     }
 }
