@@ -549,7 +549,7 @@ PLATFORM_VARS = {
                 'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                    '-f', '../reboot_count.txt','-n', '1', '-z'],
                 'script_timeout': 3 * 3600,
-                'script_maxtime': int(5.5 * 3600(,
+                'script_maxtime': int(5.5 * 3600),
             },
 
             'enable_nightly': False,
