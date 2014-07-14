@@ -121,7 +121,7 @@ GLOBAL_VARS = {
     'mozharness_desktop_build_platforms': [
         'linux', 'linux64', 'linux64-asan', 'linux64-asan-debug',
         'linux64-st-an-debug', 'linux-debug', 'linux64-debug',
-        'linux64-mulet' 'win32', 'win32-debug', 'macosx64',
+        'linux64-mulet', 'win32', 'win32-debug', 'macosx64',
         'macosx64-debug',
     ],
     # rather than repeat these options in each of these options in
