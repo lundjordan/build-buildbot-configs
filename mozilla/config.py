@@ -113,7 +113,7 @@ GLOBAL_VARS = {
             'toolkit',
             ],
     'use_old_updater': False,
-    # currently we have the logic that if we a platform uses mozharness as
+    # currently we have the logic that if a platform uses mozharness as
     # the build step logic, it will have 'mozharness_config' in its dict.
     # But we need to differentiate when that platform is a FF
     # desktop build opposed to the existing other mozharness builds (ie: b2g,
@@ -121,7 +121,8 @@ GLOBAL_VARS = {
     'mozharness_desktop_build_platforms': [
         'linux', 'linux64', 'linux64-asan', 'linux64-asan-debug',
         'linux64-st-an-debug', 'linux-debug', 'linux64-debug',
-        'win32', 'win32-debug', 'macosx64', 'macosx64-debug',
+        'linux64-mulet' 'win32', 'win32-debug', 'macosx64',
+        'macosx64-debug',
     ],
     # rather than repeat these options in each of these options in
     # every platform, let's define the arguments here and when we want to
