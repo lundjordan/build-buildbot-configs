@@ -158,7 +158,7 @@ PLATFORM_VARS = {
                 'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                    '-f', '../reboot_count.txt', '-n', '1', '-z'],
                 'script_timeout': 3 * 3600,
-                'script_maxtime': 5.5 * 3600,
+                'script_maxtime': int(5.5 * 3600),
             },
             'dep_signing_servers': 'dep-signing',
             'base_name': 'Linux %(branch)s',
@@ -267,7 +267,7 @@ PLATFORM_VARS = {
                 'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                    '-f', '../reboot_count.txt', '-n', '1', '-z'],
                 'script_timeout': 3 * 3600,
-                'script_maxtime': 5.5 * 3600,
+                'script_maxtime': int(5.5 * 3600),
             },
             # because non-unified platforms are defined at misc level,
             # we can not add a new platform in config.py for this but instead
@@ -366,7 +366,7 @@ PLATFORM_VARS = {
                 'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                    '-f', '../reboot_count.txt','-n', '1', '-z'],
                 'script_timeout': 3 * 3600,
-                'script_maxtime': 5.5 * 3600,
+                'script_maxtime': int(5.5 * 3600),
             },
 
             'product_name': 'firefox',
@@ -457,7 +457,7 @@ PLATFORM_VARS = {
                 'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                    '-f', '../reboot_count.txt','-n', '1', '-z'],
                 'script_timeout': 3 * 3600,
-                'script_maxtime': 5.5 * 3600,
+                'script_maxtime': int(5.5 * 3600),
             },
 
             'enable_nightly': True,
@@ -549,7 +549,7 @@ PLATFORM_VARS = {
                 'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                    '-f', '../reboot_count.txt','-n', '1', '-z'],
                 'script_timeout': 3 * 3600,
-                'script_maxtime': 5.5 * 3600,
+                'script_maxtime': int(5.5 * 3600(,
             },
 
             'enable_nightly': False,
@@ -674,7 +674,7 @@ PLATFORM_VARS = {
                 'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                    '-f', '../reboot_count.txt','-n', '1', '-z'],
                 'script_timeout': 3 * 3600,
-                'script_maxtime': 5.5 * 3600,
+                'script_maxtime': int(5.5 * 3600),
             },
 
             'consider_for_nightly': False,
@@ -747,7 +747,7 @@ PLATFORM_VARS = {
                 'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                    '-f', '../reboot_count.txt', '-n', '1', '-z'],
                 'script_timeout': 3 * 3600,
-                'script_maxtime': 5.5 * 3600,
+                'script_maxtime': int(5.5 * 3600),
             },
             # because non-unified platforms are defined at misc level,
             # we can not add a new platform in config.py for this but instead
@@ -879,7 +879,7 @@ PLATFORM_VARS = {
                     '-f', '../reboot_count.txt','-n', '1', '-z'
                 ],
                 'script_timeout': 3 * 3600,
-                'script_maxtime': 5.5 * 3600,
+                'script_maxtime': int(5.5 * 3600),
             },
             # because non-unified platforms are defined at misc level,
             # we can not add a new platform in config.py for this but instead
@@ -1001,7 +1001,7 @@ PLATFORM_VARS = {
                 'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                    '-f', '../reboot_count.txt','-n', '1', '-z'],
                 'script_timeout': 3 * 3600,
-                'script_maxtime': 5.5 * 3600,
+                'script_maxtime': int(5.5 * 3600),
             },
 
             'enable_nightly': False,
@@ -1099,7 +1099,7 @@ PLATFORM_VARS = {
                 'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                    '-f', '../reboot_count.txt','-n', '1', '-z'],
                 'script_timeout': 3 * 3600,
-                'script_maxtime': 5.5 * 3600,
+                'script_maxtime': int(5.5 * 3600),
             },
             # because non-unified platforms are defined at misc level,
             # we can not add a new platform in config.py for this but instead
@@ -1184,7 +1184,7 @@ PLATFORM_VARS = {
                 'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                    '-f', '../reboot_count.txt', '-n', '1', '-z'],
                 'script_timeout': 3 * 3600,
-                'script_maxtime': 5.5 * 3600,
+                'script_maxtime': int(5.5 * 3600),
             },
             # because non-unified platforms are defined at misc level,
             # we can not add a new platform in config.py for this but instead
@@ -1251,7 +1251,7 @@ PLATFORM_VARS = {
                     '-f', '../reboot_count.txt','-n', '1', '-z'
                 ],
                 'script_timeout': 3 * 3600,
-                'script_maxtime': 5.5 * 3600,
+                'script_maxtime': int(5.5 * 3600),
             },
             # because non-unified platforms are defined at misc level,
             # we can not add a new platform in config.py for this but instead
