@@ -9,6 +9,8 @@ SLAVES = {
     'panda_android': {},
     'ubuntu32_vm': {},
     'ubuntu64_vm': {},
+    'ubuntu64_vm_large': {},
+    'ubuntu64_vm_armv6_large': {},
     'ubuntu32_hw': {},
     'ubuntu64_hw': {},
     'win64_vm': {},
@@ -67,6 +69,9 @@ for i in range(1000, 1100):
 for i in range(1,100) + range(301,400):
     SLAVES['ubuntu64_vm']['tst-linux64-ec2-%03i' % i] = {}
 
+for i in range(1,200) + range(301,500):
+    SLAVES['ubuntu64_vm_large']['tst-emulator64-spot-%03i' % i] = {}
+
 for i in range(1,1000):
     SLAVES['ubuntu64_vm']['tst-linux64-spot-%03i' % i] = {}
 
@@ -95,10 +100,9 @@ SLAVES['ubuntu64_hw-b2g'] = SLAVES['ubuntu64_hw']
 SLAVES['ubuntu64_hw-b2g-emulator'] = SLAVES['ubuntu64_hw']
 SLAVES['mountainlion-b2gdt'] = SLAVES['mountainlion']
 SLAVES['win8_64'] = SLAVES['win8']
-SLAVES['ubuntu64_hw_mobile'] = SLAVES['ubuntu64_hw']
 SLAVES['ubuntu64_vm_mobile'] = SLAVES['ubuntu64_vm']
-SLAVES['ubuntu64_hw_armv6_mobile'] = SLAVES['ubuntu64_hw']
 SLAVES['ubuntu64_vm_armv6_mobile'] = SLAVES['ubuntu64_vm']
+SLAVES['ubuntu64_vm_armv6_large'] = SLAVES['ubuntu64_vm_large']
 
 TRY_SLAVES = {}
 
@@ -147,6 +151,10 @@ BRANCHES = {
     'mozilla-b2g30_v1_4': {
         'tinderbox_tree': 'Mozilla-B2g30-v1.4',
         'mobile_tinderbox_tree': 'Mozilla-B2g30-v1.4',
+    },
+    'mozilla-b2g32_v2_0': {
+        'tinderbox_tree': 'Mozilla-B2g32-v2.0',
+        'mobile_tinderbox_tree': 'Mozilla-B2g32-v2.0',
     },
     'mozilla-beta': {
         'tinderbox_tree': 'Mozilla-Beta',

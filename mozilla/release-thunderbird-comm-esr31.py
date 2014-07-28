@@ -21,22 +21,30 @@ releaseConfig['productName']         = 'thunderbird'
 releaseConfig['appName']             = 'mail'
 releaseConfig['mozilla_dir']         = 'mozilla'
 #  Current version info
-releaseConfig['version']             = '{{ version }}'
-releaseConfig['appVersion']          = '{{ appVersion }}'
+releaseConfig['version']             = '31.0'
+releaseConfig['appVersion']          = '31.0'
 releaseConfig['milestone']           = releaseConfig['appVersion']
-releaseConfig['buildNumber']         = {{ buildNumber }}
-releaseConfig['baseTag']             = '{{ baseTag }}'
-releaseConfig['partialUpdates']      = {}  # No more supported
+releaseConfig['buildNumber']         = 1
+releaseConfig['baseTag']             = 'THUNDERBIRD_31_0'
+releaseConfig['partialUpdates']      = {
+
+    '24.6.0': {
+        'appVersion': '24.6.0',
+        'buildNumber': 3,
+        'baseTag': 'THUNDERBIRD_24_6_0',
+    },
+
+}
 #  Next (nightly) version info
 releaseConfig['nextAppVersion']      = releaseConfig['appVersion']
 releaseConfig['nextMilestone']       = releaseConfig['milestone']
 #  Repository configuration, for tagging
 releaseConfig['sourceRepositories']  = {
     'comm': {
-        'name': 'comm-esr24',
-        'path': 'releases/comm-esr24',
-        'revision': '{{ commRevision }}',
-        'relbranch': {% if commRelbranch %}'{{ commRelbranch }}'{% else %}None{% endif %},
+        'name': 'comm-esr31',
+        'path': 'releases/comm-esr31',
+        'revision': '90e8c17ab16e',
+        'relbranch': None,
         'bumpFiles': {
             'mail/config/version.txt': {
                 'version': releaseConfig['appVersion'],
@@ -45,17 +53,12 @@ releaseConfig['sourceRepositories']  = {
         }
     },
     'mozilla': {
-        # XXX remove js/src/config/milestone.txt when setting up ESR31
-        'name': 'mozilla-esr24',
-        'path': 'releases/mozilla-esr24',
-        'revision': '{{ mozillaRevision }}',
-        'relbranch': {% if mozillaRelbranch %}'{{ mozillaRelbranch }}'{% else %}None{% endif %},
+        'name': 'mozilla-esr31',
+        'path': 'releases/mozilla-esr31',
+        'revision': 'GECKO310_20140717_RELBRANCH',
+        'relbranch': 'GECKO310_20140717_RELBRANCH',
         'bumpFiles': {
             'config/milestone.txt': {
-                'version': releaseConfig['milestone'],
-                'nextVersion': releaseConfig['nextMilestone']
-            },
-            'js/src/config/milestone.txt': {
                 'version': releaseConfig['milestone'],
                 'nextVersion': releaseConfig['nextMilestone']
             },
@@ -65,7 +68,7 @@ releaseConfig['sourceRepositories']  = {
 #  L10n repositories
 releaseConfig['l10nRelbranch']       = None
 releaseConfig['l10nRepoPath']        = 'releases/l10n/mozilla-release'
-releaseConfig['l10nRevisionFile']    = 'l10n-changesets_thunderbird-esr24'
+releaseConfig['l10nRevisionFile']    = 'l10n-changesets_thunderbird-esr31'
 #  Support repositories
 releaseConfig['otherReposToTag']     = {
     'build/compare-locales': 'RELEASE_AUTOMATION',
@@ -87,14 +90,14 @@ releaseConfig['enableUnittests']     = True
 releaseConfig['l10nPlatforms']       = releaseConfig['enUSPlatforms']
 releaseConfig['shippedLocalesPath']  = 'mail/locales/shipped-locales'
 releaseConfig['mergeLocales']        = True
-releaseConfig['l10nUsePymake']       = False
+releaseConfig['l10nUsePymake']       = True
 
 # Mercurial account
 releaseConfig['hgUsername']          = 'tbirdbld'
 releaseConfig['hgSshKey']            = '/home/mock_mozilla/.ssh/tbirdbld_dsa'
 
 # Update-specific configuration
-releaseConfig['patcherConfig']       = None
+releaseConfig['patcherConfig']       = 'mozRelease-thunderbird-branch-patcher2.cfg'
 releaseConfig['ftpServer']           = 'ftp.mozilla.org'
 releaseConfig['stagingServer']       = 'stage.mozilla.org'
 releaseConfig['bouncerServer']       = 'download.mozilla.org'
@@ -104,10 +107,14 @@ releaseConfig['ausUser']             = 'tbirdbld'
 releaseConfig['ausSshKey']           = 'tbirdbld_dsa'
 releaseConfig['releaseNotesUrl']     = 'http://live.mozillamessaging.com/thunderbird/releasenotes?locale=%locale%&platform=%platform%&version=%version%'
 releaseConfig['testOlderPartials']   = False
-releaseConfig['promptWaitTime']      = {{ promptWaitTime }}
+releaseConfig['promptWaitTime']      = None
 releaseConfig['updateVerifyChunks']  = 6
-releaseConfig['verifyConfigs']       = {}
-releaseConfig['skip_updates']        = True
+releaseConfig['verifyConfigs']       = {
+    'linux':  'mozRelease-thunderbird-linux.cfg',
+    'linux64':  'mozRelease-thunderbird-linux64.cfg',
+    'macosx64': 'mozRelease-thunderbird-mac64.cfg',
+    'win32':  'mozRelease-thunderbird-win32.cfg'
+}
 releaseConfig['mozconfigs']          = {
     'linux': 'mail/config/mozconfigs/linux32/release',
     'linux64': 'mail/config/mozconfigs/linux64/release',
@@ -115,8 +122,8 @@ releaseConfig['mozconfigs']          = {
     'win32': 'mail/config/mozconfigs/win32/release',
 }
 releaseConfig['releaseChannel']      = 'release'
-releaseConfig['testChannels']        = []
-releaseConfig['testChannelRuleIds']  = []
+releaseConfig['testChannels']        = ['releasetest', 'betatest']
+releaseConfig['testChannelRuleIds']  = [28,38]
 
 # Partner repack configuration
 releaseConfig['doPartnerRepacks']    = False
@@ -130,4 +137,4 @@ releaseConfig['bouncer_submitter_config'] = 'releases/bouncer_thunderbird.py'
 releaseConfig['enable_repo_setup'] = False
 releaseConfig['use_mock'] = True
 releaseConfig['mock_platforms'] = ('linux','linux64')
-releaseConfig['ftpSymlinkName'] = 'latest-24.0esr'
+releaseConfig['ftpSymlinkName'] = 'latest'

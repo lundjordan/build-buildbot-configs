@@ -113,17 +113,6 @@ GLOBAL_VARS = {
             'toolkit',
             ],
     'use_old_updater': False,
-    # currently we have the logic that if a platform uses mozharness as
-    # the build step logic, it will have 'mozharness_config' in its dict.
-    # But we need to differentiate when that platform is a FF
-    # desktop build opposed to the existing other mozharness builds (ie: b2g,
-    # spider, etc). This list serves that purpose:
-    'mozharness_desktop_build_platforms': [
-        'linux', 'linux64', 'linux64-asan', 'linux64-asan-debug',
-        'linux64-st-an-debug', 'linux-debug', 'linux64-debug',
-        'linux64-mulet', 'win32', 'win32-debug', 'macosx64',
-        'macosx64-debug',
-    ],
     # rather than repeat these options in each of these options in
     # every platform, let's define the arguments here and when we want to
     # turn an existing platform into say a 'nightly' version, add the options
@@ -131,7 +120,13 @@ GLOBAL_VARS = {
     'mozharness_desktop_extra_options': {
         'nightly': ['--enable-nightly'],
         'pgo': ['--enable-pgo'],
-    }
+    },
+    # list platforms with mozharness l10n repacks enabled.
+    # mozharness repacks will be enabled per branch
+    'mozharness_desktop_l10n_platforms': [
+        'linux', 'linux64', 'macosx64'
+    ],
+    # bug 1027890: excluding win32/win64 for now
 }
 GLOBAL_VARS.update(localconfig.GLOBAL_VARS.copy())
 
@@ -149,20 +144,25 @@ GLOBAL_ENV = {
 
 PLATFORM_VARS = {
         'linux': {
-            'mozharness_config': {
-                'mozharness_python': '/tools/buildbot/bin/python',
+            'mozharness_python': '/tools/buildbot/bin/python',
+            'reboot_command': ['scripts/external_tools/count_and_reboot.py',
+                               '-f', '../reboot_count.txt', '-n', '1', '-z'],
+            'mozharness_desktop_build': {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
                     '--config', 'builds/releng_base_linux_32_builds.py',
                 ],
-                'reboot_command': ['scripts/external_tools/count_and_reboot.py',
-                                   '-f', '../reboot_count.txt', '-n', '1', '-z'],
                 'script_timeout': 3 * 3600,
                 'script_maxtime': int(5.5 * 3600),
             },
+            'mozharness_desktop_l10n': {
+                'scriptName': 'scripts/desktop_l10n.py',
+                'l10n_chunks': 10,
+                'use_credentials_file': True,
+                'config': 'single_locale/linux.py',
+            },
             'dep_signing_servers': 'dep-signing',
             'base_name': 'Linux %(branch)s',
-
             'product_name': 'firefox',
             'unittest_platform': 'linux-opt',
             'app_name': 'browser',
@@ -258,14 +258,14 @@ PLATFORM_VARS = {
             ],
         },
         'linux64': {
-            'mozharness_config': {
-                'mozharness_python': '/tools/buildbot/bin/python',
+            'mozharness_python': '/tools/buildbot/bin/python',
+            'reboot_command': ['scripts/external_tools/count_and_reboot.py',
+                               '-f', '../reboot_count.txt', '-n', '1', '-z'],
+            'mozharness_desktop_build': {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
                     '--config', 'builds/releng_base_linux_64_builds.py',
                 ],
-                'reboot_command': ['scripts/external_tools/count_and_reboot.py',
-                                   '-f', '../reboot_count.txt', '-n', '1', '-z'],
                 'script_timeout': 3 * 3600,
                 'script_maxtime': int(5.5 * 3600),
             },
@@ -276,7 +276,12 @@ PLATFORM_VARS = {
                 '--config', 'builds/releng_base_linux_64_builds.py',
                 '--custom-build-variant-cfg', 'non-unified',
             ],
-
+            'mozharness_desktop_l10n': {
+                'scriptName': 'scripts/desktop_l10n.py',
+                'l10n_chunks': 10,
+                'use_credentials_file': True,
+                'config': 'single_locale/linux64.py',
+            },
             'product_name': 'firefox',
             'unittest_platform': 'linux64-opt',
             'app_name': 'browser',
@@ -356,15 +361,15 @@ PLATFORM_VARS = {
             ],
         },
         'linux64-asan': {
-            'mozharness_config': {
-                'mozharness_python': '/tools/buildbot/bin/python',
+            'mozharness_python': '/tools/buildbot/bin/python',
+            'reboot_command': ['scripts/external_tools/count_and_reboot.py',
+                               '-f', '../reboot_count.txt','-n', '1', '-z'],
+            'mozharness_desktop_build': {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
                     '--config', 'builds/releng_base_linux_64_builds.py',
                     '--custom-build-variant-cfg', 'asan',
                 ],
-                'reboot_command': ['scripts/external_tools/count_and_reboot.py',
-                                   '-f', '../reboot_count.txt','-n', '1', '-z'],
                 'script_timeout': 3 * 3600,
                 'script_maxtime': int(5.5 * 3600),
             },
@@ -447,15 +452,15 @@ PLATFORM_VARS = {
             'consider_for_nightly': False,
         },
         'linux64-asan-debug': {
-            'mozharness_config': {
-                'mozharness_python': '/tools/buildbot/bin/python',
+            'mozharness_python': '/tools/buildbot/bin/python',
+            'reboot_command': ['scripts/external_tools/count_and_reboot.py',
+                               '-f', '../reboot_count.txt','-n', '1', '-z'],
+            'mozharness_desktop_build': {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
                     '--config', 'builds/releng_base_linux_64_builds.py',
                     '--custom-build-variant-cfg', 'asan-and-debug',
                 ],
-                'reboot_command': ['scripts/external_tools/count_and_reboot.py',
-                                   '-f', '../reboot_count.txt','-n', '1', '-z'],
                 'script_timeout': 3 * 3600,
                 'script_maxtime': int(5.5 * 3600),
             },
@@ -539,15 +544,15 @@ PLATFORM_VARS = {
             'consider_for_nightly': False,
         },
         'linux64-st-an-debug': {
-            'mozharness_config': {
-                'mozharness_python': '/tools/buildbot/bin/python',
+            'mozharness_python': '/tools/buildbot/bin/python',
+            'reboot_command': ['scripts/external_tools/count_and_reboot.py',
+                               '-f', '../reboot_count.txt','-n', '1', '-z'],
+            'mozharness_desktop_build': {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
                     '--config', 'builds/releng_base_linux_64_builds.py',
                     '--custom-build-variant-cfg', 'stat-and-debug',
                 ],
-                'reboot_command': ['scripts/external_tools/count_and_reboot.py',
-                                   '-f', '../reboot_count.txt','-n', '1', '-z'],
                 'script_timeout': 3 * 3600,
                 'script_maxtime': int(5.5 * 3600),
             },
@@ -664,15 +669,15 @@ PLATFORM_VARS = {
             'mock_target': 'mozilla-centos6-x86_64',
         },
         'linux64-mulet': {
-            'mozharness_config': {
-                'mozharness_python': '/tools/buildbot/bin/python',
+            'mozharness_python': '/tools/buildbot/bin/python',
+            'reboot_command': ['scripts/external_tools/count_and_reboot.py',
+                               '-f', '../reboot_count.txt','-n', '1', '-z'],
+            'mozharness_desktop_build': {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
                     '--config', 'builds/releng_base_linux_64_builds.py',
                     '--custom-build-variant-cfg', 'mulet',
                 ],
-                'reboot_command': ['scripts/external_tools/count_and_reboot.py',
-                                   '-f', '../reboot_count.txt','-n', '1', '-z'],
                 'script_timeout': 3 * 3600,
                 'script_maxtime': int(5.5 * 3600),
             },
@@ -738,14 +743,14 @@ PLATFORM_VARS = {
             ],
         },
         'macosx64': {
-            'mozharness_config': {
-                'mozharness_python': '/tools/buildbot/bin/python',
+            'mozharness_python': '/tools/buildbot/bin/python',
+            'reboot_command': ['scripts/external_tools/count_and_reboot.py',
+                               '-f', '../reboot_count.txt', '-n', '1', '-z'],
+            'mozharness_desktop_build': {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
                     '--config', 'builds/releng_base_mac_64_builds.py',
                 ],
-                'reboot_command': ['scripts/external_tools/count_and_reboot.py',
-                                   '-f', '../reboot_count.txt', '-n', '1', '-z'],
                 'script_timeout': 3 * 3600,
                 'script_maxtime': int(5.5 * 3600),
             },
@@ -756,6 +761,13 @@ PLATFORM_VARS = {
                 '--config', 'builds/releng_base_mac_64_builds.py',
                 '--custom-build-variant-cfg', 'non-unified',
             ],
+            'mozharness_desktop_l10n': {
+                'scriptName': 'scripts/desktop_l10n.py',
+                'l10n_chunks': 10,
+                'use_credentials_file': True,
+                'config': 'single_locale/macosx64.py',
+            },
+
             'product_name': 'firefox',
             'unittest_platform': 'macosx64-opt',
             'app_name': 'browser',
@@ -853,7 +865,7 @@ PLATFORM_VARS = {
             },
             'enable_opt_unittests': False,
             'enable_checktests': True,
-            'talos_masters': GLOBAL_VARS['talos_masters'],
+            'talos_masters': None,
             'test_pretty_names': False,
             # These refer to items in passwords.secrets
             # nightly_signing_servers defaults to dep-signing because we don't want
@@ -867,16 +879,16 @@ PLATFORM_VARS = {
             'enable_ccache': True,
         },
         'win32': {
-            'mozharness_config': {
-                'mozharness_python': ['c:/mozilla-build/python27/python', '-u'],
+            'mozharness_python': ['c:/mozilla-build/python27/python', '-u'],
+            'reboot_command': [
+                'c:/mozilla-build/python27/python', '-u',
+                'scripts/external_tools/count_and_reboot.py',
+                '-f', '../reboot_count.txt','-n', '1', '-z'
+            ],
+            'mozharness_desktop_build': {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
                     '--config', 'builds/releng_base_windows_32_builds.py',
-                ],
-                'reboot_command': [
-                    'c:/mozilla-build/python27/python', '-u',
-                    'scripts/external_tools/count_and_reboot.py',
-                    '-f', '../reboot_count.txt','-n', '1', '-z'
                 ],
                 'script_timeout': 3 * 3600,
                 'script_maxtime': int(5.5 * 3600),
@@ -888,6 +900,13 @@ PLATFORM_VARS = {
                 '--config', 'builds/releng_base_windows_32_builds.py',
                 '--custom-build-variant-cfg', 'non-unified',
             ],
+            'mozharness_desktop_l10n': {
+                'scriptName': 'scripts/desktop_l10n.py',
+                'l10n_chunks': 10,
+                'use_credentials_file': True,
+                'config': 'single_locale/win32.py',
+            },
+
             'product_name': 'firefox',
             'unittest_platform': 'win32-opt',
             'app_name': 'browser',
@@ -942,6 +961,19 @@ PLATFORM_VARS = {
             'tooltool_script': ['python', '/c/mozilla-build/tooltool.py'],
         },
         'win64': {
+            'mozharness_python': ['c:/mozilla-build/python27/python', '-u'],
+            'mozharness_desktop_l10n': {
+                'scriptName': 'scripts/desktop_l10n.py',
+                'l10n_chunks': 10,
+                'use_credentials_file': True,
+                'config': 'single_locale/win64.py',
+            },
+            'reboot_command': [
+                'c:/mozilla-build/python27/python', '-u',
+                'scripts/external_tools/count_and_reboot.py',
+                '-f', '../reboot_count.txt','-n', '1', '-z'
+            ],
+
             'product_name': 'firefox',
             'unittest_platform': 'win64-opt',
             'app_name': 'browser',
@@ -991,15 +1023,15 @@ PLATFORM_VARS = {
             'tooltool_script': ['python', '/c/mozilla-build/tooltool.py'],
         },
         'linux-debug': {
-            'mozharness_config': {
-                'mozharness_python': '/tools/buildbot/bin/python',
+            'mozharness_python': '/tools/buildbot/bin/python',
+            'reboot_command': ['scripts/external_tools/count_and_reboot.py',
+                               '-f', '../reboot_count.txt','-n', '1', '-z'],
+            'mozharness_desktop_build': {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
                     '--config', 'builds/releng_base_linux_32_builds.py',
                     '--custom-build-variant-cfg', 'debug',
                 ],
-                'reboot_command': ['scripts/external_tools/count_and_reboot.py',
-                                   '-f', '../reboot_count.txt','-n', '1', '-z'],
                 'script_timeout': 3 * 3600,
                 'script_maxtime': int(5.5 * 3600),
             },
@@ -1089,15 +1121,15 @@ PLATFORM_VARS = {
             ],
         },
         'linux64-debug': {
-            'mozharness_config': {
-                'mozharness_python': '/tools/buildbot/bin/python',
+            'mozharness_python': '/tools/buildbot/bin/python',
+            'reboot_command': ['scripts/external_tools/count_and_reboot.py',
+                               '-f', '../reboot_count.txt','-n', '1', '-z'],
+            'mozharness_desktop_build': {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
                     '--config', 'builds/releng_base_linux_64_builds.py',
                     '--custom-build-variant-cfg', 'debug',
                 ],
-                'reboot_command': ['scripts/external_tools/count_and_reboot.py',
-                                   '-f', '../reboot_count.txt','-n', '1', '-z'],
                 'script_timeout': 3 * 3600,
                 'script_maxtime': int(5.5 * 3600),
             },
@@ -1174,15 +1206,15 @@ PLATFORM_VARS = {
             ],
         },
         'macosx64-debug': {
-            'mozharness_config': {
-                'mozharness_python': '/tools/buildbot/bin/python',
+            'mozharness_python': '/tools/buildbot/bin/python',
+            'reboot_command': ['scripts/external_tools/count_and_reboot.py',
+                               '-f', '../reboot_count.txt', '-n', '1', '-z'],
+            'mozharness_desktop_build': {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
                     '--config', 'builds/releng_base_mac_64_builds.py',
                     '--custom-build-variant-cfg', 'debug',
                 ],
-                'reboot_command': ['scripts/external_tools/count_and_reboot.py',
-                                   '-f', '../reboot_count.txt', '-n', '1', '-z'],
                 'script_timeout': 3 * 3600,
                 'script_maxtime': int(5.5 * 3600),
             },
@@ -1193,6 +1225,7 @@ PLATFORM_VARS = {
                 '--config', 'builds/releng_base_mac_64_builds.py',
                 '--custom-build-variant-cfg', 'debug-and-non-unified',
             ],
+
             'enable_nightly': False,
             'enable_xulrunner': False,
             'product_name': 'firefox',
@@ -1238,17 +1271,17 @@ PLATFORM_VARS = {
             'enable_ccache': True,
         },
         'win32-debug': {
-            'mozharness_config': {
-                'mozharness_python': ['c:/mozilla-build/python27/python', '-u'],
+            'mozharness_python': ['c:/mozilla-build/python27/python', '-u'],
+            'reboot_command': [
+                'c:/mozilla-build/python27/python', '-u',
+                'scripts/external_tools/count_and_reboot.py',
+                '-f', '../reboot_count.txt','-n', '1', '-z'
+            ],
+            'mozharness_desktop_build': {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
                     '--config', 'builds/releng_base_windows_32_builds.py',
                     '--custom-build-variant-cfg', 'debug',
-                ],
-                'reboot_command': [
-                    'c:/mozilla-build/python27/python', '-u',
-                    'scripts/external_tools/count_and_reboot.py',
-                    '-f', '../reboot_count.txt','-n', '1', '-z'
                 ],
                 'script_timeout': 3 * 3600,
                 'script_maxtime': int(5.5 * 3600),
@@ -1260,6 +1293,7 @@ PLATFORM_VARS = {
                 '--config', 'builds/releng_base_windows_32_builds.py',
                 '--custom-build-variant-cfg', 'debug-and-non-unified',
             ],
+
             'enable_nightly': False,
             'enable_xulrunner': False,
             'product_name': 'firefox',
@@ -1829,14 +1863,27 @@ BRANCHES = {
             'win32-debug': {},
         },
     },
+    'mozilla-b2g32_v2_0': {
+        'branch_projects': [],
+        'lock_platforms': True,
+        'gecko_version': 32,
+        'platforms': {
+            'linux': {},
+            'linux64': {},
+            'win32': {},
+            'macosx64': {},
+            'linux-debug': {},
+            'linux64-debug': {},
+            'macosx64-debug': {},
+            'win32-debug': {},
+        },
+    },
     'try': {
         'branch_projects': ['spidermonkey_try'],
         # For now, only run shell rooting hazards builds on try. (Browser
         # hazard builds run everywhere, not just on try.)
         'extra_platforms': {
             'linux64-sh-haz': {},
-            'linux64-mulet': {},
-            'macosx64-mulet': {},
         },
     },
 }
@@ -2273,6 +2320,39 @@ BRANCHES['mozilla-b2g30_v1_4']['enable_hpkp_update'] = True
 BRANCHES['mozilla-b2g30_v1_4']['enable_valgrind'] = False
 BRANCHES['mozilla-b2g30_v1_4']['enabled_products'] = ['firefox', 'mobile']
 
+######## mozilla-b2g32_v2_0
+BRANCHES['mozilla-b2g32_v2_0']['repo_path'] = 'releases/mozilla-b2g32_v2_0'
+BRANCHES['mozilla-b2g32_v2_0']['update_channel'] = 'nightly-b2g32'
+BRANCHES['mozilla-b2g32_v2_0']['l10n_repo_path'] = 'releases/l10n/mozilla-beta'
+BRANCHES['mozilla-b2g32_v2_0']['enable_weekly_bundle'] = True
+BRANCHES['mozilla-b2g32_v2_0']['enable_perproduct_builds'] = True
+BRANCHES['mozilla-b2g32_v2_0']['start_hour'] = [3]
+BRANCHES['mozilla-b2g32_v2_0']['start_minute'] = [45]
+BRANCHES['mozilla-b2g32_v2_0']['enable_xulrunner'] = False
+BRANCHES['mozilla-b2g32_v2_0']['pgo_platforms'] = []
+BRANCHES['mozilla-b2g32_v2_0']['enable_mac_a11y'] = True
+BRANCHES['mozilla-b2g32_v2_0']['unittest_build_space'] = 6
+# L10n configuration
+BRANCHES['mozilla-b2g32_v2_0']['enable_l10n'] = False
+BRANCHES['mozilla-b2g32_v2_0']['enable_l10n_onchange'] = False
+BRANCHES['mozilla-b2g32_v2_0']['l10nNightlyUpdate'] = False
+BRANCHES['mozilla-b2g32_v2_0']['l10n_platforms'] = ['linux', 'linux64', 'win32',
+                                               'macosx64']
+BRANCHES['mozilla-b2g32_v2_0']['l10nDatedDirs'] = True
+BRANCHES['mozilla-b2g32_v2_0']['enUS_binaryURL'] = \
+    GLOBAL_VARS['download_base_url'] + '/nightly/latest-mozilla-b2g32_v2_0'
+BRANCHES['mozilla-b2g32_v2_0']['allLocalesFile'] = 'browser/locales/all-locales'
+BRANCHES['mozilla-b2g32_v2_0']['enable_nightly'] = True
+BRANCHES['mozilla-b2g32_v2_0']['create_snippet'] = False
+BRANCHES['mozilla-b2g32_v2_0']['create_partial'] = False
+BRANCHES['mozilla-b2g32_v2_0']['aus2_base_upload_dir'] = '/opt/aus2/incoming/2/Firefox/mozilla-b2g32_v2_0'
+BRANCHES['mozilla-b2g32_v2_0']['aus2_base_upload_dir_l10n'] = '/opt/aus2/incoming/2/Firefox/mozilla-b2g32_v2_0'
+BRANCHES['mozilla-b2g32_v2_0']['enable_blocklist_update'] = False
+BRANCHES['mozilla-b2g32_v2_0']['enable_hsts_update'] = True
+BRANCHES['mozilla-b2g32_v2_0']['enable_hpkp_update'] = True
+BRANCHES['mozilla-b2g32_v2_0']['enable_valgrind'] = False
+BRANCHES['mozilla-b2g32_v2_0']['enabled_products'] = ['firefox', 'mobile']
+
 ######## try
 # Try-specific configs
 BRANCHES['try']['stage_username'] = 'trybld'
@@ -2309,7 +2389,6 @@ BRANCHES['try']['platforms']['win32']['slaves'] = TRY_SLAVES['win64-rev2']
 BRANCHES['try']['platforms']['win64']['slaves'] = TRY_SLAVES['win64-rev2']
 BRANCHES['try']['platforms']['win64-debug']['slaves'] = TRY_SLAVES['win64-rev2']
 BRANCHES['try']['platforms']['macosx64']['slaves'] = TRY_SLAVES['macosx64-lion']
-BRANCHES['try']['platforms']['macosx64-mulet']['slaves'] = TRY_SLAVES['macosx64-lion']
 BRANCHES['try']['platforms']['linux-debug']['slaves'] = TRY_SLAVES['mock']
 BRANCHES['try']['platforms']['linux64-debug']['slaves'] = TRY_SLAVES['mock']
 BRANCHES['try']['platforms']['linux64-asan']['slaves'] = TRY_SLAVES['mock']
@@ -2323,7 +2402,6 @@ BRANCHES['try']['platforms']['android']['slaves'] = TRY_SLAVES['mock']
 BRANCHES['try']['platforms']['android-armv6']['slaves'] = TRY_SLAVES['mock']
 BRANCHES['try']['platforms']['android-debug']['slaves'] = TRY_SLAVES['mock']
 BRANCHES['try']['platforms']['android-x86']['slaves'] = TRY_SLAVES['mock']
-BRANCHES['try']['platforms']['linux64-mulet']['slaves'] = TRY_SLAVES['mock']
 for platform in BRANCHES['try']['platforms'].keys():
     # Sadly, the rule that mobile builds go to /mobile/
     # isn't true for try :(
@@ -2507,6 +2585,19 @@ for b in ('b2g-inbound',):
         if 'linux' not in p:
             BRANCHES[b]['platforms'][p]['enable_checktests'] = False
 # END B2G's INBOUND
+
+# desktop repacks with mozharness
+for name, branch in BRANCHES.items():
+    if branch.get('desktop_mozharness_repacks_enabled'):
+        for platform_name in branch['platforms']:
+            if platform_name in GLOBAL_VARS['mozharness_desktop_l10n_platforms']:
+                pf = branch['platforms'][platform_name]
+                pf['desktop_mozharness_repacks_enabled'] = True
+        continue
+    # for all other branches delete mozharness_desktop_l10n
+    for p in branch["platforms"]:
+        if "mozharness_desktop_l10n" in p:
+            del p["mozharness_desktop_l10n"]
 
 # Bug 950206 - Enable 32-bit Windows builds on Date, test those builds on tst-w64-ec2-XXXX
 BRANCHES['date']['platforms']['win32']['unittest_platform'] = 'win64-opt'

@@ -642,6 +642,9 @@ BRANCHES = {
     'comm-esr24': {
         'gecko_version': 24,
     },
+    'comm-esr31': {
+        'gecko_version': 31,
+    },
     'try-comm-central': {
     },
 }
@@ -814,6 +817,43 @@ BRANCHES['comm-esr24']['aus2_base_upload_dir_l10n'] = '/opt/aus2/incoming/2/Thun
 BRANCHES['comm-esr24']['enable_blocklist_update'] = False
 BRANCHES['comm-esr24']['file_update_on_closed_tree'] = False
 BRANCHES['comm-esr24']['enable_valgrind'] = False
+
+######## comm-esr31
+BRANCHES['comm-esr31']['repo_path'] = 'releases/comm-esr31'
+BRANCHES['comm-esr31']['moz_repo_path'] = 'releases/mozilla-esr31'
+BRANCHES['comm-esr31']['mozilla_dir'] = 'mozilla'
+BRANCHES['comm-esr31']['update_channel'] = 'nightly-esr31'
+BRANCHES['comm-esr31']['skip_blank_repos'] = True
+BRANCHES['comm-esr31']['call_client_py'] = True
+BRANCHES['comm-esr31']['l10n_repo_path'] = 'releases/l10n/mozilla-esr31'
+BRANCHES['comm-esr31']['enable_weekly_bundle'] = True
+BRANCHES['comm-esr31']['start_hour'] = [3]
+BRANCHES['comm-esr31']['start_minute'] = [2]
+BRANCHES['comm-esr31']['enable_xulrunner'] = False
+# Enable unit tests
+BRANCHES['comm-esr31']['enable_mac_a11y'] = True
+BRANCHES['comm-esr31']['unittest_build_space'] = 6
+# L10n configuration
+BRANCHES['comm-esr31']['enable_l10n'] = False
+BRANCHES['comm-esr31']['enable_l10n_onchange'] = False
+BRANCHES['comm-esr31']['l10nNightlyUpdate'] = False
+BRANCHES['comm-esr31']['l10n_platforms'] = ['linux', 'linux64', 'win32',
+                                            'macosx64']
+BRANCHES['comm-esr31']['l10nDatedDirs'] = True
+BRANCHES['comm-esr31']['l10n_tree'] = 'tbrel'
+BRANCHES['comm-esr31']['enUS_binaryURL'] = \
+    GLOBAL_VARS['download_base_url'] + '/nightly/latest-comm-esr31'
+BRANCHES['comm-esr31']['allLocalesFile'] = 'mail/locales/all-locales'
+BRANCHES['comm-esr31']['localesURL'] = \
+    '%s/build/buildbot-configs/raw-file/production/mozilla/l10n/all-locales.comm-esr31' % (GLOBAL_VARS['hgurl'])
+BRANCHES['comm-esr31']['enable_nightly'] = True
+BRANCHES['comm-esr31']['create_snippet'] = True
+BRANCHES['comm-esr31']['create_partial'] = True
+BRANCHES['comm-esr31']['aus2_base_upload_dir'] = '/opt/aus2/incoming/2/Thunderbird/comm-esr31'
+BRANCHES['comm-esr31']['aus2_base_upload_dir_l10n'] = '/opt/aus2/incoming/2/Thunderbird/comm-esr31'
+BRANCHES['comm-esr31']['enable_blocklist_update'] = False
+BRANCHES['comm-esr31']['file_update_on_closed_tree'] = False
+BRANCHES['comm-esr31']['enable_valgrind'] = False
 
 ######## comm-beta
 BRANCHES['comm-beta']['moz_repo_path'] = 'releases/mozilla-beta'
