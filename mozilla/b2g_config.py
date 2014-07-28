@@ -1228,10 +1228,10 @@ for platform in PLATFORM_VARS.values():
 BRANCHES = {
     'mozilla-central': {
     },
-    'mozilla-aurora': {
-        'gecko_version': 32,
-        'b2g_version': (2, 0, 0),
-    },
+#    'mozilla-aurora': {
+#        'gecko_version': 34,
+#        'b2g_version': (2, 1, 0),
+#    },
     'mozilla-b2g28_v1_3': {
         'gecko_version': 28,
         'b2g_version': (1, 3, 0),
@@ -1250,6 +1250,10 @@ BRANCHES = {
     'mozilla-b2g30_v1_4': {
         'gecko_version': 30,
         'b2g_version': (1, 4, 0),
+    },
+    'mozilla-b2g32_v2_0': {
+        'gecko_version': 32,
+        'b2g_version': (2, 0, 0),
     },
     'try': {
         'lock_platforms': True,
@@ -1377,31 +1381,57 @@ BRANCHES['mozilla-central']['platforms']['linux64-b2g-haz']['enable_nightly'] = 
 BRANCHES['mozilla-central']['platforms']['emulator-kk']['enable_nightly'] = True
 BRANCHES['mozilla-central']['platforms']['emulator-kk-debug']['enable_nightly'] = True
 
-######## mozilla-aurora
+######### mozilla-aurora
+## This is a path, relative to HGURL, where the repository is located
+## HGURL + repo_path should be a valid repository
+#BRANCHES['mozilla-aurora']['repo_path'] = 'releases/mozilla-aurora'
+#BRANCHES['mozilla-aurora']['gaia_l10n_root'] = 'https://hg.mozilla.org/gaia-l10n'
+#BRANCHES['mozilla-aurora']['gecko_l10n_root'] = 'https://hg.mozilla.org/releases/l10n/mozilla-aurora'
+#BRANCHES['mozilla-aurora']['start_hour'] = [0, 16]
+#BRANCHES['mozilla-aurora']['start_minute'] = [2]
+#BRANCHES['mozilla-aurora']['periodic_start_minute'] = 30
+#BRANCHES['mozilla-aurora']['aus2_base_upload_dir'] = 'fake'
+#BRANCHES['mozilla-aurora']['aus2_base_upload_dir_l10n'] = 'fake'
+#BRANCHES['mozilla-aurora']['platforms']['hamachi']['enable_nightly'] = True
+#BRANCHES['mozilla-aurora']['platforms']['hamachi_eng']['enable_nightly'] = True
+#BRANCHES['mozilla-aurora']['platforms']['hamachi_eng']['consider_for_nightly'] = False
+#BRANCHES['mozilla-aurora']['platforms']['nexus-4']['enable_nightly'] = True
+#BRANCHES['mozilla-aurora']['platforms']['helix']['enable_nightly'] = True
+#BRANCHES['mozilla-aurora']['platforms']['wasabi']['enable_nightly'] = True
+#BRANCHES['mozilla-aurora']['platforms']['flame']['enable_nightly'] = True
+#BRANCHES['mozilla-aurora']['platforms']['flame_eng']['enable_nightly'] = True
+#BRANCHES['mozilla-aurora']['platforms']['emulator']['enable_nightly'] = True
+#BRANCHES['mozilla-aurora']['platforms']['emulator-debug']['enable_nightly'] = True
+#BRANCHES['mozilla-aurora']['platforms']['emulator-jb']['enable_nightly'] = True
+#BRANCHES['mozilla-aurora']['platforms']['emulator-jb-debug']['enable_nightly'] = True
+#BRANCHES['mozilla-aurora']['platforms']['emulator-kk']['enable_nightly'] = True
+#BRANCHES['mozilla-aurora']['platforms']['emulator-kk-debug']['enable_nightly'] = True
+
+######## mozilla-b2g32_v2_0
 # This is a path, relative to HGURL, where the repository is located
 # HGURL + repo_path should be a valid repository
-BRANCHES['mozilla-aurora']['repo_path'] = 'releases/mozilla-aurora'
-BRANCHES['mozilla-aurora']['gaia_l10n_root'] = 'https://hg.mozilla.org/gaia-l10n'
-BRANCHES['mozilla-aurora']['gecko_l10n_root'] = 'https://hg.mozilla.org/releases/l10n/mozilla-aurora'
-BRANCHES['mozilla-aurora']['start_hour'] = [0, 16]
-BRANCHES['mozilla-aurora']['start_minute'] = [2]
-BRANCHES['mozilla-aurora']['periodic_start_minute'] = 30
-BRANCHES['mozilla-aurora']['aus2_base_upload_dir'] = 'fake'
-BRANCHES['mozilla-aurora']['aus2_base_upload_dir_l10n'] = 'fake'
-BRANCHES['mozilla-aurora']['platforms']['hamachi']['enable_nightly'] = True
-BRANCHES['mozilla-aurora']['platforms']['hamachi_eng']['enable_nightly'] = True
-BRANCHES['mozilla-aurora']['platforms']['hamachi_eng']['consider_for_nightly'] = False
-BRANCHES['mozilla-aurora']['platforms']['nexus-4']['enable_nightly'] = True
-BRANCHES['mozilla-aurora']['platforms']['helix']['enable_nightly'] = True
-BRANCHES['mozilla-aurora']['platforms']['wasabi']['enable_nightly'] = True
-BRANCHES['mozilla-aurora']['platforms']['flame']['enable_nightly'] = True
-BRANCHES['mozilla-aurora']['platforms']['flame_eng']['enable_nightly'] = True
-BRANCHES['mozilla-aurora']['platforms']['emulator']['enable_nightly'] = True
-BRANCHES['mozilla-aurora']['platforms']['emulator-debug']['enable_nightly'] = True
-BRANCHES['mozilla-aurora']['platforms']['emulator-jb']['enable_nightly'] = True
-BRANCHES['mozilla-aurora']['platforms']['emulator-jb-debug']['enable_nightly'] = True
-BRANCHES['mozilla-aurora']['platforms']['emulator-kk']['enable_nightly'] = True
-BRANCHES['mozilla-aurora']['platforms']['emulator-kk-debug']['enable_nightly'] = True
+BRANCHES['mozilla-b2g32_v2_0']['repo_path'] = 'releases/mozilla-b2g32_v2_0'
+BRANCHES['mozilla-b2g32_v2_0']['gaia_l10n_root'] = 'https://hg.mozilla.org/releases/gaia-l10n/v2_0/'
+BRANCHES['mozilla-b2g32_v2_0']['gecko_l10n_root'] = 'https://hg.mozilla.org/releases/l10n/mozilla-beta'
+BRANCHES['mozilla-b2g32_v2_0']['start_hour'] = [0, 16]
+BRANCHES['mozilla-b2g32_v2_0']['start_minute'] = [2]
+BRANCHES['mozilla-b2g32_v2_0']['periodic_start_minute'] = 30
+BRANCHES['mozilla-b2g32_v2_0']['aus2_base_upload_dir'] = 'fake'
+BRANCHES['mozilla-b2g32_v2_0']['aus2_base_upload_dir_l10n'] = 'fake'
+BRANCHES['mozilla-b2g32_v2_0']['platforms']['hamachi']['enable_nightly'] = True
+BRANCHES['mozilla-b2g32_v2_0']['platforms']['hamachi_eng']['enable_nightly'] = True
+BRANCHES['mozilla-b2g32_v2_0']['platforms']['hamachi_eng']['consider_for_nightly'] = False
+BRANCHES['mozilla-b2g32_v2_0']['platforms']['nexus-4']['enable_nightly'] = True
+BRANCHES['mozilla-b2g32_v2_0']['platforms']['helix']['enable_nightly'] = True
+BRANCHES['mozilla-b2g32_v2_0']['platforms']['wasabi']['enable_nightly'] = True
+BRANCHES['mozilla-b2g32_v2_0']['platforms']['flame']['enable_nightly'] = True
+BRANCHES['mozilla-b2g32_v2_0']['platforms']['flame_eng']['enable_nightly'] = True
+BRANCHES['mozilla-b2g32_v2_0']['platforms']['emulator']['enable_nightly'] = True
+BRANCHES['mozilla-b2g32_v2_0']['platforms']['emulator-debug']['enable_nightly'] = True
+BRANCHES['mozilla-b2g32_v2_0']['platforms']['emulator-jb']['enable_nightly'] = True
+BRANCHES['mozilla-b2g32_v2_0']['platforms']['emulator-jb-debug']['enable_nightly'] = True
+BRANCHES['mozilla-b2g32_v2_0']['platforms']['emulator-kk']['enable_nightly'] = True
+BRANCHES['mozilla-b2g32_v2_0']['platforms']['emulator-kk-debug']['enable_nightly'] = True
 
 ######## mozilla-b2g30_v1_4
 # This is a path, relative to HGURL, where the repository is located
@@ -1542,7 +1572,8 @@ for branch in BRANCHES:
 # b2g 1.4+
 for name, branch in items_before(BRANCHES, 'gecko_version', 30):
     for p in ('flame', 'flame_eng', 'linux64_gecko-debug',
-              'macosx64_gecko-debug', 'linux32_gecko-debug', 'win32_gecko-debug','emulator-kk', 'emulator-kk-debug'):
+              'macosx64_gecko-debug', 'linux32_gecko-debug', 'win32_gecko-debug',
+              'emulator-kk', 'emulator-kk-debug'):
         if p in branch['platforms']:
             del branch['platforms'][p]
 

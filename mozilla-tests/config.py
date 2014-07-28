@@ -83,6 +83,18 @@ BRANCHES = {
         },
         'lock_platforms': True,
     },
+    'mozilla-b2g32_v2_0': {
+        'datazilla_url': None,
+        'gecko_version': 32,
+        'platforms': {
+            # desktop per sicking in Bug 829513
+            'macosx64': {},
+            'win32': {},
+            'linux': {},
+            'linux64': {},
+        },
+        'lock_platforms': True,
+    },
     'try': {
         'coallesce_jobs': False,
     },
@@ -537,6 +549,24 @@ WEB_PLATFORM_TESTS = [
         'use_mozharness': True,
         'script_path': 'scripts/web_platform_tests.py',
         'extra_args': ["--test-type=testharness"],
+        'blob_upload': True,
+        'script_maxtime': 7200,
+    }),
+    ('web-platform-tests-reftests', {
+        'use_mozharness': True,
+        'script_path': 'scripts/web_platform_tests.py',
+        'extra_args': ["--test-type=reftest"],
+        'blob_upload': True,
+        'script_maxtime': 7200,
+    }),
+]
+
+WEB_PLATFORM_TESTS_CHUNKED = [
+    ('web-platform-tests', {
+        'use_mozharness': True,
+        'script_path': 'scripts/web_platform_tests.py',
+        'extra_args': ["--test-type=testharness"],
+        'totalChunks': 3,
         'blob_upload': True,
         'script_maxtime': 7200,
     }),
@@ -1621,6 +1651,12 @@ BRANCHES['mozilla-b2g30_v1_4']['pgo_strategy'] = 'per-checkin'
 BRANCHES['mozilla-b2g30_v1_4']['platforms']['win32']['talos_slave_platforms'] = []
 BRANCHES['mozilla-b2g30_v1_4']['platforms']['macosx64']['talos_slave_platforms'] = []
 
+######### mozilla-b2g32_v2_0
+BRANCHES['mozilla-b2g32_v2_0']['repo_path'] = "releases/mozilla-b2g32_v2_0"
+BRANCHES['mozilla-b2g32_v2_0']['pgo_strategy'] = 'per-checkin'
+BRANCHES['mozilla-b2g32_v2_0']['platforms']['win32']['talos_slave_platforms'] = []
+BRANCHES['mozilla-b2g32_v2_0']['platforms']['macosx64']['talos_slave_platforms'] = []
+
 ######## try
 BRANCHES['try']['repo_path'] = "try"
 BRANCHES['try']['xperf_tests'] = (1, False, TALOS_TP_NEW_OPTS, WIN7_ONLY)
@@ -1772,9 +1808,9 @@ for platform in PLATFORMS.keys():
         if slave_platform not in BRANCHES['cedar']['platforms'][platform]:
             continue
 
-        BRANCHES['cedar']['platforms'][platform][slave_platform]['opt_unittest_suites'] += WEB_PLATFORM_TESTS
+        BRANCHES['cedar']['platforms'][platform][slave_platform]['opt_unittest_suites'] += WEB_PLATFORM_TESTS_CHUNKED
 
-        BRANCHES['cedar']['platforms'][platform][slave_platform]['debug_unittest_suites'] += WEB_PLATFORM_TESTS
+        BRANCHES['cedar']['platforms'][platform][slave_platform]['debug_unittest_suites'] += WEB_PLATFORM_TESTS_CHUNKED
 
 # Enable mozbase unit tests on cedar
 # https://bugzilla.mozilla.org/show_bug.cgi?id=971687

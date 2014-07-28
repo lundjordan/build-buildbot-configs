@@ -1,6 +1,7 @@
 from buildbot.util import json
 from buildbot.status.html import WebStatus
 from buildbot import manhole
+import master_common
 
 master_config = json.load(open('master_config.json'))
 
@@ -35,6 +36,7 @@ else:
         'mozilla-b2g28_v1_3',
         'mozilla-b2g28_v1_3t',
         'mozilla-b2g30_v1_4',
+        'mozilla-b2g32_v2_0',
     ])
 if 'limit_tb_branches' in master_config:
     ACTIVE_THUNDERBIRD_BRANCHES = [x.encode("utf-8") for x in master_config['limit_tb_branches']]
@@ -44,6 +46,7 @@ else:
         'comm-central',
         'comm-beta',
         'comm-aurora',
+        'comm-esr24',
         'comm-esr31',
     ])
 if 'limit_b2g_branches' in master_config:
@@ -52,11 +55,16 @@ else:
     ACTIVE_B2G_BRANCHES = ACTIVE_B2G_PROJECT_BRANCHES[:]
     ACTIVE_B2G_BRANCHES.extend([
         'mozilla-central',
-        'mozilla-aurora',
         'mozilla-b2g28_v1_3',
         'mozilla-b2g28_v1_3t',
         'mozilla-b2g30_v1_4',
+        'mozilla-b2g32_v2_0',
     ])
+    # Add mozilla-aurora on odd-numbered m-c gecko versions
+    b = {'mozilla-central': {}}
+    master_common.setMainFirefoxVersions(b)
+    if b['mozilla-central']['gecko_version'] % 2:
+        ACTIVE_B2G_BRANCHES.append('mozilla-aurora')
 
 if 'limit_projects' in master_config:
     ACTIVE_PROJECTS = [x.encode("utf-8") for x in master_config['limit_projects']]
