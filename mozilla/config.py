@@ -40,6 +40,7 @@ GLOBAL_VARS = {
     'compare_locales_tag': 'RELEASE_AUTOMATION',
     'mozharness_repo_path': 'build/mozharness',
     'mozharness_tag': 'production',
+    'use_mozharness_repo_cache': True,  # ash overwrites this
     'multi_locale_merge': True,
     'default_build_space': 5,
     'default_l10n_space': 3,
@@ -125,6 +126,7 @@ GLOBAL_VARS = {
         'linux', 'linux64', 'macosx64'
     ],
     # bug 1027890: excluding win32/win64 for now
+
 }
 GLOBAL_VARS.update(localconfig.GLOBAL_VARS.copy())
 
@@ -145,6 +147,7 @@ PLATFORM_VARS = {
             'mozharness_python': '/tools/buildbot/bin/python',
             'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                '-f', '../reboot_count.txt', '-n', '1', '-z'],
+            'mozharness_repo_cache': '/tools/checkouts/mozharness',
             'mozharness_desktop_build': {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
@@ -259,6 +262,7 @@ PLATFORM_VARS = {
             'mozharness_python': '/tools/buildbot/bin/python',
             'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                '-f', '../reboot_count.txt', '-n', '1', '-z'],
+            'mozharness_repo_cache': '/tools/checkouts/mozharness',
             'mozharness_desktop_build': {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
@@ -362,6 +366,7 @@ PLATFORM_VARS = {
             'mozharness_python': '/tools/buildbot/bin/python',
             'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                '-f', '../reboot_count.txt','-n', '1', '-z'],
+            'mozharness_repo_cache': '/tools/checkouts/mozharness',
             'mozharness_desktop_build': {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
@@ -453,6 +458,7 @@ PLATFORM_VARS = {
             'mozharness_python': '/tools/buildbot/bin/python',
             'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                '-f', '../reboot_count.txt','-n', '1', '-z'],
+            'mozharness_repo_cache': '/tools/checkouts/mozharness',
             'mozharness_desktop_build': {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
@@ -545,6 +551,7 @@ PLATFORM_VARS = {
             'mozharness_python': '/tools/buildbot/bin/python',
             'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                '-f', '../reboot_count.txt','-n', '1', '-z'],
+            'mozharness_repo_cache': '/tools/checkouts/mozharness',
             'mozharness_desktop_build': {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
@@ -640,6 +647,7 @@ PLATFORM_VARS = {
                     '--config-file', 'hazards/build_shell.py',
                     '--config-file', 'hazards/common.py',
                 ],
+                'mozharness_repo_cache': '/tools/checkouts/mozharness',
             },
             'stage_product': 'firefox',
             'product_name': 'firefox',
@@ -656,6 +664,7 @@ PLATFORM_VARS = {
                     '--config-file', 'hazards/build_browser.py',
                     '--config-file', 'hazards/common.py',
                 ],
+                'mozharness_repo_cache': '/tools/checkouts/mozharness',
             },
 
             'stage_product': 'firefox',
@@ -670,6 +679,7 @@ PLATFORM_VARS = {
             'mozharness_python': '/tools/buildbot/bin/python',
             'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                '-f', '../reboot_count.txt','-n', '1', '-z'],
+            'mozharness_repo_cache': '/tools/checkouts/mozharness',
             'mozharness_desktop_build': {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
@@ -1024,6 +1034,7 @@ PLATFORM_VARS = {
             'mozharness_python': '/tools/buildbot/bin/python',
             'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                '-f', '../reboot_count.txt','-n', '1', '-z'],
+            'mozharness_repo_cache': '/tools/checkouts/mozharness',
             'mozharness_desktop_build': {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
@@ -1122,6 +1133,7 @@ PLATFORM_VARS = {
             'mozharness_python': '/tools/buildbot/bin/python',
             'reboot_command': ['scripts/external_tools/count_and_reboot.py',
                                '-f', '../reboot_count.txt','-n', '1', '-z'],
+            'mozharness_repo_cache': '/tools/checkouts/mozharness',
             'mozharness_desktop_build': {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
