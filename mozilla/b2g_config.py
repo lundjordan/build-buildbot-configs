@@ -147,6 +147,7 @@ PLATFORM_VARS = {
         ],
         'multi_locale': True,
         'multi_config_name': 'multi_locale/b2g_linux32.py',
+        'mozharness_repo_cache': '/tools/checkouts/mozharness',
         'mozharness_multi_options': [
             '--build',
             '--summary',
@@ -223,6 +224,7 @@ PLATFORM_VARS = {
         ],
         'multi_locale': True,
         'multi_config_name': 'multi_locale/b2g_linux32.py',
+        'mozharness_repo_cache': '/tools/checkouts/mozharness',
         'mozharness_multi_options': [
             '--build',
             '--summary',
@@ -298,6 +300,7 @@ PLATFORM_VARS = {
         ],
         'multi_locale': True,
         'multi_config_name': 'multi_locale/b2g_linux64.py',
+        'mozharness_repo_cache': '/tools/checkouts/mozharness',
         'mozharness_multi_options': [
             '--build',
             '--summary',
@@ -372,6 +375,7 @@ PLATFORM_VARS = {
         ],
         'multi_locale': True,
         'multi_config_name': 'multi_locale/b2g_linux64.py',
+        'mozharness_repo_cache': '/tools/checkouts/mozharness',
         'mozharness_multi_options': [
             '--build',
             '--summary',
@@ -663,6 +667,7 @@ PLATFORM_VARS = {
         ],
         'multi_locale': True,
         'multi_config_name': 'multi_locale/b2g_linux32.py',
+        'mozharness_repo_cache': '/tools/checkouts/mozharness',
         'mozharness_multi_options': [
             '--build',
             '--summary',
@@ -740,6 +745,7 @@ PLATFORM_VARS = {
         ],
         'multi_locale': True,
         'multi_config_name': 'multi_locale/b2g_linux64.py',
+        'mozharness_repo_cache': '/tools/checkouts/mozharness',
         'mozharness_multi_options': [
             '--build',
             '--summary',
