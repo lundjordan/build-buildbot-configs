@@ -146,7 +146,7 @@ PLATFORM_VARS = {
         'linux': {
             'mozharness_python': '/tools/buildbot/bin/python',
             'reboot_command': [
-                '/tools/checkouts/mozharness/scripts/external_tools/count_and_reboot.py',
+                '/tools/checkouts/mozharness/external_tools/count_and_reboot.py',
                 '-f', '../reboot_count.txt', '-n', '1', '-z'
             ],
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
@@ -263,7 +263,7 @@ PLATFORM_VARS = {
         'linux64': {
             'mozharness_python': '/tools/buildbot/bin/python',
             'reboot_command': [
-                '/tools/checkouts/mozharness/scripts/external_tools/count_and_reboot.py',
+                '/tools/checkouts/mozharness/external_tools/count_and_reboot.py',
                 '-f', '../reboot_count.txt', '-n', '1', '-z'
             ],
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
@@ -369,7 +369,7 @@ PLATFORM_VARS = {
         'linux64-asan': {
             'mozharness_python': '/tools/buildbot/bin/python',
             'reboot_command': [
-                '/tools/checkouts/mozharness/scripts/external_tools/count_and_reboot.py',
+                '/tools/checkouts/mozharness/external_tools/count_and_reboot.py',
                 '-f', '../reboot_count.txt', '-n', '1', '-z'
             ],
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
@@ -463,7 +463,7 @@ PLATFORM_VARS = {
         'linux64-asan-debug': {
             'mozharness_python': '/tools/buildbot/bin/python',
             'reboot_command': [
-                '/tools/checkouts/mozharness/scripts/external_tools/count_and_reboot.py',
+                '/tools/checkouts/mozharness/external_tools/count_and_reboot.py',
                 '-f', '../reboot_count.txt', '-n', '1', '-z'
             ],
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
@@ -558,7 +558,7 @@ PLATFORM_VARS = {
         'linux64-st-an-debug': {
             'mozharness_python': '/tools/buildbot/bin/python',
             'reboot_command': [
-                '/tools/checkouts/mozharness/scripts/external_tools/count_and_reboot.py',
+                '/tools/checkouts/mozharness/external_tools/count_and_reboot.py',
                 '-f', '../reboot_count.txt', '-n', '1', '-z'
             ],
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
@@ -688,7 +688,7 @@ PLATFORM_VARS = {
         'linux64-mulet': {
             'mozharness_python': '/tools/buildbot/bin/python',
             'reboot_command': [
-                '/tools/checkouts/mozharness/scripts/external_tools/count_and_reboot.py',
+                '/tools/checkouts/mozharness/external_tools/count_and_reboot.py',
                 '-f', '../reboot_count.txt', '-n', '1', '-z'
             ],
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
@@ -1045,7 +1045,7 @@ PLATFORM_VARS = {
         'linux-debug': {
             'mozharness_python': '/tools/buildbot/bin/python',
             'reboot_command': [
-                '/tools/checkouts/mozharness/scripts/external_tools/count_and_reboot.py',
+                '/tools/checkouts/mozharness/external_tools/count_and_reboot.py',
                 '-f', '../reboot_count.txt', '-n', '1', '-z'
             ],
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
@@ -1146,7 +1146,7 @@ PLATFORM_VARS = {
         'linux64-debug': {
             'mozharness_python': '/tools/buildbot/bin/python',
             'reboot_command': [
-                '/tools/checkouts/mozharness/scripts/external_tools/count_and_reboot.py',
+                '/tools/checkouts/mozharness/external_tools/count_and_reboot.py',
                 '-f', '../reboot_count.txt', '-n', '1', '-z'
             ],
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
