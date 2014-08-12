@@ -150,6 +150,7 @@ PLATFORM_VARS = {
                 '-f', '../reboot_count.txt', '-n', '1', '-z'
             ],
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
+            'tools_repo_cache': '/tools/checkouts/build-tools',
             'mozharness_desktop_build': {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
@@ -267,6 +268,7 @@ PLATFORM_VARS = {
                 '-f', '../reboot_count.txt', '-n', '1', '-z'
             ],
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
+            'tools_repo_cache': '/tools/checkouts/build-tools',
             'mozharness_desktop_build': {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
@@ -373,6 +375,7 @@ PLATFORM_VARS = {
                 '-f', '../reboot_count.txt', '-n', '1', '-z'
             ],
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
+            'tools_repo_cache': '/tools/checkouts/build-tools',
             'mozharness_desktop_build': {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
@@ -467,6 +470,7 @@ PLATFORM_VARS = {
                 '-f', '../reboot_count.txt', '-n', '1', '-z'
             ],
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
+            'tools_repo_cache': '/tools/checkouts/build-tools',
             'mozharness_desktop_build': {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
@@ -562,6 +566,7 @@ PLATFORM_VARS = {
                 '-f', '../reboot_count.txt', '-n', '1', '-z'
             ],
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
+            'tools_repo_cache': '/tools/checkouts/build-tools',
             'mozharness_desktop_build': {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
@@ -658,6 +663,7 @@ PLATFORM_VARS = {
                     '--config-file', 'hazards/common.py',
                 ],
                 'mozharness_repo_cache': '/tools/checkouts/mozharness',
+                'tools_repo_cache': '/tools/checkouts/build-tools',
             },
             'stage_product': 'firefox',
             'product_name': 'firefox',
@@ -675,6 +681,7 @@ PLATFORM_VARS = {
                     '--config-file', 'hazards/common.py',
                 ],
                 'mozharness_repo_cache': '/tools/checkouts/mozharness',
+                'tools_repo_cache': '/tools/checkouts/build-tools',
             },
 
             'stage_product': 'firefox',
@@ -692,6 +699,7 @@ PLATFORM_VARS = {
                 '-f', '../reboot_count.txt', '-n', '1', '-z'
             ],
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
+            'tools_repo_cache': '/tools/checkouts/build-tools',
             'mozharness_desktop_build': {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
@@ -1049,6 +1057,7 @@ PLATFORM_VARS = {
                 '-f', '../reboot_count.txt', '-n', '1', '-z'
             ],
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
+            'tools_repo_cache': '/tools/checkouts/build-tools',
             'mozharness_desktop_build': {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
@@ -1150,6 +1159,7 @@ PLATFORM_VARS = {
                 '-f', '../reboot_count.txt', '-n', '1', '-z'
             ],
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
+            'tools_repo_cache': '/tools/checkouts/build-tools',
             'mozharness_desktop_build': {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
@@ -1416,11 +1426,11 @@ PLATFORM_VARS = {
             'nightly_signing_servers': 'dep-signing',
             'dep_signing_servers': 'dep-signing',
             'use_mock': True,
-            'mock_target': 'mozilla-centos6-x86_64',
+            'mock_target': 'mozilla-centos6-x86_64-android',
             'mock_packages': ['autoconf213', 'mozilla-python27-mercurial',
                               'ccache', 'android-sdk15', 'android-sdk16',
                               'android-ndk5', 'android-ndk8', 'zip',
-                              'java-1.6.0-openjdk-devel', 'zlib-devel',
+                              'java-1.7.0-openjdk-devel', 'zlib-devel',
                               'glibc-static', 'openssh-clients', 'mpfr',
                               "gcc472_0moz1", "gcc473_0moz1", 'wget', 'glibc.i686',
                               'libstdc++.i686', 'zlib.i686',
@@ -1484,11 +1494,11 @@ PLATFORM_VARS = {
             'nightly_signing_servers': 'dep-signing',
             'dep_signing_servers': 'dep-signing',
             'use_mock': True,
-            'mock_target': 'mozilla-centos6-x86_64',
+            'mock_target': 'mozilla-centos6-x86_64-android',
             'mock_packages': ['autoconf213', 'mozilla-python27-mercurial',
                               'ccache', 'android-sdk15', 'android-sdk16',
                               'android-ndk5', 'android-ndk8', 'zip',
-                              'java-1.6.0-openjdk-devel', 'zlib-devel',
+                              'java-1.7.0-openjdk-devel', 'zlib-devel',
                               'glibc-static', 'openssh-clients', 'mpfr', 'bc',
                               "gcc472_0moz1", "gcc473_0moz1", 'wget', 'glibc.i686',
                               'libstdc++.i686', 'zlib.i686',
@@ -1550,11 +1560,11 @@ PLATFORM_VARS = {
             'use_mock': True,
             'nightly_signing_servers': 'dep-signing',
             'dep_signing_servers': 'dep-signing',
-            'mock_target': 'mozilla-centos6-x86_64',
+            'mock_target': 'mozilla-centos6-x86_64-android',
             'mock_packages': ['autoconf213', 'mozilla-python27-mercurial',
                               'ccache', 'android-sdk15', 'android-sdk16',
                               'android-ndk7', 'android-ndk8', 'yasm', 'zip',
-                              'java-1.6.0-openjdk-devel', 'zlib-devel',
+                              'java-1.7.0-openjdk-devel', 'zlib-devel',
                               'glibc-static', 'openssh-clients', 'mpfr', 'bc',
                               "gcc472_0moz1", "gcc473_0moz1", 'glibc.i686', 'libstdc++.i686',
                               'zlib.i686', 'freetype-2.3.11-6.el6_1.8.x86_64', 'ant', 'ant-apache-regexp'],
@@ -1619,11 +1629,11 @@ PLATFORM_VARS = {
             'nightly_signing_servers': 'dep-signing',
             'dep_signing_servers': 'dep-signing',
             'use_mock': True,
-            'mock_target': 'mozilla-centos6-x86_64',
+            'mock_target': 'mozilla-centos6-x86_64-android',
             'mock_packages': ['autoconf213', 'mozilla-python27-mercurial',
                               'ccache', 'android-sdk15', 'android-sdk16',
                               'android-ndk5', 'android-ndk8', 'zip', "gcc472_0moz1", "gcc473_0moz1",
-                              'java-1.6.0-openjdk-devel', 'zlib-devel',
+                              'java-1.7.0-openjdk-devel', 'zlib-devel',
                               'glibc-static', 'openssh-clients', 'mpfr',
                               'wget', 'glibc.i686', 'libstdc++.i686',
                               'zlib.i686', 'freetype-2.3.11-6.el6_1.8.x86_64', 'ant', 'ant-apache-regexp'],
