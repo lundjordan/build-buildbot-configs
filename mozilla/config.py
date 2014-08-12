@@ -150,6 +150,7 @@ PLATFORM_VARS = {
                 '-f', '../reboot_count.txt', '-n', '1', '-z'
             ],
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
+            'tools_repo_cache': '/tools/checkouts/build-tools',
             'mozharness_desktop_build': {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
@@ -267,6 +268,7 @@ PLATFORM_VARS = {
                 '-f', '../reboot_count.txt', '-n', '1', '-z'
             ],
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
+            'tools_repo_cache': '/tools/checkouts/build-tools',
             'mozharness_desktop_build': {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
@@ -373,6 +375,7 @@ PLATFORM_VARS = {
                 '-f', '../reboot_count.txt', '-n', '1', '-z'
             ],
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
+            'tools_repo_cache': '/tools/checkouts/build-tools',
             'mozharness_desktop_build': {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
@@ -467,6 +470,7 @@ PLATFORM_VARS = {
                 '-f', '../reboot_count.txt', '-n', '1', '-z'
             ],
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
+            'tools_repo_cache': '/tools/checkouts/build-tools',
             'mozharness_desktop_build': {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
@@ -562,6 +566,7 @@ PLATFORM_VARS = {
                 '-f', '../reboot_count.txt', '-n', '1', '-z'
             ],
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
+            'tools_repo_cache': '/tools/checkouts/build-tools',
             'mozharness_desktop_build': {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
@@ -658,6 +663,7 @@ PLATFORM_VARS = {
                     '--config-file', 'hazards/common.py',
                 ],
                 'mozharness_repo_cache': '/tools/checkouts/mozharness',
+                'tools_repo_cache': '/tools/checkouts/build-tools',
             },
             'stage_product': 'firefox',
             'product_name': 'firefox',
@@ -675,6 +681,7 @@ PLATFORM_VARS = {
                     '--config-file', 'hazards/common.py',
                 ],
                 'mozharness_repo_cache': '/tools/checkouts/mozharness',
+                'tools_repo_cache': '/tools/checkouts/build-tools',
             },
 
             'stage_product': 'firefox',
@@ -692,6 +699,7 @@ PLATFORM_VARS = {
                 '-f', '../reboot_count.txt', '-n', '1', '-z'
             ],
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
+            'tools_repo_cache': '/tools/checkouts/build-tools',
             'mozharness_desktop_build': {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
@@ -1049,6 +1057,7 @@ PLATFORM_VARS = {
                 '-f', '../reboot_count.txt', '-n', '1', '-z'
             ],
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
+            'tools_repo_cache': '/tools/checkouts/build-tools',
             'mozharness_desktop_build': {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
@@ -1150,6 +1159,7 @@ PLATFORM_VARS = {
                 '-f', '../reboot_count.txt', '-n', '1', '-z'
             ],
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
+            'tools_repo_cache': '/tools/checkouts/build-tools',
             'mozharness_desktop_build': {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
