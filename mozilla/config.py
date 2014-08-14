@@ -665,6 +665,9 @@ PLATFORM_VARS = {
                 'mozharness_repo_cache': '/tools/checkouts/mozharness',
                 'tools_repo_cache': '/tools/checkouts/build-tools',
             },
+            'env': {
+                'HG_SHARE_BASE_DIR': '/builds/hg-shared',
+            },
             'stage_product': 'firefox',
             'product_name': 'firefox',
             'base_name': '%(platform)s_%(branch)s',
@@ -684,6 +687,9 @@ PLATFORM_VARS = {
                 'tools_repo_cache': '/tools/checkouts/build-tools',
             },
 
+            'env': {
+                'HG_SHARE_BASE_DIR': '/builds/hg-shared',
+            },
             'stage_product': 'firefox',
             'product_name': 'firefox',
             'base_name': '%(platform)s_%(branch)s',
