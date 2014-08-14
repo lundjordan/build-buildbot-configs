@@ -845,8 +845,8 @@ PLATFORM_VARS = {
             # random new branches to accidentally use nightly-signing, which signs
             # with valid keys. Any branch that needs to be signed with these keys
             # must be overridden explicitly.
-            'nightly_signing_servers': 'mac-dep-signing',
-            'dep_signing_servers': 'mac-dep-signing',
+            'nightly_signing_servers': 'dep-signing',
+            'dep_signing_servers': 'dep-signing',
             'tooltool_manifest_src': 'browser/config/tooltool-manifests/macosx64/releng.manifest',
             'tooltool_l10n_manifest_src': 'browser/config/tooltool-manifests/macosx64/l10n.manifest',
             'enable_ccache': True,
@@ -900,8 +900,8 @@ PLATFORM_VARS = {
             # random new branches to accidentally use nightly-signing, which signs
             # with valid keys. Any branch that needs to be signed with these keys
             # must be overridden explicitly.
-            'nightly_signing_servers': 'mac-dep-signing',
-            'dep_signing_servers': 'mac-dep-signing',
+            'nightly_signing_servers': 'dep-signing',
+            'dep_signing_servers': 'dep-signing',
             'tooltool_manifest_src': 'browser/config/tooltool-manifests/macosx64/releng.manifest',
             'tooltool_l10n_manifest_src': 'browser/config/tooltool-manifests/macosx64/l10n.manifest',
             'enable_ccache': True,
@@ -1301,8 +1301,8 @@ PLATFORM_VARS = {
             # random new branches to accidentally use nightly-signing, which signs
             # with valid keys. Any branch that needs to be signed with these keys
             # must be overridden explicitly.
-            'nightly_signing_servers': 'mac-dep-signing',
-            'dep_signing_servers': 'mac-dep-signing',
+            'nightly_signing_servers': 'dep-signing',
+            'dep_signing_servers': 'dep-signing',
             'tooltool_manifest_src': 'browser/config/tooltool-manifests/macosx64/releng.manifest',
             'enable_ccache': True,
         },
@@ -1405,7 +1405,7 @@ PLATFORM_VARS = {
             'unittest_platform': 'android-opt',
             'app_name': 'browser',
             'brand_name': 'Minefield',
-            'base_name': 'Android 2.2 %(branch)s',
+            'base_name': 'Android 2.3 %(branch)s',
             'mozconfig': 'android/%(branch)s/nightly',
             'src_mozconfig': 'mobile/android/config/mozconfigs/android/nightly',
             'mobile_dir': 'mobile/android',
@@ -1476,7 +1476,7 @@ PLATFORM_VARS = {
             'product_name': 'firefox',
             'unittest_platform': 'android-armv6-opt',
             'app_name': 'browser',
-            'base_name': 'Android 2.2 Armv6 %(branch)s',
+            'base_name': 'Android 2.3 Armv6 %(branch)s',
             'mozconfig': 'android-armv6/%(branch)s/nightly',
             'src_mozconfig': 'mobile/android/config/mozconfigs/android-armv6/nightly',
             'mobile_dir': 'mobile/android',
@@ -1607,7 +1607,7 @@ PLATFORM_VARS = {
             'product_name': 'firefox',
             'app_name': 'browser',
             'brand_name': 'Minefield',
-            'base_name': 'Android 2.2 Debug %(branch)s',
+            'base_name': 'Android 2.3 Debug %(branch)s',
             'mozconfig': 'android-debug/%(branch)s/nightly',
             'src_mozconfig': 'mobile/android/config/mozconfigs/android/debug',
             'mobile_dir': 'mobile/android',
@@ -1686,7 +1686,7 @@ for platform in PLATFORM_VARS.values():
 
 PROJECTS = {
     'fuzzing': {
-        'platforms': ['mock-hw', 'macosx64-lion', 'win64'],
+        'platforms': ['mock-hw', 'macosx64-lion', 'win64-rev2'],
     },
 }
 
@@ -2076,7 +2076,7 @@ BRANCHES['mozilla-central']['platforms']['linux64']['nightly_signing_servers'] =
 BRANCHES['mozilla-central']['platforms']['win32']['nightly_signing_servers'] = 'nightly-signing'
 BRANCHES['mozilla-central']['platforms']['android']['nightly_signing_servers'] = 'nightly-signing'
 BRANCHES['mozilla-central']['platforms']['android-armv6']['nightly_signing_servers'] = 'nightly-signing'
-BRANCHES['mozilla-central']['platforms']['macosx64']['nightly_signing_servers'] = 'mac-nightly-signing'
+BRANCHES['mozilla-central']['platforms']['macosx64']['nightly_signing_servers'] = 'nightly-signing'
 BRANCHES['mozilla-central']['l10n_extra_configure_args'] = ['--with-macbundlename-prefix=Firefox']
 
 ######## mozilla-release
@@ -2216,7 +2216,7 @@ BRANCHES['mozilla-aurora']['platforms']['android-armv6']['env']['MOZ_SYMBOLS_EXT
 BRANCHES['mozilla-aurora']['platforms']['linux']['nightly_signing_servers'] = 'nightly-signing'
 BRANCHES['mozilla-aurora']['platforms']['linux64']['nightly_signing_servers'] = 'nightly-signing'
 BRANCHES['mozilla-aurora']['platforms']['win32']['nightly_signing_servers'] = 'nightly-signing'
-BRANCHES['mozilla-aurora']['platforms']['macosx64']['nightly_signing_servers'] = 'mac-nightly-signing'
+BRANCHES['mozilla-aurora']['platforms']['macosx64']['nightly_signing_servers'] = 'nightly-signing'
 BRANCHES['mozilla-aurora']['l10n_extra_configure_args'] = ['--with-macbundlename-prefix=Firefox']
 BRANCHES['mozilla-aurora']['enabled_products'] = ['firefox', 'mobile']
 
