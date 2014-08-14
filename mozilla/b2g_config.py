@@ -884,6 +884,9 @@ PLATFORM_VARS = {
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
             'tools_repo_cache': '/tools/checkouts/build-tools',
         },
+        'env': {
+            'HG_SHARE_BASE_DIR': '/builds/hg-shared',
+        },
         'stage_product': 'b2g',
         'product_name': 'b2g',
         'base_name': builder_prefix + '_%(branch)s_%(platform)s',
@@ -902,6 +905,9 @@ PLATFORM_VARS = {
             'reboot_command': ['bash', '-c', 'sudo reboot; sleep 600'],
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
             'tools_repo_cache': '/tools/checkouts/build-tools',
+        },
+        'env': {
+            'HG_SHARE_BASE_DIR': '/builds/hg-shared',
         },
         'stage_product': 'b2g',
         'product_name': 'b2g',
@@ -923,6 +929,9 @@ PLATFORM_VARS = {
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
             'tools_repo_cache': '/tools/checkouts/build-tools',
         },
+        'env': {
+            'HG_SHARE_BASE_DIR': '/builds/hg-shared',
+        },
         'stage_product': 'b2g',
         'product_name': 'b2g',
         'base_name': builder_prefix + '_%(branch)s_%(platform)s',
@@ -941,6 +950,9 @@ PLATFORM_VARS = {
             'reboot_command': ['bash', '-c', 'sudo reboot; sleep 600'],
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
             'tools_repo_cache': '/tools/checkouts/build-tools',
+        },
+        'env': {
+            'HG_SHARE_BASE_DIR': '/builds/hg-shared',
         },
         'stage_product': 'b2g',
         'product_name': 'b2g',
@@ -965,6 +977,7 @@ PLATFORM_VARS = {
         'env': {
             'PATH': '/tools/python27-mercurial/bin:/tools/python27/bin:/usr/local/bin:/usr/lib64/ccache:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/cltbld/bin',
             'PYTHONPATH': '/tools/python27/lib',
+            'HG_SHARE_BASE_DIR': '/builds/hg-shared',
         },
         'stage_product': 'b2g',
         'product_name': 'b2g',
@@ -988,6 +1001,7 @@ PLATFORM_VARS = {
         'env': {
             'PATH': '/tools/python27-mercurial/bin:/tools/python27/bin:/usr/local/bin:/usr/lib64/ccache:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/cltbld/bin',
             'PYTHONPATH': '/tools/python27/lib',
+            'HG_SHARE_BASE_DIR': '/builds/hg-shared',
         },
         'stage_product': 'b2g',
         'product_name': 'b2g',
@@ -1009,6 +1023,9 @@ PLATFORM_VARS = {
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
             'tools_repo_cache': '/tools/checkouts/build-tools',
         },
+        'env': {
+            'HG_SHARE_BASE_DIR': '/builds/hg-shared',
+        },
         'stage_product': 'b2g',
         'product_name': 'b2g',
         'base_name': builder_prefix + '_%(branch)s_%(platform)s',
@@ -1028,6 +1045,9 @@ PLATFORM_VARS = {
             'reboot_command': ['bash', '-c', 'sudo reboot; sleep 600'],
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
             'tools_repo_cache': '/tools/checkouts/build-tools',
+        },
+        'env': {
+            'HG_SHARE_BASE_DIR': '/builds/hg-shared',
         },
         'enable_nonunified_build': True,
         'stage_product': 'b2g',
@@ -1050,6 +1070,9 @@ PLATFORM_VARS = {
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
             'tools_repo_cache': '/tools/checkouts/build-tools',
         },
+        'env': {
+            'HG_SHARE_BASE_DIR': '/builds/hg-shared',
+        },
         'enable_nonunified_build': True,
         'stage_product': 'b2g',
         'product_name': 'b2g',
@@ -1069,6 +1092,9 @@ PLATFORM_VARS = {
             'reboot_command': ['bash', '-c', 'sudo reboot; sleep 600'],
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
             'tools_repo_cache': '/tools/checkouts/build-tools',
+        },
+        'env': {
+            'HG_SHARE_BASE_DIR': '/builds/hg-shared',
         },
         'enable_nonunified_build': True,
         'stage_product': 'b2g',
@@ -1091,6 +1117,9 @@ PLATFORM_VARS = {
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
             'tools_repo_cache': '/tools/checkouts/build-tools',
         },
+        'env': {
+            'HG_SHARE_BASE_DIR': '/builds/hg-shared',
+        },
         'enable_nonunified_build': True,
         'stage_product': 'b2g',
         'product_name': 'b2g',
@@ -1110,6 +1139,9 @@ PLATFORM_VARS = {
             ],
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
             'tools_repo_cache': '/tools/checkouts/build-tools',
+        },
+        'env': {
+            'HG_SHARE_BASE_DIR': '/builds/hg-shared',
         },
         'stage_product': 'b2g',
         'product_name': 'b2g',
@@ -1132,6 +1164,9 @@ PLATFORM_VARS = {
             'reboot_command': ['bash', '-c', 'sudo reboot; sleep 600'],
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
             'tools_repo_cache': '/tools/checkouts/build-tools',
+        },
+        'env': {
+            'HG_SHARE_BASE_DIR': '/builds/hg-shared',
         },
         'enable_nonunified_build': True,
         'stage_product': 'b2g',
@@ -1156,6 +1191,9 @@ PLATFORM_VARS = {
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
             'tools_repo_cache': '/tools/checkouts/build-tools',
         },
+        'env': {
+            'HG_SHARE_BASE_DIR': '/builds/hg-shared',
+        },
         'enable_nonunified_build': True,
         'stage_product': 'b2g',
         'product_name': 'b2g',
@@ -1178,6 +1216,9 @@ PLATFORM_VARS = {
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
             'tools_repo_cache': '/tools/checkouts/build-tools',
         },
+        'env': {
+            'HG_SHARE_BASE_DIR': '/builds/hg-shared',
+        },
         'stage_product': 'b2g',
         'product_name': 'b2g',
         'base_name': builder_prefix + '_%(branch)s_%(platform)s',
@@ -1198,6 +1239,9 @@ PLATFORM_VARS = {
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
             'tools_repo_cache': '/tools/checkouts/build-tools',
         },
+        'env': {
+            'HG_SHARE_BASE_DIR': '/builds/hg-shared',
+        },
         'stage_product': 'b2g',
         'product_name': 'b2g',
         'base_name': builder_prefix + '_%(branch)s_%(platform)s',
@@ -1216,6 +1260,9 @@ PLATFORM_VARS = {
             'reboot_command': ['bash', '-c', 'sudo reboot; sleep 600'],
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
             'tools_repo_cache': '/tools/checkouts/build-tools',
+        },
+        'env': {
+            'HG_SHARE_BASE_DIR': '/builds/hg-shared',
         },
         'stage_product': 'b2g',
         'product_name': 'b2g',
@@ -1237,6 +1284,9 @@ PLATFORM_VARS = {
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
             'tools_repo_cache': '/tools/checkouts/build-tools',
         },
+        'env': {
+            'HG_SHARE_BASE_DIR': '/builds/hg-shared',
+        },
         'stage_product': 'b2g',
         'product_name': 'b2g',
         'base_name': builder_prefix + '_%(branch)s_%(platform)s',
@@ -1255,6 +1305,9 @@ PLATFORM_VARS = {
             'reboot_command': ['bash', '-c', 'sudo reboot; sleep 600'],
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
             'tools_repo_cache': '/tools/checkouts/build-tools',
+        },
+        'env': {
+            'HG_SHARE_BASE_DIR': '/builds/hg-shared',
         },
         'stage_product': 'b2g',
         'product_name': 'b2g',
