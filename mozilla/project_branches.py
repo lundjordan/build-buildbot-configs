@@ -74,7 +74,7 @@ PROJECT_BRANCHES = {
         'lock_platforms': True,
         'platforms': {
             'macosx64': {
-                'nightly_signing_servers': 'mac-nightly-signing',
+                'nightly_signing_servers': 'nightly-signing',
             },
             'linux': {
                 'nightly_signing_servers': 'nightly-signing',
@@ -223,12 +223,19 @@ PROJECT_BRANCHES = {
                 'nightly_signing_servers': 'nightly-signing',
             },
             'macosx64': {
-                'nightly_signing_servers': 'mac-nightly-signing',
+                'nightly_signing_servers': 'nightly-signing',
             },
             'win32': {
                 'nightly_signing_servers': 'nightly-signing',
             },
         },
+        # OS X l10n repacks temporarily enabled for bug 1053797
+        'enable_l10n': True,
+        'enable_l10n_onchange': False,
+        'l10n_platforms': ['macosx64'],
+        'l10n_tree': 'fxcentral',
+        'l10n_repo_path': 'l10n-central',
+        'enUS_binaryURL': '/nightly/latest-oak',
     },
     # Not needed whilst booked for bug 929203.
     #'pine': {}
