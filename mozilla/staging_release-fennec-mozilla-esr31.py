@@ -4,38 +4,45 @@
 # or changing options as part of release automation changes you should be
 # editing the .template instead. This file should only by edited directly if
 # you're starting a release without Release Kickoff. You have been warned.
+EMAIL_RECIPIENTS = []
+
 releaseConfig = {}
 releaseConfig['disable_tinderbox_mail'] = True
-releaseConfig['base_clobber_url'] = 'http://clobberer.pvt.build.mozilla.org/always_clobber.php'
+releaseConfig['base_clobber_url'] = 'http://clobberer-stage.pvt.build.mozilla.org/always_clobber.php'
 
 # Release Notification
-releaseConfig['AllRecipients']       = ['<release@mozilla.com>',
-                                        '<release-mgmt@mozilla.com>',
-                                        '<qa-drivers@mozilla.com>']
-releaseConfig['ImportantRecipients'] = ['<release-drivers@mozilla.org>',]
+releaseConfig['AllRecipients']       = EMAIL_RECIPIENTS
+releaseConfig['ImportantRecipients'] = EMAIL_RECIPIENTS
 releaseConfig['releaseTemplates']    = 'release_templates'
-releaseConfig['messagePrefix']       = '[release] '
+releaseConfig['messagePrefix']       = '[staging-release] '
 
 # Basic product configuration
 #  Names for the product/files
 releaseConfig['productName']         = 'fennec'
 releaseConfig['appName']             = 'mobile'
 releaseConfig['relbranchPrefix']     = 'MOBILE'
+
+# Function for bumping Android Version Code
+# see bug 1040319
+def bumpIntegerInFile(previousContents):
+    return str(int(previousContents) + 1)
+
 #  Current version info
-releaseConfig['version']             = '33.0b1'
-releaseConfig['appVersion']          = '33.0'
+releaseConfig['version']             = '31.1.0esr'
+releaseConfig['appVersion']          = '31.1.0'
 releaseConfig['milestone']           = releaseConfig['appVersion']
-releaseConfig['buildNumber']         = 2
-releaseConfig['baseTag']             = 'FENNEC_33_0b1'
+releaseConfig['buildNumber']         = 12
+releaseConfig['baseTag']             = 'FENNEC_31_1_0esr'
 #  Next (nightly) version info
-releaseConfig['nextAppVersion']      = releaseConfig['appVersion']
-releaseConfig['nextMilestone']       = releaseConfig['milestone']
+releaseConfig['nextAppVersion']      = releaseConfig['version']
+releaseConfig['nextMilestone']       = releaseConfig['version']
 #  Repository configuration, for tagging
 releaseConfig['sourceRepositories']  = {
     'mobile': {
-        'name': 'mozilla-beta',
-        'path': 'releases/mozilla-beta',
-        'revision': '5638b907b505',
+        'name': 'mozilla-esr31',
+        'clonePath' : 'releases/mozilla-esr31',
+        'path': 'users/stage-ffxbld/mozilla-esr31',
+        'revision': 'default',
         'relbranch': None,
         'bumpFiles': {
             'mobile/android/confvars.sh': {
@@ -50,57 +57,61 @@ releaseConfig['sourceRepositories']  = {
                 'version': releaseConfig['milestone'],
                 'nextVersion': releaseConfig['nextMilestone']
             },
+            'mobile/android/config/armv6_play_store_version_code.txt': {
+                'version': bumpIntegerInFile,
+                'nextVersion': bumpIntegerInFile,
+            },
         }
     }
 }
 #  L10n repositories
 releaseConfig['l10nRelbranch']       = None
-releaseConfig['l10nRepoPath']        = 'releases/l10n/mozilla-beta'
-releaseConfig['l10nRevisionFile']    = 'l10n-changesets_mobile-beta.json'
+releaseConfig['l10nRepoPath']        = 'users/stage-ffxbld'
+releaseConfig['l10nRepoClonePath']   = 'releases/l10n/mozilla-release'
+releaseConfig['l10nRevisionFile']    = 'l10n-changesets_mobile-esr31.json'
 releaseConfig['l10nJsonFile']        = releaseConfig['l10nRevisionFile']
 #  Support repositories
 releaseConfig['otherReposToTag']     = {
-    'build/compare-locales': 'RELEASE_AUTOMATION',
-    'build/buildbot': 'production-0.8',
-    'build/mozharness': 'production',
+    'users/stage-ffxbld/compare-locales': 'RELEASE_AUTOMATION',
+    'users/stage-ffxbld/buildbot': 'production-0.8',
+    'users/stage-ffxbld/mozharness': 'production',
 }
 
 # Platform configuration
-releaseConfig['enUSPlatforms']        = ('android', 'android-x86')
+releaseConfig['enUSPlatforms']        = ('android-armv6',)
 releaseConfig['notifyPlatforms']      = releaseConfig['enUSPlatforms']
 releaseConfig['unittestPlatforms']    = ()
 releaseConfig['talosTestPlatforms']   = ()
 releaseConfig['enableUnittests']      = False
 
 # L10n configuration
-releaseConfig['l10nPlatforms']       = ('android',)
+releaseConfig['l10nPlatforms']       = ()
 releaseConfig['l10nNotifyPlatforms'] = releaseConfig['l10nPlatforms']
 releaseConfig['mergeLocales']        = True
 releaseConfig['enableMultiLocale']   = True
 
 # Mercurial account
-releaseConfig['hgUsername']          = 'ffxbld'
-releaseConfig['hgSshKey']            = '/home/mock_mozilla/.ssh/ffxbld_dsa'
+releaseConfig['hgUsername']          = 'stage-ffxbld'
+releaseConfig['hgSshKey']            = '~cltbld/.ssh/ffxbld_dsa'
 
 # Update-specific configuration
-releaseConfig['ftpServer']           = 'ftp.mozilla.org'
-releaseConfig['stagingServer']       = 'stage.mozilla.org'
-releaseConfig['ausServerUrl']        = 'https://aus3.mozilla.org'
-releaseConfig['ausHost']             = 'aus3-staging.mozilla.org'
+releaseConfig['ftpServer']           = 'dev-stage01.srv.releng.scl3.mozilla.com'
+releaseConfig['stagingServer']       = 'dev-stage01.srv.releng.scl3.mozilla.com'
+releaseConfig['ausServerUrl']        = 'https://dev-stage01.srv.releng.scl3.mozilla.com'
+releaseConfig['ausHost']             = 'dev-stage01.srv.releng.scl3.mozilla.com.org'
 releaseConfig['ausUser']             = 'ffxbld'
 releaseConfig['ausSshKey']           = 'ffxbld_dsa'
 
 # Partner repack configuration
 releaseConfig['doPartnerRepacks']       = False
-releaseConfig['partnersRepoPath']       = 'build/partner-repacks'
+releaseConfig['partnersRepoPath']       = 'users/stage-ffxbld/partner-repacks'
 releaseConfig['partnerRepackPlatforms'] = ()
 
 # mozconfigs
 releaseConfig['mozconfigs']          = {
-    'android': 'mobile/android/config/mozconfigs/android/release',
-    'android-x86': 'mobile/android/config/mozconfigs/android-x86/release',
+    'android-armv6': 'mobile/android/config/mozconfigs/android-armv6/release',
 }
-releaseConfig['releaseChannel']      = 'beta'
+releaseConfig['releaseChannel']      = 'esr'
 
 # Misc configuration
 releaseConfig['enable_repo_setup']       = False
@@ -115,31 +126,23 @@ releaseConfig['disablePushToMirrors']     = True
 releaseConfig['enableUpdatePackaging']    = False
 releaseConfig['balrog_api_root']          = None
 
-releaseConfig['single_locale_options'] = {
-    'android': [
-        '--cfg',
-        'single_locale/release_mozilla-beta_android.py',
-        '--tag-override', '%s_RELEASE' % releaseConfig['baseTag'],
-    ],
-}
-
 releaseConfig['multilocale_config'] = {
     'platforms': {
-        'android':
-            'multi_locale/release_mozilla-beta_android.json',
-        'android-x86':
-            'multi_locale/release_mozilla-beta_android-x86.json',
+        'android-armv6':
+            'multi_locale/staging_release_mozilla-esr_android-armv6.json',
     },
     'multilocaleOptions': [
         '--tag-override=%s_RELEASE' % releaseConfig['baseTag'],
+        '--user-repo-override=users/stage-ffxbld',
         '--pull-locale-source',
         '--add-locales',
         '--package-multi',
         '--summary',
     ]
 }
+releaseConfig['build_tools_repo_path'] = 'users/stage-ffxbld/tools'
 releaseConfig['enableSigningAtBuildTime'] = True
 releaseConfig['enablePartialMarsAtBuildTime'] = False
 releaseConfig['autoGenerateChecksums'] = False
 releaseConfig['use_mock'] = True
-releaseConfig['mock_platforms'] = ('android', 'android-x86', 'linux')
+releaseConfig['mock_platforms'] = ('android-armv6',)
