@@ -34,6 +34,7 @@ GLOBAL_VARS.update({
     # a problem to keep them in sync.
     'objdir': 'objdir-tb',
     'objdir_unittests': 'objdir',
+    'mozilla_srcdir': 'mozilla',
     'stage_username': 'tbirdbld',
     'stage_group': None,
     'stage_ssh_key': 'tbirdbld_dsa',
@@ -93,7 +94,6 @@ GLOBAL_VARS.update({
     'scratchbox_path': '/builds/scratchbox/moz_scratchbox',
     'scratchbox_home': '/scratchbox/users/cltbld/home/cltbld',
     'use_old_updater': False,
-    'mozilla_dir': '/mozilla',
 })
 
 # shorthand, because these are used often
@@ -358,7 +358,7 @@ PLATFORM_VARS = {
                 'SYMBOL_SERVER_SSH_KEY': "/c/Users/cltbld/.ssh/tbirdbld_dsa",
                 'PDBSTR_PATH': '/c/Program Files (x86)/Windows Kits/8.0/Debuggers/x64/srcsrv/pdbstr.exe',
                 'HG_SHARE_BASE_DIR': 'c:/builds/hg-shared',
-                'PATH': "${MOZILLABUILD}nsis-2.46u;${MOZILLABUILD}python27;${MOZILLABUILD}buildbotve\\scripts;${PATH}",
+                'PATH': "${MOZILLABUILD}nsis-3.0a2;${MOZILLABUILD}nsis-2.46u;${MOZILLABUILD}python27;${MOZILLABUILD}buildbotve\\scripts;${PATH}",
             },
             'enable_opt_unittests': False,
             'enable_checktests': True,
@@ -405,7 +405,7 @@ PLATFORM_VARS = {
                 'MOZ_SYMBOLS_EXTRA_BUILDID': 'win64',
                 'PDBSTR_PATH': '/c/Program Files (x86)/Windows Kits/8.0/Debuggers/x64/srcsrv/pdbstr.exe',
                 'HG_SHARE_BASE_DIR': 'c:/builds/hg-shared',
-                'PATH': "${MOZILLABUILD}nsis-2.46u;${MOZILLABUILD}python27;${MOZILLABUILD}buildbotve\\scripts;${PATH}",
+                'PATH': "${MOZILLABUILD}nsis-3.0a2;${MOZILLABUILD}nsis-2.46u;${MOZILLABUILD}python27;${MOZILLABUILD}buildbotve\\scripts;${PATH}",
             },
             'enable_opt_unittests': False,
             'enable_checktests': True,
@@ -612,7 +612,7 @@ PLATFORM_VARS = {
                 'MOZ_OBJDIR': OBJDIR,
                 'XPCOM_DEBUG_BREAK': 'stack-and-abort',
                 'HG_SHARE_BASE_DIR': 'c:/builds/hg-shared',
-                'PATH': "${MOZILLABUILD}nsis-2.46u;${MOZILLABUILD}python27;${MOZILLABUILD}buildbotve\\scripts;${PATH}",
+                'PATH': "${MOZILLABUILD}nsis-3.0a2;${MOZILLABUILD}nsis-2.46u;${MOZILLABUILD}python27;${MOZILLABUILD}buildbotve\\scripts;${PATH}",
             },
             'enable_unittests': False,
             'enable_checktests': True,
@@ -735,7 +735,6 @@ for branch in BRANCHES.keys():
 # This is a path, relative to HGURL, where the repository is located
 # HGURL + repo_path should be a valid repository
 BRANCHES['comm-central']['moz_repo_path'] = 'mozilla-central'
-BRANCHES['comm-central']['mozilla_dir'] = 'mozilla'
 BRANCHES['comm-central']['skip_blank_repos'] = True
 BRANCHES['comm-central']['call_client_py'] = True
 BRANCHES['comm-central']['repo_path'] = 'comm-central'
@@ -857,6 +856,7 @@ BRANCHES['comm-esr31']['enable_valgrind'] = False
 
 ######## comm-beta
 BRANCHES['comm-beta']['moz_repo_path'] = 'releases/mozilla-beta'
+# MERGE DAY (remove 'mozilla_dir' once comm-beta no longer services Gecko 33 and lower)
 BRANCHES['comm-beta']['mozilla_dir'] = 'mozilla'
 BRANCHES['comm-beta']['skip_blank_repos'] = True
 BRANCHES['comm-beta']['call_client_py'] = True
@@ -898,7 +898,6 @@ BRANCHES['comm-beta']['enable_valgrind'] = False
 
 ######## comm-aurora
 BRANCHES['comm-aurora']['moz_repo_path'] = 'releases/mozilla-aurora'
-BRANCHES['comm-aurora']['mozilla_dir'] = 'mozilla'
 BRANCHES['comm-aurora']['skip_blank_repos'] = True
 BRANCHES['comm-aurora']['call_client_py'] = True
 BRANCHES['comm-aurora']['repo_path'] = 'releases/comm-aurora'
@@ -995,6 +994,7 @@ for branch in ACTIVE_PROJECT_BRANCHES:
     BRANCHES[branch]['brand_name'] = branchConfig.get('brand_name', GLOBAL_VARS['brand_name'])
     BRANCHES[branch]['repo_path'] = branchConfig.get('repo_path', 'projects/' + branch)
     BRANCHES[branch]['mozilla_dir'] = branchConfig.get('mozilla_dir', 'mozilla')
+    BRANCHES[branch]['mozilla_srcdir'] = branchConfig.get('mozilla_srcdir', 'mozilla')
     BRANCHES[branch]['enabled_products'] = branchConfig.get('enabled_products',
                                                             GLOBAL_VARS['enabled_products'])
     BRANCHES[branch]['enable_nightly'] = branchConfig.get('enable_nightly', False)

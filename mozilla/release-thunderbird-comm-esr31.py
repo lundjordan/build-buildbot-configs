@@ -20,18 +20,19 @@ releaseConfig['messagePrefix']       = '[release] '
 releaseConfig['productName']         = 'thunderbird'
 releaseConfig['appName']             = 'mail'
 releaseConfig['mozilla_dir']         = 'mozilla'
+releaseConfig['mozilla_srcdir']      = 'mozilla'
 #  Current version info
-releaseConfig['version']             = '31.0'
-releaseConfig['appVersion']          = '31.0'
+releaseConfig['version']             = '31.1.1'
+releaseConfig['appVersion']          = '31.1.1'
 releaseConfig['milestone']           = releaseConfig['appVersion']
 releaseConfig['buildNumber']         = 1
-releaseConfig['baseTag']             = 'THUNDERBIRD_31_0'
+releaseConfig['baseTag']             = 'THUNDERBIRD_31_1_1'
 releaseConfig['partialUpdates']      = {
 
-    '24.6.0': {
-        'appVersion': '24.6.0',
-        'buildNumber': 3,
-        'baseTag': 'THUNDERBIRD_24_6_0',
+    '31.1.0': {
+        'appVersion': '31.1.0',
+        'buildNumber': 2,
+        'baseTag': 'THUNDERBIRD_31_1_0',
     },
 
 }
@@ -43,7 +44,7 @@ releaseConfig['sourceRepositories']  = {
     'comm': {
         'name': 'comm-esr31',
         'path': 'releases/comm-esr31',
-        'revision': '90e8c17ab16e',
+        'revision': 'aca1ac1d498e',
         'relbranch': None,
         'bumpFiles': {
             'mail/config/version.txt': {
@@ -55,8 +56,8 @@ releaseConfig['sourceRepositories']  = {
     'mozilla': {
         'name': 'mozilla-esr31',
         'path': 'releases/mozilla-esr31',
-        'revision': 'GECKO310_20140717_RELBRANCH',
-        'relbranch': 'GECKO310_20140717_RELBRANCH',
+        'revision': '0476dd77fcbc',
+        'relbranch': None,
         'bumpFiles': {
             'config/milestone.txt': {
                 'version': releaseConfig['milestone'],
@@ -121,9 +122,10 @@ releaseConfig['mozconfigs']          = {
     'macosx64': 'mail/config/mozconfigs/macosx-universal/release',
     'win32': 'mail/config/mozconfigs/win32/release',
 }
-releaseConfig['releaseChannel']      = 'release'
-releaseConfig['testChannels']        = ['releasetest', 'betatest']
-releaseConfig['testChannelRuleIds']  = [28,38]
+releaseConfig['releaseChannel']        = 'release'
+releaseConfig['releaseChannelRuleIds'] = [] # Still on AUS3
+releaseConfig['testChannels']          = ['releasetest', 'betatest']
+releaseConfig['testChannelRuleIds']    = [28,38]
 
 # Partner repack configuration
 releaseConfig['doPartnerRepacks']    = False

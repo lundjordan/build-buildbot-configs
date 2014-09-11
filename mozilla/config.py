@@ -1029,7 +1029,7 @@ PLATFORM_VARS = {
                 'PDBSTR_PATH': '/c/Program Files (x86)/Windows Kits/8.0/Debuggers/x64/srcsrv/pdbstr.exe',
                 'HG_SHARE_BASE_DIR': 'c:/builds/hg-shared',
                 'BINSCOPE': 'C:\Program Files (x86)\Microsoft\SDL BinScope\BinScope.exe',
-                'PATH': "${MOZILLABUILD}nsis-2.46u;${MOZILLABUILD}python27;${MOZILLABUILD}buildbotve\\scripts;${PATH}",
+                'PATH': "${MOZILLABUILD}nsis-3.0a2;${MOZILLABUILD}nsis-2.46u;${MOZILLABUILD}python27;${MOZILLABUILD}buildbotve\\scripts;${PATH}",
             },
             'enable_checktests': True,
             'talos_masters': GLOBAL_VARS['talos_masters'],
@@ -1405,7 +1405,7 @@ PLATFORM_VARS = {
                 'XPCOM_DEBUG_BREAK': 'stack-and-abort',
                 'HG_SHARE_BASE_DIR': 'c:/builds/hg-shared',
                 'BINSCOPE': 'C:\Program Files (x86)\Microsoft\SDL BinScope\BinScope.exe',
-                'PATH': "${MOZILLABUILD}nsis-2.46u;${MOZILLABUILD}python27;${MOZILLABUILD}buildbotve\\scripts;${PATH}",
+                'PATH': "${MOZILLABUILD}nsis-3.0a2;${MOZILLABUILD}nsis-2.46u;${MOZILLABUILD}python27;${MOZILLABUILD}buildbotve\\scripts;${PATH}",
             },
             'enable_unittests': False,
             'enable_checktests': True,
@@ -1441,7 +1441,7 @@ PLATFORM_VARS = {
                 'XPCOM_DEBUG_BREAK': 'stack-and-abort',
                 'HG_SHARE_BASE_DIR': 'c:/builds/hg-shared',
                 'BINSCOPE': 'C:\Program Files (x86)\Microsoft\SDL BinScope\BinScope.exe',
-                'PATH': "${MOZILLABUILD}nsis-2.46u;${MOZILLABUILD}python27;${MOZILLABUILD}buildbotve\\scripts;${PATH}",
+                'PATH': "${MOZILLABUILD}nsis-3.0a2;${MOZILLABUILD}nsis-2.46u;${MOZILLABUILD}python27;${MOZILLABUILD}buildbotve\\scripts;${PATH}",
             },
             'enable_unittests': False,
             'enable_checktests': True,
@@ -1522,7 +1522,7 @@ PLATFORM_VARS = {
             'tooltool_manifest_src': 'mobile/android/config/tooltool-manifests/android/releng.manifest',
         },
         'android-armv6': {
-            'enable_nightly': False,
+            'enable_nightly': True,
             'product_name': 'firefox',
             'unittest_platform': 'android-armv6-opt',
             'app_name': 'browser',
@@ -1910,23 +1910,7 @@ BRANCHES = {
             'linux64-debug': {},
             'macosx64-debug': {},
             'win32-debug': {},
-        },
-    },
-    'mozilla-b2g28_v1_3': {
-        'branch_projects': [],
-        'lock_platforms': True,
-        'gecko_version': 28,
-        'platforms': {
-            # desktop for gecko security reproduciton (per akeybl
-            # https://bugzil.la/818378#c8)
-            'linux': {},
-            'linux64': {},
-            'win32': {},
-            'macosx64': {},
-            'linux-debug': {},
-            'linux64-debug': {},
-            'macosx64-debug': {},
-            'win32-debug': {},
+            'android-armv6': {},
         },
     },
     'mozilla-b2g28_v1_3t': {
@@ -2338,40 +2322,7 @@ BRANCHES['mozilla-esr31']['aus2_base_upload_dir_l10n'] = '/opt/aus2/incoming/2/F
 BRANCHES['mozilla-esr31']['enable_blocklist_update'] = True
 BRANCHES['mozilla-esr31']['enable_hsts_update'] = True
 BRANCHES['mozilla-esr31']['enable_valgrind'] = False
-BRANCHES['mozilla-esr31']['enabled_products'] = ['firefox']
-
-######## mozilla-b2g28_v1_3
-BRANCHES['mozilla-b2g28_v1_3']['repo_path'] = 'releases/mozilla-b2g28_v1_3'
-BRANCHES['mozilla-b2g28_v1_3']['update_channel'] = 'nightly-b2g28'
-BRANCHES['mozilla-b2g28_v1_3']['l10n_repo_path'] = 'releases/l10n/mozilla-beta'
-BRANCHES['mozilla-b2g28_v1_3']['enable_weekly_bundle'] = True
-BRANCHES['mozilla-b2g28_v1_3']['enable_perproduct_builds'] = True
-BRANCHES['mozilla-b2g28_v1_3']['start_hour'] = [3]
-BRANCHES['mozilla-b2g28_v1_3']['start_minute'] = [45]
-BRANCHES['mozilla-b2g28_v1_3']['enable_xulrunner'] = False
-BRANCHES['mozilla-b2g28_v1_3']['pgo_platforms'] = []
-BRANCHES['mozilla-b2g28_v1_3']['enable_mac_a11y'] = True
-BRANCHES['mozilla-b2g28_v1_3']['unittest_build_space'] = 6
-# L10n configuration
-BRANCHES['mozilla-b2g28_v1_3']['enable_l10n'] = False
-BRANCHES['mozilla-b2g28_v1_3']['enable_l10n_onchange'] = False
-BRANCHES['mozilla-b2g28_v1_3']['l10nNightlyUpdate'] = False
-BRANCHES['mozilla-b2g28_v1_3']['l10n_platforms'] = ['linux', 'linux64', 'win32',
-                                               'macosx64']
-BRANCHES['mozilla-b2g28_v1_3']['l10nDatedDirs'] = True
-BRANCHES['mozilla-b2g28_v1_3']['enUS_binaryURL'] = \
-    GLOBAL_VARS['download_base_url'] + '/nightly/latest-mozilla-b2g28_v1_3'
-BRANCHES['mozilla-b2g28_v1_3']['allLocalesFile'] = 'browser/locales/all-locales'
-BRANCHES['mozilla-b2g28_v1_3']['enable_nightly'] = False
-BRANCHES['mozilla-b2g28_v1_3']['create_snippet'] = False
-BRANCHES['mozilla-b2g28_v1_3']['create_partial'] = False
-BRANCHES['mozilla-b2g28_v1_3']['aus2_base_upload_dir'] = '/opt/aus2/incoming/2/Firefox/mozilla-b2g28_v1_3'
-BRANCHES['mozilla-b2g28_v1_3']['aus2_base_upload_dir_l10n'] = '/opt/aus2/incoming/2/Firefox/mozilla-b2g28_v1_3'
-BRANCHES['mozilla-b2g28_v1_3']['enable_blocklist_update'] = False
-BRANCHES['mozilla-b2g28_v1_3']['enable_hsts_update'] = True
-BRANCHES['mozilla-b2g28_v1_3']['enable_hpkp_update'] = True
-BRANCHES['mozilla-b2g28_v1_3']['enable_valgrind'] = False
-BRANCHES['mozilla-b2g28_v1_3']['enabled_products'] = ['firefox', 'mobile']
+BRANCHES['mozilla-esr31']['enabled_products'] = ['firefox', 'mobile']
 
 ######## mozilla-b2g28_v1_3t
 BRANCHES['mozilla-b2g28_v1_3t']['repo_path'] = 'releases/mozilla-b2g28_v1_3t'
@@ -2579,9 +2530,10 @@ for branch in ACTIVE_PROJECT_BRANCHES:
 branches = BRANCHES.keys()
 branches.extend(ACTIVE_PROJECT_BRANCHES)
 for branch in branches:
+    if branch == 'mozilla-esr31':
+        continue
     if 'android-armv6' in BRANCHES[branch]['platforms']:
         del BRANCHES[branch]['platforms']['android-armv6']
-
 
 # Bug 578880, remove the following block after gcc-4.5 switch
 branches = BRANCHES.keys()
