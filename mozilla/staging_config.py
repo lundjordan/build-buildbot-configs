@@ -34,8 +34,8 @@ TRY_SLAVES = deepcopy(SLAVES)
 
 GLOBAL_VARS = {
     'staging': True,
-    'config_repo_path': 'users/stage-ffxbld/buildbot-configs',
-    'buildbotcustom_repo_path': 'users/stage-ffxbld/buildbotcustom',
+    'config_repo_path': 'build/buildbot-configs',
+    'buildbotcustom_repo_path': 'build/buildbotcustom',
     'stage_server': 'dev-stage01.srv.releng.scl3.mozilla.com',
     'aus2_host': 'dev-stage01.srv.releng.scl3.mozilla.com',
     'aus2_user': 'ffxbld',
@@ -45,7 +45,7 @@ GLOBAL_VARS = {
     'graph_server': 'graphs.allizom.org',
     'balrog_api_root': 'https://aus4-admin-dev.allizom.org',
     'balrog_username': 'stage-ffxbld',
-    'build_tools_repo_path': 'users/stage-ffxbld/tools',
+    'build_tools_repo_path': 'build/tools',
     'base_clobber_url': 'http://clobberer-stage.pvt.build.mozilla.org/index.php',
     'disable_tinderbox_mail': True,
     # List of talos masters to notify of new builds,
