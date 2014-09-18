@@ -92,6 +92,7 @@ PROJECT_BRANCHES = {
     #},
     'ash': {
         'desktop_mozharness_repacks_enabled': True,
+        'enable_nightly': True,
         'mozharness_repo_path': 'build/ash-mozharness',
         'mozharness_repo': 'https://hg.mozilla.org/build/ash-mozharness',
         'mozharness_tag': 'default',
@@ -175,13 +176,7 @@ PROJECT_BRANCHES = {
             'linux64-debug': {},
         },
     },
-    'fig': {
-        'lock_platforms': True,
-        'platforms': {
-            'linux64-mulet': {},
-            'macosx64-mulet': {},
-        }
-    },
+    'fig': {},
     'gum': {},
     'holly': {
         'branch_projects': [],
@@ -194,6 +189,7 @@ PROJECT_BRANCHES = {
             'win32': {},
             'macosx64': {},
             'linux-debug': {},
+            'linux64-asan': {},
             'linux64-debug': {},
             'macosx64-debug': {},
             'win32-debug': {},
@@ -209,7 +205,12 @@ PROJECT_BRANCHES = {
             'android-debug': {},
         },
     },
-    'maple': {},
+    'maple': {
+        'enable_nightly': True,
+        'create_snippet': True,
+        'create_partial': True,
+        'nightly_signing_servers': 'nightly-signing',
+    },
     # customizations for integration work for bugs 481815 and 307181
     'oak': {
         'enable_nightly': True,
@@ -230,6 +231,13 @@ PROJECT_BRANCHES = {
                 'nightly_signing_servers': 'nightly-signing',
             },
         },
+        # OS X l10n repacks temporarily enabled for bug 1053797
+        'enable_l10n': True,
+        'enable_l10n_onchange': False,
+        'l10n_platforms': ['macosx64'],
+        'l10n_tree': 'fxcentral',
+        'l10n_repo_path': 'l10n-central',
+        'enUS_binaryURL': '/nightly/latest-oak',
     },
     # Not needed whilst booked for bug 929203.
     #'pine': {}

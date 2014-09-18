@@ -21,7 +21,9 @@ releaseConfig['messagePrefix']       = '[staging-release] '
 # Basic product configuration
 #  Names for the product/files
 releaseConfig['productName']         = 'thunderbird'
+releaseConfig['stage_product']       = 'thunderbird'
 releaseConfig['appName']             = 'mail'
+# MERGE DAY (remove this code once comm-beta no longer services Gecko 33 and lower)
 releaseConfig['mozilla_dir']         = 'mozilla'
 #  Current version info
 releaseConfig['version']             = '18.0b1'

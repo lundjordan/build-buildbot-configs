@@ -20,6 +20,7 @@ releaseConfig['messagePrefix']       = '[release] '
 # Basic product configuration
 #  Names for the product/files
 releaseConfig['productName']         = 'firefox'
+releaseConfig['stage_product']       = 'firefox'
 releaseConfig['appName']             = 'browser'
 #  Current version info
 releaseConfig['version']             = '{{ version }}'
@@ -35,6 +36,13 @@ releaseConfig['partialUpdates']      = {
         'baseTag': '{{ partial['baseTag'] }}',
     },
 {% endfor %}
+}
+releaseConfig['extraPartials']       = {
+    '32.0b9': {
+        'appVersion': '32.0',
+        'buildNumber': 1,
+        'baseTag': 'FIRFOX_32_0b9',
+    },
 }
 #  Next (nightly) version info
 releaseConfig['nextAppVersion']      = releaseConfig['appVersion']
@@ -124,7 +132,7 @@ releaseConfig['xulrunner_mozconfigs']          = {
 releaseConfig['releaseChannel']        = 'release'
 releaseConfig['releaseChannelRuleIds'] = [] # Still on AUS3
 releaseConfig['testChannels']          = ['releasetest', 'betatest']
-releaseConfig['testChannelRuleIds']    = [25,26]
+releaseConfig['testChannelRuleIds']    = [56,57]
 
 # Partner repack configuration
 releaseConfig['doPartnerRepacks']    = True

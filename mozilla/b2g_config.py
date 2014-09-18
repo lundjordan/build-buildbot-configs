@@ -26,6 +26,7 @@ GLOBAL_VARS.update({
         'linux32_gecko-debug': {},
         'linux64_gecko': {},
         'linux64_gecko-debug': {},
+        'linux64-mulet': {},
         'macosx64_gecko': {},
         'macosx64_gecko-debug': {},
         'win32_gecko': {},
@@ -51,6 +52,9 @@ GLOBAL_VARS.update({
         'wasabi': {},
         'flame': {},
         'flame_eng': {},
+        'flame-kk': {},
+        'flame-kk_eng': {},
+        'flame-kk_eng-debug': {},
         'dolphin': {},
         'dolphin_eng': {},
     },
@@ -147,8 +151,6 @@ PLATFORM_VARS = {
         ],
         'multi_locale': True,
         'multi_config_name': 'multi_locale/b2g_linux32.py',
-        'mozharness_repo_cache': '/tools/checkouts/mozharness',
-        'tools_repo_cache': '/tools/checkouts/build-tools',
         'mozharness_multi_options': [
             '--build',
             '--summary',
@@ -225,8 +227,6 @@ PLATFORM_VARS = {
         ],
         'multi_locale': True,
         'multi_config_name': 'multi_locale/b2g_linux32.py',
-        'mozharness_repo_cache': '/tools/checkouts/mozharness',
-        'tools_repo_cache': '/tools/checkouts/build-tools',
         'mozharness_multi_options': [
             '--build',
             '--summary',
@@ -302,8 +302,6 @@ PLATFORM_VARS = {
         ],
         'multi_locale': True,
         'multi_config_name': 'multi_locale/b2g_linux64.py',
-        'mozharness_repo_cache': '/tools/checkouts/mozharness',
-        'tools_repo_cache': '/tools/checkouts/build-tools',
         'mozharness_multi_options': [
             '--build',
             '--summary',
@@ -378,14 +376,89 @@ PLATFORM_VARS = {
         ],
         'multi_locale': True,
         'multi_config_name': 'multi_locale/b2g_linux64.py',
-        'mozharness_repo_cache': '/tools/checkouts/mozharness',
-        'tools_repo_cache': '/tools/checkouts/build-tools',
         'mozharness_multi_options': [
             '--build',
             '--summary',
             '--gecko-languages-file', 'build/b2g/locales/all-locales',
         ],
         'gecko_languages_file': 'build/b2g/locales/all-locales',
+    },
+    'linux64-mulet': {
+        'mozharness_python': '/tools/buildbot/bin/python',
+        'reboot_command': ['scripts/external_tools/count_and_reboot.py',
+                           '-f', '../reboot_count.txt','-n', '1', '-z'],
+        'mozharness_desktop_build': {
+            'script_name': 'scripts/fx_desktop_build.py',
+            'extra_args': [
+                '--config', 'builds/releng_base_linux_64_builds.py',
+                '--custom-build-variant-cfg', 'mulet',
+            ],
+            'script_timeout': 3 * 3600,
+            'script_maxtime': int(5.5 * 3600),
+        },
+
+        'consider_for_nightly': False,
+        'multi_locale': False,
+        'enable_nightly': True,
+        'enable_xulrunner': False,
+        'enable_opt_unittests': True,
+        'try_by_default': True,
+        'upload_symbols': True,
+        'update_platform': 'Linux_x86_64-gcc3',
+        'packageTests': True,
+        'dep_signing_servers': None,
+
+        'product_name': 'firefox',
+        'unittest_platform': 'linux64-mulet-opt',
+        'base_name': 'Linux x86-64 Mulet %(branch)s',
+        'slaves': SLAVES['mock'],
+        'mozconfig': 'in_tree',
+        'src_mozconfig': 'b2g/dev/config/mozconfigs/linux64/mulet',
+        'builds_before_reboot': b2g_localconfig.BUILDS_BEFORE_REBOOT,
+        'platform_objdir': OBJDIR,
+        'stage_product': 'b2g',
+        'stage_platform': 'linux64-mulet',
+        'env': {
+            'DISPLAY': ':2',
+            'HG_SHARE_BASE_DIR': '/builds/hg-shared',
+            'TOOLTOOL_CACHE': '/builds/tooltool_cache',
+            'TOOLTOOL_HOME': '/builds',
+            'MOZ_OBJDIR': OBJDIR,
+            'CCACHE_DIR': '/builds/ccache',
+            'CCACHE_COMPRESS': '1',
+            'CCACHE_UMASK': '002',
+            'LC_ALL': 'C',
+            'PATH': '/tools/buildbot/bin:/usr/local/bin:/usr/lib64/ccache:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/tools/git/bin:/tools/python27/bin:/tools/python27-mercurial/bin:/home/cltbld/bin',
+        },
+        'tooltool_manifest_src': 'browser/config/tooltool-manifests/linux64/releng.manifest',
+        'tooltool_script': ['/builds/tooltool.py'],
+        'use_mock': True,
+        'mock_target': 'mozilla-centos6-x86_64',
+        'mock_packages': \
+                   ['autoconf213', 'python', 'zip', 'mozilla-python27-mercurial', 'git', 'ccache',
+                    'glibc-static', 'libstdc++-static', 'perl-Test-Simple', 'perl-Config-General',
+                    'gtk2-devel', 'libnotify-devel', 'yasm',
+                    'alsa-lib-devel', 'libcurl-devel',
+                    'wireless-tools-devel', 'libX11-devel',
+                    'libXt-devel', 'mesa-libGL-devel',
+                    'gnome-vfs2-devel', 'GConf2-devel', 'wget',
+                    'mpfr', # required for system compiler
+                    'xorg-x11-font*', # fonts required for PGO
+                    'imake', # required for makedepend!?!
+                    'gcc45_0moz3', 'gcc454_0moz1', 'gcc472_0moz1', 'gcc473_0moz1', 'yasm', 'ccache', # <-- from releng repo
+                    'valgrind', 'dbus-x11',
+                    'pulseaudio-libs-devel',
+                    'gstreamer-devel', 'gstreamer-plugins-base-devel',
+                    'freetype-2.3.11-6.el6_1.8.x86_64',
+                    'freetype-devel-2.3.11-6.el6_1.8.x86_64',
+                    ],
+        'mock_copyin_files': [
+            ('/home/cltbld/.ssh', '/home/mock_mozilla/.ssh'),
+            ('/home/cltbld/.hgrc', '/builds/.hgrc'),
+            ('/home/cltbld/.boto', '/builds/.boto'),
+            ('/builds/gapi.data', '/builds/gapi.data'),
+            ('/tools/tooltool.py', '/builds/tooltool.py'),
+        ],
     },
     'macosx64_gecko': {
         'product_name': 'b2g',
@@ -493,6 +566,55 @@ PLATFORM_VARS = {
             '--gecko-languages-file', 'build/b2g/locales/all-locales',
         ],
         'gecko_languages_file': 'build/b2g/locales/all-locales',
+    },
+    'macosx64-mulet': {
+        'product_name': 'firefox',
+        'multi_locale': False,
+        'unittest_platform': 'macosx64-mulet-opt',
+        'app_name': 'browser',
+        'brand_name': 'Minefield',
+        'base_name': 'OS X Mulet %(branch)s',
+        'mozconfig': 'macosx64/%(branch)s/nightly',
+        'src_mozconfig': 'b2g/dev/config/mozconfigs/macosx-universal/mulet',
+        'packageTests': True,
+        'profiled_build': False,
+        'builds_before_reboot': b2g_localconfig.BUILDS_BEFORE_REBOOT,
+        'build_space': 12,
+        'upload_symbols': False,
+        'download_symbols': False,
+        'slaves': SLAVES['macosx64-lion'],
+        'platform_objdir': "%s/i386" % OBJDIR,
+        'stage_product': 'b2g',
+        'stage_platform': 'macosx64-mulet',
+        'update_platform': 'Darwin_x86_64-gcc3',
+        'enable_shared_checkouts': True,
+        'enable_nonunified_build': True,
+        'env': {
+            'MOZ_OBJDIR': OBJDIR,
+            'HG_SHARE_BASE_DIR': '/builds/hg-shared',
+            'TOOLTOOL_CACHE': '/builds/tooltool_cache',
+            'TOOLTOOL_HOME': '/builds',
+            'SYMBOL_SERVER_HOST': b2g_localconfig.SYMBOL_SERVER_HOST,
+            'SYMBOL_SERVER_USER': 'ffxbld',
+            'SYMBOL_SERVER_PATH': SYMBOL_SERVER_PATH,
+            'POST_SYMBOL_UPLOAD_CMD': SYMBOL_SERVER_POST_UPLOAD_CMD,
+            'SYMBOL_SERVER_SSH_KEY': "/Users/cltbld/.ssh/ffxbld_dsa",
+            'MOZ_SYMBOLS_EXTRA_BUILDID': 'macosx64-mulet',
+            'CHOWN_ROOT': '~/bin/chown_root',
+            'CHOWN_REVERT': '~/bin/chown_revert',
+            'LC_ALL': 'C',
+            'PATH': '/tools/python/bin:/tools/buildbot/bin:/opt/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin',
+            'CCACHE_DIR': '/builds/ccache',
+            'CCACHE_COMPRESS': '1',
+            'CCACHE_UMASK': '002',
+        },
+        'enable_opt_unittests': False,
+        'enable_checktests': True,
+        'talos_masters': None,
+        'test_pretty_names': False,
+        'tooltool_manifest_src': 'browser/config/tooltool-manifests/macosx64/releng.manifest',
+        'tooltool_l10n_manifest_src': 'browser/config/tooltool-manifests/macosx64/l10n.manifest',
+        'enable_ccache': True,
     },
     'win32_gecko': {
         'product_name': 'b2g',
@@ -671,8 +793,6 @@ PLATFORM_VARS = {
         ],
         'multi_locale': True,
         'multi_config_name': 'multi_locale/b2g_linux32.py',
-        'mozharness_repo_cache': '/tools/checkouts/mozharness',
-        'tools_repo_cache': '/tools/checkouts/build-tools',
         'mozharness_multi_options': [
             '--build',
             '--summary',
@@ -750,8 +870,6 @@ PLATFORM_VARS = {
         ],
         'multi_locale': True,
         'multi_config_name': 'multi_locale/b2g_linux64.py',
-        'mozharness_repo_cache': '/tools/checkouts/mozharness',
-        'tools_repo_cache': '/tools/checkouts/build-tools',
         'mozharness_multi_options': [
             '--build',
             '--summary',
@@ -1271,6 +1389,59 @@ PLATFORM_VARS = {
         'enable_periodic': False,
         'enable_dep': True,
     },
+    'flame-kk': {
+        'mozharness_config': {
+            'script_name': 'scripts/b2g_build.py',
+            # b2g_build.py will checkout gecko from hg and look up a tooltool manifest given by the
+            # --target name below
+            'extra_args': ['--target', 'flame-kk', '--config', 'b2g/releng-private-updates.py',
+                           '--gaia-languages-file', 'locales/languages_all.json',
+                           '--gecko-languages-file', 'gecko/b2g/locales/all-locales',
+                           '--config', GLOBAL_VARS['mozharness_configs']['balrog']],
+            'reboot_command': ['bash', '-c', 'sudo reboot; sleep 600'],
+        },
+        'stage_product': 'b2g',
+        'product_name': 'b2g',
+        'base_name': builder_prefix + '_%(branch)s_%(platform)s',
+        'slaves': SLAVES['mock'],
+        'enable_periodic': True,
+        'enable_dep': False,
+    },
+    'flame-kk_eng': {
+        'mozharness_config': {
+            'script_name': 'scripts/b2g_build.py',
+            # b2g_build.py will checkout gecko from hg and look up a tooltool manifest given by the
+            # --target name below
+            'extra_args': ['--target', 'flame-kk', '--config', 'b2g/releng-otoro-eng.py',
+                           '--gaia-languages-file', 'locales/languages_all.json',
+                           '--gecko-languages-file', 'gecko/b2g/locales/all-locales'],
+            'reboot_command': ['bash', '-c', 'sudo reboot; sleep 600'],
+        },
+        'stage_product': 'b2g',
+        'product_name': 'b2g',
+        'base_name': builder_prefix + '_%(branch)s_%(platform)s',
+        'slaves': SLAVES['mock'],
+        'enable_periodic': False,
+        'enable_dep': True,
+    },
+    'flame-kk_eng-debug': {
+        'mozharness_config': {
+            'script_name': 'scripts/b2g_build.py',
+            # b2g_build.py will checkout gecko from hg and look up a tooltool manifest given by the
+            # --target name below
+            'extra_args': ['--target', 'flame-kk', '--config', 'b2g/releng-otoro-eng.py',
+                           '--debug',
+                           '--gaia-languages-file', 'locales/languages_all.json',
+                           '--gecko-languages-file', 'gecko/b2g/locales/all-locales'],
+            'reboot_command': ['bash', '-c', 'sudo reboot; sleep 600'],
+        },
+        'stage_product': 'b2g',
+        'product_name': 'b2g',
+        'base_name': builder_prefix + '_%(branch)s_%(platform)s',
+        'slaves': SLAVES['mock'],
+        'enable_periodic': True,
+        'enable_dep': False,
+    },
     'dolphin': {
         'mozharness_config': {
             'script_name': 'scripts/b2g_build.py',
@@ -1330,13 +1501,9 @@ for platform in PLATFORM_VARS.values():
 BRANCHES = {
     'mozilla-central': {
     },
-#    'mozilla-aurora': {
-#        'gecko_version': 34,
-#        'b2g_version': (2, 1, 0),
-#    },
-    'mozilla-b2g28_v1_3': {
-        'gecko_version': 28,
-        'b2g_version': (1, 3, 0),
+    'mozilla-aurora': {
+        'gecko_version': 34,
+        'b2g_version': (2, 1, 0),
     },
     'mozilla-b2g28_v1_3t': {
         'gecko_version': 28,
@@ -1361,10 +1528,15 @@ BRANCHES = {
         'lock_platforms': True,
         'platforms': {
             'linux32_gecko': {},
+            'linux32_gecko-debug': {},
             'linux64_gecko': {},
+            'linux64_gecko-debug': {},
+            'linux64-mulet': {},
             'linux64-b2g-haz': {},
             'macosx64_gecko': {},
+            'macosx64_gecko-debug': {},
             'win32_gecko': {},
+            'win32_gecko-debug': {},
             'emulator': {},
             'emulator-debug': {},
             'emulator-jb': {},
@@ -1475,6 +1647,8 @@ BRANCHES['mozilla-central']['platforms']['helix']['enable_nightly'] = True
 BRANCHES['mozilla-central']['platforms']['wasabi']['enable_nightly'] = True
 BRANCHES['mozilla-central']['platforms']['flame']['enable_nightly'] = True
 BRANCHES['mozilla-central']['platforms']['flame_eng']['enable_nightly'] = True
+BRANCHES['mozilla-central']['platforms']['flame-kk']['enable_nightly'] = False
+BRANCHES['mozilla-central']['platforms']['flame-kk_eng']['enable_nightly'] = False
 BRANCHES['mozilla-central']['platforms']['emulator']['enable_nightly'] = True
 BRANCHES['mozilla-central']['platforms']['emulator-debug']['enable_nightly'] = True
 BRANCHES['mozilla-central']['platforms']['emulator-jb']['enable_nightly'] = True
@@ -1482,32 +1656,40 @@ BRANCHES['mozilla-central']['platforms']['emulator-jb-debug']['enable_nightly'] 
 BRANCHES['mozilla-central']['platforms']['linux64-b2g-haz']['enable_nightly'] = False
 BRANCHES['mozilla-central']['platforms']['emulator-kk']['enable_nightly'] = True
 BRANCHES['mozilla-central']['platforms']['emulator-kk-debug']['enable_nightly'] = True
+BRANCHES['mozilla-central']['platforms']['dolphin']['enable_nightly'] = True
+BRANCHES['mozilla-central']['platforms']['dolphin_eng']['enable_nightly'] = True
 
-######### mozilla-aurora
-## This is a path, relative to HGURL, where the repository is located
-## HGURL + repo_path should be a valid repository
-#BRANCHES['mozilla-aurora']['repo_path'] = 'releases/mozilla-aurora'
-#BRANCHES['mozilla-aurora']['gaia_l10n_root'] = 'https://hg.mozilla.org/gaia-l10n'
-#BRANCHES['mozilla-aurora']['gecko_l10n_root'] = 'https://hg.mozilla.org/releases/l10n/mozilla-aurora'
-#BRANCHES['mozilla-aurora']['start_hour'] = [0, 16]
-#BRANCHES['mozilla-aurora']['start_minute'] = [2]
-#BRANCHES['mozilla-aurora']['periodic_start_minute'] = 30
-#BRANCHES['mozilla-aurora']['aus2_base_upload_dir'] = 'fake'
-#BRANCHES['mozilla-aurora']['aus2_base_upload_dir_l10n'] = 'fake'
-#BRANCHES['mozilla-aurora']['platforms']['hamachi']['enable_nightly'] = True
-#BRANCHES['mozilla-aurora']['platforms']['hamachi_eng']['enable_nightly'] = True
-#BRANCHES['mozilla-aurora']['platforms']['hamachi_eng']['consider_for_nightly'] = False
-#BRANCHES['mozilla-aurora']['platforms']['nexus-4']['enable_nightly'] = True
-#BRANCHES['mozilla-aurora']['platforms']['helix']['enable_nightly'] = True
-#BRANCHES['mozilla-aurora']['platforms']['wasabi']['enable_nightly'] = True
-#BRANCHES['mozilla-aurora']['platforms']['flame']['enable_nightly'] = True
-#BRANCHES['mozilla-aurora']['platforms']['flame_eng']['enable_nightly'] = True
-#BRANCHES['mozilla-aurora']['platforms']['emulator']['enable_nightly'] = True
-#BRANCHES['mozilla-aurora']['platforms']['emulator-debug']['enable_nightly'] = True
-#BRANCHES['mozilla-aurora']['platforms']['emulator-jb']['enable_nightly'] = True
-#BRANCHES['mozilla-aurora']['platforms']['emulator-jb-debug']['enable_nightly'] = True
-#BRANCHES['mozilla-aurora']['platforms']['emulator-kk']['enable_nightly'] = True
-#BRANCHES['mozilla-aurora']['platforms']['emulator-kk-debug']['enable_nightly'] = True
+######## mozilla-aurora
+# This is a path, relative to HGURL, where the repository is located
+# HGURL + repo_path should be a valid repository
+BRANCHES['mozilla-aurora']['repo_path'] = 'releases/mozilla-aurora'
+BRANCHES['mozilla-aurora']['gaia_l10n_root'] = 'https://hg.mozilla.org/gaia-l10n'
+BRANCHES['mozilla-aurora']['gecko_l10n_root'] = 'https://hg.mozilla.org/releases/l10n/mozilla-aurora'
+BRANCHES['mozilla-aurora']['start_hour'] = [0, 16]
+BRANCHES['mozilla-aurora']['start_minute'] = [2]
+BRANCHES['mozilla-aurora']['periodic_start_minute'] = 30
+BRANCHES['mozilla-aurora']['aus2_base_upload_dir'] = 'fake'
+BRANCHES['mozilla-aurora']['aus2_base_upload_dir_l10n'] = 'fake'
+BRANCHES['mozilla-aurora']['platforms']['hamachi']['enable_nightly'] = True
+BRANCHES['mozilla-aurora']['platforms']['hamachi_eng']['enable_nightly'] = True
+BRANCHES['mozilla-aurora']['platforms']['hamachi_eng']['consider_for_nightly'] = False
+BRANCHES['mozilla-aurora']['platforms']['nexus-4']['enable_nightly'] = True
+BRANCHES['mozilla-aurora']['platforms']['nexus-4_eng']['enable_nightly'] = True
+BRANCHES['mozilla-aurora']['platforms']['nexus-4_eng']['consider_for_nightly'] = False
+BRANCHES['mozilla-aurora']['platforms']['helix']['enable_nightly'] = True
+BRANCHES['mozilla-aurora']['platforms']['wasabi']['enable_nightly'] = True
+BRANCHES['mozilla-aurora']['platforms']['flame']['enable_nightly'] = True
+BRANCHES['mozilla-aurora']['platforms']['flame_eng']['enable_nightly'] = True
+BRANCHES['mozilla-aurora']['platforms']['flame-kk']['enable_nightly'] = False
+BRANCHES['mozilla-aurora']['platforms']['flame-kk_eng']['enable_nightly'] = False
+BRANCHES['mozilla-aurora']['platforms']['emulator']['enable_nightly'] = True
+BRANCHES['mozilla-aurora']['platforms']['emulator-debug']['enable_nightly'] = True
+BRANCHES['mozilla-aurora']['platforms']['emulator-jb']['enable_nightly'] = True
+BRANCHES['mozilla-aurora']['platforms']['emulator-jb-debug']['enable_nightly'] = True
+BRANCHES['mozilla-aurora']['platforms']['emulator-kk']['enable_nightly'] = True
+BRANCHES['mozilla-aurora']['platforms']['emulator-kk-debug']['enable_nightly'] = True
+BRANCHES['mozilla-aurora']['platforms']['dolphin']['enable_nightly'] = True
+BRANCHES['mozilla-aurora']['platforms']['dolphin_eng']['enable_nightly'] = True
 
 ######## mozilla-b2g32_v2_0
 # This is a path, relative to HGURL, where the repository is located
@@ -1528,6 +1710,8 @@ BRANCHES['mozilla-b2g32_v2_0']['platforms']['helix']['enable_nightly'] = True
 BRANCHES['mozilla-b2g32_v2_0']['platforms']['wasabi']['enable_nightly'] = True
 BRANCHES['mozilla-b2g32_v2_0']['platforms']['flame']['enable_nightly'] = True
 BRANCHES['mozilla-b2g32_v2_0']['platforms']['flame_eng']['enable_nightly'] = True
+BRANCHES['mozilla-b2g32_v2_0']['platforms']['flame-kk']['enable_nightly'] = False
+BRANCHES['mozilla-b2g32_v2_0']['platforms']['flame-kk_eng']['enable_nightly'] = False
 BRANCHES['mozilla-b2g32_v2_0']['platforms']['emulator']['enable_nightly'] = True
 BRANCHES['mozilla-b2g32_v2_0']['platforms']['emulator-debug']['enable_nightly'] = True
 BRANCHES['mozilla-b2g32_v2_0']['platforms']['emulator-jb']['enable_nightly'] = True
@@ -1578,47 +1762,6 @@ BRANCHES['mozilla-b2g28_v1_3t']['aus2_base_upload_dir_l10n'] = 'fake'
 BRANCHES['mozilla-b2g28_v1_3t']['platforms']['tarako']['enable_nightly'] = True
 BRANCHES['mozilla-b2g28_v1_3t']['platforms']['tarako_eng']['enable_nightly'] = True
 
-######## mozilla-b2g28_v1_3
-# This is a path, relative to HGURL, where the repository is located
-# HGURL + repo_path should be a valid repository
-BRANCHES['mozilla-b2g28_v1_3']['repo_path'] = 'releases/mozilla-b2g28_v1_3'
-BRANCHES['mozilla-b2g28_v1_3']['gaia_l10n_root'] = 'https://hg.mozilla.org/releases/gaia-l10n/v1_3'
-BRANCHES['mozilla-b2g28_v1_3']['gecko_l10n_root'] = 'https://hg.mozilla.org/releases/l10n/mozilla-beta'
-# Build every night since we have external dependencies like gaia which need
-# building
-BRANCHES['mozilla-b2g28_v1_3']['enable_perproduct_builds'] = True
-BRANCHES['mozilla-b2g28_v1_3']['start_hour'] = [2]
-BRANCHES['mozilla-b2g28_v1_3']['start_minute'] = [40]
-BRANCHES['mozilla-b2g28_v1_3']['aus2_base_upload_dir'] = 'fake'
-BRANCHES['mozilla-b2g28_v1_3']['aus2_base_upload_dir_l10n'] = 'fake'
-BRANCHES['mozilla-b2g28_v1_3']['platforms']['hamachi']['enable_nightly'] = True
-BRANCHES['mozilla-b2g28_v1_3']['platforms']['hamachi']['enable_dep'] = True
-BRANCHES['mozilla-b2g28_v1_3']['platforms']['hamachi']['enable_periodic'] = False
-BRANCHES['mozilla-b2g28_v1_3']['platforms']['hamachi_eng']['enable_nightly'] = True
-BRANCHES['mozilla-b2g28_v1_3']['platforms']['hamachi_eng']['enable_dep'] = True
-BRANCHES['mozilla-b2g28_v1_3']['platforms']['hamachi_eng']['enable_periodic'] = False
-BRANCHES['mozilla-b2g28_v1_3']['platforms']['hamachi_eng']['consider_for_nightly'] = False
-BRANCHES['mozilla-b2g28_v1_3']['platforms']['helix']['enable_nightly'] = True
-BRANCHES['mozilla-b2g28_v1_3']['platforms']['helix']['enable_dep'] = True
-BRANCHES['mozilla-b2g28_v1_3']['platforms']['helix']['enable_periodic'] = False
-BRANCHES['mozilla-b2g28_v1_3']['platforms']['wasabi']['enable_nightly'] = True
-BRANCHES['mozilla-b2g28_v1_3']['platforms']['wasabi']['enable_dep'] = True
-BRANCHES['mozilla-b2g28_v1_3']['platforms']['wasabi']['enable_periodic'] = False
-BRANCHES['mozilla-b2g28_v1_3']['platforms']['nexus-4']['enable_dep'] = True
-BRANCHES['mozilla-b2g28_v1_3']['platforms']['nexus-4']['enable_periodic'] = False
-BRANCHES['mozilla-b2g28_v1_3']['platforms']['nexus-4_eng']['enable_dep'] = True
-BRANCHES['mozilla-b2g28_v1_3']['platforms']['nexus-4_eng']['enable_periodic'] = False
-BRANCHES['mozilla-b2g28_v1_3']['platforms']['linux32_gecko_localizer']['enable_nightly'] = False
-BRANCHES['mozilla-b2g28_v1_3']['platforms']['linux64_gecko_localizer']['enable_nightly'] = False
-BRANCHES['mozilla-b2g28_v1_3']['platforms']['macosx64_gecko_localizer']['enable_nightly'] = False
-BRANCHES['mozilla-b2g28_v1_3']['platforms']['win32_gecko_localizer']['enable_nightly'] = False
-BRANCHES['mozilla-b2g28_v1_3']['platforms']['emulator']['enable_nightly'] = True
-BRANCHES['mozilla-b2g28_v1_3']['platforms']['emulator-debug']['enable_nightly'] = True
-BRANCHES['mozilla-b2g28_v1_3']['platforms']['emulator-jb']['enable_nightly'] = True
-BRANCHES['mozilla-b2g28_v1_3']['platforms']['emulator-jb-debug']['enable_nightly'] = True
-BRANCHES['mozilla-b2g28_v1_3']['platforms']['emulator-kk']['enable_nightly'] = True
-BRANCHES['mozilla-b2g28_v1_3']['platforms']['emulator-kk-debug']['enable_nightly'] = True
-
 ######## try
 # Try-specific configs
 # This is a path, relative to HGURL, where the repository is located
@@ -1634,10 +1777,15 @@ BRANCHES['try']['stage_ssh_key'] = 'trybld_dsa'
 # Disable Nightly builds
 BRANCHES['try']['enable_nightly'] = False
 BRANCHES['try']['platforms']['linux32_gecko']['slaves'] = TRY_SLAVES['mock']
+BRANCHES['try']['platforms']['linux32_gecko-debug']['slaves'] = TRY_SLAVES['mock']
 BRANCHES['try']['platforms']['linux64_gecko']['slaves'] = TRY_SLAVES['mock']
+BRANCHES['try']['platforms']['linux64_gecko-debug']['slaves'] = TRY_SLAVES['mock']
 BRANCHES['try']['platforms']['linux64-b2g-haz']['slaves'] = TRY_SLAVES['mock']
+BRANCHES['try']['platforms']['linux64-mulet']['slaves'] = TRY_SLAVES['mock']
 BRANCHES['try']['platforms']['macosx64_gecko']['slaves'] = TRY_SLAVES['macosx64-lion']
+BRANCHES['try']['platforms']['macosx64_gecko-debug']['slaves'] = TRY_SLAVES['macosx64-lion']
 BRANCHES['try']['platforms']['win32_gecko']['slaves'] = TRY_SLAVES['win64-rev2']
+BRANCHES['try']['platforms']['win32_gecko-debug']['slaves'] = TRY_SLAVES['win64-rev2']
 BRANCHES['try']['platforms']['emulator']['slaves'] = TRY_SLAVES['mock']
 BRANCHES['try']['platforms']['emulator']['mozharness_config']['extra_args'] = ['--target', 'emulator', '--config', 'b2g/releng-try.py', '--gaia-languages-file', 'locales/languages_dev.json', '--gecko-languages-file', 'gecko/b2g/locales/all-locales']
 BRANCHES['try']['platforms']['emulator-debug']['slaves'] = TRY_SLAVES['mock']
@@ -1655,6 +1803,11 @@ BRANCHES['try']['platforms']['emulator-kk-debug']['mozharness_config']['extra_ar
 BRANCHES['try']['platforms']['emulator-kk-debug']['enable_dep'] = True
 BRANCHES['try']['platforms']['emulator-kk-debug']['enable_periodic'] = False
 
+# Mulet landed in gecko 34
+for name, branch in items_before(BRANCHES, 'gecko_version', 34):
+    if 'linux64-mulet' in branch['platforms']:
+        del branch['platforms']['linux64-mulet']
+
 # tarako is for B2G 1.3t only (gecko28)
 for branch in BRANCHES:
     if branch not in ('mozilla-b2g28_v1_3t',):
@@ -1663,9 +1816,11 @@ for branch in BRANCHES:
         if 'tarako_eng' in BRANCHES[branch]['platforms']:
             del BRANCHES[branch]['platforms']['tarako_eng']
 
-# dolphin is for B2G 1.4 only
+# dolphin is for selected branches only
 for branch in BRANCHES:
-    if branch not in ('mozilla-b2g30_v1_4',):
+    if branch not in ('mozilla-b2g30_v1_4', 'mozilla-aurora',
+                      'mozilla-central', 'mozilla-inbound',
+                      'b2g-inbound', 'fx-team'):
         if 'dolphin' in BRANCHES[branch]['platforms']:
             del BRANCHES[branch]['platforms']['dolphin']
         if 'dolphin_eng' in BRANCHES[branch]['platforms']:
@@ -1683,6 +1838,12 @@ for name, branch in items_before(BRANCHES, 'gecko_version', 30):
 for name, branch in items_before(BRANCHES, 'gecko_version', 32):
     if 'linux64-b2g-haz' in branch['platforms']:
         del branch['platforms']['linux64-b2g-haz']
+
+# b2g 2.0+
+for name, branch in items_before(BRANCHES, 'gecko_version', 32):
+    for p in ('flame-kk', 'flame-kk_eng', 'flame-kk_eng-debug'):
+        if p in branch['platforms']:
+            del branch['platforms'][p]
 
 ######## generic branch configs
 for branch in ACTIVE_PROJECT_BRANCHES:
