@@ -93,13 +93,11 @@ setMainFirefoxVersions(BRANCHES)
 # Talos
 PLATFORMS = {
     'macosx64': {},
-    'macosx64-mulet': {},
     'win32': {},
     'linux': {},
     'linux64': {},
     'linux64-asan': {},
     'linux64-cc': {},
-    'linux64-mulet': {},
     'win64': {},
 }
 
@@ -110,22 +108,6 @@ PLATFORMS['macosx64']['mountainlion'] = {'name': "Rev5 MacOSX Mountain Lion 10.8
 PLATFORMS['macosx64']['mavericks'] = {'name': "Rev5 MacOSX Mavericks 10.9"}
 PLATFORMS['macosx64']['stage_product'] = 'firefox'
 PLATFORMS['macosx64']['mozharness_config'] = {
-    'mozharness_python': '/tools/buildbot/bin/python',
-    'hg_bin': 'hg',
-    'reboot_command': ['/tools/buildbot/bin/python'] + MOZHARNESS_REBOOT_CMD,
-    'system_bits': '64',
-    'config_file': 'talos/mac_config.py',
-}
-
-PLATFORMS['macosx64-mulet']['slave_platforms'] = ['snowleopard']
-PLATFORMS['macosx64-mulet']['env_name'] = 'mac-perf'
-PLATFORMS['macosx64-mulet']['snowleopard'] = {
-    'name': 'Rev4 MacOSX Mulet Snow Leopard 10.6',
-    'build_dir_prefix': 'snowleopard_mulet',
-    'scheduler_slave_platform_identifier': 'snowleopard_mulet'
-}
-PLATFORMS['macosx64-mulet']['stage_product'] = 'firefox'
-PLATFORMS['macosx64-mulet']['mozharness_config'] = {
     'mozharness_python': '/tools/buildbot/bin/python',
     'hg_bin': 'hg',
     'reboot_command': ['/tools/buildbot/bin/python'] + MOZHARNESS_REBOOT_CMD,
@@ -215,22 +197,6 @@ PLATFORMS['linux64-cc']['mozharness_config'] = {
     'reboot_command': ['/tools/buildbot/bin/python'] + MOZHARNESS_REBOOT_CMD,
     'system_bits': '64',
 }
-
-PLATFORMS['linux64-mulet']['slave_platforms'] = ['ubuntu64_vm']
-PLATFORMS['linux64-mulet']['ubuntu64_vm'] = {
-    'name': 'Ubuntu VM 12.04 x64 Mulet',
-    'build_dir_prefix': 'ubuntu64_vm_mulet',
-    'scheduler_slave_platform_identifier': 'ubuntu64_vm_mulet'
-}
-PLATFORMS['linux64-mulet']['stage_product'] = 'firefox'
-PLATFORMS['linux64-mulet']['mozharness_config'] = {
-    'mozharness_python': '/tools/buildbot/bin/python',
-    'hg_bin': 'hg',
-    'reboot_command': ['/tools/buildbot/bin/python'] + MOZHARNESS_REBOOT_CMD,
-    'system_bits': '64',
-    'config_file': 'talos/linux_config.py',
-}
-
 
 # Lets be explicit instead of magical.
 for platform, platform_config in PLATFORMS.items():
@@ -342,9 +308,7 @@ BRANCH_UNITTEST_VARS = {
         'linux64': {},
         'linux64-asan': {},
         'linux64-cc': {},
-        'linux64-mulet': {},
         'macosx64': {},
-        'macosx64-mulet': {},
         'win32': {},
         'win64': {},
     },
@@ -366,6 +330,16 @@ MOCHITEST_BC = [
         'use_mozharness': True,
         'script_path': 'scripts/desktop_unittest.py',
         'extra_args': ['--mochitest-suite', 'browser-chrome'],
+        'blob_upload': True,
+        'script_maxtime': 12000,
+    }),
+]
+
+MOCHITEST_JP = [
+    ('mochitest-jetpack', {
+        'use_mozharness': True,
+        'script_path': 'scripts/desktop_unittest.py',
+        'extra_args': ['--mochitest-suite', 'jetpack-package', '--mochitest-suite', 'jetpack-addon'],
         'blob_upload': True,
         'script_maxtime': 12000,
     }),
@@ -645,6 +619,9 @@ PLATFORM_UNITTEST_VARS = {
                 'mochitest-webgl': {
                     'config_files': ["unittests/linux_unittest.py"],
                 },
+                'mochitest-jetpack': {
+                    'config_files': ["unittests/linux_unittest.py"],
+                },
                 'webapprt-chrome': {
                     'config_files': ["unittests/linux_unittest.py"],
                 },
@@ -721,6 +698,9 @@ PLATFORM_UNITTEST_VARS = {
                     'config_files': ["unittests/linux_unittest.py"],
                 },
                 'mochitest-webgl': {
+                    'config_files': ["unittests/linux_unittest.py"],
+                },
+                'mochitest-jetpack': {
                     'config_files': ["unittests/linux_unittest.py"],
                 },
                 'webapprt-chrome': {
@@ -801,6 +781,9 @@ PLATFORM_UNITTEST_VARS = {
                 'mochitest-webgl': {
                     'config_files': ["unittests/linux_unittest.py"],
                 },
+                'mochitest-jetpack': {
+                    'config_files': ["unittests/linux_unittest.py"],
+                },
                 'webapprt-chrome': {
                     'config_files': ["unittests/linux_unittest.py"],
                 },
@@ -876,79 +859,7 @@ PLATFORM_UNITTEST_VARS = {
                 'mochitest-webgl': {
                     'config_files': ["unittests/linux_unittest.py"],
                 },
-                'webapprt-chrome': {
-                    'config_files': ["unittests/linux_unittest.py"],
-                },
-                'reftest': {
-                    'config_files': ["unittests/linux_unittest.py"],
-                },
-                'jsreftest': {
-                    'config_files': ["unittests/linux_unittest.py"],
-                },
-                'crashtest': {
-                    'config_files': ["unittests/linux_unittest.py"],
-                },
-                'reftest-no-accel': {
-                    'config_files': ["unittests/linux_unittest.py"],
-                },
-                'reftest-ipc': {
-                    'config_files': ["unittests/linux_unittest.py"],
-                },
-                'crashtest-ipc': {
-                    'config_files': ["unittests/linux_unittest.py"],
-                },
-                'xpcshell': {
-                    'config_files': ["unittests/linux_unittest.py"],
-                },
-                'cppunit': {
-                    'config_files': ["unittests/linux_unittest.py"],
-                },
-                'marionette': {
-                    'config_files': ["marionette/prod_config.py"],
-                },
-                'jittest': {
-                    'config_files': ["unittests/linux_unittest.py"],
-                },
-                'web-platform-tests': {
-                    'config_files': ["web_platform_tests/prod_config.py"],
-                },
-                'web-platform-tests-reftests': {
-                    'config_files': ["web_platform_tests/prod_config.py"],
-                },
-                'mozbase': {
-                    'config_files': ["unittests/linux_unittest.py"],
-                },
-            },
-        },
-    },
-    'linux64-mulet': {
-        'product_name': 'Irrelevant',
-        'app_name': 'Irrelevant',
-        'brand_name': 'Irrelevant',
-        'builds_before_reboot': 1,
-        'unittest-env': {'DISPLAY': ':0'},
-        'enable_opt_unittests': True,
-        'enable_debug_unittests': False,
-        'ubuntu64_vm': {
-            'opt_unittest_suites': MOCHITEST_PLAIN[:],
-            'debug_unittest_suites': [],
-            'suite_config': {
-                'mochitest': {
-                    'config_files': ["unittests/linux_unittest.py"],
-                },
-                'mochitest-e10s': {
-                    'config_files': ["unittests/linux_unittest.py"],
-                },
-                'mochitest-browser-chrome': {
-                    'config_files': ["unittests/linux_unittest.py"],
-                },
-                'mochitest-other': {
-                    'config_files': ["unittests/linux_unittest.py"],
-                },
-                'mochitest-devtools-chrome': {
-                    'config_files': ["unittests/linux_unittest.py"],
-                },
-                'mochitest-webgl': {
+                'mochitest-jetpack': {
                     'config_files': ["unittests/linux_unittest.py"],
                 },
                 'webapprt-chrome': {
@@ -1028,6 +939,9 @@ PLATFORM_UNITTEST_VARS = {
                 'mochitest-webgl': {
                     'config_files': ["unittests/linux_unittest.py"],
                 },
+                'mochitest-jetpack': {
+                    'config_files': ["unittests/win_unittest.py"],
+                },
                 'webapprt-chrome': {
                     'config_files': ["unittests/win_unittest.py"],
                 },
@@ -1097,6 +1011,9 @@ PLATFORM_UNITTEST_VARS = {
                 'mochitest-webgl': {
                     'config_files': ["unittests/linux_unittest.py"],
                 },
+                'mochitest-jetpack': {
+                    'config_files': ["unittests/win_unittest.py"],
+                },
                 'webapprt-chrome': {
                     'config_files': ["unittests/win_unittest.py"],
                 },
@@ -1165,6 +1082,9 @@ PLATFORM_UNITTEST_VARS = {
                 },
                 'mochitest-webgl': {
                     'config_files': ["unittests/linux_unittest.py"],
+                },
+                'mochitest-jetpack': {
+                    'config_files': ["unittests/win_unittest.py"],
                 },
                 'webapprt-chrome': {
                     'config_files': ["unittests/win_unittest.py"],
@@ -1246,6 +1166,9 @@ PLATFORM_UNITTEST_VARS = {
                 'mochitest-webgl': {
                     'config_files': ["unittests/linux_unittest.py"],
                 },
+                'mochitest-jetpack': {
+                    'config_files': ["unittests/win_unittest.py"],
+                },
                 'webapprt-chrome': {
                     'config_files': ["unittests/win_unittest.py"],
                 },
@@ -1311,6 +1234,9 @@ PLATFORM_UNITTEST_VARS = {
                 },
                 'mochitest-webgl': {
                     'config_files': ["unittests/linux_unittest.py"],
+                },
+                'mochitest-jetpack': {
+                    'config_files': ["unittests/win_unittest.py"],
                 },
                 'webapprt-chrome': {
                     'config_files': ["unittests/win_unittest.py"],
@@ -1386,6 +1312,9 @@ PLATFORM_UNITTEST_VARS = {
                 'mochitest-webgl': {
                     'config_files': ["unittests/linux_unittest.py"],
                 },
+                'mochitest-jetpack': {
+                    'config_files': ["unittests/mac_unittest.py"],
+                },
                 'webapprt-chrome': {
                     'config_files': ["unittests/mac_unittest.py"],
                 },
@@ -1451,6 +1380,9 @@ PLATFORM_UNITTEST_VARS = {
                 },
                 'mochitest-webgl': {
                     'config_files': ["unittests/linux_unittest.py"],
+                },
+                'mochitest-jetpack': {
+                    'config_files': ["unittests/mac_unittest.py"],
                 },
                 'webapprt-chrome': {
                     'config_files': ["unittests/mac_unittest.py"],
@@ -1518,79 +1450,8 @@ PLATFORM_UNITTEST_VARS = {
                 'mochitest-webgl': {
                     'config_files': ["unittests/linux_unittest.py"],
                 },
-                'webapprt-chrome': {
+                'mochitest-jetpack': {
                     'config_files': ["unittests/mac_unittest.py"],
-                },
-                'reftest': {
-                    'config_files': ["unittests/mac_unittest.py"],
-                },
-                'jsreftest': {
-                    'config_files': ["unittests/mac_unittest.py"],
-                },
-                'crashtest': {
-                    'config_files': ["unittests/mac_unittest.py"],
-                },
-                'reftest-no-accel': {
-                    'config_files': ["unittests/mac_unittest.py"],
-                },
-                'reftest-ipc': {
-                    'config_files': ["unittests/mac_unittest.py"],
-                },
-                'crashtest-ipc': {
-                    'config_files': ["unittests/mac_unittest.py"],
-                },
-                'xpcshell': {
-                    'config_files': ["unittests/mac_unittest.py"],
-                },
-                'cppunit': {
-                    'config_files': ["unittests/mac_unittest.py"],
-                },
-                'marionette': {
-                    'config_files': ["marionette/prod_config.py"],
-                },
-                'jittest': {
-                    'config_files': ["unittests/mac_unittest.py"],
-                },
-                'web-platform-tests': {
-                    'config_files': ["web_platform_tests/prod_config.py"],
-                },
-                'web-platform-tests-reftests': {
-                    'config_files': ["web_platform_tests/prod_config.py"],
-                },
-                'mozbase': {
-                    'config_files': ["unittests/mac_unittest.py"],
-                },
-            },
-        },
-    },
-    'macosx64-mulet': {
-        'product_name': 'firefox',
-        'app_name': 'browser',
-        'brand_name': 'Minefield',
-        'builds_before_reboot': 1,
-        'enable_opt_unittests': True,
-        'enable_debug_unittests': False,
-        'snowleopard': {
-            'opt_unittest_suites': UNITTEST_SUITES['opt_unittest_suites'][:],
-            'debug_unittest_suites': [],
-            'suite_config': {
-                'mochitest': {
-                    'config_files': ["unittests/mac_unittest.py"],
-                },
-                'mochitest-e10s': {
-                    'config_files': ["unittests/mac_unittest.py"],
-                },
-                'mochitest-browser-chrome': {
-                    'config_files': ["unittests/mac_unittest.py"],
-                },
-                'mochitest-other': {
-                    'config_files': ["unittests/mac_unittest.py"],
-                },
-                'mochitest-devtools-chrome': {
-                    'config_files': ["unittests/mac_unittest.py"],
-                },
-                'mochitest-webgl': {
-                    'config_files': ["unittests/linux_unittest.py"],
                 },
                 'webapprt-chrome': {
                     'config_files': ["unittests/mac_unittest.py"],
@@ -1822,9 +1683,6 @@ BRANCHES['cedar']['platforms']['win32']['xp-ix']['debug_unittest_suites'] += REF
 BRANCHES['cedar']['platforms']['win32']['win7-ix']['debug_unittest_suites'] += REFTEST_OMTC[:]
 BRANCHES['cedar']['platforms']['win32']['win8']['debug_unittest_suites'] += REFTEST_OMTC[:]
 
-######## fig
-BRANCHES['fig']['platforms']['linux64-mulet']['ubuntu64_vm']['opt_unittest_suites'] = UNITTEST_SUITES['opt_unittest_suites'][:]
-
 ######## mozilla-inbound
 # Skip test runs (see bug 1056787)
 # Note that if we set this higher than 3, we'll start to get strange behaviour
@@ -1873,7 +1731,7 @@ for name in [x for x in BRANCHES.keys() if not x.startswith('mozilla-b2g')]:
         if pf not in branch['platforms']:
             continue
         # Skip these platforms
-        if pf in ('linux64-mulet', 'linux64-asan', 'macosx64-mulet'):
+        if pf in ('linux64-asan', ):
             continue
         for slave_pf in branch['platforms'][pf].get(
                 'slave_platforms', PLATFORMS[pf]['slave_platforms']):
@@ -1963,10 +1821,6 @@ for platform in PLATFORMS.keys():
             if slave_platform == 'mountainlion':
                 continue
 
-            # Don't run jittests on Mulet builds
-            if platform in ('linux64-mulet', 'macosx64-mulet'):
-                continue
-
             if platform in BRANCHES[name]['platforms']:
                 if slave_platform in BRANCHES[name]['platforms'][platform]:
                     BRANCHES[name]['platforms'][platform][slave_platform]['opt_unittest_suites'] += jittests[:]
@@ -1976,8 +1830,6 @@ for platform in PLATFORMS.keys():
 for platform in PLATFORMS.keys():
     for slave_platform in PLATFORMS[platform]['slave_platforms']:
         if slave_platform not in BRANCHES['cedar']['platforms'][platform]:
-            continue
-        if platform in ('linux64-mulet', 'macosx64-mulet'):
             continue
         BRANCHES['cedar']['platforms'][platform][slave_platform]['opt_unittest_suites'] += WEBAPPRT_CHROME[:]
         BRANCHES['cedar']['platforms'][platform][slave_platform]['debug_unittest_suites'] += WEBAPPRT_CHROME[:]
@@ -1997,9 +1849,6 @@ for platform in PLATFORMS.keys():
     if platform not in BRANCHES['cedar']['platforms']:
         continue
 
-    if platform in ('linux64-mulet', 'macosx64-mulet'):
-        continue
-
     for slave_platform in PLATFORMS[platform]['slave_platforms']:
         if slave_platform not in BRANCHES['cedar']['platforms'][platform]:
             continue
@@ -2014,12 +1863,18 @@ for platform in PLATFORMS.keys():
 for platform in PLATFORMS.keys():
     if platform not in BRANCHES['cedar']['platforms']:
         continue
-    if platform in ('linux64-mulet', 'macosx64-mulet'):
-        continue
     for slave_platform in PLATFORMS[platform]['slave_platforms']:
         if slave_platform in BRANCHES['cedar']['platforms'][platform]:
             BRANCHES['cedar']['platforms'][platform][slave_platform]['opt_unittest_suites'] += MOZBASE[:]
             BRANCHES['cedar']['platforms'][platform][slave_platform]['debug_unittest_suites'] += MOZBASE[:]
+
+# Enable mochitest-jetpack tests on cedar
+for platform in PLATFORMS.keys():
+    for slave_platform in PLATFORMS[platform]['slave_platforms']:
+        if slave_platform not in BRANCHES['cedar']['platforms'][platform]:
+            continue
+        BRANCHES['cedar']['platforms'][platform][slave_platform]['opt_unittest_suites'] += MOCHITEST_JP[:]
+        BRANCHES['cedar']['platforms'][platform][slave_platform]['debug_unittest_suites'] += MOCHITEST_JP[:]
 
 # Enable e10s Linux mochitests on trunk branches
 # Fix this to a certain gecko version once e10s starts riding the trains
@@ -2142,19 +1997,6 @@ for branch in set(BRANCHES.keys()) - set(WIN64_TESTING_BRANCHES):
 for name, branch in items_before(BRANCHES, 'gecko_version', 26):
     if 'linux64-asan' in branch['platforms']:
         del branch['platforms']['linux64-asan']
-
-# Disable OSX Mulet in every branch except fig
-for name in BRANCHES.keys():
-    if name in ('fig', ):
-        continue
-    for platform in ('macosx64-mulet', ):
-        if platform in BRANCHES[name]['platforms']:
-            del BRANCHES[name]['platforms'][platform]
-
-# Enable linux64-mulet only in gecko 34+
-for name, branch in items_before(BRANCHES, 'gecko_version', 34):
-    if 'linux64-mulet' in branch['platforms']:
-        del branch['platforms']['linux64-mulet']
 
 # Disable Linux64-cc in every branch except cedar
 for name in BRANCHES.keys():

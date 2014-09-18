@@ -21,6 +21,7 @@ releaseConfig['messagePrefix']       = '[staging-release] '
 # Basic product configuration
 #  Names for the product/files
 releaseConfig['productName']         = 'firefox'
+releaseConfig['stage_product']       = 'firefox'
 releaseConfig['appName']             = 'browser'
 #  Current version info
 releaseConfig['version']             = '{{ version }}'
@@ -123,7 +124,7 @@ releaseConfig['mozconfigs']          = {
 releaseConfig['releaseChannel']        = 'esr'
 releaseConfig['releaseChannelRuleIds'] = [] # Still on AUS3
 releaseConfig['testChannels']          = ['releasetest', 'esrtest']
-releaseConfig['testChannelRuleIds']    = [20,29]
+releaseConfig['testChannelRuleIds']    = [29,42]
 
 # Partner repack configuration
 releaseConfig['doPartnerRepacks']    = False

@@ -18,6 +18,7 @@ releaseConfig['messagePrefix']       = '[release] '
 # Basic product configuration
 #  Names for the product/files
 releaseConfig['productName']         = 'thunderbird'
+releaseConfig['stage_product']       = 'thunderbird'
 releaseConfig['appName']             = 'mail'
 # MERGE DAY (remove 'mozilla_dir' once comm-beta no longer services Gecko 33 and lower)
 releaseConfig['mozilla_dir']         = 'mozilla'
@@ -126,7 +127,7 @@ releaseConfig['mozconfigs']          = {
 releaseConfig['releaseChannel']        = 'beta'
 releaseConfig['releaseChannelRuleIds'] = [43]
 releaseConfig['testChannels']          = ['releasetest', 'betatest']
-releaseConfig['testChannelRuleIds']    = [27,28]
+releaseConfig['testChannelRuleIds']    = [27,60]
 
 # Partner repack configuration
 releaseConfig['doPartnerRepacks']    = False

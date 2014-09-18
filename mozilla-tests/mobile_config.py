@@ -41,6 +41,7 @@ BRANCHES = {
         'gecko_version': 30,
     },
     'try': {'coallesce_jobs': False},
+    'mozilla-esr31':     {},
 }
 
 setMainFirefoxVersions(BRANCHES)
@@ -656,6 +657,29 @@ ANDROID_MOZHARNESS_PLAIN_ROBOCOP = [
      ),
 ]
 
+ANDROID_MOZHARNESS_INSTRUMENTATION = [
+    ('instrumentation-browser',
+     {'suite': 'instrumentation',
+      'use_mozharness': True,
+      'script_path': 'scripts/android_panda.py',
+      'extra_args': ['--cfg', 'android/android_panda_releng.py', '--instrumentation-suite', 'browser'],
+      'blob_upload': True,
+      'timeout': 2400,
+      'script_maxtime': 14400,
+      },
+     ),
+    ('instrumentation-background',
+     {'suite': 'instrumentation',
+      'use_mozharness': True,
+      'script_path': 'scripts/android_panda.py',
+      'extra_args': ['--cfg', 'android/android_panda_releng.py', '--instrumentation-suite', 'background'],
+      'blob_upload': True,
+      'timeout': 2400,
+      'script_maxtime': 14400,
+      },
+     ),
+]
+
 ANDROID_PLAIN_UNITTEST_DICT = {
     'opt_unittest_suites': [],
     'debug_unittest_suites': [],
@@ -672,6 +696,16 @@ ANDROID_2_3_C3_DICT = {
 }
 
 ANDROID_2_3_AWS_DICT = {
+    'opt_unittest_suites': [],
+    'debug_unittest_suites': [],
+}
+
+ANDROID_2_3_ARMV6_AWS_DICT = {
+    'opt_unittest_suites': [],
+    'debug_unittest_suites': [],
+}
+
+ANDROID_2_3_ARMV6_C3_DICT = {
     'opt_unittest_suites': [],
     'debug_unittest_suites': [],
 }
@@ -736,7 +770,17 @@ for suite in ANDROID_UNITTEST_DICT['opt_unittest_suites']:
 
 # bug 982799 limit the debug tests run on trunk branches
 ANDROID_MOZHARNESS_PANDA_UNITTEST_DICT = {
-    'opt_unittest_suites': ANDROID_MOZHARNESS_MOCHITEST + ANDROID_MOZHARNESS_PLAIN_ROBOCOP + ANDROID_MOZHARNESS_JSREFTEST + ANDROID_MOZHARNESS_CRASHTEST + ANDROID_MOZHARNESS_MOCHITESTGL + ANDROID_MOZHARNESS_PLAIN_REFTEST + ANDROID_MOZHARNESS_XPCSHELL + ANDROID_MOZHARNESS_JITTEST + ANDROID_MOZHARNESS_CPPUNITTEST,
+    'opt_unittest_suites':
+    ANDROID_MOZHARNESS_MOCHITEST +
+    ANDROID_MOZHARNESS_PLAIN_ROBOCOP +
+    ANDROID_MOZHARNESS_JSREFTEST +
+    ANDROID_MOZHARNESS_CRASHTEST +
+    ANDROID_MOZHARNESS_MOCHITESTGL +
+    ANDROID_MOZHARNESS_PLAIN_REFTEST +
+    ANDROID_MOZHARNESS_XPCSHELL +
+    ANDROID_MOZHARNESS_JITTEST +
+    ANDROID_MOZHARNESS_CPPUNITTEST +
+    ANDROID_MOZHARNESS_INSTRUMENTATION,
     'debug_unittest_suites': ANDROID_MOZHARNESS_MOCHITEST + ANDROID_MOZHARNESS_JSREFTEST,
 }
 
@@ -1420,6 +1464,20 @@ ANDROID_2_3_MOZHARNESS_DICT = [
 ]
 # End of Android 2.3 configurations
 
+
+for suite in ANDROID_2_3_MOZHARNESS_DICT:
+    if suite[0].startswith('mochitest-gl'):
+        continue
+    elif suite[0].startswith('plain-reftest'):
+        ANDROID_2_3_ARMV6_C3_DICT['opt_unittest_suites'].append(suite)
+    elif suite[0].startswith('crashtest'):
+        ANDROID_2_3_ARMV6_C3_DICT['opt_unittest_suites'].append(suite)
+    elif suite[0].startswith('jsreftest'):
+        ANDROID_2_3_ARMV6_C3_DICT['opt_unittest_suites'].append(suite)
+    else:
+        ANDROID_2_3_ARMV6_AWS_DICT['opt_unittest_suites'].append(suite)
+
+
 # You must define opt_unittest_suites when enable_opt_unittests is True for a
 # platform. Likewise debug_unittest_suites for enable_debug_unittests
 PLATFORM_UNITTEST_VARS = {
@@ -1529,6 +1587,14 @@ for branch in BRANCHES.keys():
                 if isinstance(value, str):
                     value = value % locals()
                 BRANCHES[branch]['platforms'][platform][key] = value
+
+
+BRANCHES['mozilla-esr31']['platforms']['android-armv6']['ubuntu64_vm_armv6_large'] = {
+    'opt_unittest_suites': deepcopy(ANDROID_2_3_ARMV6_C3_DICT['opt_unittest_suites']),
+}
+BRANCHES['mozilla-esr31']['platforms']['android-armv6']['ubuntu64_vm_armv6_mobile'] = {
+    'opt_unittest_suites': deepcopy(ANDROID_2_3_ARMV6_AWS_DICT['opt_unittest_suites']),
+}
 
 #
 # Entries in BRANCHES for tests should be a tuple of:
@@ -1744,29 +1810,45 @@ for name, branch in items_before(BRANCHES, 'gecko_version', 28):
                     if "cppunit" in suite[0]:
                         branch['platforms'][platform][slave_plat][type_].remove(suite)
 
+
+def remove_suite_from_slave_platform(BRANCHES, PLATFORMS, suite_to_remove, slave_platform, branches_to_keep=[]):
+    """Remove suites named like |suite_to_remove| from all branches on slave platforms named like |slave_platform|.
+
+Updates BRANCHES in place.  Consumes PLATFORMS without side
+effects. Does not remove any suites from the specified
+|branches_to_keep|."""
+
+    tuples_to_delete = []
+    for branch in BRANCHES:
+        # Loop removes it from any branch that gets beyond here.
+        if branch in branches_to_keep:
+            continue
+        for platform in BRANCHES[branch]['platforms']:
+            if not platform in PLATFORMS:
+                continue
+            if not platform.startswith('android'):
+                continue
+            if platform.endswith('-debug'):
+                continue  # no slave_platform for debug
+            for slave_plat in PLATFORMS[platform]['slave_platforms']:
+                if not slave_plat in BRANCHES[branch]['platforms'][platform]:
+                    continue
+                if not slave_plat == slave_platform:
+                    continue
+                for unittest_suite_type, unittest_suites in BRANCHES[branch]['platforms'][platform][slave_plat].items():
+                    # This replaces the contents of the unittest_suites list in place with the filtered list.
+                    unittest_suites[:] = [ suite for suite in unittest_suites if not suite_to_remove in suite[0] ]
+
+
 # schedule jittests for pandas on cedar and try
 # https://bugzilla.mozilla.org/show_bug.cgi?id=912997
 # https://bugzilla.mozilla.org/show_bug.cgi?id=931874
-for branch in BRANCHES:
-    # Loop removes it from any branch that gets beyond here
-    if branch in ('cedar', 'try'):
-        continue
-    for platform in BRANCHES[branch]['platforms']:
-        if not platform in PLATFORMS:
-            continue
-        if not platform.startswith('android'):
-            continue
-        if platform.endswith('-debug'):
-            continue  # no slave_platform for debug
-        for slave_plat in PLATFORMS[platform]['slave_platforms']:
-            if not slave_plat in BRANCHES[branch]['platforms'][platform]:
-                continue
-            if not slave_plat == "panda_android":
-                continue
-            for type in BRANCHES[branch]['platforms'][platform][slave_plat]:
-                for suite in BRANCHES[branch]['platforms'][platform][slave_plat][type][:]:
-                    if "jittest" in suite[0]:
-                        BRANCHES[branch]['platforms'][platform][slave_plat][type].remove(suite)
+remove_suite_from_slave_platform(BRANCHES, PLATFORMS, 'jittest', 'panda_android', branches_to_keep=['cedar', 'try'])
+
+# schedule instrumentation tests for pandas on ash and cedar
+# https://bugzilla.mozilla.org/show_bug.cgi?id=1064010
+remove_suite_from_slave_platform(BRANCHES, PLATFORMS, 'instrumentation', 'panda_android', branches_to_keep=['ash', 'cedar'])
+
 
 if __name__ == "__main__":
     import sys
