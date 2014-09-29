@@ -80,7 +80,9 @@ setMainFirefoxVersions(BRANCHES)
 PLATFORMS = {
     'linux32_gecko': {},
     'linux64_gecko': {},
+    'linux64-mulet': {},
     'macosx64_gecko': {},
+    'macosx64-mulet': {},
     'emulator': {},
     'emulator-jb': {},
     'emulator-kk': {},
@@ -110,11 +112,37 @@ PLATFORMS['linux64_gecko']['mozharness_config'] = {
     'reboot_command': ['/tools/buildbot/bin/python'] + MOZHARNESS_REBOOT_CMD,
 }
 
+PLATFORMS['linux64-mulet']['slave_platforms'] = ['ubuntu64_vm-mulet']
+PLATFORMS['linux64-mulet']['env_name'] = 'linux-perf'
+PLATFORMS['linux64-mulet']['ubuntu64_vm-mulet'] = {'name': 'Ubuntu VM 12.04 x64 Mulet'}
+PLATFORMS['linux64-mulet']['stage_product'] = 'b2g'
+PLATFORMS['linux64-mulet']['mozharness_config'] = {
+    'mozharness_python': '/tools/buildbot/bin/python',
+    'use_mozharness': True,
+    'hg_bin': 'hg',
+    'reboot_command': ['/tools/buildbot/bin/python'] + MOZHARNESS_REBOOT_CMD,
+}
+
 PLATFORMS['macosx64_gecko']['slave_platforms'] = ['mountainlion-b2gdt', ]
 PLATFORMS['macosx64_gecko']['env_name'] = 'linux-perf'
 PLATFORMS['macosx64_gecko']['mountainlion-b2gdt'] = {'name': builder_prefix + "_macosx64"}
 PLATFORMS['macosx64_gecko']['stage_product'] = 'b2g'
 PLATFORMS['macosx64_gecko']['mozharness_config'] = {
+    'mozharness_python': '/tools/buildbot/bin/python',
+    'use_mozharness': True,
+    'hg_bin': 'hg',
+    'reboot_command': ['/tools/buildbot/bin/python'] + MOZHARNESS_REBOOT_CMD,
+}
+
+PLATFORMS['macosx64-mulet']['slave_platforms'] = ['snowleopard']
+PLATFORMS['macosx64-mulet']['env_name'] = 'mac-perf'
+PLATFORMS['macosx64-mulet']['snowleopard'] = {
+    'name': 'Rev4 MacOSX Mulet Snow Leopard 10.6',
+    'build_dir_prefix': 'snowleopard_mulet',
+    'scheduler_slave_platform_identifier': 'snowleopard_mulet'
+}
+PLATFORMS['macosx64-mulet']['stage_product'] = 'b2g'
+PLATFORMS['macosx64-mulet']['mozharness_config'] = {
     'mozharness_python': '/tools/buildbot/bin/python',
     'use_mozharness': True,
     'hg_bin': 'hg',
@@ -170,7 +198,9 @@ BRANCH_UNITTEST_VARS = {
     'platforms': {
         'linux32_gecko': {},
         'linux64_gecko': {},
+        'linux64-mulet': {},
         'macosx64_gecko': {},
+        'macosx64-mulet': {},
         'emulator': {},
         'emulator-jb': {},
         'emulator-kk': {},
@@ -243,6 +273,48 @@ MOCHITEST_EMULATOR_JB = [
                      'blob_upload': True,
                      },
      ),
+]
+
+MOCHITEST_MULET_PLAIN = [
+    ('mochitest-1', {'suite': 'mochitest-plain',
+                                 'use_mozharness': True,
+                                 'script_path': 'scripts/desktop_unittest.py',
+                                 'blob_upload': True,
+                                }
+    ),
+    ('mochitest-2', {'suite': 'mochitest-plain',
+                                 'use_mozharness': True,
+                                 'script_path': 'scripts/desktop_unittest.py',
+                                 'blob_upload': True,
+                                }
+    ),
+    ('mochitest-3', {'suite': 'mochitest-plain',
+                                 'use_mozharness': True,
+                                 'script_path': 'scripts/desktop_unittest.py',
+                                 'blob_upload': True,
+                                }
+    ),
+    ('mochitest-4', {'suite': 'mochitest-plain',
+                                 'use_mozharness': True,
+                                 'script_path': 'scripts/desktop_unittest.py',
+                                 'blob_upload': True,
+                                }
+    ),
+    ('mochitest-5', {'suite': 'mochitest-plain',
+                                 'use_mozharness': True,
+                                 'script_path': 'scripts/desktop_unittest.py',
+                                 'blob_upload': True,
+                                }
+    ),
+]
+
+REFTEST_MULET = [
+    ('reftest', {
+        'suite': 'reftest',
+        'use_mozharness': True,
+        'script_path': 'scripts/mulet_unittest.py',
+        'blob_upload': True,
+    }),
 ]
 
 MOCHITEST_EMULATOR_DEBUG = [
@@ -357,6 +429,33 @@ MOCHITEST_DESKTOP = [
 ]
 
 MOCHITEST_OOP_DESKTOP = [('mochitest-oop-1', MOCHITEST_DESKTOP[0][1])]
+
+GAIA_JS_INTEGRATION = [
+    ('gaia-js-integration-1', {'suite': 'gaia-js-integration',
+                           'use_mozharness': True,
+                           'script_path': 'scripts/gaia_integration.py',
+                           'timeout': 500,
+                           },
+    ),
+    ('gaia-js-integration-2', {'suite': 'gaia-js-integration',
+                           'use_mozharness': True,
+                           'script_path': 'scripts/gaia_integration.py',
+                           'timeout': 500,
+                           },
+    ),
+    ('gaia-js-integration-3', {'suite': 'gaia-js-integration',
+                           'use_mozharness': True,
+                           'script_path': 'scripts/gaia_integration.py',
+                           'timeout': 500,
+                           },
+    ),
+    ('gaia-js-integration-4', {'suite': 'gaia-js-integration',
+                           'use_mozharness': True,
+                           'script_path': 'scripts/gaia_integration.py',
+                           'timeout': 500,
+                           },
+    ),
+]
 
 REFTEST = [
     ('reftest-1', {'suite': 'reftest',
@@ -618,6 +717,15 @@ MARIONETTE = [
      ),
 ]
 
+MARIONETTE_UNIT = [
+    ('marionette', {'suite': 'marionette',
+                     'use_mozharness': True,
+                     'script_path': 'scripts/marionette.py',
+                     'blob_upload': True,
+                     },
+    ),
+]
+
 XPCSHELL = [
     ('xpcshell', {'suite': 'xpcshell',
                   'use_mozharness': True,
@@ -698,6 +806,46 @@ GAIA_UI = [(
     },
 )]
 
+#Gaia Python Integration Tests
+# will replae GAIA_UI, Bug 1046694
+GIP = [
+    ('gaia-ui-test-functional-1', {
+                                    'suite': 'gip',
+                                    'use_mozharness': True,
+                                    'script_path': 'scripts/marionette.py',
+                                    'blob_upload': True,
+                                   },
+    ),
+    ('gaia-ui-test-functional-2', {
+                                    'suite': 'gip',
+                                    'use_mozharness': True,
+                                    'script_path': 'scripts/marionette.py',
+                                    'blob_upload': True,
+                                   },
+    ),
+    ('gaia-ui-test-functional-3', {
+                                    'suite': 'gip',
+                                    'use_mozharness': True,
+                                    'script_path': 'scripts/marionette.py',
+                                    'blob_upload': True,
+                                   },
+    ),
+    ('gaia-ui-test-unit', {
+                            'suite': 'gip',
+                            'use_mozharness': True,
+                            'script_path': 'scripts/marionette.py',
+                            'blob_upload': True,
+                           },
+    ),
+    ('gaia-ui-test-accessibility', {
+                                     'suite': 'gip',
+                                     'use_mozharness': True,
+                                     'script_path': 'scripts/marionette.py',
+                                     'blob_upload': True,
+                                   },
+    )
+]
+
 GAIA_UI_OOP = [('gaia-ui-test-oop', GAIA_UI[0][1])]
 
 CPPUNIT = [(
@@ -709,7 +857,7 @@ CPPUNIT = [(
     },
 )]
 
-ALL_UNITTESTS = MOCHITEST + REFTEST + CRASHTEST + MARIONETTE + XPCSHELL
+ALL_UNITTESTS = MOCHITEST + REFTEST + CRASHTEST + MARIONETTE + MARIONETTE_UNIT + XPCSHELL
 
 # Default set of unit tests
 UNITTEST_SUITES = {
@@ -720,6 +868,121 @@ UNITTEST_SUITES = {
 # You must define opt_unittest_suites when enable_opt_unittests is True for a
 # platform. Likewise debug_unittest_suites for enable_debug_unittests
 PLATFORM_UNITTEST_VARS = {
+    'linux64-mulet': {
+        'product_name': 'b2g',
+        'app_name': 'firefox',
+        'brand_name': 'Mulet',
+        'builds_before_reboot': 1,
+        'unittest-env': {'DISPLAY': ':0'},
+        'enable_opt_unittests': True,
+        'enable_debug_unittests': False,
+        'ubuntu64_vm-mulet': {
+            'opt_unittest_suites': MOCHITEST_MULET_PLAIN[:],
+            'debug_unittest_suites': [],
+            'suite_config': {
+                'mochitest-1': {
+                    'extra_args': [
+                      '--cfg', 'unittests/linux_unittest.py',
+                      '--total-chunks', 5, '--this-chunk', 1,
+                      '--mochitest-suite', 'plain-chunked',
+                    ]
+                },
+                'mochitest-2': {
+                    'extra_args': [
+                      '--cfg', 'unittests/linux_unittest.py',
+                      '--total-chunks', 5, '--this-chunk', 2,
+                      '--mochitest-suite', 'plain-chunked',
+                    ]
+                },
+                'mochitest-3': {
+                    'extra_args': [
+                      '--cfg', 'unittests/linux_unittest.py',
+                      '--total-chunks', 5, '--this-chunk', 3,
+                      '--mochitest-suite', 'plain-chunked',
+                    ]
+                },
+                'mochitest-4': {
+                    'extra_args': [
+                      '--cfg', 'unittests/linux_unittest.py',
+                      '--total-chunks', 5, '--this-chunk', 4,
+                      '--mochitest-suite', 'plain-chunked',
+                    ]
+                },
+                'mochitest-5': {
+                    'extra_args': [
+                      '--cfg', 'unittests/linux_unittest.py',
+                      '--total-chunks', 5, '--this-chunk', 5,
+                      '--mochitest-suite', 'plain-chunked',
+                    ]
+                },
+                'reftest': {
+                    'extra_args': [
+                      '--cfg', 'b2g/generic_config.py',
+                      '--cfg', 'b2g/mulet_config.py',
+                      '--test-suite', 'reftest',
+                      '--test-manifest', 'tests/layout/reftests/reftest.list',
+                    ]
+                },
+            },
+        },
+    },
+    'macosx64-mulet': {
+        'product_name': 'b2g',
+        'app_name': 'firefox',
+        'brand_name': 'Mulet',
+        'builds_before_reboot': 1,
+        'unittest-env': {
+            "MOZ_NO_REMOTE": '1',
+            "NO_EM_RESTART": '1',
+            "XPCOM_DEBUG_BREAK": 'warn',
+            "MOZ_CRASHREPORTER_NO_REPORT": '1',
+            # for extracting dmg's
+            "PAGER": '/bin/cat',
+        },
+        'enable_opt_unittests': True,
+        'enable_debug_unittests': False,
+        'snowleopard': {
+            'opt_unittest_suites': MOCHITEST_MULET_PLAIN[:],
+            'debug_unittest_suites': [],
+            'suite_config': {
+                'mochitest-1': {
+                    'extra_args': [
+                      '--cfg', 'unittests/mac_unittest.py',
+                      '--total-chunks', 5, '--this-chunk', 1,
+                      '--mochitest-suite', 'plain-chunked',
+                    ]
+                },
+                'mochitest-2': {
+                    'extra_args': [
+                      '--cfg', 'unittests/mac_unittest.py',
+                      '--total-chunks', 5, '--this-chunk', 2,
+                      '--mochitest-suite', 'plain-chunked',
+                    ]
+                },
+                'mochitest-3': {
+                    'extra_args': [
+                      '--cfg', 'unittests/mac_unittest.py',
+                      '--total-chunks', 5, '--this-chunk', 3,
+                      '--mochitest-suite', 'plain-chunked',
+                    ]
+                },
+                'mochitest-4': {
+                    'extra_args': [
+                      '--cfg', 'unittests/mac_unittest.py',
+                      '--total-chunks', 5, '--this-chunk', 4,
+                      '--mochitest-suite', 'plain-chunked',
+                    ]
+                },
+                'mochitest-5': {
+                    'extra_args': [
+                      '--cfg', 'unittests/mac_unittest.py',
+                      '--total-chunks', 5, '--this-chunk', 5,
+                      '--mochitest-suite', 'plain-chunked',
+                    ]
+                },
+            },
+        },
+    },
     'linux32_gecko': {
         'product_name': 'b2g',
         'app_name': 'b2g',
@@ -737,6 +1000,30 @@ PLATFORM_UNITTEST_VARS = {
                         '--cfg', 'b2g/gaia_integration_config.py',
                     ],
                 },
+                'gaia-js-integration-1': {
+	                    'extra_args': [
+	                        '--cfg', 'b2g/gaia_integration_config.py',
+	                        '--this-chunk', 1, '--total-chunks', 4,
+	                    ],
+	            },
+                'gaia-js-integration-2': {
+	                    'extra_args': [
+	                        '--cfg', 'b2g/gaia_integration_config.py',
+	                        '--this-chunk', 2, '--total-chunks', 4,
+	                    ],
+	            },
+                'gaia-js-integration-3': {
+	                    'extra_args': [
+	                        '--cfg', 'b2g/gaia_integration_config.py',
+	                        '--this-chunk', 3, '--total-chunks', 4,
+	                    ],
+	            },
+                'gaia-js-integration-4': {
+	                    'extra_args': [
+	                        '--cfg', 'b2g/gaia_integration_config.py',
+	                        '--this-chunk', 4, '--total-chunks', 4,
+	                    ],
+	            },
                 'gaia-unit': {
                     'extra_args': [
                         '--cfg', 'b2g/gaia_unit_production_config.py',
@@ -745,6 +1032,39 @@ PLATFORM_UNITTEST_VARS = {
                 'gaia-ui-test': {
                     'extra_args': [
                         '--cfg', 'marionette/gaia_ui_test_prod_config.py',
+                    ],
+                },
+                'gaia-ui-test-functional-1': {
+                    'extra_args': [
+                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
+                        '--gip-suite', 'functional',
+                        '--this-chunk', '1', '--total-chunks', 3,
+                    ],
+                },
+                'gaia-ui-test-functional-2': {
+                    'extra_args': [
+                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
+                        '--gip-suite', 'functional',
+                       '--this-chunk', '2', '--total-chunks', 3,
+                    ],
+                },
+                'gaia-ui-test-functional-3': {
+                    'extra_args': [
+                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
+                        '--gip-suite', 'functional',
+                        '--this-chunk', '3', '--total-chunks', 3,
+                    ],
+                },
+                'gaia-ui-test-unit': {
+                    'extra_args': [
+                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
+                        '--gip-suite', 'unit',
+                    ],
+                },
+                'gaia-ui-test-accessibility': {
+                    'extra_args': [
+                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
+                        '--gip-suite', 'accessibility',
                     ],
                 },
                 'mochitest-1': {
@@ -853,6 +1173,30 @@ PLATFORM_UNITTEST_VARS = {
                         '--cfg', 'b2g/gaia_integration_config.py',
                     ],
                 },
+                'gaia-js-integration-1': {
+	                    'extra_args': [
+	                        '--cfg', 'b2g/gaia_integration_config.py',
+	                        '--this-chunk', 1, '--total-chunks', 4,
+	                    ],
+	            },
+                'gaia-js-integration-2': {
+	                    'extra_args': [
+	                        '--cfg', 'b2g/gaia_integration_config.py',
+	                        '--this-chunk', 2, '--total-chunks', 4,
+	                    ],
+	            },
+                'gaia-js-integration-3': {
+	                    'extra_args': [
+	                        '--cfg', 'b2g/gaia_integration_config.py',
+	                        '--this-chunk', 3, '--total-chunks', 4,
+	                    ],
+	            },
+                'gaia-js-integration-4': {
+	                    'extra_args': [
+	                        '--cfg', 'b2g/gaia_integration_config.py',
+	                        '--this-chunk', 4, '--total-chunks', 4,
+	                    ],
+	            },
                 'gaia-build': {
                     'extra_args': [
                         '--cfg', 'b2g/gaia_integration_config.py',
@@ -882,6 +1226,39 @@ PLATFORM_UNITTEST_VARS = {
                 'gaia-ui-test': {
                     'extra_args': [
                         '--cfg', 'marionette/gaia_ui_test_prod_config.py',
+                    ],
+                },
+                'gaia-ui-test-functional-1': {
+                    'extra_args': [
+                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
+                        '--gip-suite', 'functional',
+                        '--this-chunk', '1', '--total-chunks', 3,
+                    ],
+                },
+                'gaia-ui-test-functional-2': {
+                    'extra_args': [
+                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
+                        '--gip-suite', 'functional',
+                       '--this-chunk', '2', '--total-chunks', 3,
+                    ],
+                },
+                'gaia-ui-test-functional-3': {
+                    'extra_args': [
+                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
+                        '--gip-suite', 'functional',
+                        '--this-chunk', '3', '--total-chunks', 3,
+                    ],
+                },
+                'gaia-ui-test-unit': {
+                    'extra_args': [
+                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
+                        '--gip-suite', 'unit',
+                    ],
+                },
+                'gaia-ui-test-accessibility': {
+                    'extra_args': [
+                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
+                        '--gip-suite', 'accessibility',
                     ],
                 },
                 'gaia-ui-test-oop': {
@@ -1017,9 +1394,66 @@ PLATFORM_UNITTEST_VARS = {
                         '--cfg', 'b2g/gaia_integration_config.py',
                     ],
                 },
+                'gaia-js-integration-1': {
+	                    'extra_args': [
+	                        '--cfg', 'b2g/gaia_integration_config.py',
+	                        '--this-chunk', 1, '--total-chunks', 4,
+	                    ],
+	            },
+                'gaia-js-integration-2': {
+	                    'extra_args': [
+	                        '--cfg', 'b2g/gaia_integration_config.py',
+	                        '--this-chunk', 2, '--total-chunks', 4,
+	                    ],
+	            },
+                'gaia-js-integration-3': {
+	                    'extra_args': [
+	                        '--cfg', 'b2g/gaia_integration_config.py',
+	                        '--this-chunk', 3, '--total-chunks', 4,
+	                    ],
+	            },
+                'gaia-js-integration-4': {
+	                    'extra_args': [
+	                        '--cfg', 'b2g/gaia_integration_config.py',
+	                        '--this-chunk', 4, '--total-chunks', 4,
+	                    ],
+	            },
                 'gaia-ui-test': {
                     'extra_args': [
                         '--cfg', 'marionette/gaia_ui_test_prod_config.py',
+                    ],
+                },
+                'gaia-ui-test-functional-1': {
+                    'extra_args': [
+                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
+                        '--gip-suite', 'functional',
+                        '--this-chunk', '1', '--total-chunks', 3,
+                    ],
+                },
+                'gaia-ui-test-functional-2': {
+                    'extra_args': [
+                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
+                        '--gip-suite', 'functional',
+                       '--this-chunk', '2', '--total-chunks', 3,
+                    ],
+                },
+                'gaia-ui-test-functional-3': {
+                    'extra_args': [
+                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
+                        '--gip-suite', 'functional',
+                        '--this-chunk', '3', '--total-chunks', 3,
+                    ],
+                },
+                'gaia-ui-test-unit': {
+                    'extra_args': [
+                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
+                        '--gip-suite', 'unit',
+                    ],
+                },
+                'gaia-ui-test-accessibility': {
+                    'extra_args': [
+                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
+                        '--gip-suite', 'accessibility',
                     ],
                 },
                 'mochitest-1': {
@@ -1118,18 +1552,57 @@ PLATFORM_UNITTEST_VARS = {
         'enable_opt_unittests': True,
         'enable_debug_unittests': True,
         'ubuntu64_vm-b2g-emulator': {
-            'opt_unittest_suites': MOCHITEST + CRASHTEST + XPCSHELL + MARIONETTE + CPPUNIT,
+            'opt_unittest_suites': MOCHITEST + CRASHTEST + XPCSHELL + MARIONETTE + MARIONETTE_UNIT + CPPUNIT,
             'debug_unittest_suites': MOCHITEST_EMULATOR_DEBUG + XPCSHELL_CHUNKED + CPPUNIT,
             'suite_config': {
+                'marionette': {
+                  'extra_args': [
+                      "--cfg", "marionette/automation_emulator_config.py",
+                  ],
+                },
                 'marionette-webapi': {
                     'extra_args': [
                         "--cfg", "marionette/automation_emulator_config.py",
+                        "--test-manifest", "webapi-tests.ini"
                     ],
                 },
                 'gaia-ui-test': {
                     'extra_args': [
                         '--cfg', 'marionette/gaia_ui_test_prod_config.py',
                         '--cfg', 'marionette/gaia_ui_test_emu_config.py',
+                    ],
+                },
+                'gaia-ui-test-functional-1': {
+                    'extra_args': [
+                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
+                        '--gip-suite', 'functional',
+                        '--this-chunk', '1', '--total-chunks', 3,
+                    ],
+                },
+                'gaia-ui-test-functional-2': {
+                    'extra_args': [
+                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
+                        '--gip-suite', 'functional',
+                       '--this-chunk', '2', '--total-chunks', 3,
+                    ],
+                },
+                'gaia-ui-test-functional-3': {
+                    'extra_args': [
+                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
+                        '--gip-suite', 'functional',
+                        '--this-chunk', '3', '--total-chunks', 3,
+                    ],
+                },
+                'gaia-ui-test-unit': {
+                    'extra_args': [
+                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
+                        '--gip-suite', 'unit',
+                    ],
+                },
+                'gaia-ui-test-accessibility': {
+                    'extra_args': [
+                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
+                        '--gip-suite', 'accessibility',
                     ],
                 },
                 'mochitest-media': {
@@ -1534,6 +2007,39 @@ PLATFORM_UNITTEST_VARS = {
                        '--cfg', 'marionette/gaia_ui_test_emu_config.py',
                    ],
                },
+               'gaia-ui-test-functional-1': {
+                   'extra_args': [
+                       '--cfg', 'marionette/gaia_ui_test_prod_config.py',
+                       '--gip-suite', 'functional',
+                       '--this-chunk', '1', '--total-chunks', 3,
+                   ],
+               },
+               'gaia-ui-test-functional-2': {
+                   'extra_args': [
+                       '--cfg', 'marionette/gaia_ui_test_prod_config.py',
+                       '--gip-suite', 'functional',
+                      '--this-chunk', '2', '--total-chunks', 3,
+                   ],
+               },
+               'gaia-ui-test-functional-3': {
+                   'extra_args': [
+                       '--cfg', 'marionette/gaia_ui_test_prod_config.py',
+                       '--gip-suite', 'functional',
+                       '--this-chunk', '3', '--total-chunks', 3,
+                   ],
+               },
+               'gaia-ui-test-unit': {
+                   'extra_args': [
+                       '--cfg', 'marionette/gaia_ui_test_prod_config.py',
+                       '--gip-suite', 'unit',
+                   ],
+               },
+               'gaia-ui-test-accessibility': {
+                   'extra_args': [
+                       '--cfg', 'marionette/gaia_ui_test_prod_config.py',
+                       '--gip-suite', 'accessibility',
+                   ],
+               },
                 'mochitest-media': {
                     'extra_args': [
                         '--cfg', 'b2g/emulator_automation_config.py',
@@ -1556,9 +2062,15 @@ PLATFORM_UNITTEST_VARS = {
             'opt_unittest_suites': [],
             'debug_unittest_suites': [],
             'suite_config': {
+                'marionette': {
+                    'extra_args': [
+                        "--cfg", "marionette/automation_emulator_config.py",
+                    ],
+                },
                 'marionette-webapi': {
                     'extra_args': [
                         "--cfg", "marionette/automation_emulator_config.py",
+                        "--test-manifest", "webapi-tests.ini",
                     ],
                 },
                 'mochitest-1': {
@@ -1584,9 +2096,15 @@ PLATFORM_UNITTEST_VARS = {
             'opt_unittest_suites': [],
             'debug_unittest_suites': [],
             'suite_config': {
+                'marionette': {
+                    'extra_args': [
+                        "--cfg", "marionette/automation_emulator_config.py",
+                    ],
+                },
                 'marionette-webapi': {
                     'extra_args': [
                         "--cfg", "marionette/automation_emulator_config.py",
+                        "--test-manifest", "webapi-tests.ini",
                     ],
                 },
             },
@@ -1669,16 +2187,19 @@ BRANCHES['cedar']['branch_name'] = "Cedar"
 BRANCHES['cedar']['repo_path'] = "projects/cedar"
 BRANCHES['cedar']['mozharness_tag'] = "default"
 BRANCHES['cedar']['platforms']['emulator']['ubuntu64_vm-b2g-emulator']['opt_unittest_suites'] = \
-    MOCHITEST + CRASHTEST + XPCSHELL + MARIONETTE + JSREFTEST + CPPUNIT
+    MOCHITEST + CRASHTEST + XPCSHELL + MARIONETTE + MARIONETTE_UNIT + JSREFTEST + CPPUNIT
 BRANCHES['cedar']['platforms']['emulator']['ubuntu64_vm-b2g-emulator']['debug_unittest_suites'] = \
-    MOCHITEST_EMULATOR_DEBUG[:] + REFTEST + CRASHTEST + MARIONETTE + XPCSHELL_CHUNKED + CPPUNIT
+    MOCHITEST_EMULATOR_DEBUG[:] + REFTEST + CRASHTEST + MARIONETTE + MARIONETTE_UNIT + XPCSHELL_CHUNKED + CPPUNIT
 BRANCHES['cedar']['platforms']['emulator']['ubuntu64_vm-b2g-lg-emulator']['opt_unittest_suites'] = GAIA_UI + MOCHITEST_MEDIA
 BRANCHES['cedar']['platforms']['emulator-jb']['ubuntu64_vm-b2g-emulator-jb']['opt_unittest_suites'] = MOCHITEST_EMULATOR_JB[:] + MARIONETTE[:]
 BRANCHES['cedar']['platforms']['emulator-kk']['ubuntu64_vm-b2g-emulator-kk']['opt_unittest_suites'] = MARIONETTE[:]
 BRANCHES['cedar']['platforms']['linux32_gecko']['ubuntu32_vm-b2gdt']['opt_unittest_suites'] += GAIA_UI + REFTEST_DESKTOP
 BRANCHES['cedar']['platforms']['linux64_gecko']['ubuntu64_vm-b2gdt']['opt_unittest_suites'] += \
-  REFTEST_DESKTOP + GAIA_UI_OOP + GAIA_UNITTESTS_OOP
-BRANCHES['cedar']['platforms']['macosx64_gecko']['mountainlion-b2gdt']['opt_unittest_suites'] += MOCHITEST_DESKTOP + REFTEST_DESKTOP_SANITY + GAIA_INTEGRATION
+  REFTEST_DESKTOP + GAIA_UI_OOP + GAIA_UNITTESTS_OOP + GAIA_JS_INTEGRATION[:]
+BRANCHES['cedar']['platforms']['linux64_gecko']['ubuntu64_vm-b2gdt']['debug_unittest_suites'] += GAIA_JS_INTEGRATION[:]
+BRANCHES['cedar']['platforms']['macosx64_gecko']['mountainlion-b2gdt']['opt_unittest_suites'] += MOCHITEST_DESKTOP + REFTEST_DESKTOP_SANITY + GAIA_INTEGRATION + GAIA_JS_INTEGRATION[:]
+BRANCHES['cedar']['platforms']['macosx64_gecko']['mountainlion-b2gdt']['opt_unittest_suites'] += GIP
+BRANCHES['cedar']['platforms']['linux64_gecko']['ubuntu64_vm-b2gdt']['opt_unittest_suites'] += GIP
 BRANCHES['pine']['branch_name'] = "Pine"
 BRANCHES['pine']['repo_path'] = "projects/pine"
 BRANCHES['pine']['platforms']['emulator']['ubuntu64_vm-b2g-emulator']['opt_unittest_suites'] = \
@@ -1704,6 +2225,26 @@ BRANCHES['b2g-inbound']['repo_path'] = "integration/b2g-inbound"
 BRANCHES['try']['pgo_strategy'] = "try"
 BRANCHES['try']['enable_try'] = True
 BRANCHES['gaia-try']['repo_path'] = "integration/gaia-try"
+
+def exclude_suites(slave_platform, branch, suites_to_be_excluded, from_opt_unittests, from_debug_unittests):
+    #slave_platform is a tuple, e.g.:
+    #('linux64_gecko', 'ubuntu64_vm-b2gdt')
+    if nested_haskey(BRANCHES[branch]['platforms'], slave_platform[0], slave_platform[1]):
+        slave_p = BRANCHES[branch]['platforms'][slave_platform[0]][slave_platform[1]]
+        if from_opt_unittests:
+            slave_p['opt_unittest_suites'] = [x for x in slave_p['opt_unittest_suites']
+                                              if x[0] if x[0] not in suites_to_be_excluded]
+        if from_debug_unittests:
+            slave_p['debug_unittest_suites'] = [x for x in slave_p['debug_unittest_suites']
+                                            if x[0] if x[0] not in suites_to_be_excluded]
+
+exclude_suites(('linux64_gecko', 'ubuntu64_vm-b2gdt'), 'cedar', ('gaia-ui-test',), True, True)
+exclude_suites(('linux32_gecko', 'ubuntu32_vm-b2gdt'), 'cedar', ('gaia-ui-test',), True, True)
+exclude_suites(('macosx64_gecko', 'mountainlion-b2gdt'), 'cedar', ('gaia-ui-test',), True, True)
+exclude_suites(('emulator', 'ubuntu64_vm-b2g-lg-emulator'), 'cedar', ('gaia-ui-test',), True, True)
+
+# Enable mulet reftests on Ash
+BRANCHES['ash']['platforms']['linux64-mulet']['ubuntu64_vm-mulet']['opt_unittest_suites'] += REFTEST_MULET
 
 # new linux64_gecko tests as of gecko 32
 for name, branch in items_at_least(BRANCHES, 'gecko_version', 32):
@@ -1851,6 +2392,19 @@ for b in BRANCHES.keys():
             for suites in ['opt_unittest_suites', 'debug_unittest_suites']:
                 slave_p[suites] = [x for x in slave_p[suites]
                                    if not x[0].startswith('cppunit')]
+
+# Disable OSX Mulet in every branch except cedar
+for name in BRANCHES.keys():
+    if name in ('cedar', ):
+        continue
+    for platform in ('macosx64-mulet', ):
+        if platform in BRANCHES[name]['platforms']:
+            del BRANCHES[name]['platforms'][platform]
+
+# Enable linux64-mulet only in gecko 34+
+for name, branch in items_before(BRANCHES, 'gecko_version', 34):
+    if 'linux64-mulet' in branch['platforms']:
+        del branch['platforms']['linux64-mulet']
 
 ### PROJECTS ###
 PROJECTS = {

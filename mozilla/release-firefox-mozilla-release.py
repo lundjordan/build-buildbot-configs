@@ -20,31 +20,32 @@ releaseConfig['messagePrefix']       = '[release] '
 # Basic product configuration
 #  Names for the product/files
 releaseConfig['productName']         = 'firefox'
+releaseConfig['stage_product']       = 'firefox'
 releaseConfig['appName']             = 'browser'
 #  Current version info
-releaseConfig['version']             = '32.0'
-releaseConfig['appVersion']          = '32.0'
+releaseConfig['version']             = '32.0.3'
+releaseConfig['appVersion']          = '32.0.3'
 releaseConfig['milestone']           = releaseConfig['appVersion']
 releaseConfig['buildNumber']         = 1
-releaseConfig['baseTag']             = 'FIREFOX_32_0'
+releaseConfig['baseTag']             = 'FIREFOX_32_0_3'
 releaseConfig['partialUpdates']      = {
 
-    '29.0.1': {
-        'appVersion': '29.0.1',
+    '32.0.1': {
+        'appVersion': '32.0.1',
         'buildNumber': 2,
-        'baseTag': 'FIREFOX_29_0_1',
-    },
-
-    '30.0': {
-        'appVersion': '30.0',
-        'buildNumber': 2,
-        'baseTag': 'FIREFOX_30_0',
+        'baseTag': 'FIREFOX_32_0_1',
     },
 
     '31.0': {
         'appVersion': '31.0',
         'buildNumber': 2,
         'baseTag': 'FIREFOX_31_0',
+    },
+
+    '32.0.2': {
+        'appVersion': '32.0.2',
+        'buildNumber': 1,
+        'baseTag': 'FIREFOX_32_0_2',
     },
 
 }
@@ -63,7 +64,7 @@ releaseConfig['sourceRepositories']  = {
     'mozilla': {
         'name': 'mozilla-release',
         'path': 'releases/mozilla-release',
-        'revision': '5b8de9e4c2ea',
+        'revision': 'f9ccc64ca17d',
         'relbranch': None,
         'bumpFiles': {
             'browser/config/version.txt': {
@@ -142,8 +143,9 @@ releaseConfig['xulrunner_mozconfigs']          = {
 }
 releaseConfig['releaseChannel']        = 'release'
 releaseConfig['releaseChannelRuleIds'] = [] # Still on AUS3
-releaseConfig['testChannels']          = ['releasetest', 'betatest']
-releaseConfig['testChannelRuleIds']    = [25,26]
+releaseConfig['localTestChannel']      = 'betatest'
+releaseConfig['cdnTestChannel']        = 'releasetest'
+releaseConfig['testChannelRuleIds']    = [56,57]
 
 # Partner repack configuration
 releaseConfig['doPartnerRepacks']    = True
