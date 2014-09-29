@@ -18,6 +18,7 @@ releaseConfig['messagePrefix']       = '[release] '
 # Basic product configuration
 #  Names for the product/files
 releaseConfig['productName']         = 'thunderbird'
+releaseConfig['stage_product']       = 'thunderbird'
 releaseConfig['appName']             = 'mail'
 releaseConfig['mozilla_dir']         = 'mozilla'
 releaseConfig['mozilla_srcdir']      = 'mozilla'
@@ -124,8 +125,9 @@ releaseConfig['mozconfigs']          = {
 }
 releaseConfig['releaseChannel']        = 'release'
 releaseConfig['releaseChannelRuleIds'] = [] # Still on AUS3
-releaseConfig['testChannels']          = ['releasetest', 'betatest']
-releaseConfig['testChannelRuleIds']    = [28,38]
+releaseConfig['localTestChannel']      = 'betatest'
+releaseConfig['cdnTestChannel']        = 'releasetest'
+releaseConfig['testChannelRuleIds']    = [61,62]
 
 # Partner repack configuration
 releaseConfig['doPartnerRepacks']    = False

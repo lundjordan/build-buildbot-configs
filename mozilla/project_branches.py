@@ -91,6 +91,7 @@ PROJECT_BRANCHES = {
     #'alder': {
     #},
     'ash': {
+        'enable_perproduct_builds': False,
         'desktop_mozharness_repacks_enabled': True,
         'enable_nightly': True,
         'mozharness_repo_path': 'build/ash-mozharness',
@@ -120,9 +121,13 @@ PROJECT_BRANCHES = {
                 'enable_opt_unittests': True,
             },
         },
+        # if true, any platform with mozharness_desktop_build in its config
+        # will use mozharness instead of MozharnessBuildFactory
+        'desktop_mozharness_builds_enabled': True,
     },
     #'birch': {},  # Bug 1010674
     'cedar': {
+        'enable_perproduct_builds': False,
         'mozharness_tag': 'default',
         'enable_talos': True,
         'talos_suites': {
@@ -134,18 +139,17 @@ PROJECT_BRANCHES = {
                 'enable_opt_unittests': True,
             },
         },
-        # once ready, we can flip this switch and any platform with
-        # mozharness_config in its build config will use mozharness instead
-        # of MozharnessBuildFactory
+        # if true, any platform with mozharness_desktop_build in its config
+        # will use mozharness instead of MozharnessBuildFactory
         'desktop_mozharness_builds_enabled': True,
     },
     'cypress': {
+        'enable_perproduct_builds': False,
         'mozharness_tag': 'default',
         'enable_talos': True,
-        # once ready, we can flip this switch and any platform with
-        # mozharness_config in its build config will use mozharness instead
-        # of MozharnessBuildFactory
-        'desktop_mozharness_builds_enabled': False,
+        # if true, any platform with mozharness_desktop_build in its config
+        # will use mozharness instead of MozharnessBuildFactory
+        'desktop_mozharness_builds_enabled': True,
     },
     'date': {
         'lock_platforms': True,
@@ -175,13 +179,7 @@ PROJECT_BRANCHES = {
             'linux64-debug': {},
         },
     },
-    'fig': {
-        'lock_platforms': True,
-        'platforms': {
-            'linux64-mulet': {},
-            'macosx64-mulet': {},
-        }
-    },
+    'fig': {},
     'gum': {},
     'holly': {
         'branch_projects': [],
@@ -199,7 +197,7 @@ PROJECT_BRANCHES = {
             'macosx64-debug': {},
             'win32-debug': {},
         },
-        'enable_talos': False,
+        'enable_talos': True,
     },
     'jamun': {},
     'larch': {
@@ -210,7 +208,12 @@ PROJECT_BRANCHES = {
             'android-debug': {},
         },
     },
-    'maple': {},
+    'maple': {
+        'enable_nightly': True,
+        'create_snippet': True,
+        'create_partial': True,
+        'nightly_signing_servers': 'nightly-signing',
+    },
     # customizations for integration work for bugs 481815 and 307181
     'oak': {
         'enable_nightly': True,

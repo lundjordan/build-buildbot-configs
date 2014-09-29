@@ -21,6 +21,7 @@ releaseConfig['messagePrefix']       = '[release] '
 # Basic product configuration
 #  Names for the product/files
 releaseConfig['productName']         = 'firefox'
+releaseConfig['stage_product']       = 'firefox'
 releaseConfig['appName']             = 'browser'
 #  Current version info
 releaseConfig['version']             = '{{ version }}'
@@ -72,7 +73,6 @@ releaseConfig['l10nRevisionFile']    = 'l10n-changesets_mozilla-esr24'
 releaseConfig['otherReposToTag']     = {
     'build/compare-locales': 'RELEASE_0_9_5',
     'build/buildbot': 'production-0.8',
-    'build/partner-repacks': 'default',
     'build/mozharness': 'production',
 }
 
@@ -123,9 +123,10 @@ releaseConfig['mozconfigs']          = {
     'win32': 'browser/config/mozconfigs/win32/release',
 }
 releaseConfig['releaseChannel']        = 'esr'
-releaseConfig['releaseChannelRuleIds'] = [] # Still on AUS3
-releaseConfig['testChannels']          = ['releasetest', 'esrtest']
-releaseConfig['testChannelRuleIds']    = [26,37]
+releaseConfig['releaseChannelRuleIds'] = []
+releaseConfig['localTestChannel']      = 'esrtest'
+releaseConfig['cdnTestChannel']        = 'releasetest'
+releaseConfig['testChannelRuleIds']    = []
 
 # Partner repack configuration
 releaseConfig['doPartnerRepacks']    = False

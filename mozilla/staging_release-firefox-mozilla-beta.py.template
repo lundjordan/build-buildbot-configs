@@ -21,6 +21,7 @@ releaseConfig['messagePrefix']       = '[staging-release] '
 # Basic product configuration
 #  Names for the product/files
 releaseConfig['productName']         = 'firefox'
+releaseConfig['stage_product']       = 'firefox'
 releaseConfig['appName']             = 'browser'
 #  Current version info
 releaseConfig['version']             = '{{ version }}'
@@ -129,8 +130,9 @@ releaseConfig['xulrunner_mozconfigs']          = {
 }
 releaseConfig['releaseChannel']        = 'beta'
 releaseConfig['releaseChannelRuleIds'] = [26]
-releaseConfig['testChannels']          = ['releasetest', 'betatest']
-releaseConfig['testChannelRuleIds']    = [19,20]
+releaseConfig['localTestChannel']      = 'beta-localtest'
+releaseConfig['cdnTestChannel']        = 'beta-cdntest'
+releaseConfig['testChannelRuleIds']    = [40,41]
 
 # Partner repack configuration
 releaseConfig['doPartnerRepacks']    = False

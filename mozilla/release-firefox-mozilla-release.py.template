@@ -20,6 +20,7 @@ releaseConfig['messagePrefix']       = '[release] '
 # Basic product configuration
 #  Names for the product/files
 releaseConfig['productName']         = 'firefox'
+releaseConfig['stage_product']       = 'firefox'
 releaseConfig['appName']             = 'browser'
 #  Current version info
 releaseConfig['version']             = '{{ version }}'
@@ -73,7 +74,7 @@ releaseConfig['l10nRevisionFile']    = 'l10n-changesets_mozilla-release'
 releaseConfig['otherReposToTag']     = {
     'build/compare-locales': 'RELEASE_AUTOMATION',
     'build/buildbot': 'production-0.8',
-    'build/partner-repacks': 'default',
+    'build/partner-repacks': 'MAC_V1_SIGNING',
     'build/mozharness': 'production',
 }
 
@@ -130,8 +131,9 @@ releaseConfig['xulrunner_mozconfigs']          = {
 }
 releaseConfig['releaseChannel']        = 'release'
 releaseConfig['releaseChannelRuleIds'] = [] # Still on AUS3
-releaseConfig['testChannels']          = ['releasetest', 'betatest']
-releaseConfig['testChannelRuleIds']    = [25,26]
+releaseConfig['localTestChannel']      = 'betatest'
+releaseConfig['cdnTestChannel']        = 'releasetest'
+releaseConfig['testChannelRuleIds']    = [56,57]
 
 # Partner repack configuration
 releaseConfig['doPartnerRepacks']    = True

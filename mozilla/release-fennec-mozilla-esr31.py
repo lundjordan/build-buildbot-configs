@@ -19,6 +19,7 @@ releaseConfig['messagePrefix']       = '[release] '
 # Basic product configuration
 #  Names for the product/files
 releaseConfig['productName']         = 'fennec'
+releaseConfig['stage_product']       = 'mobile'
 releaseConfig['appName']             = 'mobile'
 releaseConfig['relbranchPrefix']     = 'MOBILE'
 
@@ -28,11 +29,11 @@ def bumpIntegerInFile(previousContents):
     return str(int(previousContents) + 1)
 
 #  Current version info
-releaseConfig['version']             = '31.1.0esr'
-releaseConfig['appVersion']          = '31.1.0'
+releaseConfig['version']             = '31.1.1esr'
+releaseConfig['appVersion']          = '31.1.1'
 releaseConfig['milestone']           = releaseConfig['appVersion']
 releaseConfig['buildNumber']         = 1
-releaseConfig['baseTag']             = 'FENNEC_31_1_0esr'
+releaseConfig['baseTag']             = 'FENNEC_31_1_1esr'
 #  Next (nightly) version info
 releaseConfig['nextAppVersion']      = releaseConfig['version']
 releaseConfig['nextMilestone']       = releaseConfig['version']
@@ -41,7 +42,7 @@ releaseConfig['sourceRepositories']  = {
     'mobile': {
         'name': 'mozilla-esr31',
         'path': 'releases/mozilla-esr31',
-        'revision': '8bba0395e567',
+        'revision': '4a510243669e',
         'relbranch': None,
         'bumpFiles': {
             'mobile/android/confvars.sh': {
@@ -120,7 +121,6 @@ releaseConfig['disableBouncerEntries']    = True
 releaseConfig['disableStandaloneRepacks'] = True
 releaseConfig['disablePermissionCheck']   = True
 releaseConfig['disableVirusCheck']        = True
-releaseConfig['disablePushToMirrors']     = True
 releaseConfig['enableUpdatePackaging']    = False
 releaseConfig['balrog_api_root']          = None
 

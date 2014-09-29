@@ -21,6 +21,7 @@ releaseConfig['messagePrefix']       = '[staging-release] '
 # Basic product configuration
 #  Names for the product/files
 releaseConfig['productName']         = 'thunderbird'
+releaseConfig['stage_product']       = 'thunderbird'
 releaseConfig['appName']             = 'mail'
 releaseConfig['mozilla_dir']         = 'mozilla'
 #  Current version info
@@ -81,7 +82,6 @@ releaseConfig['l10nRevisionFile']    = 'l10n-changesets_thunderbird-esr31'
 releaseConfig['otherReposToTag']     = {
     'users/stage-ffxbld/compare-locales': 'RELEASE_AUTOMATION',
     'users/stage-ffxbld/buildbot': 'production-0.8',
-    'users/stage-ffxbld/partner-repacks': 'default',
     'users/stage-ffxbld/mozharness': 'production',
 }
 
@@ -132,9 +132,10 @@ releaseConfig['mozconfigs']          = {
     'win32': 'mail/config/mozconfigs/win32/release',
 }
 releaseConfig['releaseChannel']        = 'release'
-releaseConfig['releaseChannelRuleIds'] = [] # Still on AUS3
-releaseConfig['testChannels']          = ['releasetest', 'betatest']
-releaseConfig['testChannelRuleIds']    = [22,30]
+releaseConfig['releaseChannelRuleIds'] = [45]
+releaseConfig['localTestChannel']      = 'betatest'
+releaseConfig['cdnTestChannel']        = 'releasetest'
+releaseConfig['testChannelRuleIds']    = [22,44]
 
 # Partner repack configuration
 releaseConfig['doPartnerRepacks']    = False
