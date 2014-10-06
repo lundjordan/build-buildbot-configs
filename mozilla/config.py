@@ -70,8 +70,8 @@ GLOBAL_VARS = {
         'win32-debug': {},
         'win64-debug': {},
         'android': {},
-        # 'android-armv7-api-9': {},
-        # 'android-armv7-api-10': {},
+        # 'android-api-9': {},
+        # 'android-api-10': {},
         'android-x86': {},
         'android-armv6': {},
         'android-debug': {},
@@ -1388,14 +1388,15 @@ PLATFORM_VARS = {
             'multi_locale_script': 'scripts/multil10n.py',
             'tooltool_manifest_src': 'mobile/android/config/tooltool-manifests/android/releng.manifest',
         },
-        'android-armv7-api-9': {
+        'android-api-9': {
             'product_name': 'firefox',
-            'unittest_platform': 'android-opt',
+            'unittest_platform': 'android-api-9-opt',
             'app_name': 'browser',
             'brand_name': 'Minefield',
-            'base_name': 'Android 2.3 %(branch)s',
-            'mozconfig': 'android/%(branch)s/nightly',
+            'base_name': 'Android armv7 API 9 %(branch)s',
+            # XXX JLUD TODO change src_mozconfig
             'src_mozconfig': 'mobile/android/config/mozconfigs/android/nightly',
+            # XXX JLUND TODO see if we still need mobile_dir
             'mobile_dir': 'mobile/android',
             'enable_xulrunner': False,
             'profiled_build': False,
@@ -1407,6 +1408,7 @@ PLATFORM_VARS = {
             'create_partial': False,
             'slaves': SLAVES['mock'],
             'platform_objdir': OBJDIR,
+            # XXX JLUND TODO differentiate update_platform
             'update_platform': 'Android_arm-eabi-gcc3',
             'enable_ccache': True,
             'enable_shared_checkouts': True,
@@ -1428,7 +1430,7 @@ PLATFORM_VARS = {
                 ('/home/cltbld/.hgrc', '/builds/.hgrc'),
                 ('/home/cltbld/.boto', '/builds/.boto'),
                 ('/builds/mozilla-api.key', '/builds/mozilla-api.key'),
-                ],
+            ],
             'env': {
                 'DISPLAY': ':2',
                 'HG_SHARE_BASE_DIR': '/builds/hg-shared',
@@ -1446,11 +1448,11 @@ PLATFORM_VARS = {
                 'CCACHE_UMASK': '002',
                 'LC_ALL': 'C',
                 'PATH': '/opt/local/bin:/tools/python/bin:/tools/buildbot/bin:/usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:/home/',
-                },
+            },
             'enable_opt_unittests': False,
             'talos_masters': GLOBAL_VARS['talos_masters'],
             'unittest_masters': GLOBAL_VARS['unittest_masters'],
-            'stage_platform': "android",
+            'stage_platform': "android-api-10",
             'stage_product': 'mobile',
             'post_upload_include_platform': True,
             'is_mobile_l10n': True,
@@ -1459,14 +1461,15 @@ PLATFORM_VARS = {
             'multi_locale_script': 'scripts/multil10n.py',
             'tooltool_manifest_src': 'mobile/android/config/tooltool-manifests/android/releng.manifest',
         },
-        'android-armv7-api-10': {
+        'android-api-10': {
             'product_name': 'firefox',
-            'unittest_platform': 'android-opt',
+            'unittest_platform': 'android-api-10-opt',
             'app_name': 'browser',
             'brand_name': 'Minefield',
-            'base_name': 'Android 2.3 %(branch)s',
-            'mozconfig': 'android/%(branch)s/nightly',
+            'base_name': 'Android armv7 API 10+ %(branch)s',
+            # XXX JLUND TODO UPDATE src_mozconfig
             'src_mozconfig': 'mobile/android/config/mozconfigs/android/nightly',
+            # XXX JLUND TODO see if mobile_dir is still needed
             'mobile_dir': 'mobile/android',
             'enable_xulrunner': False,
             'profiled_build': False,
@@ -1478,6 +1481,7 @@ PLATFORM_VARS = {
             'create_partial': False,
             'slaves': SLAVES['mock'],
             'platform_objdir': OBJDIR,
+            # XXX JLUND TODO find out what we should name this
             'update_platform': 'Android_arm-eabi-gcc3',
             'enable_ccache': True,
             'enable_shared_checkouts': True,
@@ -1499,7 +1503,7 @@ PLATFORM_VARS = {
                 ('/home/cltbld/.hgrc', '/builds/.hgrc'),
                 ('/home/cltbld/.boto', '/builds/.boto'),
                 ('/builds/mozilla-api.key', '/builds/mozilla-api.key'),
-                ],
+            ],
             'env': {
                 'DISPLAY': ':2',
                 'HG_SHARE_BASE_DIR': '/builds/hg-shared',
@@ -1517,19 +1521,20 @@ PLATFORM_VARS = {
                 'CCACHE_UMASK': '002',
                 'LC_ALL': 'C',
                 'PATH': '/opt/local/bin:/tools/python/bin:/tools/buildbot/bin:/usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:/home/',
-                },
+            },
             'enable_opt_unittests': False,
             'talos_masters': GLOBAL_VARS['talos_masters'],
             'unittest_masters': GLOBAL_VARS['unittest_masters'],
-            'stage_platform': "android",
+            'stage_platform': "android-api-10",
             'stage_product': 'mobile',
             'post_upload_include_platform': True,
             'is_mobile_l10n': True,
             'l10n_chunks': 5,
             'multi_locale': True,
             'multi_locale_script': 'scripts/multil10n.py',
+            # XXX JLUND TODO confirm these tooltool_manifest_src values can stay
             'tooltool_manifest_src': 'mobile/android/config/tooltool-manifests/android/releng.manifest',
-            },
+        },
         'android-armv6': {
             'enable_nightly': True,
             'product_name': 'firefox',
@@ -1661,6 +1666,7 @@ PLATFORM_VARS = {
             'multi_locale_script': 'scripts/multil10n.py',
             'tooltool_manifest_src': 'mobile/android/config/tooltool-manifests/android-x86/releng.manifest',
         },
+        # XXX JLUND TODO add ari 9/10+ builders here
         'android-debug': {
             'enable_nightly': False,
             'product_name': 'firefox',
@@ -2120,11 +2126,15 @@ BRANCHES['mozilla-central']['enable_hsts_update'] = True
 BRANCHES['mozilla-central']['enable_hpkp_update'] = True
 BRANCHES['mozilla-central']['platforms']['android-armv6']['env']['MOZ_SYMBOLS_EXTRA_BUILDID'] = 'android-armv6'
 BRANCHES['mozilla-central']['platforms']['android-x86']['env']['MOZ_SYMBOLS_EXTRA_BUILDID'] = 'android-x86'
+BRANCHES['mozilla-central']['platforms']['android-api-9']['env']['MOZ_SYMBOLS_EXTRA_BUILDID'] = 'android-api-9'
+BRANCHES['mozilla-central']['platforms']['android-api-10']['env']['MOZ_SYMBOLS_EXTRA_BUILDID'] = 'android-api-10'
 BRANCHES['mozilla-central']['platforms']['linux']['nightly_signing_servers'] = 'nightly-signing'
 BRANCHES['mozilla-central']['platforms']['linux64']['nightly_signing_servers'] = 'nightly-signing'
 BRANCHES['mozilla-central']['platforms']['win32']['nightly_signing_servers'] = 'nightly-signing'
 BRANCHES['mozilla-central']['platforms']['android']['nightly_signing_servers'] = 'nightly-signing'
 BRANCHES['mozilla-central']['platforms']['android-armv6']['nightly_signing_servers'] = 'nightly-signing'
+BRANCHES['mozilla-central']['platforms']['android-api-9']['nightly_signing_servers'] = 'nightly-signing'
+BRANCHES['mozilla-central']['platforms']['android-api-10']['nightly_signing_servers'] = 'nightly-signing'
 BRANCHES['mozilla-central']['platforms']['macosx64']['nightly_signing_servers'] = 'nightly-signing'
 BRANCHES['mozilla-central']['l10n_extra_configure_args'] = ['--with-macbundlename-prefix=Firefox']
 
@@ -2162,6 +2172,8 @@ BRANCHES['mozilla-release']['enable_valgrind'] = False
 BRANCHES['mozilla-release']['enabled_products'] = ['firefox', 'mobile']
 BRANCHES['mozilla-release']['platforms']['android-armv6']['env']['MOZ_SYMBOLS_EXTRA_BUILDID'] = 'android-armv6'
 BRANCHES['mozilla-release']['platforms']['android-x86']['env']['MOZ_SYMBOLS_EXTRA_BUILDID'] = 'android-x86'
+BRANCHES['mozilla-release']['platforms']['android-api-9']['env']['MOZ_SYMBOLS_EXTRA_BUILDID'] = 'android-api-9'
+BRANCHES['mozilla-release']['platforms']['android-api-10']['env']['MOZ_SYMBOLS_EXTRA_BUILDID'] = 'android-api-10'
 
 ######## mozilla-beta
 BRANCHES['mozilla-beta']['repo_path'] = 'releases/mozilla-beta'
@@ -2204,7 +2216,12 @@ BRANCHES['mozilla-beta']['enable_blocklist_update'] = True
 BRANCHES['mozilla-beta']['enable_valgrind'] = False
 BRANCHES['mozilla-beta']['platforms']['android-armv6']['env']['MOZ_SYMBOLS_EXTRA_BUILDID'] = 'android-armv6'
 BRANCHES['mozilla-beta']['platforms']['android-x86']['env']['MOZ_SYMBOLS_EXTRA_BUILDID'] = 'android-x86'
+BRANCHES['mozilla-beta']['platforms']['android-api-9']['env']['MOZ_SYMBOLS_EXTRA_BUILDID'] = 'android-api-9'
+BRANCHES['mozilla-beta']['platforms']['android-api-10']['env']['MOZ_SYMBOLS_EXTRA_BUILDID'] = 'android-api-10'
 BRANCHES['mozilla-beta']['platforms']['android']['enable_dep'] = True
+BRANCHES['mozilla-beta']['platforms']['android-api-9']['enable_dep'] = True
+BRANCHES['mozilla-beta']['platforms']['android-api-10']['enable_dep'] = True
+# XXX JLUND TODO add api 9/10 debug options here
 BRANCHES['mozilla-beta']['platforms']['android-debug']['enable_dep'] = True
 BRANCHES['mozilla-beta']['enabled_products'] = ['firefox', 'mobile']
 BRANCHES['mozilla-beta']['enable_perproduct_builds'] = True
@@ -2261,6 +2278,8 @@ BRANCHES['mozilla-aurora']['enable_hsts_update'] = True
 BRANCHES['mozilla-aurora']['enable_hpkp_update'] = True
 BRANCHES['mozilla-aurora']['enable_valgrind'] = False
 BRANCHES['mozilla-aurora']['platforms']['android-armv6']['env']['MOZ_SYMBOLS_EXTRA_BUILDID'] = 'android-armv6'
+BRANCHES['mozilla-aurora']['platforms']['android-api-9']['env']['MOZ_SYMBOLS_EXTRA_BUILDID'] = 'android-api-9'
+BRANCHES['mozilla-aurora']['platforms']['android-api-10']['env']['MOZ_SYMBOLS_EXTRA_BUILDID'] = 'android-api-10'
 # aurora nightlies should use our nightly signing server
 BRANCHES['mozilla-aurora']['platforms']['linux']['nightly_signing_servers'] = 'nightly-signing'
 BRANCHES['mozilla-aurora']['platforms']['linux64']['nightly_signing_servers'] = 'nightly-signing'
@@ -2453,6 +2472,8 @@ BRANCHES['try']['platforms']['win32-debug']['slaves'] = TRY_SLAVES['win64-rev2']
 BRANCHES['try']['platforms']['macosx64-debug']['slaves'] = TRY_SLAVES['macosx64-lion']
 BRANCHES['try']['platforms']['android']['slaves'] = TRY_SLAVES['mock']
 BRANCHES['try']['platforms']['android-armv6']['slaves'] = TRY_SLAVES['mock']
+BRANCHES['try']['platforms']['android-api-9']['slaves'] = TRY_SLAVES['mock']
+BRANCHES['try']['platforms']['android-api-10']['slaves'] = TRY_SLAVES['mock']
 BRANCHES['try']['platforms']['android-debug']['slaves'] = TRY_SLAVES['mock']
 BRANCHES['try']['platforms']['android-x86']['slaves'] = TRY_SLAVES['mock']
 for platform in BRANCHES['try']['platforms'].keys():
@@ -2508,6 +2529,10 @@ for branch in ACTIVE_PROJECT_BRANCHES:
         BRANCHES[branch]['platforms']['linux']['env']['MOZ_SYMBOLS_EXTRA_BUILDID'] = branch
     if 'android' in BRANCHES[branch]['platforms']:
         BRANCHES[branch]['platforms']['android']['env']['MOZ_SYMBOLS_EXTRA_BUILDID'] = branch
+    if 'android-api-9' in BRANCHES[branch]['platforms']:
+        BRANCHES[branch]['platforms']['android-api-9']['env']['MOZ_SYMBOLS_EXTRA_BUILDID'] = 'android-api-9-' + branch
+    if 'android-api-10' in BRANCHES[branch]['platforms']:
+        BRANCHES[branch]['platforms']['android-api-10']['env']['MOZ_SYMBOLS_EXTRA_BUILDID'] = 'android-api-10-' + branch
     if 'android-armv6' in BRANCHES[branch]['platforms']:
         BRANCHES[branch]['platforms']['android-armv6']['env']['MOZ_SYMBOLS_EXTRA_BUILDID'] = 'android-armv6-' + branch
     if 'android-x86' in BRANCHES[branch]['platforms']:
@@ -2546,6 +2571,18 @@ for branch in branches:
         continue
     if 'android-armv6' in BRANCHES[branch]['platforms']:
         del BRANCHES[branch]['platforms']['android-armv6']
+
+# Bug 1073772 - Releng work for producing two ARMv7 APKs to target different API ranges
+## enable new split android builds on cedar only to start.
+branches = BRANCHES.keys()
+branches.extend(ACTIVE_PROJECT_BRANCHES)
+for branch in branches:
+    if branch == 'cedar':
+        continue
+    if 'android-api-9' in BRANCHES[branch]['platforms']:
+        del BRANCHES[branch]['platforms']['android-api-9']
+    if 'android-api-10' in BRANCHES[branch]['platforms']:
+        del BRANCHES[branch]['platforms']['android-api-10']
 
 # Bug 578880, remove the following block after gcc-4.5 switch
 branches = BRANCHES.keys()

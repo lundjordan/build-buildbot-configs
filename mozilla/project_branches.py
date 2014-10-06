@@ -114,6 +114,7 @@ PROJECT_BRANCHES = {
             'win32-debug': {},
         },
         'mobile_platforms': {
+            # XXX TODO fix this once mobile_config.py is configured
             'android': {
                 'slave_platforms': ['panda_android', 'ubuntu64_vm_large'],
             },
@@ -203,6 +204,9 @@ PROJECT_BRANCHES = {
     'larch': {
         'lock_platforms': True,
         'platforms': {
+            # use api-9/10 and delete 'android' once bug 1073772 hits trunk
+            # 'android-api-9': {},
+            # 'android-api-10': {},
             'android': {},
             'android-x86': {},
             'android-debug': {},
