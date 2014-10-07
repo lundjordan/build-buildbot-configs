@@ -9,6 +9,9 @@ WIN64_REV2     = ['ix-mn-w0864-%03d' % x for x in range(1,3)] + \
 MOCK_DL120G7   = ['b-linux64-hp-%04d' % x for x in range(20,25)]
 LINUX64_EC2    = ['dev-linux64-ec2-%03d' % x for x in range(1, 50)]
 
+# XXX JLUND LOCAL DEV STAGING CHANGE
+LINUX64_EC2.append('dev-linux64-ec2-jlund2')
+
 STAGING_SLAVES = {
     'win32':            WIN32_IXS,
     'win64':            WIN64_IXS,
@@ -31,8 +34,8 @@ TRY_SLAVES = deepcopy(SLAVES)
 
 GLOBAL_VARS = {
     'staging': True,
-    'config_repo_path': 'users/stage-ffxbld/buildbot-configs',
-    'buildbotcustom_repo_path': 'users/stage-ffxbld/buildbotcustom',
+    'config_repo_path': 'build/buildbot-configs',
+    'buildbotcustom_repo_path': 'build/buildbotcustom',
     'stage_server': 'dev-stage01.srv.releng.scl3.mozilla.com',
     'aus2_host': 'dev-stage01.srv.releng.scl3.mozilla.com',
     'aus2_user': 'ffxbld',
@@ -42,20 +45,20 @@ GLOBAL_VARS = {
     'graph_server': 'graphs.allizom.org',
     'balrog_api_root': 'https://aus4-admin-dev.allizom.org',
     'balrog_username': 'stage-ffxbld',
-    'build_tools_repo_path': 'users/stage-ffxbld/tools',
+    'build_tools_repo_path': 'build/tools',
     'base_clobber_url': 'http://clobberer-stage.pvt.build.mozilla.org/index.php',
     'disable_tinderbox_mail': True,
     # List of talos masters to notify of new builds,
     # and if a failure to notify the talos master should result in a warning,
     # and sendchange retry count before give up
     'talos_masters': [
-        ('dev-master1.srv.releng.scl3.mozilla.com:9901', True, 1),
+        ('dev-master1.srv.releng.scl3.mozilla.com:9038', True, 1),
     ],
     # List of unittest masters to notify of new builds to test,
     # if a failure to notify the master should result in a warning,
     # and sendchange retry count before give up
     'unittest_masters': [
-        ('dev-master1.srv.releng.scl3.mozilla.com:9901', True, 1),
+        ('dev-master1.srv.releng.scl3.mozilla.com:9038', True, 1),
         ],
     'xulrunner_tinderbox_tree': 'MozillaTest',
     'weekly_tinderbox_tree': 'MozillaTest',
