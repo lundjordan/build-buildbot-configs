@@ -245,7 +245,7 @@ SUITES = {
     'tp5o-e10s': {
         'enable_by_default': False,
         'suites': GRAPH_CONFIG + ['--activeTests', 'tp5o', '--mozAfterPaint', '--responsiveness', '--filter', 'ignore_first:5', '--filter', 'median'],
-        'options': (TALOS_TP_NEW_OPTS, ALL_TALOS_PLATFORMS),
+        'options': (TALOS_TP_NEW_OPTS, NO_WINXP),
     },
     'g1': {
         'enable_by_default': False,
@@ -255,7 +255,7 @@ SUITES = {
     'g1-e10s': {
         'enable_by_default': False,
         'suites': GRAPH_CONFIG + ['--activeTests', 'tp5o_scroll', '--filter', 'ignore_first:1', '--filter', 'median'],
-        'options': (TALOS_TP_NEW_OPTS, ALL_TALOS_PLATFORMS),
+        'options': (TALOS_TP_NEW_OPTS, NO_WINXP),
     },
     'other': {
         'enable_by_default': True,
@@ -290,7 +290,7 @@ SUITES = {
     'svgr-e10s': {
         'enable_by_default': False,
         'suites': GRAPH_CONFIG + ['--activeTests', 'tsvgr:tsvgr_opacity', '--filter', 'ignore_first:5', '--filter', 'median'],
-        'options': ({}, ALL_TALOS_PLATFORMS),
+        'options': ({}, NO_WINXP),
     },
     'dirtypaint': {
         'enable_by_default': False,
@@ -316,7 +316,7 @@ SUITES = {
     'chromez-e10s': {
         'enable_by_default': False,
         'suites': GRAPH_CONFIG + ['--activeTests', 'tresize', '--mozAfterPaint', '--filter', 'ignore_first:5', '--filter', 'median'],
-        'options': ({}, ALL_TALOS_PLATFORMS),
+        'options': ({}, NO_WINXP),
     },
     # now let's add the metro talos suites
     'tp5o-metro': {
@@ -401,6 +401,18 @@ MOCHITEST_E10S = [
         'use_mozharness': True,
         'script_path': 'scripts/desktop_unittest.py',
         'extra_args': ['--mochitest-suite', 'plain-chunked', '--e10s'],
+        'blob_upload': True,
+        'script_maxtime': 7200,
+        'totalChunks': 5,
+    }),
+]
+
+# Plain mochitests with the content sandbox enabled.
+MOCHITEST_CSB = [
+    ('mochitest-csb', {
+        'use_mozharness': True,
+        'script_path': 'scripts/desktop_unittest.py',
+        'extra_args': ['--mochitest-suite', 'plain-chunked', '--content-sandbox=on'],
         'blob_upload': True,
         'script_maxtime': 7200,
         'totalChunks': 5,
@@ -968,6 +980,9 @@ PLATFORM_UNITTEST_VARS = {
                 'mochitest-e10s': {
                     'config_files': ["unittests/win_unittest.py"],
                 },
+                'mochitest-csb': {
+                    'config_files': ["unittests/win_unittest.py"],
+                },
                 'mochitest-browser-chrome': {
                     'config_files': ["unittests/win_unittest.py"],
                 },
@@ -1040,6 +1055,9 @@ PLATFORM_UNITTEST_VARS = {
                 'mochitest-e10s': {
                     'config_files': ["unittests/win_unittest.py"],
                 },
+                'mochitest-csb': {
+                    'config_files': ["unittests/win_unittest.py"],
+                },
                 'mochitest-browser-chrome': {
                     'config_files': ["unittests/win_unittest.py"],
                 },
@@ -1110,6 +1128,9 @@ PLATFORM_UNITTEST_VARS = {
                     'config_files': ["unittests/win_unittest.py"],
                 },
                 'mochitest-e10s': {
+                    'config_files': ["unittests/win_unittest.py"],
+                },
+                'mochitest-csb': {
                     'config_files': ["unittests/win_unittest.py"],
                 },
                 'mochitest-browser-chrome': {
@@ -1729,15 +1750,23 @@ BRANCHES['cedar']['platforms']['win32']['win8']['debug_unittest_suites'] += REFT
 # Note that if we set this higher than 3, we'll start to get strange behaviour
 # due to the currently global coalescing limit of 3 defined at
 # http://hg.mozilla.org/build/buildbotcustom/file/e3713abcd36d/misc.py#l647
+BRANCHES['mozilla-inbound']['platforms']['win32']['xp-ix']['opt_unittest_skipcount'] = 2
+BRANCHES['mozilla-inbound']['platforms']['win32']['xp-ix']['opt_unittest_skiptimeout'] = 1800
+BRANCHES['mozilla-inbound']['platforms']['win32']['win7-ix']['opt_unittest_skipcount'] = 2
+BRANCHES['mozilla-inbound']['platforms']['win32']['win7-ix']['opt_unittest_skiptimeout'] = 1800
+BRANCHES['mozilla-inbound']['platforms']['win32']['win8']['opt_unittest_skipcount'] = 3
+BRANCHES['mozilla-inbound']['platforms']['win32']['win8']['opt_unittest_skiptimeout'] = 1800
+BRANCHES['mozilla-inbound']['platforms']['macosx64']['mountainlion']['opt_unittest_skipcount'] = 3
+BRANCHES['mozilla-inbound']['platforms']['macosx64']['mountainlion']['opt_unittest_skiptimeout'] = 1800
 BRANCHES['mozilla-inbound']['platforms']['win32']['xp-ix']['debug_unittest_skipcount'] = 2
 BRANCHES['mozilla-inbound']['platforms']['win32']['xp-ix']['debug_unittest_skiptimeout'] = 1800
 BRANCHES['mozilla-inbound']['platforms']['win32']['win7-ix']['debug_unittest_skipcount'] = 2
 BRANCHES['mozilla-inbound']['platforms']['win32']['win7-ix']['debug_unittest_skiptimeout'] = 1800
-BRANCHES['mozilla-inbound']['platforms']['win32']['win8']['debug_unittest_skipcount'] = 2
+BRANCHES['mozilla-inbound']['platforms']['win32']['win8']['debug_unittest_skipcount'] = 3
 BRANCHES['mozilla-inbound']['platforms']['win32']['win8']['debug_unittest_skiptimeout'] = 1800
 BRANCHES['mozilla-inbound']['platforms']['macosx64']['snowleopard']['debug_unittest_skipcount'] = 2
 BRANCHES['mozilla-inbound']['platforms']['macosx64']['snowleopard']['debug_unittest_skiptimeout'] = 1800
-BRANCHES['mozilla-inbound']['platforms']['macosx64']['mountainlion']['debug_unittest_skipcount'] = 2
+BRANCHES['mozilla-inbound']['platforms']['macosx64']['mountainlion']['debug_unittest_skipcount'] = 3
 BRANCHES['mozilla-inbound']['platforms']['macosx64']['mountainlion']['debug_unittest_skiptimeout'] = 1800
 BRANCHES['mozilla-inbound']['platforms']['macosx64']['mavericks']['debug_unittest_skipcount'] = 2
 BRANCHES['mozilla-inbound']['platforms']['macosx64']['mavericks']['debug_unittest_skiptimeout'] = 1800
@@ -1753,6 +1782,11 @@ for platform in BRANCHES['holly']['platforms'].keys():
         slave_p = BRANCHES['holly']['platforms'][platform][slave_platform]
         slave_p['opt_unittest_suites'] = MOCHITEST + REFTEST_NO_IPC + MOCHITEST_DT
         slave_p['debug_unittest_suites'] = MOCHITEST + REFTEST_NO_IPC + MOCHITEST_DT_3
+
+        # Enable content sandbox tests for Windows 32 bit
+        if slave_platform in PLATFORMS['win32']['slave_platforms']:
+            slave_p['opt_unittest_suites'] += MOCHITEST_CSB
+            slave_p['debug_unittest_suites'] += MOCHITEST_CSB
 
 # Enable mavericks testing on select branches only
 delete_slave_platform(BRANCHES, PLATFORMS, {'macosx64': 'mavericks'}, branch_exclusions=['cedar'])
