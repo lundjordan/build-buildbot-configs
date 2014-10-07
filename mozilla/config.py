@@ -38,8 +38,10 @@ GLOBAL_VARS = {
     'graph_selector': '/server/collect.cgi',
     'compare_locales_repo_path': 'build/compare-locales',
     'compare_locales_tag': 'RELEASE_AUTOMATION',
-    'mozharness_repo_path': 'build/mozharness',
-    'mozharness_tag': 'production',
+    # 'mozharness_repo_path': 'build/mozharness',
+    # 'mozharness_tag': 'production',
+    'mozharness_repo_path': 'users/jlund_mozilla.com/mozharness',
+    'mozharness_tag': 'default',
     'multi_locale_merge': True,
     'default_build_space': 5,
     'default_l10n_space': 3,
@@ -2092,7 +2094,9 @@ for branch in BRANCHES.keys():
 ######## mozilla-central
 # This is a path, relative to HGURL, where the repository is located
 # HGURL + repo_path should be a valid repository
-BRANCHES['mozilla-central']['repo_path'] = 'mozilla-central'
+# XXX JLUND STAGING CHANGE
+# BRANCHES['mozilla-central']['repo_path'] = 'mozilla-central'
+BRANCHES['mozilla-central']['repo_path'] = 'users/jlund_mozilla.com/mozilla-central'
 BRANCHES['mozilla-central']['l10n_repo_path'] = 'l10n-central'
 BRANCHES['mozilla-central']['enable_perproduct_builds'] = True
 BRANCHES['mozilla-central']['enable_weekly_bundle'] = True
@@ -2444,6 +2448,12 @@ BRANCHES['mozilla-b2g32_v2_0']['enabled_products'] = ['firefox', 'mobile']
 
 ######## try
 # Try-specific configs
+
+# XXX JLUND tmp add try to desktop mozharness builds
+# if true, any platform with mozharness_desktop_build in its config
+# will use mozharness instead of MozharnessBuildFactory
+BRANCHES['try']['desktop_mozharness_builds_enabled'] = True
+
 BRANCHES['try']['stage_username'] = 'trybld'
 BRANCHES['try']['stage_username_mobile'] = 'trybld'
 BRANCHES['try']['stage_ssh_key'] = 'trybld_dsa'
