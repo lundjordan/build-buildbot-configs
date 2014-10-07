@@ -2606,6 +2606,9 @@ branches.extend(ACTIVE_PROJECT_BRANCHES)
 for branch in branches:
     if branch == 'cedar':
         continue
+    # XXX JLUND HACK
+    if branch == 'mozilla-central':
+        continue
     if 'android-api-9' in BRANCHES[branch]['platforms']:
         del BRANCHES[branch]['platforms']['android-api-9']
     if 'android-api-10' in BRANCHES[branch]['platforms']:
