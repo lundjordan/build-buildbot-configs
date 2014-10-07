@@ -1410,10 +1410,9 @@ PLATFORM_VARS = {
             'unittest_platform': 'android-api-9-opt',
             'app_name': 'browser',
             'brand_name': 'Minefield',
-            'base_name': 'Android armv7 API 9 %(branch)s',
-            # XXX JLUD TODO change src_mozconfig
-            'src_mozconfig': 'mobile/android/config/mozconfigs/android/nightly',
-            # XXX JLUND TODO see if we still need mobile_dir
+            'base_name': 'Android armv7 API 9 constrained %(branch)s',
+            'mozconfig': 'in_tree',
+            'src_mozconfig': 'mobile/android/config/mozconfigs/android-api-9-constrained',
             'mobile_dir': 'mobile/android',
             'enable_xulrunner': False,
             'profiled_build': False,
@@ -1484,9 +1483,8 @@ PLATFORM_VARS = {
             'app_name': 'browser',
             'brand_name': 'Minefield',
             'base_name': 'Android armv7 API 10+ %(branch)s',
-            # XXX JLUND TODO UPDATE src_mozconfig
-            'src_mozconfig': 'mobile/android/config/mozconfigs/android/nightly',
-            # XXX JLUND TODO see if mobile_dir is still needed
+            'mozconfig': 'in_tree',
+            'src_mozconfig': 'mobile/android/config/mozconfigs/android-api-10/nightly',
             'mobile_dir': 'mobile/android',
             'enable_xulrunner': False,
             'profiled_build': False,
@@ -1684,6 +1682,7 @@ PLATFORM_VARS = {
             'tooltool_manifest_src': 'mobile/android/config/tooltool-manifests/android-x86/releng.manifest',
         },
         # XXX JLUND TODO add ari 9/10+ builders here
+        # also add debug after branch name
         'android-debug': {
             'enable_nightly': False,
             'product_name': 'firefox',
