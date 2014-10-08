@@ -2720,16 +2720,25 @@ for branch in branches:
         del BRANCHES[branch]['platforms']['android-armv6']
 
 # Bug 1073772 - Releng work for producing two ARMv7 APKs to target different API ranges
-## enable new split android builds on cedar only to start.
 branches = BRANCHES.keys()
 branches.extend(ACTIVE_PROJECT_BRANCHES)
 for branch in branches:
     if branch == 'cedar':
+        # remove the soon to be replaced android builds
+        if 'android' in BRANCHES[branch]['platforms']:
+            del BRANCHES[branch]['platforms']['android']
+        if 'android-debug' in BRANCHES[branch]['platforms']:
+            del BRANCHES[branch]['platforms']['android-debug']
         continue
+    ## enable new split android builds on cedar only to start.
     if 'android-api-9' in BRANCHES[branch]['platforms']:
         del BRANCHES[branch]['platforms']['android-api-9']
     if 'android-api-10' in BRANCHES[branch]['platforms']:
         del BRANCHES[branch]['platforms']['android-api-10']
+    if 'android-debug-api-9' in BRANCHES[branch]['platforms']:
+        del BRANCHES[branch]['platforms']['android-debug-api-9']
+    if 'android-debug-api-10' in BRANCHES[branch]['platforms']:
+        del BRANCHES[branch]['platforms']['android-debug-api-10']
 
 # Bug 578880, remove the following block after gcc-4.5 switch
 branches = BRANCHES.keys()
