@@ -1410,6 +1410,7 @@ PLATFORM_VARS = {
             'tooltool_manifest_src': 'mobile/android/config/tooltool-manifests/android/releng.manifest',
         },
         'android-api-9': {
+            'enable_nightly': False,
             'product_name': 'firefox',
             'unittest_platform': 'android-api-9-opt',
             'app_name': 'browser',
@@ -1480,6 +1481,7 @@ PLATFORM_VARS = {
             'tooltool_manifest_src': 'mobile/android/config/tooltool-manifests/android/releng.manifest',
         },
         'android-api-10': {
+            'enable_nightly': False,
             'product_name': 'firefox',
             'unittest_platform': 'android-api-10-opt',
             'app_name': 'browser',
