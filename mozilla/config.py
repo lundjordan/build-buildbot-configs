@@ -1756,7 +1756,7 @@ PLATFORM_VARS = {
             'brand_name': 'Minefield',
             'base_name': 'Android armv7 API 9 constrained %(branch)s debug',
             'mozconfig': 'in_tree',
-            'src_mozconfig': 'mobile/android/config/mozconfigs/android-api-9/debug',
+            'src_mozconfig': 'mobile/android/config/mozconfigs/android-api-9-constrained/debug',
             'mobile_dir': 'mobile/android',
             'enable_xulrunner': False,
             'profiled_build': False,
