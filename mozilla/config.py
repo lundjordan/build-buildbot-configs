@@ -2743,11 +2743,6 @@ for branch in branches:
         del BRANCHES[branch]['platforms']['android-api-9']
     if 'android-api-10' in BRANCHES[branch]['platforms']:
         del BRANCHES[branch]['platforms']['android-api-10']
-    # XXX JLUND HACK
-    if 'android-debug-api-9' in BRANCHES[branch]['platforms']:
-        del BRANCHES[branch]['platforms']['android-debug-api-9']
-    if 'android-debug-api-10' in BRANCHES[branch]['platforms']:
-        del BRANCHES[branch]['platforms']['android-debug-api-10']
 
 # Bug 578880, remove the following block after gcc-4.5 switch
 branches = BRANCHES.keys()
