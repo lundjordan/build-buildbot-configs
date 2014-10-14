@@ -1708,6 +1708,22 @@ for suite in ANDROID_2_3_MOZHARNESS_DICT:
     else:
         ANDROID_2_3_AWS_DICT['opt_unittest_suites'].append(suite)
 
+# bug 1073772 - enable new apk split builders will ride the trains
+# first, enable only on cedar
+for name, branch in BRANCHES.items():
+    # for now, let's just enabled the new split on cedar
+    if name in ('cedar',):
+        # remove original 'android'
+        if 'android' in branch['platforms']:
+            del BRANCHES[name]['platforms']['android']
+        # leave android-api-{9,10}
+        continue
+    for platform in branch['platforms']:
+        if platform not in PLATFORMS:
+            continue
+        if platform in ('android-api-9', 'android-api-10'):
+            del BRANCHES[name]['platforms'][platform]
+
 # enable android 2.3 tests to ride the trains bug 1004791
 for name, branch in items_at_least(BRANCHES, 'gecko_version', 32):
     # Loop removes it from any branch that gets beyond here
