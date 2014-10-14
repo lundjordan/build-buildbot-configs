@@ -1759,12 +1759,10 @@ for name, branch in items_before(BRANCHES, 'gecko_version', 31):
             else:
                 branch['platforms'][platform]['enable_debug_unittests'] = False
 
-BRANCHES['cedar']['platforms']['android']['enable_debug_unittests'] = True
-BRANCHES['cedar']['platforms']['android']['panda_android']['debug_unittest_suites'] = deepcopy(ANDROID_MOZHARNESS_MOCHITEST + ANDROID_MOZHARNESS_PLAIN_ROBOCOP + ANDROID_MOZHARNESS_JSREFTEST + ANDROID_MOZHARNESS_CRASHTEST + ANDROID_MOZHARNESS_MOCHITESTGL + ANDROID_MOZHARNESS_PLAIN_REFTEST + ANDROID_MOZHARNESS_XPCSHELL + ANDROID_MOZHARNESS_JITTEST + ANDROID_MOZHARNESS_CPPUNITTEST)
-BRANCHES['cedar']['platforms']['android-api-9']['enable_debug_unittests'] = True
-BRANCHES['cedar']['platforms']['android-api-9']['panda_android']['debug_unittest_suites'] = deepcopy(ANDROID_MOZHARNESS_MOCHITEST + ANDROID_MOZHARNESS_PLAIN_ROBOCOP + ANDROID_MOZHARNESS_JSREFTEST + ANDROID_MOZHARNESS_CRASHTEST + ANDROID_MOZHARNESS_MOCHITESTGL + ANDROID_MOZHARNESS_PLAIN_REFTEST + ANDROID_MOZHARNESS_XPCSHELL + ANDROID_MOZHARNESS_JITTEST + ANDROID_MOZHARNESS_CPPUNITTEST)
-BRANCHES['cedar']['platforms']['android-api-10']['enable_debug_unittests'] = True
-BRANCHES['cedar']['platforms']['android-api-10']['panda_android']['debug_unittest_suites'] = deepcopy(ANDROID_MOZHARNESS_MOCHITEST + ANDROID_MOZHARNESS_PLAIN_ROBOCOP + ANDROID_MOZHARNESS_JSREFTEST + ANDROID_MOZHARNESS_CRASHTEST + ANDROID_MOZHARNESS_MOCHITESTGL + ANDROID_MOZHARNESS_PLAIN_REFTEST + ANDROID_MOZHARNESS_XPCSHELL + ANDROID_MOZHARNESS_JITTEST + ANDROID_MOZHARNESS_CPPUNITTEST)
+for platform_name in ('android', 'android-api-9', 'android-api-10'):
+    if platform_name in BRANCHES['cedar']['platforms']:
+        BRANCHES['cedar']['platforms'][platform_name]['enable_debug_unittests'] = True
+        BRANCHES['cedar']['platforms'][platform_name]['panda_android']['debug_unittest_suites'] = deepcopy(ANDROID_MOZHARNESS_MOCHITEST + ANDROID_MOZHARNESS_PLAIN_ROBOCOP + ANDROID_MOZHARNESS_JSREFTEST + ANDROID_MOZHARNESS_CRASHTEST + ANDROID_MOZHARNESS_MOCHITESTGL + ANDROID_MOZHARNESS_PLAIN_REFTEST + ANDROID_MOZHARNESS_XPCSHELL + ANDROID_MOZHARNESS_JITTEST + ANDROID_MOZHARNESS_CPPUNITTEST)
 
 # bug 1030753 limit the debug tests run on trunk branches
 for name, branch in items_at_least(BRANCHES, 'gecko_version', 34):
@@ -1789,9 +1787,9 @@ for name, branch in items_at_least(BRANCHES, 'gecko_version', 34):
                         BRANCHES[name]['platforms'][platform][slave_plat]['debug_unittest_suites'] = deepcopy(ANDROID_MOZHARNESS_MOCHITEST + ANDROID_MOZHARNESS_JSREFTEST + ANDROID_MOZHARNESS_CRASHTEST + ANDROID_MOZHARNESS_PLAIN_REFTEST)
 
 # have to disable this manually or it blows up in misc.py
-BRANCHES['ash']['platforms']['android']['enable_debug_unittests'] = False
-BRANCHES['ash']['platforms']['android-api-9']['enable_debug_unittests'] = False
-BRANCHES['ash']['platforms']['android-api-10']['enable_debug_unittests'] = False
+for platform_name in ('android', 'android-api-9', 'android-api-10'):
+    if platform_name in BRANCHES['cedar']['platforms']:
+        BRANCHES['ash']['platforms'][platform_name]['enable_debug_unittests'] = False
 
 # Panda XPCShell
 for name, branch in items_before(BRANCHES, 'gecko_version', 28):
