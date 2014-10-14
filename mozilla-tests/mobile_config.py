@@ -81,18 +81,19 @@ PLATFORMS['android']['mozharness_config'] = {
 # bug 1073772 - split 'android' into two based on api
 ## this will replace 'android' as it rides trains
 PLATFORMS['android-api-9']['slave_platforms'] = \
-    ['panda_android', 'ubuntu64_vm_mobile', 'ubuntu64_vm_large', ]
+    ['ubuntu64_vm_mobile', 'ubuntu64_vm_large', ]
 PLATFORMS['android-api-9']['env_name'] = 'android-perf'
 PLATFORMS['android-api-9']['is_mobile'] = True
-PLATFORMS['android-api-9']['panda_android'] = {
-    'name': "Android 4.0 Panda",
-    'mozharness_talos': True,
-}
+# XXX JLUND TODO delete
+# PLATFORMS['android-api-9']['panda_android'] = {
+#     'name': "Android 4.0 Panda",
+#     'mozharness_talos': True,
+# }
 PLATFORMS['android-api-9']['ubuntu64_vm_mobile'] = {
-    'name': "Android 2.3 Emulator",
+    'name': "Android armv7 API 9",
 }
 PLATFORMS['android-api-9']['ubuntu64_vm_large'] = {
-    'name': "Android 2.3 Emulator",
+    'name': "Android armv7 API 9",
 }
 PLATFORMS['android-api-9']['stage_product'] = 'mobile'
 PLATFORMS['android-api-9']['mozharness_config'] = {
@@ -101,20 +102,20 @@ PLATFORMS['android-api-9']['mozharness_config'] = {
     'reboot_command': None,
     'talos_script_maxtime': 10800,
 }
-PLATFORMS['android-api-10']['slave_platforms'] = \
-    ['panda_android', 'ubuntu64_vm_mobile', 'ubuntu64_vm_large', ]
+PLATFORMS['android-api-10']['slave_platforms'] = ['panda_android']
 PLATFORMS['android-api-10']['env_name'] = 'android-perf'
 PLATFORMS['android-api-10']['is_mobile'] = True
 PLATFORMS['android-api-10']['panda_android'] = {
-    'name': "Android 4.0 Panda",
+    'name': "Android 4.0 armv7 API 10+",
     'mozharness_talos': True,
-    }
-PLATFORMS['android-api-10']['ubuntu64_vm_mobile'] = {
-    'name': "Android 2.3 Emulator",
-    }
-PLATFORMS['android-api-10']['ubuntu64_vm_large'] = {
-    'name': "Android 2.3 Emulator",
-    }
+}
+# XXX JLUND TODO delete
+# PLATFORMS['android-api-10']['ubuntu64_vm_mobile'] = {
+#     'name': "Android 2.3 Emulator",
+#     }
+# PLATFORMS['android-api-10']['ubuntu64_vm_large'] = {
+#     'name': "Android 2.3 Emulator",
+#     }
 PLATFORMS['android-api-10']['stage_product'] = 'mobile'
 PLATFORMS['android-api-10']['mozharness_config'] = {
     'mozharness_python': '/tools/buildbot/bin/python',
@@ -1747,7 +1748,7 @@ for name, branch in items_before(BRANCHES, 'gecko_version', 31):
     for platform in branch['platforms']:
         if not platform in PLATFORMS:
             continue
-        if not platform == ('android', 'android-api-9', 'android-api-10'):
+        if platform not in ('android', 'android-api-10'):
             continue
         for slave_plat in PLATFORMS[platform]['slave_platforms']:
             if not slave_plat in branch['platforms'][platform]:
@@ -1759,7 +1760,7 @@ for name, branch in items_before(BRANCHES, 'gecko_version', 31):
             else:
                 branch['platforms'][platform]['enable_debug_unittests'] = False
 
-for platform_name in ('android', 'android-api-9', 'android-api-10'):
+for platform_name in ('android', 'android-api-10'):
     if platform_name in BRANCHES['cedar']['platforms']:
         BRANCHES['cedar']['platforms'][platform_name]['enable_debug_unittests'] = True
         BRANCHES['cedar']['platforms'][platform_name]['panda_android']['debug_unittest_suites'] = deepcopy(ANDROID_MOZHARNESS_MOCHITEST + ANDROID_MOZHARNESS_PLAIN_ROBOCOP + ANDROID_MOZHARNESS_JSREFTEST + ANDROID_MOZHARNESS_CRASHTEST + ANDROID_MOZHARNESS_MOCHITESTGL + ANDROID_MOZHARNESS_PLAIN_REFTEST + ANDROID_MOZHARNESS_XPCSHELL + ANDROID_MOZHARNESS_JITTEST + ANDROID_MOZHARNESS_CPPUNITTEST)
@@ -1772,7 +1773,7 @@ for name, branch in items_at_least(BRANCHES, 'gecko_version', 34):
     for platform in branch['platforms']:
         if not platform in PLATFORMS:
             continue
-        if not platform == ('android', 'android-api-9', 'android-api-10'):
+        if not platform == ('android', 'android-api-10'):
             continue
         for slave_plat in PLATFORMS[platform]['slave_platforms']:
             if not slave_plat in branch['platforms'][platform]:
