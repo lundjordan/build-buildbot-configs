@@ -1788,7 +1788,7 @@ for name, branch in items_at_least(BRANCHES, 'gecko_version', 34):
 
 # have to disable this manually or it blows up in misc.py
 for platform_name in ('android', 'android-api-9', 'android-api-10'):
-    if platform_name in BRANCHES['cedar']['platforms']:
+    if platform_name in BRANCHES['ash']['platforms']:
         BRANCHES['ash']['platforms'][platform_name]['enable_debug_unittests'] = False
 
 # Panda XPCShell
