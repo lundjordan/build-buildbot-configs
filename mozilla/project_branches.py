@@ -114,7 +114,6 @@ PROJECT_BRANCHES = {
             'win32-debug': {},
         },
         'mobile_platforms': {
-            # XXX TODO fix this once mobile_config.py is configured
             'android': {
                 'slave_platforms': ['panda_android', 'ubuntu64_vm_large'],
             },
