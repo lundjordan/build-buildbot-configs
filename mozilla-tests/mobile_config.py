@@ -84,11 +84,6 @@ PLATFORMS['android-api-9']['slave_platforms'] = \
     ['ubuntu64_vm_mobile', 'ubuntu64_vm_large', ]
 PLATFORMS['android-api-9']['env_name'] = 'android-perf'
 PLATFORMS['android-api-9']['is_mobile'] = True
-# XXX JLUND TODO delete
-# PLATFORMS['android-api-9']['panda_android'] = {
-#     'name': "Android 4.0 Panda",
-#     'mozharness_talos': True,
-# }
 PLATFORMS['android-api-9']['ubuntu64_vm_mobile'] = {
     'name': "Android armv7 API 9",
 }
@@ -109,13 +104,6 @@ PLATFORMS['android-api-10']['panda_android'] = {
     'name': "Android 4.0 armv7 API 10+",
     'mozharness_talos': True,
 }
-# XXX JLUND TODO delete
-# PLATFORMS['android-api-10']['ubuntu64_vm_mobile'] = {
-#     'name': "Android 2.3 Emulator",
-#     }
-# PLATFORMS['android-api-10']['ubuntu64_vm_large'] = {
-#     'name': "Android 2.3 Emulator",
-#     }
 PLATFORMS['android-api-10']['stage_product'] = 'mobile'
 PLATFORMS['android-api-10']['mozharness_config'] = {
     'mozharness_python': '/tools/buildbot/bin/python',
