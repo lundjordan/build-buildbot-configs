@@ -1534,7 +1534,7 @@ PLATFORM_UNITTEST_VARS = {
         'host_utils_url': 'http://talos-remote.pvt.build.mozilla.org/tegra/tegra-host-utils.%%(foopy_type)s.742597.zip',
         'enable_opt_unittests': True,
         'enable_debug_unittests': False,
-        'remote_extras': ANDROID_UNITTEST_REMOTE_EXTRAS,        
+        'remote_extras': ANDROID_UNITTEST_REMOTE_EXTRAS,
         'ubuntu64_vm_armv6_mobile': {
             'opt_unittest_suites': [],
             'debug_unittest_suites': [],
@@ -1779,66 +1779,6 @@ for name, branch in items_at_least(BRANCHES, 'gecko_version', 34):
 for platform_name in ('android', 'android-api-9', 'android-api-10'):
     if platform_name in BRANCHES['ash']['platforms']:
         BRANCHES['ash']['platforms'][platform_name]['enable_debug_unittests'] = False
-
-# Panda XPCShell
-for name, branch in items_before(BRANCHES, 'gecko_version', 28):
-    # Loop removes it from any branch that gets beyond here
-    for platform in branch['platforms']:
-        if not platform in PLATFORMS:
-            continue
-        if not platform.startswith('android'):
-            continue
-        if platform.endswith('-debug'):
-            continue  # no slave_platform for debug
-        for slave_plat in PLATFORMS[platform]['slave_platforms']:
-            if not slave_plat in branch['platforms'][platform]:
-                continue
-            if not 'panda' in slave_plat:
-                continue
-            for type in branch['platforms'][platform][slave_plat]:
-                for suite in branch['platforms'][platform][slave_plat][type][:]:
-                    if "xpcshell" in suite[0]:
-                        branch['platforms'][platform][slave_plat][type].remove(suite)
-
-# panda reftests jobs ride the train with 29, so they need to be disabled
-# for branches running an older version.
-# https://bugzilla.mozilla.org/show_bug.cgi?id=929447
-for name, branch in items_before(BRANCHES, 'gecko_version', 29):
-    for platform in branch['platforms']:
-        if platform not in PLATFORMS:
-            continue
-        for slave_plat in PLATFORMS[platform].get('slave_platforms', {}):
-            # we don't want to change scheduling for non panda slaves
-            # https://bugzilla.mozilla.org/show_bug.cgi?id=961575
-            if not 'panda_android' in slave_plat:
-                continue
-            if slave_plat not in branch['platforms'][platform]:
-                continue
-            for type_ in branch['platforms'][platform][slave_plat]:
-                for suite in branch['platforms'][platform][slave_plat][type_][:]:
-                    if "plain-reftest" in suite[0]:
-                        branch['platforms'][platform][slave_plat][type_].remove(suite)
-
-# Disable Android x86 on branches that are older than gecko 29
-# should not run Android x86 jobs
-for name, branch in items_before(BRANCHES, 'gecko_version', 29):
-    if 'android-x86' in branch['platforms']:
-        branch['platforms']['android-x86']['ubuntu64_hw']['opt_unittest_suites'] = []
-
-# cppunittest jobs ride the train with 28, so they need to be disabled
-# for branches running an older version.
-# https://bugzilla.mozilla.org/show_bug.cgi?id=937637
-for name, branch in items_before(BRANCHES, 'gecko_version', 28):
-    for platform in branch['platforms']:
-        if platform not in PLATFORMS:
-            continue
-        for slave_plat in PLATFORMS[platform].get('slave_platforms', {}):
-            if slave_plat not in branch['platforms'][platform]:
-                continue
-            for type_ in branch['platforms'][platform][slave_plat]:
-                for suite in branch['platforms'][platform][slave_plat][type_][:]:
-                    if "cppunit" in suite[0]:
-                        branch['platforms'][platform][slave_plat][type_].remove(suite)
 
 
 def remove_suite_from_slave_platform(BRANCHES, PLATFORMS, suite_to_remove, slave_platform, branches_to_keep=[]):
