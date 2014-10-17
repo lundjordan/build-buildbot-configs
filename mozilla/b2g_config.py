@@ -586,12 +586,13 @@ PLATFORM_VARS = {
         'upload_symbols': False,
         'download_symbols': False,
         'slaves': SLAVES['macosx64-lion'],
-        'platform_objdir': "%s/i386" % OBJDIR,
+        'platform_objdir': OBJDIR,
         'stage_product': 'b2g',
         'stage_platform': 'macosx64-mulet',
         'update_platform': 'Darwin_x86_64-gcc3',
         'enable_shared_checkouts': True,
-        'enable_nonunified_build': True,
+        'enable_nonunified_build': False,
+        'enable_nightly': True,
         'env': {
             'MOZ_OBJDIR': OBJDIR,
             'HG_SHARE_BASE_DIR': '/builds/hg-shared',
@@ -811,6 +812,7 @@ PLATFORM_VARS = {
         'src_mozconfig': 'b2g/dev/config/mozconfigs/win32/mulet',
         'enable_dep': True,
         'profiled_build': False,
+        'enable_nightly': True,
         'builds_before_reboot': b2g_localconfig.BUILDS_BEFORE_REBOOT,
         'build_space': 13,
         'upload_symbols': False,
@@ -1457,10 +1459,6 @@ for platform in PLATFORM_VARS.values():
 BRANCHES = {
     'mozilla-central': {
     },
-    'mozilla-aurora': {
-        'gecko_version': 34,
-        'b2g_version': (2, 1, 0),
-    },
     'mozilla-b2g28_v1_3t': {
         'gecko_version': 28,
         'b2g_version': (1, 3, 0),
@@ -1479,6 +1477,10 @@ BRANCHES = {
     'mozilla-b2g32_v2_0': {
         'gecko_version': 32,
         'b2g_version': (2, 0, 0),
+    },
+    'mozilla-b2g34_v2_1': {
+        'gecko_version': 34,
+        'b2g_version': (2, 1, 0),
     },
     'try': {
         'lock_platforms': True,
@@ -1613,35 +1615,37 @@ BRANCHES['mozilla-central']['platforms']['emulator-kk-debug']['enable_nightly'] 
 BRANCHES['mozilla-central']['platforms']['dolphin']['enable_nightly'] = True
 BRANCHES['mozilla-central']['platforms']['dolphin_eng']['enable_nightly'] = True
 
-######## mozilla-aurora
+######## mozilla-b2g34_v2_1
 # This is a path, relative to HGURL, where the repository is located
 # HGURL + repo_path should be a valid repository
-BRANCHES['mozilla-aurora']['repo_path'] = 'releases/mozilla-aurora'
-BRANCHES['mozilla-aurora']['gaia_l10n_root'] = 'https://hg.mozilla.org/gaia-l10n'
-BRANCHES['mozilla-aurora']['gecko_l10n_root'] = 'https://hg.mozilla.org/releases/l10n/mozilla-aurora'
-BRANCHES['mozilla-aurora']['start_hour'] = [0, 16]
-BRANCHES['mozilla-aurora']['start_minute'] = [2]
-BRANCHES['mozilla-aurora']['periodic_start_minute'] = 30
-BRANCHES['mozilla-aurora']['aus2_base_upload_dir'] = 'fake'
-BRANCHES['mozilla-aurora']['aus2_base_upload_dir_l10n'] = 'fake'
-BRANCHES['mozilla-aurora']['platforms']['hamachi']['enable_nightly'] = True
-BRANCHES['mozilla-aurora']['platforms']['hamachi_eng']['enable_nightly'] = True
-BRANCHES['mozilla-aurora']['platforms']['hamachi_eng']['consider_for_nightly'] = False
-BRANCHES['mozilla-aurora']['platforms']['nexus-4']['enable_nightly'] = True
-BRANCHES['mozilla-aurora']['platforms']['nexus-4_eng']['enable_nightly'] = True
-BRANCHES['mozilla-aurora']['platforms']['nexus-4_eng']['consider_for_nightly'] = False
-BRANCHES['mozilla-aurora']['platforms']['helix']['enable_nightly'] = True
-BRANCHES['mozilla-aurora']['platforms']['wasabi']['enable_nightly'] = True
-BRANCHES['mozilla-aurora']['platforms']['flame-kk']['enable_nightly'] = True
-BRANCHES['mozilla-aurora']['platforms']['flame-kk_eng']['enable_nightly'] = True
-BRANCHES['mozilla-aurora']['platforms']['emulator']['enable_nightly'] = True
-BRANCHES['mozilla-aurora']['platforms']['emulator-debug']['enable_nightly'] = True
-BRANCHES['mozilla-aurora']['platforms']['emulator-jb']['enable_nightly'] = True
-BRANCHES['mozilla-aurora']['platforms']['emulator-jb-debug']['enable_nightly'] = True
-BRANCHES['mozilla-aurora']['platforms']['emulator-kk']['enable_nightly'] = True
-BRANCHES['mozilla-aurora']['platforms']['emulator-kk-debug']['enable_nightly'] = True
-BRANCHES['mozilla-aurora']['platforms']['dolphin']['enable_nightly'] = True
-BRANCHES['mozilla-aurora']['platforms']['dolphin_eng']['enable_nightly'] = True
+BRANCHES['mozilla-b2g34_v2_1']['repo_path'] = 'releases/mozilla-b2g34_v2_1'
+BRANCHES['mozilla-b2g34_v2_1']['gaia_l10n_root'] = 'https://hg.mozilla.org/releases/gaia-l10n/v2_1/'
+BRANCHES['mozilla-b2g34_v2_1']['gecko_l10n_root'] = 'https://hg.mozilla.org/releases/l10n/mozilla-beta'
+BRANCHES['mozilla-b2g34_v2_1']['start_hour'] = [0, 16]
+BRANCHES['mozilla-b2g34_v2_1']['start_minute'] = [12]
+BRANCHES['mozilla-b2g34_v2_1']['periodic_start_minute'] = 30
+BRANCHES['mozilla-b2g34_v2_1']['aus2_base_upload_dir'] = 'fake'
+BRANCHES['mozilla-b2g34_v2_1']['aus2_base_upload_dir_l10n'] = 'fake'
+BRANCHES['mozilla-b2g34_v2_1']['platforms']['hamachi']['enable_nightly'] = True
+BRANCHES['mozilla-b2g34_v2_1']['platforms']['hamachi_eng']['enable_nightly'] = True
+BRANCHES['mozilla-b2g34_v2_1']['platforms']['hamachi_eng']['consider_for_nightly'] = False
+BRANCHES['mozilla-b2g34_v2_1']['platforms']['nexus-4']['enable_nightly'] = True
+BRANCHES['mozilla-b2g34_v2_1']['platforms']['nexus-4_eng']['enable_nightly'] = True
+BRANCHES['mozilla-b2g34_v2_1']['platforms']['nexus-4_eng']['consider_for_nightly'] = False
+BRANCHES['mozilla-b2g34_v2_1']['platforms']['helix']['enable_nightly'] = True
+BRANCHES['mozilla-b2g34_v2_1']['platforms']['wasabi']['enable_nightly'] = True
+BRANCHES['mozilla-b2g34_v2_1']['platforms']['flame']['enable_nightly'] = True
+BRANCHES['mozilla-b2g34_v2_1']['platforms']['flame_eng']['enable_nightly'] = True
+BRANCHES['mozilla-b2g34_v2_1']['platforms']['flame-kk']['enable_nightly'] = True
+BRANCHES['mozilla-b2g34_v2_1']['platforms']['flame-kk_eng']['enable_nightly'] = True
+BRANCHES['mozilla-b2g34_v2_1']['platforms']['emulator']['enable_nightly'] = True
+BRANCHES['mozilla-b2g34_v2_1']['platforms']['emulator-debug']['enable_nightly'] = True
+BRANCHES['mozilla-b2g34_v2_1']['platforms']['emulator-jb']['enable_nightly'] = True
+BRANCHES['mozilla-b2g34_v2_1']['platforms']['emulator-jb-debug']['enable_nightly'] = True
+BRANCHES['mozilla-b2g34_v2_1']['platforms']['emulator-kk']['enable_nightly'] = True
+BRANCHES['mozilla-b2g34_v2_1']['platforms']['emulator-kk-debug']['enable_nightly'] = True
+BRANCHES['mozilla-b2g34_v2_1']['platforms']['dolphin']['enable_nightly'] = True
+BRANCHES['mozilla-b2g34_v2_1']['platforms']['dolphin_eng']['enable_nightly'] = True
 
 ######## mozilla-b2g32_v2_0
 # This is a path, relative to HGURL, where the repository is located
@@ -1758,13 +1762,12 @@ for name, branch in items_before(BRANCHES, 'gecko_version', 34):
     if 'linux64-mulet' in branch['platforms']:
         del branch['platforms']['linux64-mulet']
 
-# OSX and Win32 Mulet only on cedar for now (bug 1067628)
-for branch in BRANCHES:
-    if branch not in ('cedar',):
-        if 'macosx64-mulet' in BRANCHES[branch]['platforms']:
-            del BRANCHES[branch]['platforms']['macosx64-mulet']
-        if 'win32-mulet' in BRANCHES[branch]['platforms']:
-            del BRANCHES[branch]['platforms']['win32-mulet']
+# Enable win32/macosx64 mulet in gecko 36+
+for name, branch in items_before(BRANCHES, 'gecko_version', 36):
+    if 'win32-mulet' in branch['platforms']:
+        del branch['platforms']['win32-mulet']
+    if 'macosx64-mulet' in branch['platforms']:
+        del branch['platforms']['macosx64-mulet']
 
 # tarako is for B2G 1.3t only (gecko28)
 for branch in BRANCHES:

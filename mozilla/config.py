@@ -1414,7 +1414,7 @@ PLATFORM_VARS = {
             'unittest_platform': 'android-api-9-opt',
             'app_name': 'browser',
             'brand_name': 'Minefield',
-            'base_name': 'Android armv7 API 9 constrained %(branch)s',
+            'base_name': 'Android armv7 API 9 %(branch)s',
             'mozconfig': 'in_tree',
             'src_mozconfig': 'mobile/android/config/mozconfigs/android-api-9-constrained/nightly',
             'mobile_dir': 'mobile/android',
@@ -1431,7 +1431,7 @@ PLATFORM_VARS = {
             'platform_objdir': OBJDIR,
             'enable_ccache': True,
             'enable_shared_checkouts': True,
-            'enable_nonunified_build': True,
+            'enable_nonunified_build': False,
             'nightly_signing_servers': 'dep-signing',
             'dep_signing_servers': 'dep-signing',
             'use_mock': True,
@@ -1754,7 +1754,7 @@ PLATFORM_VARS = {
             'product_name': 'firefox',
             'app_name': 'browser',
             'brand_name': 'Minefield',
-            'base_name': 'Android armv7 API 9 constrained %(branch)s debug',
+            'base_name': 'Android armv7 API 9 %(branch)s debug',
             'mozconfig': 'in_tree',
             'src_mozconfig': 'mobile/android/config/mozconfigs/android-api-9-constrained/debug',
             'mobile_dir': 'mobile/android',
@@ -1771,7 +1771,7 @@ PLATFORM_VARS = {
             'platform_objdir': OBJDIR,
             'enable_ccache': True,
             'enable_shared_checkouts': True,
-            'enable_nonunified_build': True,
+            'enable_nonunified_build': False,
             'nightly_signing_servers': 'dep-signing',
             'dep_signing_servers': 'dep-signing',
             'use_mock': True,
@@ -2044,21 +2044,6 @@ BRANCHES = {
     'mozilla-aurora': {
         'branch_projects': []
     },
-    'mozilla-esr24': {
-        'branch_projects': [],
-        'lock_platforms': True,
-        'gecko_version': 24,
-        'platforms': {
-            'linux': {},
-            'linux64': {},
-            'win32': {},
-            'macosx64': {},
-            'linux-debug': {},
-            'linux64-debug': {},
-            'macosx64-debug': {},
-            'win32-debug': {},
-        },
-    },
     'mozilla-esr31': {
         'branch_projects': [],
         'lock_platforms': True,
@@ -2100,6 +2085,21 @@ BRANCHES = {
         'branch_projects': [],
         'lock_platforms': True,
         'gecko_version': 32,
+        'platforms': {
+            'linux': {},
+            'linux64': {},
+            'win32': {},
+            'macosx64': {},
+            'linux-debug': {},
+            'linux64-debug': {},
+            'macosx64-debug': {},
+            'win32-debug': {},
+        },
+    },
+    'mozilla-b2g34_v2_1': {
+        'branch_projects': [],
+        'lock_platforms': True,
+        'gecko_version': 34,
         'platforms': {
             'linux': {},
             'linux64': {},
@@ -2253,7 +2253,6 @@ BRANCHES['mozilla-central']['l10nUploadPath'] = \
     '/home/ftp/pub/mozilla.org/firefox/nightly/latest-mozilla-central-l10n/'
 BRANCHES['mozilla-central']['enUS_binaryURL'] = \
     GLOBAL_VARS['download_base_url'] + '/nightly/latest-mozilla-central'
-BRANCHES['mozilla-central']['allLocalesFile'] = 'browser/locales/all-locales'
 BRANCHES['mozilla-central']['localesURL'] = \
     '%s/build/buildbot-configs/raw-file/production/mozilla/l10n/all-locales.mozilla-central' % (GLOBAL_VARS['hgurl'])
 BRANCHES['mozilla-central']['enable_multi_locale'] = True
@@ -2310,7 +2309,6 @@ BRANCHES['mozilla-release']['l10nDatedDirs'] = True
 BRANCHES['mozilla-release']['l10n_tree'] = 'fxrel'
 BRANCHES['mozilla-release']['enUS_binaryURL'] = \
     GLOBAL_VARS['download_base_url'] + '/nightly/latest-mozilla-release'
-BRANCHES['mozilla-release']['allLocalesFile'] = 'browser/locales/all-locales'
 BRANCHES['mozilla-release']['localesURL'] = \
     '%s/build/buildbot-configs/raw-file/production/mozilla/l10n/all-locales.mozilla-release' % (GLOBAL_VARS['hgurl'])
 BRANCHES['mozilla-release']['enable_multi_locale'] = True
@@ -2352,7 +2350,6 @@ BRANCHES['mozilla-beta']['l10nUploadPath'] = \
     '/home/ftp/pub/mozilla.org/firefox/nightly/latest-mozilla-beta-l10n/'
 BRANCHES['mozilla-beta']['enUS_binaryURL'] = \
     GLOBAL_VARS['download_base_url'] + '/nightly/latest-mozilla-beta'
-BRANCHES['mozilla-beta']['allLocalesFile'] = 'browser/locales/all-locales'
 BRANCHES['mozilla-beta']['localesURL'] = \
     '%s/build/buildbot-configs/raw-file/production/mozilla/l10n/all-locales.mozilla-beta' % (GLOBAL_VARS['hgurl'])
 BRANCHES['mozilla-beta']['enable_multi_locale'] = True
@@ -2406,7 +2403,6 @@ BRANCHES['mozilla-aurora']['l10nUploadPath'] = \
     '/home/ftp/pub/mozilla.org/firefox/nightly/latest-mozilla-aurora-l10n/'
 BRANCHES['mozilla-aurora']['enUS_binaryURL'] = \
     GLOBAL_VARS['download_base_url'] + '/nightly/latest-mozilla-aurora'
-BRANCHES['mozilla-aurora']['allLocalesFile'] = 'browser/locales/all-locales'
 BRANCHES['mozilla-aurora']['localesURL'] = \
     '%s/build/buildbot-configs/raw-file/production/mozilla/l10n/all-locales.mozilla-aurora' % (GLOBAL_VARS['hgurl'])
 BRANCHES['mozilla-aurora']['enable_multi_locale'] = True
@@ -2431,6 +2427,7 @@ BRANCHES['mozilla-aurora']['enable_valgrind'] = False
 BRANCHES['mozilla-aurora']['platforms']['android-armv6']['env']['MOZ_SYMBOLS_EXTRA_BUILDID'] = 'android-armv6'
 BRANCHES['mozilla-aurora']['platforms']['android-api-9']['env']['MOZ_SYMBOLS_EXTRA_BUILDID'] = 'android-api-9'
 BRANCHES['mozilla-aurora']['platforms']['android-api-10']['env']['MOZ_SYMBOLS_EXTRA_BUILDID'] = 'android-api-10'
+BRANCHES['mozilla-aurora']['platforms']['android-x86']['env']['MOZ_SYMBOLS_EXTRA_BUILDID'] = 'android-x86'
 # aurora nightlies should use our nightly signing server
 BRANCHES['mozilla-aurora']['platforms']['linux']['nightly_signing_servers'] = 'nightly-signing'
 BRANCHES['mozilla-aurora']['platforms']['linux64']['nightly_signing_servers'] = 'nightly-signing'
@@ -2438,38 +2435,6 @@ BRANCHES['mozilla-aurora']['platforms']['win32']['nightly_signing_servers'] = 'n
 BRANCHES['mozilla-aurora']['platforms']['macosx64']['nightly_signing_servers'] = 'nightly-signing'
 BRANCHES['mozilla-aurora']['l10n_extra_configure_args'] = ['--with-macbundlename-prefix=Firefox']
 BRANCHES['mozilla-aurora']['enabled_products'] = ['firefox', 'mobile']
-
-######## mozilla-esr24
-BRANCHES['mozilla-esr24']['repo_path'] = 'releases/mozilla-esr24'
-BRANCHES['mozilla-esr24']['update_channel'] = 'nightly-esr24'
-BRANCHES['mozilla-esr24']['l10n_repo_path'] = 'releases/l10n/mozilla-release'
-BRANCHES['mozilla-esr24']['enable_weekly_bundle'] = True
-BRANCHES['mozilla-esr24']['start_hour'] = [0]
-BRANCHES['mozilla-esr24']['start_minute'] = [05]
-BRANCHES['mozilla-esr24']['enable_xulrunner'] = False
-BRANCHES['mozilla-esr24']['pgo_strategy'] = 'per-checkin'
-BRANCHES['mozilla-esr24']['enable_mac_a11y'] = True
-BRANCHES['mozilla-esr24']['unittest_build_space'] = 6
-# L10n configuration
-BRANCHES['mozilla-esr24']['enable_l10n'] = False
-BRANCHES['mozilla-esr24']['enable_l10n_onchange'] = False
-BRANCHES['mozilla-esr24']['l10nNightlyUpdate'] = False
-BRANCHES['mozilla-esr24']['l10n_platforms'] = ['linux', 'linux64', 'win32',
-                                               'macosx64']
-BRANCHES['mozilla-esr24']['l10nDatedDirs'] = True
-BRANCHES['mozilla-esr24']['l10n_tree'] = 'fxesr24'
-BRANCHES['mozilla-esr24']['enUS_binaryURL'] = \
-    GLOBAL_VARS['download_base_url'] + '/nightly/latest-mozilla-esr24'
-BRANCHES['mozilla-esr24']['allLocalesFile'] = 'browser/locales/all-locales'
-BRANCHES['mozilla-esr24']['enable_nightly'] = True
-BRANCHES['mozilla-esr24']['create_snippet'] = True
-BRANCHES['mozilla-esr24']['create_partial'] = True
-BRANCHES['mozilla-esr24']['aus2_base_upload_dir'] = '/opt/aus2/incoming/2/Firefox/mozilla-esr24'
-BRANCHES['mozilla-esr24']['aus2_base_upload_dir_l10n'] = '/opt/aus2/incoming/2/Firefox/mozilla-esr24'
-BRANCHES['mozilla-esr24']['enable_blocklist_update'] = True
-BRANCHES['mozilla-esr24']['enable_hsts_update'] = True
-BRANCHES['mozilla-esr24']['enable_valgrind'] = False
-BRANCHES['mozilla-esr24']['enabled_products'] = ['firefox']
 
 ######## mozilla-esr31
 BRANCHES['mozilla-esr31']['repo_path'] = 'releases/mozilla-esr31'
@@ -2492,7 +2457,6 @@ BRANCHES['mozilla-esr31']['l10nDatedDirs'] = True
 BRANCHES['mozilla-esr31']['l10n_tree'] = 'fxesr31'
 BRANCHES['mozilla-esr31']['enUS_binaryURL'] = \
     GLOBAL_VARS['download_base_url'] + '/nightly/latest-mozilla-esr31'
-BRANCHES['mozilla-esr31']['allLocalesFile'] = 'browser/locales/all-locales'
 BRANCHES['mozilla-esr31']['enable_nightly'] = True
 BRANCHES['mozilla-esr31']['create_snippet'] = True
 BRANCHES['mozilla-esr31']['create_partial'] = True
@@ -2531,7 +2495,6 @@ BRANCHES['mozilla-b2g30_v1_4']['l10n_platforms'] = ['linux', 'linux64', 'win32',
 BRANCHES['mozilla-b2g30_v1_4']['l10nDatedDirs'] = True
 BRANCHES['mozilla-b2g30_v1_4']['enUS_binaryURL'] = \
     GLOBAL_VARS['download_base_url'] + '/nightly/latest-mozilla-b2g30_v1_4'
-BRANCHES['mozilla-b2g30_v1_4']['allLocalesFile'] = 'browser/locales/all-locales'
 BRANCHES['mozilla-b2g30_v1_4']['enable_nightly'] = False
 BRANCHES['mozilla-b2g30_v1_4']['create_snippet'] = False
 BRANCHES['mozilla-b2g30_v1_4']['create_partial'] = False
@@ -2564,7 +2527,6 @@ BRANCHES['mozilla-b2g32_v2_0']['l10n_platforms'] = ['linux', 'linux64', 'win32',
 BRANCHES['mozilla-b2g32_v2_0']['l10nDatedDirs'] = True
 BRANCHES['mozilla-b2g32_v2_0']['enUS_binaryURL'] = \
     GLOBAL_VARS['download_base_url'] + '/nightly/latest-mozilla-b2g32_v2_0'
-BRANCHES['mozilla-b2g32_v2_0']['allLocalesFile'] = 'browser/locales/all-locales'
 BRANCHES['mozilla-b2g32_v2_0']['enable_nightly'] = False
 BRANCHES['mozilla-b2g32_v2_0']['create_snippet'] = False
 BRANCHES['mozilla-b2g32_v2_0']['create_partial'] = False
@@ -2575,6 +2537,38 @@ BRANCHES['mozilla-b2g32_v2_0']['enable_hsts_update'] = True
 BRANCHES['mozilla-b2g32_v2_0']['enable_hpkp_update'] = True
 BRANCHES['mozilla-b2g32_v2_0']['enable_valgrind'] = False
 BRANCHES['mozilla-b2g32_v2_0']['enabled_products'] = ['firefox', 'mobile']
+
+######## mozilla-b2g34_v2_1
+BRANCHES['mozilla-b2g34_v2_1']['repo_path'] = 'releases/mozilla-b2g34_v2_1'
+BRANCHES['mozilla-b2g34_v2_1']['update_channel'] = 'nightly-b2g34'
+BRANCHES['mozilla-b2g34_v2_1']['l10n_repo_path'] = 'releases/l10n/mozilla-beta'
+BRANCHES['mozilla-b2g34_v2_1']['enable_weekly_bundle'] = True
+BRANCHES['mozilla-b2g34_v2_1']['enable_perproduct_builds'] = True
+BRANCHES['mozilla-b2g34_v2_1']['start_hour'] = [3]
+BRANCHES['mozilla-b2g34_v2_1']['start_minute'] = [45]
+BRANCHES['mozilla-b2g34_v2_1']['enable_xulrunner'] = False
+BRANCHES['mozilla-b2g34_v2_1']['pgo_platforms'] = []
+BRANCHES['mozilla-b2g34_v2_1']['enable_mac_a11y'] = True
+BRANCHES['mozilla-b2g34_v2_1']['unittest_build_space'] = 6
+# L10n configuration
+BRANCHES['mozilla-b2g34_v2_1']['enable_l10n'] = False
+BRANCHES['mozilla-b2g34_v2_1']['enable_l10n_onchange'] = False
+BRANCHES['mozilla-b2g34_v2_1']['l10nNightlyUpdate'] = False
+BRANCHES['mozilla-b2g34_v2_1']['l10n_platforms'] = ['linux', 'linux64',
+                                                    'win32', 'macosx64']
+BRANCHES['mozilla-b2g34_v2_1']['l10nDatedDirs'] = True
+BRANCHES['mozilla-b2g34_v2_1']['enUS_binaryURL'] = \
+    GLOBAL_VARS['download_base_url'] + '/nightly/latest-mozilla-b2g34_v2_1'
+BRANCHES['mozilla-b2g34_v2_1']['enable_nightly'] = False
+BRANCHES['mozilla-b2g34_v2_1']['create_snippet'] = False
+BRANCHES['mozilla-b2g34_v2_1']['create_partial'] = False
+BRANCHES['mozilla-b2g34_v2_1']['aus2_base_upload_dir'] = '/opt/aus2/incoming/2/Firefox/mozilla-b2g34_v2_1'
+BRANCHES['mozilla-b2g34_v2_1']['aus2_base_upload_dir_l10n'] = '/opt/aus2/incoming/2/Firefox/mozilla-b2g34_v2_1'
+BRANCHES['mozilla-b2g34_v2_1']['enable_blocklist_update'] = False
+BRANCHES['mozilla-b2g34_v2_1']['enable_hsts_update'] = True
+BRANCHES['mozilla-b2g34_v2_1']['enable_hpkp_update'] = True
+BRANCHES['mozilla-b2g34_v2_1']['enable_valgrind'] = False
+BRANCHES['mozilla-b2g34_v2_1']['enabled_products'] = ['firefox', 'mobile']
 
 ######## try
 # Try-specific configs
@@ -2797,11 +2791,6 @@ for b, branch in BRANCHES.items():
         assert branch_project_name not in PROJECTS, '%s already in PROJECTS' % name
         PROJECTS[branch_project_name] = project
 
-for _, branch in items_before(BRANCHES, 'gecko_version', 26):
-    for p in 'linux64-asan', 'linux64-asan-debug':
-        if p in branch['platforms']:
-            del branch['platforms'][p]
-
 # ant test on try
 ## ant rides the trains (Bug 971841)
 # for name, branch in items_before(BRANCHES, 'gecko_version', 30):
@@ -2835,15 +2824,11 @@ for name, branch in items_before(BRANCHES, 'gecko_version', mc_gecko_version):
 # Only test pretty names on train branches, not m-c or project branches.
 # That's also forced on nonunified builds in buildbotcustom.
 for branch in ("mozilla-aurora", "mozilla-beta", "mozilla-release",
-               "mozilla-esr24", "mozilla-esr31"):
+               "mozilla-esr31"):
     for platform in ("linux", "linux64", "macosx64", "win32", "win64"):
         if platform in BRANCHES[branch]['platforms']:
             BRANCHES[branch]['platforms'][platform]['test_pretty_names'] = True
 
-# Exact rooting landed for desktop only in 28.
-for name, branch in items_before(BRANCHES, 'gecko_version', 28):
-    if 'linux64-br-haz' in branch['platforms']:
-        del branch['platforms']['linux64-br-haz']
 for name, branch in items_at_least(BRANCHES, 'gecko_version', 28):
     # b2g cannot use exact rooting yet since it has known hazards. If a
     # b2g-only tree were to acquire additional desktop-only hazard, we
@@ -2874,8 +2859,14 @@ for name, branch in BRANCHES.items():
         if "mozharness_desktop_l10n" in p:
             del p["mozharness_desktop_l10n"]
 
-# Bug 950206 - Enable 32-bit Windows builds on Date, test those builds on tst-w64-ec2-XXXX
-BRANCHES['date']['platforms']['win32']['unittest_platform'] = 'win64-opt'
+# enable mozharness desktop builds across all twigs
+for name, branch in items_at_least(BRANCHES, 'gecko_version', mc_gecko_version):
+    if name in ('mozilla-central', 'mozilla-inbound', 'b2g-inbound', 'try'):
+        # only enable on twigs for now
+        continue
+    # if true, any platform with mozharness_desktop_build in its config
+    # will use mozharness instead of MozillaBuildFactory
+    branch['desktop_mozharness_builds_enabled'] = True
 
 if __name__ == "__main__":
     import sys
