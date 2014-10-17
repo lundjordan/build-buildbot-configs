@@ -110,11 +110,6 @@ BRANCHES = {
         'tinderbox_tree': 'Mozilla-Release',
         'mobile_tinderbox_tree': 'Mozilla-Release',
     },
-    'mozilla-esr24': {
-        'packaged_unittest_tinderbox_tree': 'Mozilla-Esr24',
-        'tinderbox_tree': 'Mozilla-Esr24',
-        'mobile_tinderbox_tree': 'Mozilla-Esr24',
-    },
     'mozilla-esr31': {
         'packaged_unittest_tinderbox_tree': 'Mozilla-Esr31',
         'tinderbox_tree': 'Mozilla-Esr31',
@@ -129,6 +124,11 @@ BRANCHES = {
         'packaged_unittest_tinderbox_tree': 'Mozilla-B2g32-v2.0',
         'tinderbox_tree': 'Mozilla-B2g32-v2.0',
         'mobile_tinderbox_tree': 'Mozilla-B2g32-v2.0',
+    },
+    'mozilla-b2g34_v2_1': {
+        'packaged_unittest_tinderbox_tree': 'Mozilla-B2g34-v2.1',
+        'tinderbox_tree': 'Mozilla-B2g34-v2.1',
+        'mobile_tinderbox_tree': 'Mozilla-B2g34-v2.1',
     },
     'mozilla-beta': {
         'packaged_unittest_tinderbox_tree': 'Mozilla-Beta',

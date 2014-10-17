@@ -68,12 +68,6 @@ BRANCHES = {
         'enable_hpkp_update': False,
         'file_update_on_closed_tree': False,
     },
-    'mozilla-esr24': {
-        'enable_blocklist_update': False,
-        'enable_hsts_update': False,
-        'enable_hpkp_update': False,
-        'file_update_on_closed_tree': False,
-    },
     'mozilla-b2g28_v1_3t': {
         'enable_blocklist_update': False,
         'enable_hsts_update': False,
@@ -87,6 +81,12 @@ BRANCHES = {
         'file_update_on_closed_tree': False,
     },
     'mozilla-b2g32_v2_0': {
+        'enable_blocklist_update': False,
+        'enable_hsts_update': False,
+        'enable_hpkp_update': False,
+        'file_update_on_closed_tree': False,
+    },
+    'mozilla-b2g34_v2_1': {
         'enable_blocklist_update': False,
         'enable_hsts_update': False,
         'enable_hpkp_update': False,
