@@ -38,8 +38,11 @@ GLOBAL_VARS = {
     'graph_selector': '/server/collect.cgi',
     'compare_locales_repo_path': 'build/compare-locales',
     'compare_locales_tag': 'RELEASE_AUTOMATION',
-    'mozharness_repo_path': 'build/mozharness',
-    'mozharness_tag': 'production',
+    # XXX JLUND
+    # 'mozharness_repo_path': 'build/mozharness',
+    # 'mozharness_tag': 'production',
+    'mozharness_repo_path': 'users/jlund_mozilla.com/mozharness',
+    'mozharness_tag': 'default',
     'multi_locale_merge': True,
     'default_build_space': 5,
     'default_l10n_space': 3,
@@ -1754,6 +1757,7 @@ apply_localconfig(BRANCH_PROJECTS, localconfig.BRANCH_PROJECTS)
 # platforms (if different from the default set).
 BRANCHES = {
     'mozilla-central': {
+        'desktop_mozharness_builds_enabled': True,
     },
     'mozilla-release': {
         'branch_projects': []
