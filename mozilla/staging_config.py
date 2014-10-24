@@ -1,36 +1,18 @@
 from copy import deepcopy
 import production_config as pc
 
-MAC_LION_MINIS = ['bld-lion-r5-%03d' % x for x in [43,86,92]]
-WIN32_IXS      = []
-WIN64_IXS      = []
-WIN64_REV2     = ['ix-mn-w0864-%03d' % x for x in range(1,3)] + \
-                 ['b-2008-ix-%04d' % x for x in [182, 183]]
-MOCK_DL120G7   = ['b-linux64-hp-%04d' % x for x in range(20,25)]
-LINUX64_EC2    = ['dev-linux64-ec2-%03d' % x for x in range(1, 50)]
+# Import all of our slave information from production.
+SLAVES = deepcopy(pc.SLAVES)
+TRY_SLAVES = deepcopy(pc.TRY_SLAVES)
 
-# XXX JLUND LOCAL DEV STAGING CHANGE
-LINUX64_EC2.append('dev-linux64-ec2-jlund2')
+# Add a small stockpile of AWS dev instances.
+LINUX64_EC2_DEV    = ['dev-linux64-ec2-%03d' % x for x in range(1, 50)]
+SLAVES['mock'].extend(LINUX64_EC2_DEV)
+TRY_SLAVES['mock'].extend(LINUX64_EC2_DEV)
 
-STAGING_SLAVES = {
-    'win32':            WIN32_IXS,
-    'win64':            WIN64_IXS,
-    'win64-rev2':       WIN64_REV2,
-    'macosx64-lion':    MAC_LION_MINIS,
-    'mock':             MOCK_DL120G7 + LINUX64_EC2,
-    'mock-hw':          MOCK_DL120G7,
-}
-
-SLAVES = deepcopy(STAGING_SLAVES)
-
-for p, slaves in pc.SLAVES.items() + pc.TRY_SLAVES.items():
-    if p not in SLAVES:
-        SLAVES[p] = list(slaves)
-    else:
-        SLAVES[p].extend(slaves)
-
-
-TRY_SLAVES = deepcopy(SLAVES)
+WIN64_RELOPS     = ['ix-mn-w0864-%03d' % x for x in range(1,3)]
+SLAVES['win64-rev2'].extend(WIN64_RELOPS)
+TRY_SLAVES['win64-rev2'].extend(WIN64_RELOPS)
 
 GLOBAL_VARS = {
     'staging': True,
@@ -39,14 +21,19 @@ GLOBAL_VARS = {
     'stage_server': 'dev-stage01.srv.releng.scl3.mozilla.com',
     'aus2_host': 'dev-stage01.srv.releng.scl3.mozilla.com',
     'aus2_user': 'ffxbld',
-    'aus2_ssh_key': 'ffxbld_dsa',
+    'aus2_ssh_key': 'ffxbld_rsa',
     'download_base_url': 'http://dev-stage01.srv.releng.scl3.mozilla.com/pub/mozilla.org/firefox',
     'mobile_download_base_url': 'http://dev-stage01.srv.releng.scl3.mozilla.com/pub/mozilla.org/mobile',
     'graph_server': 'graphs.allizom.org',
     'balrog_api_root': 'https://aus4-admin-dev.allizom.org',
     'balrog_username': 'stage-ffxbld',
+<<<<<<< HEAD
     'build_tools_repo_path': 'build/tools',
     'base_clobber_url': 'http://clobberer-stage.pvt.build.mozilla.org/index.php',
+=======
+    'build_tools_repo_path': 'users/stage-ffxbld/tools',
+    'base_clobber_url': 'https://api-pub-build.allizom.org/clobberer/lastclobber',
+>>>>>>> apk-split
     'disable_tinderbox_mail': True,
     # List of talos masters to notify of new builds,
     # and if a failure to notify the talos master should result in a warning,

@@ -1,15 +1,18 @@
-MAC_LION_MINIS = ['bld-lion-r5-%03d' % x for x in range(1,16) + range(41,43) + range(44,69) + \
-                                                  range(70,86) + range(88,92) + range(93,95)]
+MAC_LION_MINIS = ['bld-lion-r5-%03d' % x for x in range(1,16) + range(41,69) + \
+                                                  range(70,87) + range(88,95)]
 LINUX_IXS      = []
 LINUX64_IXS    = []
 WIN32_IXS      = []
 WIN64_IXS      = []
-WIN64_REV2     = ['b-2008-ix-%04i' % x for x in range(1,18) + range(65,89) + range(90,159) + range(161,173)] + \
-                 ['b-2008-sm-%04d' % x for x in range(33, 65)]
-MOCK_DL120G7   = ['b-linux64-hp-%04d' % x for x in range(25,36)]
+WIN64_REV2     = ['b-2008-ix-%04i' % x for x in range(1,18) + range(65,89) + range(90,159) + range(161,173)]
+MOCK_DL120G7   = ['b-linux64-hp-%04d' % x for x in range(20,36)]
 LINUX64_EC2    = ['bld-linux64-ec2-%03d' % x for x in range(1, 50) + range(301, 350)] + \
                  ['bld-linux64-spot-%03d' % x for x in range(1, 300) + range(300, 600)] + \
                  ['bld-linux64-spot-%d' % x for x in range(1000, 1100)]
+
+# XXX JLUND LOCAL DEV STAGING CHANGE
+LINUX64_EC2.append('dev-linux64-ec2-jlund2')
+
 MOCK_IX        = ['b-linux64-ix-%04d' % x for x in range(1, 12)]
 
 if set(WIN64_REV2).intersection(set(WIN64_IXS)):
@@ -36,8 +39,7 @@ TRY_WIN64_IXS  = []
 TRY_LINUX64_EC2 = ['try-linux64-ec2-%03d' % x for x in range(1, 60) + range(301,340)] + \
     ['try-linux64-spot-%03d' % x for x in range(1, 200) + range(300,500)] + \
     ['try-linux64-spot-%d' % x for x in range(1000, 1100)]
-TRY_WIN64_REV2 = ['b-2008-ix-%04i' % x for x in range(18, 65) + range(173,182) + [184]] + \
-                 ['b-2008-sm-%04d' % x for x in range(1, 33)]
+TRY_WIN64_REV2 = ['b-2008-ix-%04i' % x for x in range(18, 65) + range(173,185)]
 TRY_MOCK_DL120G7 = ['b-linux64-hp-%04d' % x for x in range(1, 20)]
 TRY_MOCK_IX      = ['b-linux64-ix-%04d' % x for x in range(12,14)]
 TRY_LION         = ['bld-lion-r5-%03d' % x for x in range(16,37)]
@@ -62,7 +64,7 @@ GLOBAL_VARS = {
     'stage_server': 'stage.mozilla.org',
     'aus2_host': 'aus3-staging.mozilla.org',
     'aus2_user': 'ffxbld',
-    'aus2_ssh_key': 'ffxbld_dsa',
+    'aus2_ssh_key': 'ffxbld_rsa',
     'download_base_url': 'http://ftp.mozilla.org/pub/mozilla.org/firefox',
     'mobile_download_base_url': 'http://ftp.mozilla.org/pub/mozilla.org/mobile',
     'graph_server': 'graphs.mozilla.org',
@@ -220,4 +222,3 @@ if __name__ == "__main__":
         for host_platform in host_info[list_name]:
             for host_name in host_info[list_name][host_platform]:
                 print("%s,%s,%s" % (list_name, host_platform, host_name))
-
