@@ -35,7 +35,6 @@ else:
         'mozilla-b2g28_v1_3t',
         'mozilla-b2g30_v1_4',
         'mozilla-b2g32_v2_0',
-        'try',
         'mozilla-b2g34_v2_1',
     ])
 if 'limit_tb_branches' in master_config:
