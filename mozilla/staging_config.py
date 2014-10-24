@@ -27,13 +27,8 @@ GLOBAL_VARS = {
     'graph_server': 'graphs.allizom.org',
     'balrog_api_root': 'https://aus4-admin-dev.allizom.org',
     'balrog_username': 'stage-ffxbld',
-<<<<<<< HEAD
     'build_tools_repo_path': 'build/tools',
     'base_clobber_url': 'http://clobberer-stage.pvt.build.mozilla.org/index.php',
-=======
-    'build_tools_repo_path': 'users/stage-ffxbld/tools',
-    'base_clobber_url': 'https://api-pub-build.allizom.org/clobberer/lastclobber',
->>>>>>> apk-split
     'disable_tinderbox_mail': True,
     # List of talos masters to notify of new builds,
     # and if a failure to notify the talos master should result in a warning,
