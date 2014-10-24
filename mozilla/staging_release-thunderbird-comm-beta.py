@@ -9,7 +9,7 @@ EMAIL_RECIPIENTS = []
 releaseConfig = {}
 releaseConfig['skip_repo_setup']       = True
 releaseConfig['disable_tinderbox_mail'] = True
-releaseConfig['base_clobber_url'] = 'http://clobberer-stage.pvt.build.mozilla.org/always_clobber.php'
+releaseConfig['base_clobber_url'] = 'https://api-pub-build.allizom.org/clobberer/forceclobber'
 
 # Release Notification
 releaseConfig['AllRecipients']       = EMAIL_RECIPIENTS
@@ -23,8 +23,7 @@ releaseConfig['messagePrefix']       = '[staging-release] '
 releaseConfig['productName']         = 'thunderbird'
 releaseConfig['stage_product']       = 'thunderbird'
 releaseConfig['appName']             = 'mail'
-# MERGE DAY (remove this code once comm-beta no longer services Gecko 33 and lower)
-releaseConfig['mozilla_dir']         = 'mozilla'
+releaseConfig['mozilla_srcdir']      = 'mozilla'
 #  Current version info
 releaseConfig['version']             = '33.0b1'
 releaseConfig['appVersion']          = '33.0'
@@ -105,7 +104,7 @@ releaseConfig['l10nUsePymake']       = True
 
 # Mercurial account
 releaseConfig['hgUsername']          = 'stage-ffxbld'
-releaseConfig['hgSshKey']            = '/home/mock_mozilla/.ssh/ffxbld_dsa'
+releaseConfig['hgSshKey']            = '/home/mock_mozilla/.ssh/ffxbld_rsa'
 
 # Update-specific configuration
 releaseConfig['patcherConfig']       = 'mozBeta-thunderbird-branch-patcher2.cfg'
