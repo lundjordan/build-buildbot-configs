@@ -48,6 +48,9 @@ if set(TRY_WIN64_REV2).intersection(set(TRY_WIN64_IXS)):
 if set(TRY_WIN64_IXS + TRY_WIN64_REV2).intersection(WIN64_IXS + WIN64_REV2):
     raise Exception('(TRY_WIN64_IXS + TRY_WIN64_REV2) and (WIN64_IXS + WIN64_REV2) overlap')
 
+# XXX JLUND LOCAL DEV STAGING CHANGE
+TRY_LINUX64_EC2.append('dev-linux64-ec2-jlund2')
+
 TRY_SLAVES = {
     'win32':       TRY_WIN32_IXS,
     'win64':       TRY_WIN64_IXS,
