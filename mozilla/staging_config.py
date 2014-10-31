@@ -5,6 +5,7 @@ import production_config as pc
 SLAVES = deepcopy(pc.SLAVES)
 TRY_SLAVES = deepcopy(pc.TRY_SLAVES)
 
+
 # Add a small stockpile of AWS dev instances.
 LINUX64_EC2_DEV    = ['dev-linux64-ec2-%03d' % x for x in range(1, 50)]
 SLAVES['mock'].extend(LINUX64_EC2_DEV)
