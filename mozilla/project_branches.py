@@ -222,7 +222,30 @@ PROJECT_BRANCHES = {
         },
     },
     'fig': {},
-    'gum': {},
+    'gum': {
+        'gecko_version': 35,
+        'enable_perproduct_builds': False,
+        'enable_nightly': True,
+        'create_snippet': True,
+        'create_partial': True,
+        'nightly_signing_servers': 'nightly-signing',
+        'l10n_repo_path': 'releases/l10n/mozilla-aurora',
+        'pgo_strategy': 'per-checkin',
+        'enable_mac_a11y': True,
+        'enable_l10n': True,
+        'enable_l10n_onchange': False,
+        'enUS_binaryURL': '/nightly/latest-gum',
+        'l10nNightlyUpdate': True,
+        'l10nDatedDirs': True,
+        'l10n_tree': 'fxrel',
+        'l10n_platforms': ['linux', 'linux64', 'win32', 'macosx64'],
+        # explicitly set the server to avoid using variables
+        'localesURL': 'http://hg.mozilla.org/build/buildbot-configs/raw-file/production/mozilla/l10n/all-locales.mozilla-aurora',
+        'enable_multi_locale': True,
+        'upload_mobile_symbols': True,
+        'enable_valgrind': False,
+        'enabled_products': ['firefox'],
+    },
     'holly': {
         'branch_projects': [],
         'pgo_strategy': None,
@@ -247,6 +270,12 @@ PROJECT_BRANCHES = {
     'larch': {
         'lock_platforms': True,
         'platforms': {
+            # uncomment api-9/10 and delete 'android' / 'android-debug' once bug
+            # 1073772 hits trunk
+            # 'android-api-9': {},
+            # 'android-api-10': {},
+            # 'android-debug-api-9': {},
+            # 'android-debug-api-10': {},
             'android': {},
             'android-x86': {},
             'android-debug': {},
