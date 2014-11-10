@@ -2880,9 +2880,6 @@ for name, branch in BRANCHES.items():
 
 # enable mozharness desktop builds across all twigs
 for name, branch in items_at_least(BRANCHES, 'gecko_version', mc_gecko_version):
-    if name in ('mozilla-central', 'mozilla-inbound', 'b2g-inbound', 'fx-team', 'try'):
-        # only enable on twigs for now
-        continue
     # if true, any platform with mozharness_desktop_build in its config
     # will use mozharness instead of MozillaBuildFactory
     branch['desktop_mozharness_builds_enabled'] = True
