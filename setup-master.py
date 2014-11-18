@@ -205,6 +205,7 @@ def load_masters_json(masters_json, role=None, universal=False, log=None,
                          '*_common.py',
                          '*_project_branches.py',
                          'project_branches.py',
+                         'gecko_versions.json',
                          ],
                          renames=[
                          ('BuildSlaves.py.template', 'BuildSlaves.py'),
@@ -338,7 +339,7 @@ if __name__ == "__main__":
     else:
         loglvl = logging.INFO
 
-    ignored_roles = options.ignored_roles or ["servo"]
+    ignored_roles = options.ignored_roles
 
     log = logging.getLogger('setup-master')
     log.setLevel(logging.DEBUG)
