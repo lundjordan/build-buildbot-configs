@@ -1751,7 +1751,7 @@ for name, branch in items_at_least(BRANCHES, 'gecko_version', 32):
     for platform in branch['platforms']:
         if not platform in PLATFORMS:
             continue
-        if platform not in ('android', 'android-api-9', 'android-api-10'):
+        if platform not in ('android', 'android-api-9'):
             continue
         BRANCHES[name]['platforms'][platform]['ubuntu64_vm_large'] = {
             'opt_unittest_suites': deepcopy(ANDROID_2_3_C3_DICT['opt_unittest_suites']),
