@@ -167,11 +167,14 @@ PROJECT_BRANCHES = {
             'win64-debug': {},
         },
         'mobile_platforms': {
+            'android': {
+                'slave_platforms': ['panda_android', 'ubuntu64_vm_large'],
+            },
             'android-api-9': {
-                'slave_platforms': ['ubuntu64_vm_mobile', 'ubuntu64_vm_large'],
+                'slave_platforms': ['panda_android', 'ubuntu64_vm_large'],
             },
             'android-api-10': {
-                'slave_platforms': ['panda_android'],
+                'slave_platforms': ['panda_android', 'ubuntu64_vm_large'],
             },
             'android-x86': {
                 'enable_opt_unittests': True,
