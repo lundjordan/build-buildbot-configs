@@ -2762,7 +2762,7 @@ for branch in branches:
 branches = BRANCHES.keys()
 branches.extend(ACTIVE_PROJECT_BRANCHES)
 for branch in branches:
-    if branch == 'cedar':
+    if branch in ['cedar', 'ash']:
         # remove the soon to be replaced android builds
         if 'android' in BRANCHES[branch]['platforms']:
             del BRANCHES[branch]['platforms']['android']
