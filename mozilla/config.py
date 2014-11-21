@@ -1516,6 +1516,7 @@ PLATFORM_VARS = {
             'multi_locale': True,
             'multi_locale_script': 'scripts/multil10n.py',
             'tooltool_manifest_src': 'mobile/android/config/tooltool-manifests/android/releng.manifest',
+            'update_platform': 'Android_arm-eabi-gcc3',
         },
         'android-api-10': {
             'product_name': 'firefox',
@@ -1586,6 +1587,7 @@ PLATFORM_VARS = {
             'multi_locale': True,
             'multi_locale_script': 'scripts/multil10n.py',
             'tooltool_manifest_src': 'mobile/android/config/tooltool-manifests/android/releng.manifest',
+            'update_platform': 'Android_arm-eabi-gcc3',
         },
         'android-armv6': {
             'enable_nightly': True,
