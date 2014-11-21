@@ -1734,7 +1734,7 @@ for suite in ANDROID_2_3_MOZHARNESS_DICT:
 branches = BRANCHES.keys()
 for branch_name in branches:
     # for now, let's just enabled the new split on cedar for testing
-    if branch_name in ['cedar', 'ash', 'mozilla-central']:
+    if branch_name in ['cedar', 'ash']:
         # remove original 'android'
         if 'android' in BRANCHES[branch_name]['platforms']:
             del BRANCHES[branch_name]['platforms']['android']
