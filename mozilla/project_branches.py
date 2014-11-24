@@ -95,6 +95,7 @@ PROJECT_BRANCHES = {
         'enable_nightly': True,
         'create_snippet': True,
         'create_partial': True,
+        'create_mobile_snippet': True,
         'mozharness_repo_path': 'build/ash-mozharness',
         'mozharness_repo': 'https://hg.mozilla.org/build/ash-mozharness',
         'mozharness_tag': 'default',
