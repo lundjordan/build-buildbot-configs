@@ -36,12 +36,20 @@ PROJECT_BRANCHES = {
     #    'enable_nightly': True,
     #},
     #####  TWIGS aka RENTABLE BRANCHES
-    # Booked for Thunderbird
-    #'alder': {},
+    'alder': {
+        'lock_platforms': True,
+        'platforms': {
+            'linux32_gecko': {},
+            'linux64_gecko': {},
+            'linux64_gecko-debug': {},
+            'linux64-mulet': {},
+        },
+    },
     'ash': {
         'mozharness_repo_path': 'build/ash-mozharness',
         'mozharness_repo': 'https://hg.mozilla.org/build/ash-mozharness',
         'mozharness_tag': 'default',
+        'use_mozharness_repo_cache': False,
     },
     # Not needed on Birch at the moment, bug 977420.
     #'birch': {},

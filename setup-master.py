@@ -205,6 +205,7 @@ def load_masters_json(masters_json, role=None, universal=False, log=None,
                          '*_common.py',
                          '*_project_branches.py',
                          'project_branches.py',
+                         'gecko_versions.json',
                          ],
                          renames=[
                          ('BuildSlaves.py.template', 'BuildSlaves.py'),
@@ -246,7 +247,7 @@ def load_masters_json(masters_json, role=None, universal=False, log=None,
                 c.local_links.extend(
                     [('staging_release-firefox-mozilla-%s.py' % v,
                       'release-firefox-mozilla-%s.py' % v)
-                     for v in ['beta', 'release', 'esr31']
+                     for v in ['beta', 'release', 'release-34.1', 'esr31']
                      ] +
                     [('staging_release-fennec-mozilla-%s.py' % v,
                       'release-fennec-mozilla-%s.py' % v)
@@ -338,7 +339,7 @@ if __name__ == "__main__":
     else:
         loglvl = logging.INFO
 
-    ignored_roles = options.ignored_roles or ["servo"]
+    ignored_roles = options.ignored_roles
 
     log = logging.getLogger('setup-master')
     log.setLevel(logging.DEBUG)

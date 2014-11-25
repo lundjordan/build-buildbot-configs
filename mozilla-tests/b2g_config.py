@@ -31,6 +31,14 @@ GLOBAL_VARS['stage_username'] = 'ffxbld'
 GLOBAL_VARS.update(b2g_localconfig.GLOBAL_VARS.copy())
 
 BRANCHES = {
+    'alder': {
+        'lock_platforms': True,
+        'platforms': {
+            'linux32_gecko': {},
+            'linux64_gecko': {},
+            'linux64-mulet': {},
+        },
+    },
     'ash': {},
     # Not needed right now, see bug 977420
     # 'birch': {},
@@ -308,7 +316,37 @@ MOCHITEST_MULET_PLAIN = [
 ]
 
 REFTEST_MULET = [
-    ('reftest', {
+    ('reftest-1', {
+        'suite': 'reftest',
+        'use_mozharness': True,
+        'script_path': 'scripts/mulet_unittest.py',
+        'blob_upload': True,
+    }),
+    ('reftest-2', {
+        'suite': 'reftest',
+        'use_mozharness': True,
+        'script_path': 'scripts/mulet_unittest.py',
+        'blob_upload': True,
+    }),
+    ('reftest-3', {
+        'suite': 'reftest',
+        'use_mozharness': True,
+        'script_path': 'scripts/mulet_unittest.py',
+        'blob_upload': True,
+    }),
+    ('reftest-4', {
+        'suite': 'reftest',
+        'use_mozharness': True,
+        'script_path': 'scripts/mulet_unittest.py',
+        'blob_upload': True,
+    }),
+    ('reftest-5', {
+        'suite': 'reftest',
+        'use_mozharness': True,
+        'script_path': 'scripts/mulet_unittest.py',
+        'blob_upload': True,
+    }),
+    ('reftest-6', {
         'suite': 'reftest',
         'use_mozharness': True,
         'script_path': 'scripts/mulet_unittest.py',
@@ -944,12 +982,58 @@ PLATFORM_UNITTEST_VARS = {
                       '--mochitest-suite', 'plain-chunked',
                     ]
                 },
-                'reftest': {
+                'reftest-1': {
                     'extra_args': [
                       '--cfg', 'b2g/generic_config.py',
                       '--cfg', 'b2g/mulet_config.py',
                       '--test-suite', 'reftest',
                       '--test-manifest', 'tests/layout/reftests/reftest.list',
+                      '--total-chunks', 6, '--this-chunk', 1,
+                    ]
+                },
+                'reftest-2': {
+                    'extra_args': [
+                      '--cfg', 'b2g/generic_config.py',
+                      '--cfg', 'b2g/mulet_config.py',
+                      '--test-suite', 'reftest',
+                      '--test-manifest', 'tests/layout/reftests/reftest.list',
+                      '--total-chunks', 6, '--this-chunk', 2,
+                    ]
+                },
+                'reftest-3': {
+                    'extra_args': [
+                      '--cfg', 'b2g/generic_config.py',
+                      '--cfg', 'b2g/mulet_config.py',
+                      '--test-suite', 'reftest',
+                      '--test-manifest', 'tests/layout/reftests/reftest.list',
+                      '--total-chunks', 6, '--this-chunk', 3,
+                    ]
+                },
+                'reftest-4': {
+                    'extra_args': [
+                      '--cfg', 'b2g/generic_config.py',
+                      '--cfg', 'b2g/mulet_config.py',
+                      '--test-suite', 'reftest',
+                      '--test-manifest', 'tests/layout/reftests/reftest.list',
+                      '--total-chunks', 6, '--this-chunk', 4,
+                    ]
+                },
+                'reftest-5': {
+                    'extra_args': [
+                      '--cfg', 'b2g/generic_config.py',
+                      '--cfg', 'b2g/mulet_config.py',
+                      '--test-suite', 'reftest',
+                      '--test-manifest', 'tests/layout/reftests/reftest.list',
+                      '--total-chunks', 6, '--this-chunk', 5,
+                    ]
+                },
+                'reftest-6': {
+                    'extra_args': [
+                      '--cfg', 'b2g/generic_config.py',
+                      '--cfg', 'b2g/mulet_config.py',
+                      '--test-suite', 'reftest',
+                      '--test-manifest', 'tests/layout/reftests/reftest.list',
+                      '--total-chunks', 6, '--this-chunk', 6,
                     ]
                 },
             },
@@ -2100,6 +2184,8 @@ for branch in BRANCHES.keys():
 
 # The following are exceptions to the defaults
 
+BRANCHES['alder']['branch_name'] = "Alder"
+BRANCHES['alder']['repo_path'] = "projects/alder"
 BRANCHES['ash']['branch_name'] = "Ash"
 BRANCHES['ash']['repo_path'] = "projects/ash"
 BRANCHES['ash']['mozharness_repo'] = "https://hg.mozilla.org/build/ash-mozharness"
