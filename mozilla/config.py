@@ -2830,20 +2830,20 @@ for name, branch in BRANCHES.items():
 branches = BRANCHES.keys()
 for name, branch in items_at_least(BRANCHES, 'gecko_version', 36):
     # remove the soon to be replaced android builds
-    if 'android' in BRANCHES[branch]['platforms']:
-        del BRANCHES[branch]['platforms']['android']
-    if 'android-debug' in BRANCHES[branch]['platforms']:
-        del BRANCHES[branch]['platforms']['android-debug']
+    if 'android' in branch['platforms']:
+        del branch['platforms']['android']
+    if 'android-debug' in branch['platforms']:
+        del branch['platforms']['android-debug']
     continue
 for name, branch in items_before(BRANCHES, 'gecko_version', 36):
-    if 'android-api-9' in BRANCHES[branch]['platforms']:
-        del BRANCHES[branch]['platforms']['android-api-9']
-    if 'android-api-10' in BRANCHES[branch]['platforms']:
-        del BRANCHES[branch]['platforms']['android-api-10']
-    if 'android-debug-api-9' in BRANCHES[branch]['platforms']:
-        del BRANCHES[branch]['platforms']['android-debug-api-9']
-    if 'android-debug-api-10' in BRANCHES[branch]['platforms']:
-        del BRANCHES[branch]['platforms']['android-debug-api-10']
+    if 'android-api-9' in branch['platforms']:
+        del branch['platforms']['android-api-9']
+    if 'android-api-10' in branch['platforms']:
+        del branch['platforms']['android-api-10']
+    if 'android-debug-api-9' in branch['platforms']:
+        del branch['platforms']['android-debug-api-9']
+    if 'android-debug-api-10' in branch['platforms']:
+        del branch['platforms']['android-debug-api-10']
 
 # Don't schedule non-unified builds anywhere except on m-c and derived branches
 mc_gecko_version = BRANCHES['mozilla-central']['gecko_version']
