@@ -2828,13 +2828,14 @@ for name, branch in BRANCHES.items():
 # Bug 1073772 - Releng work for producing two ARMv7 APKs to target different API ranges
 # split apk rides the trains
 branches = BRANCHES.keys()
-for name, branch in items_at_least(BRANCHES, 'gecko_version', 36):
-    # remove the soon to be replaced android builds
-    if 'android' in branch['platforms']:
-        del branch['platforms']['android']
-    if 'android-debug' in branch['platforms']:
-        del branch['platforms']['android-debug']
-    continue
+# XXX JLUND HACK - let's keep old non-split builds for testing purposes
+# for name, branch in items_at_least(BRANCHES, 'gecko_version', 36):
+#     # remove the soon to be replaced android builds
+#     if 'android' in branch['platforms']:
+#         del branch['platforms']['android']
+#     if 'android-debug' in branch['platforms']:
+#         del branch['platforms']['android-debug']
+#     continue
 for name, branch in items_before(BRANCHES, 'gecko_version', 36):
     if 'android-api-9' in branch['platforms']:
         del branch['platforms']['android-api-9']
