@@ -2829,13 +2829,12 @@ for name, branch in BRANCHES.items():
 # split apk rides the trains
 branches = BRANCHES.keys()
 for name, branch in items_at_least(BRANCHES, 'gecko_version', 36):
-    # XXX JLUND HACK - let's keep all the old non-split builds for testing
-    # # remove the soon to be replaced android builds
-    # if 'android' in BRANCHES[branch]['platforms']:
-    #     del BRANCHES[branch]['platforms']['android']
-    # if 'android-debug' in BRANCHES[branch]['platforms']:
-    #     del BRANCHES[branch]['platforms']['android-debug']
-    # continue
+    # remove the soon to be replaced android builds
+    if 'android' in BRANCHES[branch]['platforms']:
+        del BRANCHES[branch]['platforms']['android']
+    if 'android-debug' in BRANCHES[branch]['platforms']:
+        del BRANCHES[branch]['platforms']['android-debug']
+    continue
 for name, branch in items_before(BRANCHES, 'gecko_version', 36):
     if 'android-api-9' in BRANCHES[branch]['platforms']:
         del BRANCHES[branch]['platforms']['android-api-9']
