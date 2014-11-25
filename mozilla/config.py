@@ -39,10 +39,11 @@ GLOBAL_VARS = {
     'compare_locales_repo_path': 'build/compare-locales',
     'compare_locales_tag': 'RELEASE_AUTOMATION',
     # XXX JLUND
-    # 'mozharness_repo_path': 'build/mozharness',
-    # 'mozharness_tag': 'production',
-    'mozharness_repo_path': 'users/jlund_mozilla.com/mozharness',
-    'mozharness_tag': 'default',
+    # 'mozharness_repo_path': 'users/jlund_mozilla.com/mozharness',
+    # 'mozharness_tag': 'default',
+    'mozharness_repo_path': 'build/mozharness',
+    'mozharness_tag': 'production',
+    'use_mozharness_repo_cache': True,  # ash overwrites this
     'multi_locale_merge': True,
     'default_build_space': 5,
     'default_l10n_space': 3,
@@ -132,6 +133,7 @@ GLOBAL_VARS = {
         'linux', 'linux64', 'macosx64'
     ],
     # bug 1027890: excluding win32/win64 for now
+
 }
 GLOBAL_VARS.update(localconfig.GLOBAL_VARS.copy())
 
@@ -150,8 +152,12 @@ GLOBAL_ENV = {
 PLATFORM_VARS = {
         'linux': {
             'mozharness_python': '/tools/buildbot/bin/python',
-            'reboot_command': ['scripts/external_tools/count_and_reboot.py',
-                               '-f', '../reboot_count.txt', '-n', '1', '-z'],
+            'reboot_command': [
+                '/tools/checkouts/mozharness/external_tools/count_and_reboot.py',
+                '-f', '../reboot_count.txt', '-n', '1', '-z'
+            ],
+            'mozharness_repo_cache': '/tools/checkouts/mozharness',
+            'tools_repo_cache': '/tools/checkouts/build-tools',
             'mozharness_desktop_build': {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
@@ -264,8 +270,12 @@ PLATFORM_VARS = {
         },
         'linux64': {
             'mozharness_python': '/tools/buildbot/bin/python',
-            'reboot_command': ['scripts/external_tools/count_and_reboot.py',
-                               '-f', '../reboot_count.txt', '-n', '1', '-z'],
+            'reboot_command': [
+                '/tools/checkouts/mozharness/external_tools/count_and_reboot.py',
+                '-f', '../reboot_count.txt', '-n', '1', '-z'
+            ],
+            'mozharness_repo_cache': '/tools/checkouts/mozharness',
+            'tools_repo_cache': '/tools/checkouts/build-tools',
             'mozharness_desktop_build': {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
@@ -367,8 +377,12 @@ PLATFORM_VARS = {
         },
         'linux64-asan': {
             'mozharness_python': '/tools/buildbot/bin/python',
-            'reboot_command': ['scripts/external_tools/count_and_reboot.py',
-                               '-f', '../reboot_count.txt','-n', '1', '-z'],
+            'reboot_command': [
+                '/tools/checkouts/mozharness/external_tools/count_and_reboot.py',
+                '-f', '../reboot_count.txt', '-n', '1', '-z'
+            ],
+            'mozharness_repo_cache': '/tools/checkouts/mozharness',
+            'tools_repo_cache': '/tools/checkouts/build-tools',
             'mozharness_desktop_build': {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
@@ -459,8 +473,12 @@ PLATFORM_VARS = {
         },
         'linux64-asan-debug': {
             'mozharness_python': '/tools/buildbot/bin/python',
-            'reboot_command': ['scripts/external_tools/count_and_reboot.py',
-                               '-f', '../reboot_count.txt','-n', '1', '-z'],
+            'reboot_command': [
+                '/tools/checkouts/mozharness/external_tools/count_and_reboot.py',
+                '-f', '../reboot_count.txt', '-n', '1', '-z'
+            ],
+            'mozharness_repo_cache': '/tools/checkouts/mozharness',
+            'tools_repo_cache': '/tools/checkouts/build-tools',
             'mozharness_desktop_build': {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
@@ -552,8 +570,12 @@ PLATFORM_VARS = {
         },
         'linux64-st-an-debug': {
             'mozharness_python': '/tools/buildbot/bin/python',
-            'reboot_command': ['scripts/external_tools/count_and_reboot.py',
-                               '-f', '../reboot_count.txt','-n', '1', '-z'],
+            'reboot_command': [
+                '/tools/checkouts/mozharness/external_tools/count_and_reboot.py',
+                '-f', '../reboot_count.txt', '-n', '1', '-z'
+            ],
+            'mozharness_repo_cache': '/tools/checkouts/mozharness',
+            'tools_repo_cache': '/tools/checkouts/build-tools',
             'mozharness_desktop_build': {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
@@ -650,6 +672,11 @@ PLATFORM_VARS = {
                     '--config-file', 'hazards/build_shell.py',
                     '--config-file', 'hazards/common.py',
                 ],
+                'mozharness_repo_cache': '/tools/checkouts/mozharness',
+                'tools_repo_cache': '/tools/checkouts/build-tools',
+            },
+            'env': {
+                'HG_SHARE_BASE_DIR': '/builds/hg-shared',
             },
             'stage_product': 'firefox',
             'product_name': 'firefox',
@@ -666,8 +693,13 @@ PLATFORM_VARS = {
                     '--config-file', 'hazards/build_browser.py',
                     '--config-file', 'hazards/common.py',
                 ],
+                'mozharness_repo_cache': '/tools/checkouts/mozharness',
+                'tools_repo_cache': '/tools/checkouts/build-tools',
             },
 
+            'env': {
+                'HG_SHARE_BASE_DIR': '/builds/hg-shared',
+            },
             'stage_product': 'firefox',
             'product_name': 'firefox',
             'base_name': '%(platform)s_%(branch)s',
@@ -995,8 +1027,12 @@ PLATFORM_VARS = {
         },
         'linux-debug': {
             'mozharness_python': '/tools/buildbot/bin/python',
-            'reboot_command': ['scripts/external_tools/count_and_reboot.py',
-                               '-f', '../reboot_count.txt','-n', '1', '-z'],
+            'reboot_command': [
+                '/tools/checkouts/mozharness/external_tools/count_and_reboot.py',
+                '-f', '../reboot_count.txt', '-n', '1', '-z'
+            ],
+            'mozharness_repo_cache': '/tools/checkouts/mozharness',
+            'tools_repo_cache': '/tools/checkouts/build-tools',
             'mozharness_desktop_build': {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
@@ -1094,8 +1130,12 @@ PLATFORM_VARS = {
         },
         'linux64-debug': {
             'mozharness_python': '/tools/buildbot/bin/python',
-            'reboot_command': ['scripts/external_tools/count_and_reboot.py',
-                               '-f', '../reboot_count.txt','-n', '1', '-z'],
+            'reboot_command': [
+                '/tools/checkouts/mozharness/external_tools/count_and_reboot.py',
+                '-f', '../reboot_count.txt', '-n', '1', '-z'
+            ],
+            'mozharness_repo_cache': '/tools/checkouts/mozharness',
+            'tools_repo_cache': '/tools/checkouts/build-tools',
             'mozharness_desktop_build': {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
@@ -1459,7 +1499,7 @@ PLATFORM_VARS = {
                 'SYMBOL_SERVER_HOST': localconfig.SYMBOL_SERVER_HOST,
                 'SYMBOL_SERVER_USER': 'ffxbld',
                 'SYMBOL_SERVER_PATH': SYMBOL_SERVER_MOBILE_PATH,
-                'SYMBOL_SERVER_SSH_KEY': "/home/mock_mozilla/.ssh/ffxbld_dsa",
+                'SYMBOL_SERVER_SSH_KEY': "/home/mock_mozilla/.ssh/ffxbld_rsa",
                 'POST_SYMBOL_UPLOAD_CMD': SYMBOL_SERVER_POST_UPLOAD_CMD,
                 'SHIP_LICENSED_FONTS': '1',
                 'CCACHE_DIR': '/builds/ccache',
@@ -1479,6 +1519,7 @@ PLATFORM_VARS = {
             'multi_locale': True,
             'multi_locale_script': 'scripts/multil10n.py',
             'tooltool_manifest_src': 'mobile/android/config/tooltool-manifests/android/releng.manifest',
+            'update_platform': 'Android_arm-eabi-gcc3',
         },
         'android-api-10': {
             'product_name': 'firefox',
@@ -1529,7 +1570,7 @@ PLATFORM_VARS = {
                 'SYMBOL_SERVER_HOST': localconfig.SYMBOL_SERVER_HOST,
                 'SYMBOL_SERVER_USER': 'ffxbld',
                 'SYMBOL_SERVER_PATH': SYMBOL_SERVER_MOBILE_PATH,
-                'SYMBOL_SERVER_SSH_KEY': "/home/mock_mozilla/.ssh/ffxbld_dsa",
+                'SYMBOL_SERVER_SSH_KEY': "/home/mock_mozilla/.ssh/ffxbld_rsa",
                 'POST_SYMBOL_UPLOAD_CMD': SYMBOL_SERVER_POST_UPLOAD_CMD,
                 'SHIP_LICENSED_FONTS': '1',
                 'CCACHE_DIR': '/builds/ccache',
@@ -1549,6 +1590,7 @@ PLATFORM_VARS = {
             'multi_locale': True,
             'multi_locale_script': 'scripts/multil10n.py',
             'tooltool_manifest_src': 'mobile/android/config/tooltool-manifests/android/releng.manifest',
+            'update_platform': 'Android_arm-eabi-gcc3',
         },
         'android-armv6': {
             'enable_nightly': True,
@@ -1797,7 +1839,7 @@ PLATFORM_VARS = {
                 'SYMBOL_SERVER_HOST': localconfig.SYMBOL_SERVER_HOST,
                 'SYMBOL_SERVER_USER': 'ffxbld',
                 'SYMBOL_SERVER_PATH': SYMBOL_SERVER_MOBILE_PATH,
-                'SYMBOL_SERVER_SSH_KEY': "/home/mock_mozilla/.ssh/ffxbld_dsa",
+                'SYMBOL_SERVER_SSH_KEY': "/home/mock_mozilla/.ssh/ffxbld_rsa",
                 'POST_SYMBOL_UPLOAD_CMD': SYMBOL_SERVER_POST_UPLOAD_CMD,
                 'SHIP_LICENSED_FONTS': '1',
                 'CCACHE_DIR': '/builds/ccache',
@@ -1863,7 +1905,7 @@ PLATFORM_VARS = {
                 'SYMBOL_SERVER_HOST': localconfig.SYMBOL_SERVER_HOST,
                 'SYMBOL_SERVER_USER': 'ffxbld',
                 'SYMBOL_SERVER_PATH': SYMBOL_SERVER_MOBILE_PATH,
-                'SYMBOL_SERVER_SSH_KEY': "/home/mock_mozilla/.ssh/ffxbld_dsa",
+                'SYMBOL_SERVER_SSH_KEY': "/home/mock_mozilla/.ssh/ffxbld_rsa",
                 'POST_SYMBOL_UPLOAD_CMD': SYMBOL_SERVER_POST_UPLOAD_CMD,
                 'SHIP_LICENSED_FONTS': '1',
                 'CCACHE_DIR': '/builds/ccache',
@@ -2037,6 +2079,10 @@ BRANCHES = {
     },
     'mozilla-release': {
         'branch_projects': []
+    },
+    'mozilla-release-34.1': {
+        'branch_projects': [],
+        'gecko_version': 34,
     },
     'mozilla-beta': {
         'branch_projects': []
@@ -2281,6 +2327,13 @@ BRANCHES['mozilla-central']['platforms']['android-api-9']['nightly_signing_serve
 BRANCHES['mozilla-central']['platforms']['android-api-10']['nightly_signing_servers'] = 'nightly-signing'
 BRANCHES['mozilla-central']['platforms']['macosx64']['nightly_signing_servers'] = 'nightly-signing'
 BRANCHES['mozilla-central']['l10n_extra_configure_args'] = ['--with-macbundlename-prefix=Firefox']
+
+######## mozilla-release-34.1
+BRANCHES['mozilla-release-34.1']['repo_path'] = 'releases/mozilla-release'
+BRANCHES['mozilla-release-34.1']['enable_l10n'] = False
+BRANCHES['mozilla-release-34.1']['start_hour'] = [0]
+BRANCHES['mozilla-release-34.1']['start_minute'] = [0]
+BRANCHES['mozilla-release-34.1']['aus2_base_upload_dir'] = 'fake'
 
 ######## mozilla-release
 BRANCHES['mozilla-release']['repo_path'] = 'releases/mozilla-release'
@@ -2718,7 +2771,7 @@ for branch in branches:
 branches = BRANCHES.keys()
 branches.extend(ACTIVE_PROJECT_BRANCHES)
 for branch in branches:
-    if branch == 'cedar':
+    if branch in ['cedar', 'ash']:
         # remove the soon to be replaced android builds
         if 'android' in BRANCHES[branch]['platforms']:
             del BRANCHES[branch]['platforms']['android']
@@ -2845,11 +2898,8 @@ for name, branch in BRANCHES.items():
         if "mozharness_desktop_l10n" in p:
             del p["mozharness_desktop_l10n"]
 
-# enable mozharness desktop builds across all twigs
+# enable mozharness desktop builds across m-c and related branches
 for name, branch in items_at_least(BRANCHES, 'gecko_version', mc_gecko_version):
-    if name in ('mozilla-central', 'mozilla-inbound', 'b2g-inbound', 'fx-team'):
-        # only enable on twigs for now
-        continue
     # if true, any platform with mozharness_desktop_build in its config
     # will use mozharness instead of MozillaBuildFactory
     branch['desktop_mozharness_builds_enabled'] = True

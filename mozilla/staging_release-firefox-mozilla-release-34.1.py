@@ -7,9 +7,11 @@
 EMAIL_RECIPIENTS = []
 
 releaseConfig = {}
-releaseConfig['skip_repo_setup']       = True
+releaseConfig['skip_repo_setup']        = True
 releaseConfig['disable_tinderbox_mail'] = True
 releaseConfig['base_clobber_url'] = 'https://api-pub-build.allizom.org/clobberer/forceclobber'
+
+releaseConfig["skip_updates"] =  True
 
 # Release Notification
 releaseConfig['AllRecipients']       = EMAIL_RECIPIENTS
@@ -20,24 +22,23 @@ releaseConfig['messagePrefix']       = '[staging-release] '
 
 # Basic product configuration
 #  Names for the product/files
-releaseConfig['productName']         = 'thunderbird'
-releaseConfig['stage_product']       = 'thunderbird'
-releaseConfig['appName']             = 'mail'
-releaseConfig['mozilla_srcdir']      = 'mozilla'
+releaseConfig['productName']         = 'firefox'
+releaseConfig['stage_product']       = 'firefox'
+releaseConfig['appName']             = 'browser'
 #  Current version info
-releaseConfig['version']             = '{{ version }}'
-releaseConfig['appVersion']          = '{{ appVersion }}'
+releaseConfig['version']             = '32.0.1'
+releaseConfig['appVersion']          = '32.0.1'
 releaseConfig['milestone']           = releaseConfig['appVersion']
-releaseConfig['buildNumber']         = {{ buildNumber }}
-releaseConfig['baseTag']             = '{{ baseTag }}'
+releaseConfig['buildNumber']         = 2
+releaseConfig['baseTag']             = 'FIREFOX_32_0_1'
 releaseConfig['partialUpdates']      = {
-{% for version, partial in partials.items() %}
-    '{{ version }}': {
-        'appVersion': '{{ partial['appVersion'] }}',
-        'buildNumber': {{ partial['buildNumber'] }},
-        'baseTag': '{{ partial['baseTag'] }}',
+
+    '31.0': {
+        'appVersion': '31.0',
+        'buildNumber': 1,
+        'baseTag': 'FIREFOX_31_0',
     },
-{% endfor %}
+
 }
 #  Next (nightly) version info
 releaseConfig['nextAppVersion']      = releaseConfig['appVersion']
@@ -46,109 +47,113 @@ releaseConfig['nextMilestone']       = releaseConfig['milestone']
 ## Staging repository path
 releaseConfig['userRepoRoot'] = 'users/stage-ffxbld'
 releaseConfig['sourceRepositories']  = {
-    'comm': {
-        'name': 'comm-beta',
-        'clonePath': 'releases/comm-beta',
-        'path': '{{ branch }}',
-        'revision': '{{ commRevision }}',
-        'relbranch': {% if commRelbranch %}'{{ commRelbranch }}'{% else %}None{% endif %},
+    'mozilla': {
+        'name': 'mozilla-release-34.1',
+        'clonePath': 'releases/mozilla-release',
+        'path': 'users/stage-ffxbld/mozilla-release',
+        'revision': 'default',
+        'relbranch': None,
         'bumpFiles': {
-            'mail/config/version.txt': {
+            'browser/config/version.txt': {
                 'version': releaseConfig['appVersion'],
                 'nextVersion': releaseConfig['nextAppVersion']
             },
-        }
-    },
-    'mozilla': {
-        'name': 'mozilla-beta',
-        'clonePath': 'releases/mozilla-beta',
-        'path': 'users/stage-ffxbld/mozilla-beta',
-        'revision': '{{ mozillaRevision }}',
-        'relbranch': {% if mozillaRelbranch %}'{{ mozillaRelbranch }}'{% else %}None{% endif %},
-        'bumpFiles': {
             'config/milestone.txt': {
                 'version': releaseConfig['milestone'],
                 'nextVersion': releaseConfig['nextMilestone']
             },
-        },
+        }
     }
 }
 #  L10n repositories
 releaseConfig['l10nRelbranch']       = None
-releaseConfig['l10nRepoClonePath']   = 'releases/l10n/mozilla-beta'
+releaseConfig['l10nRepoClonePath']   = 'releases/l10n/mozilla-release'
 releaseConfig['l10nRepoPath']        = 'users/stage-ffxbld'
-releaseConfig['l10nRevisionFile']    = 'l10n-changesets_thunderbird-beta'
+releaseConfig['l10nRevisionFile']    = 'l10n-changesets_mozilla-release-34.1'
 #  Support repositories
 releaseConfig['otherReposToTag']     = {
     'users/stage-ffxbld/compare-locales': 'RELEASE_AUTOMATION',
     'users/stage-ffxbld/buildbot': 'production-0.8',
+    'users/stage-ffxbld/partner-repacks': 'default',
     'users/stage-ffxbld/mozharness': 'production',
 }
 
 # Platform configuration
 releaseConfig['enUSPlatforms']       = ('linux', 'linux64', 'win32', 'macosx64')
-releaseConfig['notifyPlatforms']     = releaseConfig['enUSPlatforms']
-releaseConfig['talosTestPlatforms']  = ()
-releaseConfig['xulrunnerPlatforms']  = ()
+releaseConfig['notifyPlatforms']     = ('linux', 'linux64', 'win32', 'macosx64')
+releaseConfig['talosTestPlatforms']  = releaseConfig['enUSPlatforms']
+releaseConfig['xulrunnerPlatforms']  = releaseConfig['enUSPlatforms']
 
 # Unittests
 releaseConfig['unittestPlatforms']   = ()
-releaseConfig['enableUnittests']     = False
+releaseConfig['enableUnittests'] = True
 
 # L10n configuration
 releaseConfig['l10nPlatforms']       = releaseConfig['enUSPlatforms']
-releaseConfig['shippedLocalesPath']  = 'mail/locales/shipped-locales'
+releaseConfig['shippedLocalesPath']  = 'browser/locales/shipped-locales'
 releaseConfig['l10nChunks']          = 6
 releaseConfig['mergeLocales']        = True
 releaseConfig['l10nUsePymake']       = True
 
 # Mercurial account
 releaseConfig['hgUsername']          = 'stage-ffxbld'
-releaseConfig['hgSshKey']            = '/home/mock_mozilla/.ssh/tbirdbld_dsa'
+releaseConfig['hgSshKey']            = '/home/mock_mozilla/.ssh/ffxbld_rsa'
 
 # Update-specific configuration
-releaseConfig['patcherConfig']       = 'mozBeta-thunderbird-branch-patcher2.cfg'
+releaseConfig['patcherConfig']       = 'mozRelease-34.1-branch-patcher2.cfg'
 releaseConfig['ftpServer']           = 'dev-stage01.srv.releng.scl3.mozilla.com'
 releaseConfig['stagingServer']       = 'dev-stage01.srv.releng.scl3.mozilla.com'
 releaseConfig['previousReleasesStagingServer'] = 'stage.mozilla.org'
 releaseConfig['bouncerServer']       = 'download.mozilla.org'
 releaseConfig['ausServerUrl']        = 'http://dev-stage01.srv.releng.scl3.mozilla.com'
 releaseConfig['ausHost']             = 'dev-stage01.srv.releng.scl3.mozilla.com'
-releaseConfig['ausUser']             = 'tbirdbld'
-releaseConfig['ausSshKey']           = 'tbirdbld_dsa'
-releaseConfig['releaseNotesUrl']     = 'http://live.mozillamessaging.com/thunderbird/releasenotes?locale=%locale%&platform=%platform%&version=%version%'
+releaseConfig['ausUser']             = 'ffxbld'
+releaseConfig['ausSshKey']           = 'ffxbld_rsa'
+releaseConfig['releaseNotesUrl']     = None
 releaseConfig['testOlderPartials']   = False
-releaseConfig['promptWaitTime']      = {{ promptWaitTime }}
+releaseConfig['promptWaitTime']      = None
 releaseConfig['verifyConfigs']       = {
-    'linux':  'mozBeta-thunderbird-linux.cfg',
-    'linux64':  'mozBeta-thunderbird-linux64.cfg',
-    'macosx64': 'mozBeta-thunderbird-mac64.cfg',
-    'win32':  'mozBeta-thunderbird-win32.cfg'
+    'linux':  'mozRelease-34.1-firefox-linux.cfg',
+    'linux64':  'mozRelease-34.1-firefox-linux64.cfg',
+    'macosx64': 'mozRelease-34.1-firefox-mac64.cfg',
+    'win32':  'mozRelease-34.1-firefox-win32.cfg'
 }
 releaseConfig['mozconfigs']          = {
-    'linux': 'mail/config/mozconfigs/linux32/release',
-    'linux64': 'mail/config/mozconfigs/linux64/release',
-    'macosx64': 'mail/config/mozconfigs/macosx-universal/release',
-    'win32': 'mail/config/mozconfigs/win32/release',
+    'linux': 'browser/config/mozconfigs/linux32/release',
+    'linux64': 'browser/config/mozconfigs/linux64/release',
+    'macosx64': 'browser/config/mozconfigs/macosx-universal/release',
+    'win32': 'browser/config/mozconfigs/win32/release',
 }
-releaseConfig['releaseChannel']        = 'beta'
-releaseConfig['releaseChannelRuleIds'] = [33]
-releaseConfig['localTestChannel']      = 'beta-localtest'
-releaseConfig['cdnTestChannel']        = 'beta-cdntest'
-releaseConfig['testChannelRuleIds']    = [21,43]
+releaseConfig['xulrunner_mozconfigs']          = {
+    'linux': 'xulrunner/config/mozconfigs/linux32/release',
+    'linux64': 'xulrunner/config/mozconfigs/linux64/release',
+    'macosx64': 'xulrunner/config/mozconfigs/macosx-universal/release',
+    'win32': 'xulrunner/config/mozconfigs/win32/release',
+}
+releaseConfig['releaseChannel']        = 'release'
+releaseConfig['releaseChannelRuleIds'] = [31]
+releaseConfig['localTestChannel']      = 'betatest'
+releaseConfig['cdnTestChannel']        = 'releasetest'
+releaseConfig['testChannelRuleIds']    = [19,20]
 
 # Partner repack configuration
-releaseConfig['doPartnerRepacks']    = False
+releaseConfig['doPartnerRepacks']    = True
 releaseConfig['partnersRepoPath']    = 'users/stage-ffxbld/partner-repacks'
+releaseConfig['syncPartnerBundles']  = True
 
 # Tuxedo/Bouncer configuration
 releaseConfig['tuxedoServerUrl']     = 'https://bounceradmin.allizom.org/api'
-releaseConfig['bouncer_submitter_config'] = 'releases/bouncer_thunderbird.py'
+releaseConfig['bouncer_submitter_config'] = 'releases/bouncer_firefox_release.py'
 
 # Misc configuration
+releaseConfig['makeIndexFiles'] = True
 releaseConfig['enable_repo_setup'] = False
 releaseConfig['build_tools_repo_path'] = "users/stage-ffxbld/tools"
-releaseConfig['enableAutomaticPushToMirrors'] = True
 releaseConfig['use_mock'] = True
 releaseConfig['mock_platforms'] = ('linux','linux64')
-releaseConfig['ftpSymlinkName'] = 'latest-beta'
+releaseConfig['ftpSymlinkName'] = 'latest'
+releaseConfig['bouncer_aliases'] = {
+    'Firefox-%(version)s': 'firefox-latest',
+    'Firefox-%(version)s-stub': 'firefox-stub',
+    'Firefox-%(version)s-EUBallot': 'firefox-latest-euballot',
+}
