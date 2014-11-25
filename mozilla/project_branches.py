@@ -226,13 +226,10 @@ PROJECT_BRANCHES = {
     'larch': {
         'lock_platforms': True,
         'platforms': {
-            # uncomment api-9/10 and delete 'android' / 'android-debug' once bug
-            # 1073772 hits trunk
-            # 'android-api-9': {},
-            # 'android-api-10': {},
-            # 'android-debug-api-9': {},
-            # 'android-debug-api-10': {},
-            'android': {},
+            'android-api-9': {},
+            'android-api-10': {},
+            'android-debug-api-9': {},
+            'android-debug-api-10': {},
             'android-x86': {},
             'android-debug': {},
         },
