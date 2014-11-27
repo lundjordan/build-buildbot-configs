@@ -26,7 +26,7 @@ releaseConfig['relbranchPrefix']     = 'MOBILE'
 releaseConfig['version']             = '34.0'
 releaseConfig['appVersion']          = '34.0'
 releaseConfig['milestone']           = releaseConfig['appVersion']
-releaseConfig['buildNumber']         = 1
+releaseConfig['buildNumber']         = 3
 releaseConfig['baseTag']             = 'FENNEC_34_0'
 #  Next (nightly) version info
 releaseConfig['nextAppVersion']      = releaseConfig['version']
@@ -36,7 +36,7 @@ releaseConfig['sourceRepositories']  = {
     'mobile': {
         'name': 'mozilla-release',
         'path': 'releases/mozilla-release',
-        'revision': 'ccf5187eb227',
+        'revision': '1433202c33b9',
         'relbranch': None,
         'bumpFiles': {
             'mobile/android/confvars.sh': {
@@ -163,3 +163,4 @@ releaseConfig['bouncerServer']       = 'download.mozilla.org'
 releaseConfig['bouncer_aliases'] = {
     'Fennec-%(version)s': 'fennec-latest',
 }
+releaseConfig['skip_updates']        = True
