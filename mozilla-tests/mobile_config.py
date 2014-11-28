@@ -1731,14 +1731,14 @@ for suite in ANDROID_2_3_MOZHARNESS_DICT:
         ANDROID_2_3_AWS_DICT['opt_unittest_suites'].append(suite)
 
 # bug 1073772 - enable new apk split builders will ride the trains
-for name, branch in items_at_least(BRANCHES, 'gecko_version', 36):
+for name, branch in items_at_least(BRANCHES, 'gecko_version', 37):
     # remove the soon to be replaced android builds
     if 'android' in branch['platforms']:
         del branch['platforms']['android']
     if 'android-debug' in branch['platforms']:
         del branch['platforms']['android-debug']
     continue
-for name, branch in items_before(BRANCHES, 'gecko_version', 36):
+for name, branch in items_before(BRANCHES, 'gecko_version', 37):
     if 'android-api-9' in branch['platforms']:
         del branch['platforms']['android-api-9']
     if 'android-api-10' in branch['platforms']:
