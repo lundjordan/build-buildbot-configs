@@ -41,7 +41,9 @@ BRANCHES = {
         'gecko_version': 30,
     },
     'try': {'coallesce_jobs': False},
-    'mozilla-esr31':     {},
+    'mozilla-esr31':     {
+        'gecko_version': 31,
+    },
 }
 
 setMainFirefoxVersions(BRANCHES)
