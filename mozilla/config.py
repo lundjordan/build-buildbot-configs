@@ -1510,7 +1510,7 @@ PLATFORM_VARS = {
             'enable_opt_unittests': False,
             'talos_masters': GLOBAL_VARS['talos_masters'],
             'unittest_masters': GLOBAL_VARS['unittest_masters'],
-            'stage_platform': "android-api-10",
+            'stage_platform': "android-api-9",
             'stage_product': 'mobile',
             'post_upload_include_platform': True,
             'is_mobile_l10n': True,
@@ -2076,21 +2076,27 @@ apply_localconfig(BRANCH_PROJECTS, localconfig.BRANCH_PROJECTS)
 # platforms (if different from the default set).
 BRANCHES = {
     'mozilla-central': {
+        'merge_builds': False,
     },
     'mozilla-release': {
+        'merge_builds': False,
         'branch_projects': []
     },
     'mozilla-release-34.1': {
+        'merge_builds': False,
         'branch_projects': [],
         'gecko_version': 34,
     },
     'mozilla-beta': {
+        'merge_builds': False,
         'branch_projects': []
     },
     'mozilla-aurora': {
+        'merge_builds': False,
         'branch_projects': []
     },
     'mozilla-esr31': {
+        'merge_builds': False,
         'branch_projects': [],
         'lock_platforms': True,
         'gecko_version': 31,
@@ -2107,12 +2113,14 @@ BRANCHES = {
         },
     },
     'mozilla-b2g28_v1_3t': {
+        'merge_builds': False,
         'branch_projects': [],
         'lock_platforms': True,
         'gecko_version': 28,
         'platforms': {},
     },
     'mozilla-b2g30_v1_4': {
+        'merge_builds': False,
         'branch_projects': [],
         'lock_platforms': True,
         'gecko_version': 30,
@@ -2128,6 +2136,7 @@ BRANCHES = {
         },
     },
     'mozilla-b2g32_v2_0': {
+        'merge_builds': False,
         'branch_projects': [],
         'lock_platforms': True,
         'gecko_version': 32,
@@ -2143,6 +2152,7 @@ BRANCHES = {
         },
     },
     'mozilla-b2g34_v2_1': {
+        'merge_builds': False,
         'branch_projects': [],
         'lock_platforms': True,
         'gecko_version': 34,
@@ -2829,16 +2839,14 @@ for name, branch in BRANCHES.items():
 
 # Bug 1073772 - Releng work for producing two ARMv7 APKs to target different API ranges
 # split apk rides the trains
-branches = BRANCHES.keys()
-# XXX JLUND HACK - let's keep old non-split builds for testing purposes
-# for name, branch in items_at_least(BRANCHES, 'gecko_version', 36):
-#     # remove the soon to be replaced android builds
-#     if 'android' in branch['platforms']:
-#         del branch['platforms']['android']
-#     if 'android-debug' in branch['platforms']:
-#         del branch['platforms']['android-debug']
-#     continue
-for name, branch in items_before(BRANCHES, 'gecko_version', 36):
+for name, branch in items_at_least(BRANCHES, 'gecko_version', 37):
+    # remove the soon to be replaced android builds
+    if 'android' in branch['platforms']:
+        del branch['platforms']['android']
+    if 'android-debug' in branch['platforms']:
+        del branch['platforms']['android-debug']
+    continue
+for name, branch in items_before(BRANCHES, 'gecko_version', 37):
     if 'android-api-9' in branch['platforms']:
         del branch['platforms']['android-api-9']
     if 'android-api-10' in branch['platforms']:
