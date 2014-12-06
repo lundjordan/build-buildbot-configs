@@ -103,7 +103,7 @@ PLATFORMS['android-api-10']['slave_platforms'] = ['panda_android']
 PLATFORMS['android-api-10']['env_name'] = 'android-perf'
 PLATFORMS['android-api-10']['is_mobile'] = True
 PLATFORMS['android-api-10']['panda_android'] = {
-    'name': "Android 4.0 armv7 API 10+",
+    'name': "Android armv7 API 10+",
     'mozharness_talos': True,
 }
 PLATFORMS['android-api-10']['stage_product'] = 'mobile'
@@ -206,7 +206,6 @@ BRANCH_UNITTEST_VARS = {
         'android-debug': {},
         'android-api-9': {},
         'android-api-10': {},
-        'android-api-10-debug': {},
         'android-armv6': {},
         'android-x86': {},
     },
@@ -1750,8 +1749,6 @@ for name, branch in items_before(BRANCHES, 'gecko_version', 37):
         del branch['platforms']['android-api-9']
     if 'android-api-10' in branch['platforms']:
         del branch['platforms']['android-api-10']
-    if 'android-api-10-debug' in branch['platforms']:
-        del branch['platforms']['android-api-10-debug']
 
 # enable android 2.3 tests to ride the trains bug 1004791
 for name, branch in items_at_least(BRANCHES, 'gecko_version', 32):
