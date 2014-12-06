@@ -206,6 +206,7 @@ BRANCH_UNITTEST_VARS = {
         'android-debug': {},
         'android-api-9': {},
         'android-api-10': {},
+        'android-api-10-debug': {},
         'android-armv6': {},
         'android-x86': {},
     },
