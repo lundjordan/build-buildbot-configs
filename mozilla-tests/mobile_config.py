@@ -1750,6 +1750,8 @@ for name, branch in items_before(BRANCHES, 'gecko_version', 37):
         del branch['platforms']['android-api-9']
     if 'android-api-10' in branch['platforms']:
         del branch['platforms']['android-api-10']
+    if 'android-api-10-debug' in branch['platforms']:
+        del branch['platforms']['android-api-10-debug']
 
 # enable android 2.3 tests to ride the trains bug 1004791
 for name, branch in items_at_least(BRANCHES, 'gecko_version', 32):
