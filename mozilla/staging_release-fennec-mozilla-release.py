@@ -117,6 +117,7 @@ releaseConfig['partnerRepackConfig'] = {
 releaseConfig['mozconfigs']          = {
     'android': 'mobile/android/config/mozconfigs/android/release',
 }
+releaseConfig['releaseChannel']        = 'release'
 
 # Misc configuration
 releaseConfig['enable_repo_setup']       = False
@@ -166,9 +167,11 @@ releaseConfig['cdnTestChannel']        = 'releasetest'
 releaseConfig['partialUpdates']      = {}
 releaseConfig['bouncerServer']       = 'download.mozilla.org'
 releaseConfig['testChannelRuleIds']    = [38, 39]
+releaseConfig['releaseChannelRuleIds'] = []
 releaseConfig['tuxedoServerUrl']     = 'https://bounceradmin.allizom.org/api'
 releaseConfig['bouncerServer']       = 'download.mozilla.org'
 releaseConfig['bouncer_submitter_config'] = 'releases/bouncer_fennec.py'
 releaseConfig['bouncer_aliases'] = {
     'Fennec-%(version)s': 'fennec-latest',
 }
+releaseConfig['skip_updates']        = True
