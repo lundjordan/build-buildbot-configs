@@ -2,6 +2,7 @@ PROJECT_BRANCHES = {
     ### PLEASE ADD NEW BRANCHES ALPHABETICALLY (twigs at the bottom, also alphabetically)
     # 'build-system': {},  # Bug 1010674
     'fx-team': {
+        'merge_builds': False,
         'enable_perproduct_builds': True,
         'repo_path': 'integration/fx-team',
         'mozconfig_dir': 'mozilla-central',
@@ -11,6 +12,7 @@ PROJECT_BRANCHES = {
         'enable_weekly_bundle': True,
     },
     'mozilla-inbound': {
+        'merge_builds': False,
         'repo_path': 'integration/mozilla-inbound',
         'enable_perproduct_builds': True,
         'mozconfig_dir': 'mozilla-central',
@@ -23,6 +25,7 @@ PROJECT_BRANCHES = {
         'branch_projects': ['spidermonkey_tier_1', 'spidermonkey_info'],
     },
     'b2g-inbound': {
+        'merge_builds': False,
         'repo_path': 'integration/b2g-inbound',
         'enable_perproduct_builds': True,
         'mozconfig_dir': 'mozilla-central',
@@ -96,9 +99,6 @@ PROJECT_BRANCHES = {
         'create_snippet': True,
         'create_partial': True,
         'create_mobile_snippet': True,
-        'mozharness_repo_path': 'build/ash-mozharness',
-        'mozharness_repo': 'https://hg.mozilla.org/build/ash-mozharness',
-        'mozharness_tag': 'default',
         'use_mozharness_repo_cache': False,
         'lock_platforms': True,
         'talos_suites': {
@@ -226,13 +226,10 @@ PROJECT_BRANCHES = {
     'larch': {
         'lock_platforms': True,
         'platforms': {
-            # uncomment api-9/10 and delete 'android' / 'android-debug' once bug
-            # 1073772 hits trunk
-            # 'android-api-9': {},
-            # 'android-api-10': {},
-            # 'android-debug-api-9': {},
-            # 'android-debug-api-10': {},
-            'android': {},
+            'android-api-9': {},
+            'android-api-10': {},
+            'android-debug-api-9': {},
+            'android-debug-api-10': {},
             'android-x86': {},
             'android-debug': {},
         },

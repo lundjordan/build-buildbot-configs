@@ -1511,12 +1511,13 @@ PLATFORM_VARS = {
             'enable_opt_unittests': False,
             'talos_masters': GLOBAL_VARS['talos_masters'],
             'unittest_masters': GLOBAL_VARS['unittest_masters'],
-            'stage_platform': "android-api-10",
+            'stage_platform': "android-api-9",
             'stage_product': 'mobile',
             'post_upload_include_platform': True,
             'is_mobile_l10n': True,
             'l10n_chunks': 5,
             'multi_locale': True,
+            'multi_locale_config_platform': 'android',
             'multi_locale_script': 'scripts/multil10n.py',
             'tooltool_manifest_src': 'mobile/android/config/tooltool-manifests/android/releng.manifest',
             'update_platform': 'Android_arm-eabi-gcc3',
@@ -1589,6 +1590,7 @@ PLATFORM_VARS = {
             'l10n_chunks': 5,
             'multi_locale': True,
             'multi_locale_script': 'scripts/multil10n.py',
+            'multi_locale_config_platform': 'android',
             'tooltool_manifest_src': 'mobile/android/config/tooltool-manifests/android/releng.manifest',
             'update_platform': 'Android_arm-eabi-gcc3',
         },
@@ -1859,6 +1861,7 @@ PLATFORM_VARS = {
         'android-debug-api-10': {
             'enable_nightly': False,
             'product_name': 'firefox',
+            'unittest_platform': 'android-api-10-debug',
             'app_name': 'browser',
             'brand_name': 'Minefield',
             'base_name': 'Android armv7 API 10+ %(branch)s debug',
@@ -1939,7 +1942,7 @@ for platform in PLATFORM_VARS.values():
 
 PROJECTS = {
     'fuzzing': {
-        'platforms': ['mock-hw', 'macosx64-lion', 'win64-rev2'],
+        'platforms': ['mock', 'macosx64-lion', 'win64-rev2'],
     },
 }
 
@@ -2027,6 +2030,8 @@ BRANCH_PROJECTS = {
             'linux64-debug':  ['rootanalysis', 'generational', 'exactrooting', 'warnaserrdebug'],
             'win32': ['generational', 'warnaserr'],
             'win32-debug': ['generational', 'warnaserrdebug'],
+            'win64': ['generational', 'warnaserr'],
+            'win64-debug': ['generational', 'warnaserrdebug'],
         },
         'platforms': {
             'linux': {},
@@ -2075,22 +2080,27 @@ apply_localconfig(BRANCH_PROJECTS, localconfig.BRANCH_PROJECTS)
 # platforms (if different from the default set).
 BRANCHES = {
     'mozilla-central': {
-        'desktop_mozharness_builds_enabled': True,
+        'merge_builds': False,
     },
     'mozilla-release': {
+        'merge_builds': False,
         'branch_projects': []
     },
     'mozilla-release-34.1': {
+        'merge_builds': False,
         'branch_projects': [],
         'gecko_version': 34,
     },
     'mozilla-beta': {
+        'merge_builds': False,
         'branch_projects': []
     },
     'mozilla-aurora': {
+        'merge_builds': False,
         'branch_projects': []
     },
     'mozilla-esr31': {
+        'merge_builds': False,
         'branch_projects': [],
         'lock_platforms': True,
         'gecko_version': 31,
@@ -2107,12 +2117,14 @@ BRANCHES = {
         },
     },
     'mozilla-b2g28_v1_3t': {
+        'merge_builds': False,
         'branch_projects': [],
         'lock_platforms': True,
         'gecko_version': 28,
         'platforms': {},
     },
     'mozilla-b2g30_v1_4': {
+        'merge_builds': False,
         'branch_projects': [],
         'lock_platforms': True,
         'gecko_version': 30,
@@ -2128,6 +2140,7 @@ BRANCHES = {
         },
     },
     'mozilla-b2g32_v2_0': {
+        'merge_builds': False,
         'branch_projects': [],
         'lock_platforms': True,
         'gecko_version': 32,
@@ -2143,6 +2156,7 @@ BRANCHES = {
         },
     },
     'mozilla-b2g34_v2_1': {
+        'merge_builds': False,
         'branch_projects': [],
         'lock_platforms': True,
         'gecko_version': 34,
@@ -2767,27 +2781,6 @@ for branch in branches:
     if 'android-armv6' in BRANCHES[branch]['platforms']:
         del BRANCHES[branch]['platforms']['android-armv6']
 
-# Bug 1073772 - Releng work for producing two ARMv7 APKs to target different API ranges
-branches = BRANCHES.keys()
-branches.extend(ACTIVE_PROJECT_BRANCHES)
-for branch in branches:
-    if branch in ['cedar', 'ash']:
-        # remove the soon to be replaced android builds
-        if 'android' in BRANCHES[branch]['platforms']:
-            del BRANCHES[branch]['platforms']['android']
-        if 'android-debug' in BRANCHES[branch]['platforms']:
-            del BRANCHES[branch]['platforms']['android-debug']
-        continue
-    ## enable new split android builds on cedar only to start.
-    if 'android-api-9' in BRANCHES[branch]['platforms']:
-        del BRANCHES[branch]['platforms']['android-api-9']
-    if 'android-api-10' in BRANCHES[branch]['platforms']:
-        del BRANCHES[branch]['platforms']['android-api-10']
-    if 'android-debug-api-9' in BRANCHES[branch]['platforms']:
-        del BRANCHES[branch]['platforms']['android-debug-api-9']
-    if 'android-debug-api-10' in BRANCHES[branch]['platforms']:
-        del BRANCHES[branch]['platforms']['android-debug-api-10']
-
 # Bug 578880, remove the following block after gcc-4.5 switch
 branches = BRANCHES.keys()
 branches.extend(ACTIVE_PROJECT_BRANCHES)
@@ -2842,6 +2835,25 @@ for name, branch in BRANCHES.items():
                 [x for x in pc['mock_packages'] if x not in (
                     'ant', 'ant-apache-regexp',
                 )]
+
+# Bug 1073772 - Releng work for producing two ARMv7 APKs to target different API ranges
+# split apk rides the trains
+for name, branch in items_at_least(BRANCHES, 'gecko_version', 37):
+    # remove the soon to be replaced android builds
+    if 'android' in branch['platforms']:
+        del branch['platforms']['android']
+    if 'android-debug' in branch['platforms']:
+        del branch['platforms']['android-debug']
+    continue
+for name, branch in items_before(BRANCHES, 'gecko_version', 37):
+    if 'android-api-9' in branch['platforms']:
+        del branch['platforms']['android-api-9']
+    if 'android-api-10' in branch['platforms']:
+        del branch['platforms']['android-api-10']
+    if 'android-debug-api-9' in branch['platforms']:
+        del branch['platforms']['android-debug-api-9']
+    if 'android-debug-api-10' in branch['platforms']:
+        del branch['platforms']['android-debug-api-10']
 
 # Don't schedule non-unified builds anywhere except on m-c and derived branches
 mc_gecko_version = BRANCHES['mozilla-central']['gecko_version']

@@ -374,12 +374,12 @@ MOCHITEST_E10S = [
     }),
 ]
 
-# Plain mochitests with the content sandbox enabled.
+# Plain mochitests with a more strict content sandbox enabled.
 MOCHITEST_CSB = [
     ('mochitest-csb', {
         'use_mozharness': True,
         'script_path': 'scripts/desktop_unittest.py',
-        'extra_args': ['--mochitest-suite', 'plain-chunked', '--content-sandbox=on'],
+        'extra_args': ['--mochitest-suite', 'plain-chunked', '--strict-content-sandbox'],
         'blob_upload': True,
         'script_maxtime': 7200,
         'totalChunks': 5,
@@ -1750,6 +1750,8 @@ BRANCHES['try']['other_l64_tests'] = (1, False, {}, LINUX64_ONLY)
 BRANCHES['try']['g1_tests'] = (1, False, TALOS_TP_NEW_OPTS, ALL_TALOS_PLATFORMS)
 BRANCHES['try']['pgo_strategy'] = 'try'
 BRANCHES['try']['enable_try'] = True
+BRANCHES['try']['script_repo_manifest'] = \
+        "https://hg.mozilla.org/%(repo_path)s/raw-file/%(revision)s/testing/mozharness/mozharness.json"
 
 ######## ash
 BRANCHES['ash']['script_repo_manifest'] = \
