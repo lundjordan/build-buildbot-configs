@@ -67,10 +67,6 @@ BRANCHES = {
         'gecko_version': 34,
         'b2g_version': (2, 1, 0),
     },
-    'mozilla-b2g34_v2_1s': {
-        'gecko_version': 34,
-        'b2g_version': (2, 1, 0),
-    },
     'mozilla-central': {},
     'mozilla-inbound': {},
     'b2g-inbound': {},
@@ -1210,7 +1206,7 @@ PLATFORM_UNITTEST_VARS = {
         'ubuntu64_vm-b2gdt': {
             'opt_unittest_suites': MOCHITEST_DESKTOP[:] + \
                     REFTEST_DESKTOP_SANITY[:] + GAIA_UNITTESTS[:] + GAIA_LINTER[:],
-            'debug_unittest_suites': GAIA_UI[:],
+            'debug_unittest_suites': [],
             'suite_config': {
                 'gaia-integration': {
                     'extra_args': [
@@ -2222,7 +2218,6 @@ BRANCHES['mozilla-b2g28_v1_3t']['repo_path'] = "releases/mozilla-b2g28_v1_3t"
 BRANCHES['mozilla-b2g30_v1_4']['repo_path'] = "releases/mozilla-b2g30_v1_4"
 BRANCHES['mozilla-b2g32_v2_0']['repo_path'] = "releases/mozilla-b2g32_v2_0"
 BRANCHES['mozilla-b2g34_v2_1']['repo_path'] = "releases/mozilla-b2g34_v2_1"
-BRANCHES['mozilla-b2g34_v2_1s']['repo_path'] = "releases/mozilla-b2g34_v2_1s"
 BRANCHES['mozilla-central']['branch_name'] = "Firefox"
 BRANCHES['mozilla-inbound']['repo_path'] = "integration/mozilla-inbound"
 BRANCHES['b2g-inbound']['branch_name'] = "B2g-Inbound"
@@ -2273,6 +2268,7 @@ for name, branch in items_at_least(BRANCHES, 'gecko_version', 36):
         if slave_platform[0] in BRANCHES[name]['platforms']:
             BRANCHES[name]['platforms'][slave_platform[0]][slave_platform[1]]['opt_unittest_suites'] += GIP[:]
             if slave_platform[0] == 'linux64_gecko':
+                BRANCHES[name]['platforms'][slave_platform[0]][slave_platform[1]]['debug_unittest_suites'] += GIP[:]
                 BRANCHES[name]['platforms'][slave_platform[0]][slave_platform[1]]['opt_unittest_suites'] += GAIA_JS_INTEGRATION[:]
 # ...and non-chunked Gip in earlier branches
 for name, branch in items_before(BRANCHES, 'gecko_version', 36):
@@ -2281,6 +2277,7 @@ for name, branch in items_before(BRANCHES, 'gecko_version', 36):
         if slave_platform[0] in BRANCHES[name]['platforms']:
             BRANCHES[name]['platforms'][slave_platform[0]][slave_platform[1]]['opt_unittest_suites'] += GAIA_UI[:]
             if slave_platform[0] == 'linux64_gecko':
+                BRANCHES[name]['platforms'][slave_platform[0]][slave_platform[1]]['debug_unittest_suites'] += GAIA_UI[:]
                 BRANCHES[name]['platforms'][slave_platform[0]][slave_platform[1]]['opt_unittest_suites'] += GAIA_INTEGRATION[:]
 
 # explicitly set slave platforms per branch

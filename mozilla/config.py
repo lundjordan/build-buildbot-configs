@@ -126,10 +126,6 @@ GLOBAL_VARS = {
     },
     # list platforms with mozharness l10n repacks enabled.
     # mozharness repacks will be enabled per branch
-    'mozharness_desktop_l10n_platforms': [
-        'linux', 'linux64', 'macosx64'
-    ],
-    # bug 1027890: excluding win32/win64 for now
 
 }
 GLOBAL_VARS.update(localconfig.GLOBAL_VARS.copy())
@@ -164,6 +160,7 @@ PLATFORM_VARS = {
                 'script_maxtime': int(5.5 * 3600),
             },
             'mozharness_desktop_l10n': {
+                'capable': True,
                 'scriptName': 'scripts/desktop_l10n.py',
                 'l10n_chunks': 10,
                 'use_credentials_file': True,
@@ -289,6 +286,7 @@ PLATFORM_VARS = {
                 '--custom-build-variant-cfg', 'non-unified',
             ],
             'mozharness_desktop_l10n': {
+                'capable': True,
                 'scriptName': 'scripts/desktop_l10n.py',
                 'l10n_chunks': 10,
                 'use_credentials_file': True,
@@ -813,6 +811,7 @@ PLATFORM_VARS = {
                 '--custom-build-variant-cfg', 'non-unified',
             ],
             'mozharness_desktop_l10n': {
+                'capable': True,
                 'scriptName': 'scripts/desktop_l10n.py',
                 'l10n_chunks': 10,
                 'use_credentials_file': True,
@@ -896,6 +895,7 @@ PLATFORM_VARS = {
                 '--custom-build-variant-cfg', 'non-unified',
             ],
             'mozharness_desktop_l10n': {
+                'capable': False,
                 'scriptName': 'scripts/desktop_l10n.py',
                 'l10n_chunks': 10,
                 'use_credentials_file': True,
@@ -957,6 +957,7 @@ PLATFORM_VARS = {
         'win64': {
             'mozharness_python': ['c:/mozilla-build/python27/python', '-u'],
             'mozharness_desktop_l10n': {
+                'capable': False,
                 'scriptName': 'scripts/desktop_l10n.py',
                 'l10n_chunks': 10,
                 'use_credentials_file': True,
@@ -1939,7 +1940,7 @@ for platform in PLATFORM_VARS.values():
 
 PROJECTS = {
     'fuzzing': {
-        'platforms': ['mock-hw', 'macosx64-lion', 'win64-rev2'],
+        'platforms': ['mock', 'macosx64-lion', 'win64-rev2'],
     },
 }
 
@@ -2027,6 +2028,8 @@ BRANCH_PROJECTS = {
             'linux64-debug':  ['rootanalysis', 'generational', 'exactrooting', 'warnaserrdebug'],
             'win32': ['generational', 'warnaserr'],
             'win32-debug': ['generational', 'warnaserrdebug'],
+            'win64': ['generational', 'warnaserr'],
+            'win64-debug': ['generational', 'warnaserrdebug'],
         },
         'platforms': {
             'linux': {},
@@ -2164,15 +2167,6 @@ BRANCHES = {
             'linux64-debug': {},
             'macosx64-debug': {},
             'win32-debug': {},
-        },
-    },
-    'mozilla-b2g34_v2_1s': {
-        'merge_builds': False,
-        'branch_projects': [],
-        'lock_platforms': True,
-        'gecko_version': 34,
-        'platforms': {
-            'linux': {},
         },
     },
     'try': {
@@ -2633,37 +2627,6 @@ BRANCHES['mozilla-b2g34_v2_1']['enable_hpkp_update'] = True
 BRANCHES['mozilla-b2g34_v2_1']['enable_valgrind'] = False
 BRANCHES['mozilla-b2g34_v2_1']['enabled_products'] = ['firefox', 'mobile']
 
-######## mozilla-b2g34_v2_1s
-BRANCHES['mozilla-b2g34_v2_1s']['repo_path'] = 'releases/mozilla-b2g34_v2_1s'
-BRANCHES['mozilla-b2g34_v2_1s']['update_channel'] = 'nightly-b2g34'
-BRANCHES['mozilla-b2g34_v2_1s']['l10n_repo_path'] = 'releases/l10n/mozilla-beta'
-BRANCHES['mozilla-b2g34_v2_1s']['enable_weekly_bundle'] = True
-BRANCHES['mozilla-b2g34_v2_1s']['enable_perproduct_builds'] = True
-BRANCHES['mozilla-b2g34_v2_1s']['start_hour'] = [3]
-BRANCHES['mozilla-b2g34_v2_1s']['start_minute'] = [45]
-BRANCHES['mozilla-b2g34_v2_1s']['enable_xulrunner'] = False
-BRANCHES['mozilla-b2g34_v2_1s']['pgo_platforms'] = []
-BRANCHES['mozilla-b2g34_v2_1s']['enable_mac_a11y'] = True
-BRANCHES['mozilla-b2g34_v2_1s']['unittest_build_space'] = 6
-# L10n configuration
-BRANCHES['mozilla-b2g34_v2_1s']['enable_l10n'] = False
-BRANCHES['mozilla-b2g34_v2_1s']['enable_l10n_onchange'] = False
-BRANCHES['mozilla-b2g34_v2_1s']['l10nNightlyUpdate'] = False
-BRANCHES['mozilla-b2g34_v2_1s']['l10n_platforms'] = ['linux']
-BRANCHES['mozilla-b2g34_v2_1s']['l10nDatedDirs'] = True
-BRANCHES['mozilla-b2g34_v2_1s']['enUS_binaryURL'] = \
-    GLOBAL_VARS['download_base_url'] + '/nightly/latest-mozilla-b2g34_v2_1s'
-BRANCHES['mozilla-b2g34_v2_1s']['enable_nightly'] = False
-BRANCHES['mozilla-b2g34_v2_1s']['create_snippet'] = False
-BRANCHES['mozilla-b2g34_v2_1s']['create_partial'] = False
-BRANCHES['mozilla-b2g34_v2_1s']['aus2_base_upload_dir'] = '/opt/aus2/incoming/2/Firefox/mozilla-b2g34_v2_1s'
-BRANCHES['mozilla-b2g34_v2_1s']['aus2_base_upload_dir_l10n'] = '/opt/aus2/incoming/2/Firefox/mozilla-b2g34_v2_1s'
-BRANCHES['mozilla-b2g34_v2_1s']['enable_blocklist_update'] = False
-BRANCHES['mozilla-b2g34_v2_1s']['enable_hsts_update'] = True
-BRANCHES['mozilla-b2g34_v2_1s']['enable_hpkp_update'] = True
-BRANCHES['mozilla-b2g34_v2_1s']['enable_valgrind'] = False
-BRANCHES['mozilla-b2g34_v2_1s']['enabled_products'] = ['firefox', 'mobile']
-
 ######## try
 # Try-specific configs
 BRANCHES['try']['stage_username'] = 'trybld'
@@ -2928,19 +2891,6 @@ for b in ('b2g-inbound',):
         if 'linux' not in p:
             BRANCHES[b]['platforms'][p]['enable_checktests'] = False
 # END B2G's INBOUND
-
-# desktop repacks with mozharness
-for name, branch in BRANCHES.items():
-    if branch.get('desktop_mozharness_repacks_enabled'):
-        for platform_name in branch['platforms']:
-            if platform_name in GLOBAL_VARS['mozharness_desktop_l10n_platforms']:
-                pf = branch['platforms'][platform_name]
-                pf['desktop_mozharness_repacks_enabled'] = True
-        continue
-    # for all other branches delete mozharness_desktop_l10n
-    for p in branch["platforms"]:
-        if "mozharness_desktop_l10n" in p:
-            del p["mozharness_desktop_l10n"]
 
 # enable mozharness desktop builds across m-c and related branches
 for name, branch in items_at_least(BRANCHES, 'gecko_version', mc_gecko_version):

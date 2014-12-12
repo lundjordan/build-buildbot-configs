@@ -128,11 +128,6 @@ BRANCHES = {
         'tinderbox_tree': 'Mozilla-B2g34-v2.1',
         'mobile_tinderbox_tree': 'Mozilla-B2g34-v2.1',
     },
-    'mozilla-b2g34_v2_1s': {
-        'packaged_unittest_tinderbox_tree': 'Mozilla-B2g34-v2.1s',
-        'tinderbox_tree': 'Mozilla-B2g34-v2.1s',
-        'mobile_tinderbox_tree': 'Mozilla-B2g34-v2.1s',
-    },
     'mozilla-beta': {
         'packaged_unittest_tinderbox_tree': 'Mozilla-Beta',
         'tinderbox_tree': 'Mozilla-Beta',
@@ -181,7 +176,8 @@ PROJECTS = {
         'fuzzing_remote_host': 'ffxbld@stage.mozilla.org',
         # Path needs extra leading slash due to optparse expansion on Win32
         'fuzzing_base_dir': '//mnt/pvt_builds/fuzzing/',
-        'idle_slaves': 3,
+        # This is # of idle slaves per master
+        'idle_slaves': 2,
         'disable_tinderbox_mail': False,
     },
 }

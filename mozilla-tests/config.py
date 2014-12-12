@@ -76,15 +76,6 @@ BRANCHES = {
         },
         'lock_platforms': True,
     },
-    'mozilla-b2g34_v2_1s': {
-        'datazilla_url': None,
-        'gecko_version': 34,
-        'platforms': {
-            # desktop per sicking in Bug 829513
-            'linux': {},
-        },
-        'lock_platforms': True,
-    },
     'try': {
         'coallesce_jobs': False,
     },
@@ -383,12 +374,12 @@ MOCHITEST_E10S = [
     }),
 ]
 
-# Plain mochitests with the content sandbox enabled.
+# Plain mochitests with a more strict content sandbox enabled.
 MOCHITEST_CSB = [
     ('mochitest-csb', {
         'use_mozharness': True,
         'script_path': 'scripts/desktop_unittest.py',
-        'extra_args': ['--mochitest-suite', 'plain-chunked', '--content-sandbox=on'],
+        'extra_args': ['--mochitest-suite', 'plain-chunked', '--strict-content-sandbox'],
         'blob_upload': True,
         'script_maxtime': 7200,
         'totalChunks': 5,
@@ -1748,10 +1739,6 @@ BRANCHES['mozilla-b2g34_v2_1']['repo_path'] = "releases/mozilla-b2g34_v2_1"
 BRANCHES['mozilla-b2g34_v2_1']['pgo_strategy'] = None
 BRANCHES['mozilla-b2g34_v2_1']['platforms']['win32']['talos_slave_platforms'] = []
 BRANCHES['mozilla-b2g34_v2_1']['platforms']['macosx64']['talos_slave_platforms'] = []
-
-######### mozilla-b2g34_v2_1s
-BRANCHES['mozilla-b2g34_v2_1s']['repo_path'] = "releases/mozilla-b2g34_v2_1s"
-BRANCHES['mozilla-b2g34_v2_1s']['pgo_strategy'] = None
 
 ######## try
 BRANCHES['try']['repo_path'] = "try"
