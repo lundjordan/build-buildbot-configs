@@ -99,8 +99,10 @@ PROJECT_BRANCHES = {
         'create_snippet': True,
         'create_partial': True,
         'create_mobile_snippet': True,
-        'use_mozharness_repo_cache': False,
         'lock_platforms': True,
+        'script_repo_manifest': \
+             "https://hg.mozilla.org/%(repo_path)s/raw-file/" + \
+             "%(revision)s/testing/mozharness/mozharness.json",
         'talos_suites': {
             'xperf': 1,
         },
@@ -122,7 +124,7 @@ PROJECT_BRANCHES = {
             'android-api-9': {
                 'slave_platforms': ['ubuntu64_vm_mobile', 'ubuntu64_vm_large'],
             },
-            'android-api-10': {
+            'android-api-11': {
                 'slave_platforms': ['panda_android'],
             },
             'android-x86': {
@@ -227,9 +229,9 @@ PROJECT_BRANCHES = {
         'lock_platforms': True,
         'platforms': {
             'android-api-9': {},
-            'android-api-10': {},
-            'android-debug-api-9': {},
-            'android-debug-api-10': {},
+            'android-api-11': {},
+            'android-api-9-debug': {},
+            'android-api-11-debug': {},
             'android-x86': {},
             'android-debug': {},
         },

@@ -36,7 +36,7 @@ GLOBAL_VARS = {
     'mobile_tinderbox_tree': 'MobileTest',
     'hg_username': 'stage-ffxbld',
     'base_bundle_urls': ['http://preproduction-master.srv.releng.scl3.mozilla.com/pub/mozilla.org/firefox/bundles'],
-    'tooltool_url_list': ['http://runtime-binaries.pvt.build.mozilla.org/tooltool'],
+    'tooltool_url_list': ['http://tooltool.pvt.build.mozilla.org/build'],
 }
 
 BUILDS_BEFORE_REBOOT = 1
@@ -63,12 +63,6 @@ BRANCHES = {
         'file_update_on_closed_tree': False,
     },
     'mozilla-aurora': {
-        'enable_blocklist_update': False,
-        'enable_hsts_update': False,
-        'enable_hpkp_update': False,
-        'file_update_on_closed_tree': False,
-    },
-    'mozilla-b2g28_v1_3t': {
         'enable_blocklist_update': False,
         'enable_hsts_update': False,
         'enable_hpkp_update': False,
