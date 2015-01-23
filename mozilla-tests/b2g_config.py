@@ -59,6 +59,14 @@ BRANCHES = {
         'gecko_version': 34,
         'b2g_version': (2, 1, 0),
     },
+    'mozilla-b2g34_v2_1s': {
+        'gecko_version': 34,
+        'b2g_version': (2, 1, 0),
+    },
+    'mozilla-b2g37_v2_2': {
+        'gecko_version': 37,
+        'b2g_version': (2, 2, 0),
+    },
     'mozilla-central': {},
     'mozilla-inbound': {},
     'b2g-inbound': {},
@@ -263,6 +271,14 @@ MOCHITEST = [
                      'blob_upload': True,
                      },
      ),
+]
+MOCHITEST_CHROME = [
+    ('mochitest-chrome', {'suite': 'mochitest-chrome',
+                          'use_mozharness': True,
+                          'script_path': 'scripts/b2g_emulator_unittest.py',
+                          'blob_upload': True,
+                         },
+    ),
 ]
 
 MOCHITEST_EMULATOR_JB = [
@@ -509,6 +525,42 @@ GAIA_JS_INTEGRATION = [
                            },
     ),
     ('gaia-js-integration-4', {'suite': 'gaia-js-integration',
+                           'use_mozharness': True,
+                           'script_path': 'scripts/gaia_integration.py',
+                           'timeout': 1800,
+                           },
+    ),
+    ('gaia-js-integration-5', {'suite': 'gaia-js-integration',
+                           'use_mozharness': True,
+                           'script_path': 'scripts/gaia_integration.py',
+                           'timeout': 1800,
+                           },
+    ),
+    ('gaia-js-integration-6', {'suite': 'gaia-js-integration',
+                           'use_mozharness': True,
+                           'script_path': 'scripts/gaia_integration.py',
+                           'timeout': 1800,
+                           },
+    ),
+    ('gaia-js-integration-7', {'suite': 'gaia-js-integration',
+                           'use_mozharness': True,
+                           'script_path': 'scripts/gaia_integration.py',
+                           'timeout': 1800,
+                           },
+    ),
+    ('gaia-js-integration-8', {'suite': 'gaia-js-integration',
+                           'use_mozharness': True,
+                           'script_path': 'scripts/gaia_integration.py',
+                           'timeout': 1800,
+                           },
+    ),
+    ('gaia-js-integration-9', {'suite': 'gaia-js-integration',
+                           'use_mozharness': True,
+                           'script_path': 'scripts/gaia_integration.py',
+                           'timeout': 1800,
+                           },
+    ),
+    ('gaia-js-integration-10', {'suite': 'gaia-js-integration',
                            'use_mozharness': True,
                            'script_path': 'scripts/gaia_integration.py',
                            'timeout': 1800,
@@ -1208,27 +1260,63 @@ PLATFORM_UNITTEST_VARS = {
                 'gaia-js-integration-1': {
 	                    'extra_args': [
 	                        '--cfg', 'b2g/gaia_integration_config.py',
-	                        '--this-chunk', 1, '--total-chunks', 4,
+	                        '--this-chunk', 1, '--total-chunks', 10,
 	                    ],
 	            },
                 'gaia-js-integration-2': {
 	                    'extra_args': [
 	                        '--cfg', 'b2g/gaia_integration_config.py',
-	                        '--this-chunk', 2, '--total-chunks', 4,
+	                        '--this-chunk', 2, '--total-chunks', 10,
 	                    ],
 	            },
                 'gaia-js-integration-3': {
 	                    'extra_args': [
 	                        '--cfg', 'b2g/gaia_integration_config.py',
-	                        '--this-chunk', 3, '--total-chunks', 4,
+	                        '--this-chunk', 3, '--total-chunks', 10,
 	                    ],
 	            },
                 'gaia-js-integration-4': {
 	                    'extra_args': [
 	                        '--cfg', 'b2g/gaia_integration_config.py',
-	                        '--this-chunk', 4, '--total-chunks', 4,
+	                        '--this-chunk', 4, '--total-chunks', 10,
 	                    ],
 	            },
+                'gaia-js-integration-5': {
+                        'extra_args': [
+                            '--cfg', 'b2g/gaia_integration_config.py',
+                            '--this-chunk', 5, '--total-chunks', 10,
+                        ],
+                },
+                'gaia-js-integration-6': {
+                        'extra_args': [
+                            '--cfg', 'b2g/gaia_integration_config.py',
+                            '--this-chunk', 6, '--total-chunks', 10,
+                        ],
+                },
+                'gaia-js-integration-7': {
+                        'extra_args': [
+                            '--cfg', 'b2g/gaia_integration_config.py',
+                            '--this-chunk', 7, '--total-chunks', 10,
+                        ],
+                },
+                'gaia-js-integration-8': {
+                        'extra_args': [
+                            '--cfg', 'b2g/gaia_integration_config.py',
+                            '--this-chunk', 8, '--total-chunks', 10,
+                        ],
+                },
+                'gaia-js-integration-9': {
+                        'extra_args': [
+                            '--cfg', 'b2g/gaia_integration_config.py',
+                            '--this-chunk', 9, '--total-chunks', 10,
+                        ],
+                },
+                'gaia-js-integration-10': {
+                        'extra_args': [
+                            '--cfg', 'b2g/gaia_integration_config.py',
+                            '--this-chunk', 10, '--total-chunks', 10,
+                        ],
+                },
                 'gaia-build': {
                     'extra_args': [
                         '--cfg', 'b2g/gaia_integration_config.py',
@@ -1572,6 +1660,12 @@ PLATFORM_UNITTEST_VARS = {
                         '--cfg', 'b2g/emulator_automation_config.py',
                         '--test-suite', 'mochitest',
                         '--test-path', 'dom/media/tests/',
+                    ],
+                },
+                'mochitest-chrome': {
+                    'extra_args': [
+                        '--cfg', 'b2g/emulator_automation_config.py',
+                        '--test-suite', 'mochitest-chrome',
                     ],
                 },
                 'mochitest-1': {
@@ -2186,7 +2280,7 @@ BRANCHES['cedar']['branch_name'] = "Cedar"
 BRANCHES['cedar']['repo_path'] = "projects/cedar"
 BRANCHES['cedar']['mozharness_tag'] = "default"
 BRANCHES['cedar']['platforms']['emulator']['ubuntu64_vm-b2g-emulator']['opt_unittest_suites'] = \
-    MOCHITEST + REFTEST_20 + CRASHTEST + XPCSHELL + MARIONETTE + MARIONETTE_UNIT + JSREFTEST + CPPUNIT
+    MOCHITEST + REFTEST_20 + CRASHTEST + XPCSHELL + MARIONETTE + MARIONETTE_UNIT + JSREFTEST + CPPUNIT + MOCHITEST_CHROME
 BRANCHES['cedar']['platforms']['emulator']['ubuntu64_vm-b2g-emulator']['debug_unittest_suites'] = \
     MOCHITEST_EMULATOR_DEBUG[:] + REFTEST + CRASHTEST + MARIONETTE + MARIONETTE_UNIT + XPCSHELL_CHUNKED + CPPUNIT
 BRANCHES['cedar']['platforms']['emulator']['ubuntu64_vm-b2g-lg-emulator']['opt_unittest_suites'] = MOCHITEST_MEDIA
@@ -2209,6 +2303,8 @@ BRANCHES['fx-team']['repo_path'] = "integration/fx-team"
 BRANCHES['mozilla-b2g30_v1_4']['repo_path'] = "releases/mozilla-b2g30_v1_4"
 BRANCHES['mozilla-b2g32_v2_0']['repo_path'] = "releases/mozilla-b2g32_v2_0"
 BRANCHES['mozilla-b2g34_v2_1']['repo_path'] = "releases/mozilla-b2g34_v2_1"
+BRANCHES['mozilla-b2g34_v2_1s']['repo_path'] = "releases/mozilla-b2g34_v2_1s"
+BRANCHES['mozilla-b2g37_v2_2']['repo_path'] = "releases/mozilla-b2g37_v2_2"
 BRANCHES['mozilla-central']['branch_name'] = "Firefox"
 BRANCHES['mozilla-inbound']['repo_path'] = "integration/mozilla-inbound"
 BRANCHES['b2g-inbound']['branch_name'] = "B2g-Inbound"

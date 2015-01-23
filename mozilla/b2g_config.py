@@ -57,6 +57,8 @@ GLOBAL_VARS.update({
         'flame-kk_eng-debug': {},
         'dolphin': {},
         'dolphin_eng': {},
+        'dolphin-512': {},
+        'dolphin-512_eng': {},
     },
     'enable_nightly': True,
     'enable_l10n': False,
@@ -634,7 +636,6 @@ PLATFORM_VARS = {
         'stage_platform': 'macosx64-mulet',
         'update_platform': 'Darwin_x86_64-gcc3',
         'enable_shared_checkouts': True,
-        'enable_nonunified_build': False,
         'enable_nightly': True,
         'env': {
             'MOZ_OBJDIR': OBJDIR,
@@ -1228,7 +1229,6 @@ PLATFORM_VARS = {
             'extra_args': ['--target', 'emulator', '--config', 'b2g/releng-emulator.py',
                            '--gaia-languages-file', 'locales/languages_dev.json',
                            '--gecko-languages-file', 'gecko/b2g/locales/all-locales'],
-            'non_unified_extra_args': ['--non-unified'],
             'reboot_command': ['bash', '-c', 'sudo reboot; sleep 600'],
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
             'tools_repo_cache': '/tools/checkouts/build-tools',
@@ -1236,7 +1236,6 @@ PLATFORM_VARS = {
         'env': {
             'HG_SHARE_BASE_DIR': '/builds/hg-shared',
         },
-        'enable_nonunified_build': True,
         'stage_product': 'b2g',
         'product_name': 'b2g',
         'base_name': builder_prefix + '_%(branch)s_%(platform)s',
@@ -1252,7 +1251,6 @@ PLATFORM_VARS = {
                            '--debug',
                            '--gaia-languages-file', 'locales/languages_dev.json',
                            '--gecko-languages-file', 'gecko/b2g/locales/all-locales'],
-            'non_unified_extra_args': ['--non-unified'],
             'reboot_command': ['bash', '-c', 'sudo reboot; sleep 600'],
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
             'tools_repo_cache': '/tools/checkouts/build-tools',
@@ -1260,7 +1258,6 @@ PLATFORM_VARS = {
         'env': {
             'HG_SHARE_BASE_DIR': '/builds/hg-shared',
         },
-        'enable_nonunified_build': True,
         'stage_product': 'b2g',
         'product_name': 'b2g',
         'base_name': builder_prefix + '_%(branch)s_%(platform)s',
@@ -1275,7 +1272,6 @@ PLATFORM_VARS = {
             'extra_args': ['--target', 'emulator-jb', '--config', 'b2g/releng-emulator.py',
                            '--gaia-languages-file', 'locales/languages_dev.json',
                            '--gecko-languages-file', 'gecko/b2g/locales/all-locales'],
-            'non_unified_extra_args': ['--non-unified'],
             'reboot_command': ['bash', '-c', 'sudo reboot; sleep 600'],
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
             'tools_repo_cache': '/tools/checkouts/build-tools',
@@ -1283,7 +1279,6 @@ PLATFORM_VARS = {
         'env': {
             'HG_SHARE_BASE_DIR': '/builds/hg-shared',
         },
-        'enable_nonunified_build': True,
         'stage_product': 'b2g',
         'product_name': 'b2g',
         'base_name': builder_prefix + '_%(branch)s_%(platform)s',
@@ -1299,7 +1294,6 @@ PLATFORM_VARS = {
                            '--debug',
                            '--gaia-languages-file', 'locales/languages_dev.json',
                            '--gecko-languages-file', 'gecko/b2g/locales/all-locales'],
-            'non_unified_extra_args': ['--non-unified'],
             'reboot_command': ['bash', '-c', 'sudo reboot; sleep 600'],
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
             'tools_repo_cache': '/tools/checkouts/build-tools',
@@ -1307,7 +1301,6 @@ PLATFORM_VARS = {
         'env': {
             'HG_SHARE_BASE_DIR': '/builds/hg-shared',
         },
-        'enable_nonunified_build': True,
         'stage_product': 'b2g',
         'product_name': 'b2g',
         'base_name': builder_prefix + '_%(branch)s_%(platform)s',
@@ -1352,7 +1345,6 @@ PLATFORM_VARS = {
             'extra_args': ['--target', 'emulator-kk', '--config', 'b2g/releng-emulator.py',
                            '--gaia-languages-file', 'locales/languages_dev.json',
                            '--gecko-languages-file', 'gecko/b2g/locales/all-locales'],
-            'non_unified_extra_args': ['--non-unified'],
             'reboot_command': ['bash', '-c', 'sudo reboot; sleep 600'],
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
             'tools_repo_cache': '/tools/checkouts/build-tools',
@@ -1360,7 +1352,6 @@ PLATFORM_VARS = {
         'env': {
             'HG_SHARE_BASE_DIR': '/builds/hg-shared',
         },
-        'enable_nonunified_build': True,
         'stage_product': 'b2g',
         'product_name': 'b2g',
         'base_name': builder_prefix + '_%(branch)s_%(platform)s',
@@ -1378,7 +1369,6 @@ PLATFORM_VARS = {
                            '--debug',
                            '--gaia-languages-file', 'locales/languages_dev.json',
                            '--gecko-languages-file', 'gecko/b2g/locales/all-locales'],
-            'non_unified_extra_args': ['--non-unified'],
             'reboot_command': ['bash', '-c', 'sudo reboot; sleep 600'],
             'mozharness_repo_cache': '/tools/checkouts/mozharness',
             'tools_repo_cache': '/tools/checkouts/build-tools',
@@ -1386,7 +1376,6 @@ PLATFORM_VARS = {
         'env': {
             'HG_SHARE_BASE_DIR': '/builds/hg-shared',
         },
-        'enable_nonunified_build': True,
         'stage_product': 'b2g',
         'product_name': 'b2g',
         'base_name': builder_prefix + '_%(branch)s_%(platform)s',
@@ -1561,6 +1550,51 @@ PLATFORM_VARS = {
         'enable_periodic': True,
         'enable_dep': False,
     },
+    'dolphin-512': {
+        'mozharness_config': {
+            'script_name': 'scripts/b2g_build.py',
+            # b2g_build.py will checkout gecko from hg and look up a tooltool manifest given by the
+            # --target name below
+            'extra_args': ['--target', 'dolphin-512', '--config', 'b2g/releng-private-updates.py',
+                           '--gaia-languages-file', 'locales/languages_all.json',
+                           '--gecko-languages-file', 'gecko/b2g/locales/all-locales',
+                           '--config', GLOBAL_VARS['mozharness_configs']['balrog']],
+            'reboot_command': ['bash', '-c', 'sudo reboot; sleep 600'],
+            'mozharness_repo_cache': '/tools/checkouts/mozharness',
+            'tools_repo_cache': '/tools/checkouts/build-tools',
+        },
+        'env': {
+            'HG_SHARE_BASE_DIR': '/builds/hg-shared',
+        },
+        'stage_product': 'b2g',
+        'product_name': 'b2g',
+        'base_name': builder_prefix + '_%(branch)s_%(platform)s',
+        'slaves': SLAVES['mock'],
+        'enable_periodic': True,
+        'enable_dep': False,
+    },
+    'dolphin-512_eng': {
+        'mozharness_config': {
+            'script_name': 'scripts/b2g_build.py',
+            # b2g_build.py will checkout gecko from hg and look up a tooltool manifest given by the
+            # --target name below
+            'extra_args': ['--target', 'dolphin-512', '--config', 'b2g/releng-otoro-eng.py',
+                           '--gaia-languages-file', 'locales/languages_all.json',
+                           '--gecko-languages-file', 'gecko/b2g/locales/all-locales'],
+            'reboot_command': ['bash', '-c', 'sudo reboot; sleep 600'],
+            'mozharness_repo_cache': '/tools/checkouts/mozharness',
+            'tools_repo_cache': '/tools/checkouts/build-tools',
+        },
+        'env': {
+            'HG_SHARE_BASE_DIR': '/builds/hg-shared',
+        },
+        'stage_product': 'b2g',
+        'product_name': 'b2g',
+        'base_name': builder_prefix + '_%(branch)s_%(platform)s',
+        'slaves': SLAVES['mock'],
+        'enable_periodic': True,
+        'enable_dep': False,
+    },
 }
 
 for platform in PLATFORM_VARS.values():
@@ -1586,6 +1620,14 @@ BRANCHES = {
     'mozilla-b2g34_v2_1': {
         'gecko_version': 34,
         'b2g_version': (2, 1, 0),
+    },
+    'mozilla-b2g34_v2_1s': {
+        'gecko_version': 34,
+        'b2g_version': (2, 1, 0),
+    },
+    'mozilla-b2g37_v2_2': {
+        'gecko_version': 37,
+        'b2g_version': (2, 2, 0),
     },
     'try': {
         'lock_platforms': True,
@@ -1720,6 +1762,37 @@ BRANCHES['mozilla-central']['platforms']['emulator-kk-debug']['enable_nightly'] 
 BRANCHES['mozilla-central']['platforms']['dolphin']['enable_nightly'] = True
 BRANCHES['mozilla-central']['platforms']['dolphin_eng']['enable_nightly'] = True
 
+######## mozilla-b2g37_v2_2
+# This is a path, relative to HGURL, where the repository is located
+# HGURL + repo_path should be a valid repository
+BRANCHES['mozilla-b2g37_v2_2']['repo_path'] = 'releases/mozilla-b2g37_v2_2'
+BRANCHES['mozilla-b2g37_v2_2']['gaia_l10n_root'] = 'https://hg.mozilla.org/gaia-l10n'
+BRANCHES['mozilla-b2g37_v2_2']['gecko_l10n_root'] = 'https://hg.mozilla.org/releases/l10n/mozilla-aurora'
+BRANCHES['mozilla-b2g37_v2_2']['start_hour'] = [0, 16]
+BRANCHES['mozilla-b2g37_v2_2']['start_minute'] = [25]
+BRANCHES['mozilla-b2g37_v2_2']['periodic_start_minute'] = 30
+BRANCHES['mozilla-b2g37_v2_2']['aus2_base_upload_dir'] = 'fake'
+BRANCHES['mozilla-b2g37_v2_2']['aus2_base_upload_dir_l10n'] = 'fake'
+BRANCHES['mozilla-b2g37_v2_2']['platforms']['hamachi']['enable_nightly'] = True
+BRANCHES['mozilla-b2g37_v2_2']['platforms']['hamachi_eng']['enable_nightly'] = True
+BRANCHES['mozilla-b2g37_v2_2']['platforms']['hamachi_eng']['consider_for_nightly'] = False
+BRANCHES['mozilla-b2g37_v2_2']['platforms']['nexus-4']['enable_nightly'] = True
+BRANCHES['mozilla-b2g37_v2_2']['platforms']['nexus-4_eng']['enable_nightly'] = True
+BRANCHES['mozilla-b2g37_v2_2']['platforms']['nexus-4_eng']['consider_for_nightly'] = False
+BRANCHES['mozilla-b2g37_v2_2']['platforms']['helix']['enable_nightly'] = True
+BRANCHES['mozilla-b2g37_v2_2']['platforms']['wasabi']['enable_nightly'] = True
+BRANCHES['mozilla-b2g37_v2_2']['platforms']['flame-kk']['enable_nightly'] = True
+BRANCHES['mozilla-b2g37_v2_2']['platforms']['flame-kk_eng']['enable_nightly'] = True
+BRANCHES['mozilla-b2g37_v2_2']['platforms']['emulator']['enable_nightly'] = True
+BRANCHES['mozilla-b2g37_v2_2']['platforms']['emulator-debug']['enable_nightly'] = True
+BRANCHES['mozilla-b2g37_v2_2']['platforms']['emulator-jb']['enable_nightly'] = True
+BRANCHES['mozilla-b2g37_v2_2']['platforms']['emulator-jb-debug']['enable_nightly'] = True
+BRANCHES['mozilla-b2g37_v2_2']['platforms']['linux64-b2g-haz']['enable_nightly'] = False
+BRANCHES['mozilla-b2g37_v2_2']['platforms']['emulator-kk']['enable_nightly'] = True
+BRANCHES['mozilla-b2g37_v2_2']['platforms']['emulator-kk-debug']['enable_nightly'] = True
+BRANCHES['mozilla-b2g37_v2_2']['platforms']['dolphin']['enable_nightly'] = True
+BRANCHES['mozilla-b2g37_v2_2']['platforms']['dolphin_eng']['enable_nightly'] = True
+
 ######## mozilla-b2g34_v2_1
 # This is a path, relative to HGURL, where the repository is located
 # HGURL + repo_path should be a valid repository
@@ -1749,8 +1822,28 @@ BRANCHES['mozilla-b2g34_v2_1']['platforms']['emulator-jb']['enable_nightly'] = T
 BRANCHES['mozilla-b2g34_v2_1']['platforms']['emulator-jb-debug']['enable_nightly'] = True
 BRANCHES['mozilla-b2g34_v2_1']['platforms']['emulator-kk']['enable_nightly'] = True
 BRANCHES['mozilla-b2g34_v2_1']['platforms']['emulator-kk-debug']['enable_nightly'] = True
-BRANCHES['mozilla-b2g34_v2_1']['platforms']['dolphin']['enable_nightly'] = True
-BRANCHES['mozilla-b2g34_v2_1']['platforms']['dolphin_eng']['enable_nightly'] = True
+BRANCHES['mozilla-b2g34_v2_1']['platforms']['dolphin']['enable_nightly'] = False
+BRANCHES['mozilla-b2g34_v2_1']['platforms']['dolphin_eng']['enable_nightly'] = False
+
+######## mozilla-b2g34_v2_1s
+# This is a path, relative to HGURL, where the repository is located
+# HGURL + repo_path should be a valid repository
+BRANCHES['mozilla-b2g34_v2_1s']['repo_path'] = 'releases/mozilla-b2g34_v2_1s'
+BRANCHES['mozilla-b2g34_v2_1s']['gaia_l10n_root'] = 'https://hg.mozilla.org/releases/gaia-l10n/v2_1/'
+BRANCHES['mozilla-b2g34_v2_1s']['gecko_l10n_root'] = 'https://hg.mozilla.org/releases/l10n/mozilla-beta'
+BRANCHES['mozilla-b2g34_v2_1s']['start_hour'] = [0, 16]
+BRANCHES['mozilla-b2g34_v2_1s']['start_minute'] = [12]
+BRANCHES['mozilla-b2g34_v2_1s']['periodic_start_minute'] = 30
+BRANCHES['mozilla-b2g34_v2_1s']['aus2_base_upload_dir'] = 'fake'
+BRANCHES['mozilla-b2g34_v2_1s']['aus2_base_upload_dir_l10n'] = 'fake'
+BRANCHES['mozilla-b2g34_v2_1s']['platforms']['emulator-jb']['enable_nightly'] = True
+BRANCHES['mozilla-b2g34_v2_1s']['platforms']['emulator-jb-debug']['enable_nightly'] = True
+BRANCHES['mozilla-b2g34_v2_1s']['platforms']['emulator-kk']['enable_nightly'] = True
+BRANCHES['mozilla-b2g34_v2_1s']['platforms']['emulator-kk-debug']['enable_nightly'] = True
+BRANCHES['mozilla-b2g34_v2_1s']['platforms']['dolphin']['enable_nightly'] = True
+BRANCHES['mozilla-b2g34_v2_1s']['platforms']['dolphin_eng']['enable_nightly'] = True
+BRANCHES['mozilla-b2g34_v2_1s']['platforms']['dolphin-512']['enable_nightly'] = True
+BRANCHES['mozilla-b2g34_v2_1s']['platforms']['dolphin-512_eng']['enable_nightly'] = True
 
 ######## mozilla-b2g32_v2_0
 # This is a path, relative to HGURL, where the repository is located
@@ -1861,13 +1954,21 @@ for name, branch in items_before(BRANCHES, 'gecko_version', 36):
 
 # dolphin is for selected branches only
 for branch in BRANCHES:
-    if branch not in ('mozilla-b2g30_v1_4', 'mozilla-aurora',
-                      'mozilla-central', 'mozilla-inbound',
+    if branch not in ('mozilla-b2g30_v1_4', 'mozilla-b2g34_v2_1s',
+                      'mozilla-aurora', 'mozilla-central',
                       'b2g-inbound', 'fx-team'):
         if 'dolphin' in BRANCHES[branch]['platforms']:
             del BRANCHES[branch]['platforms']['dolphin']
         if 'dolphin_eng' in BRANCHES[branch]['platforms']:
             del BRANCHES[branch]['platforms']['dolphin_eng']
+
+# dolphin-512 is for selected branches only
+for branch in BRANCHES:
+    if branch not in ('mozilla-b2g34_v2_1s'):
+        if 'dolphin-512' in BRANCHES[branch]['platforms']:
+            del BRANCHES[branch]['platforms']['dolphin-512']
+        if 'dolphin-512_eng' in BRANCHES[branch]['platforms']:
+            del BRANCHES[branch]['platforms']['dolphin-512_eng']
 
 # flame (JB) is for b2g30_v1_4 only, superceded by flame-kk
 for branch in BRANCHES:
@@ -1935,15 +2036,6 @@ for branch in ACTIVE_PROJECT_BRANCHES:
 for b in ('b2g-inbound',):
     BRANCHES[b]['platforms']['linux32_gecko']['enable_checktests'] = False
     BRANCHES[b]['platforms']['linux64_gecko']['enable_checktests'] = False
-
-# Only run non-unified builds on m-c and derived branches, except for try
-for name, branch in BRANCHES.iteritems():
-    gecko_version = branch.get('gecko_version')
-    if name != 'try' and (gecko_version is None or gecko_version >= BRANCHES['mozilla-central']['gecko_version']):
-        continue
-    for pc in branch['platforms'].values():
-        if 'enable_nonunified_build' in pc:
-            pc['enable_nonunified_build'] = False
 
 if __name__ == "__main__":
     import sys
