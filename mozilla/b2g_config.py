@@ -37,11 +37,8 @@ GLOBAL_VARS.update({
         'linux64_gecko_localizer': {},
         'macosx64_gecko_localizer': {},
         'win32_gecko_localizer': {},
-        'hamachi': {},
-        'hamachi_eng': {},
         'nexus-4': {},
         'nexus-4_eng': {},
-        'helix': {},
         'emulator': {},
         'emulator-debug': {},
         'emulator-jb': {},
@@ -49,7 +46,6 @@ GLOBAL_VARS.update({
         'linux64-b2g-haz': {},
         'emulator-kk': {},
         'emulator-kk-debug': {},
-        'wasabi': {},
         'flame': {},
         'flame_eng': {},
         'flame-kk': {},
@@ -189,7 +185,8 @@ PLATFORM_VARS = {
         'base_name': builder_prefix + '_%(branch)s_%(platform)s',
         'mozconfig': 'NOT-IN-BB-CONF/%(branch)s/debug',
         'src_mozconfig': 'b2g/config/mozconfigs/linux32_gecko/debug',
-        'enable_dep': True,
+        'enable_dep': False,
+        'enable_periodic': True,
         'enable_nightly': False,
         'profiled_build': False,
         'create_snippet': False,
@@ -362,7 +359,8 @@ PLATFORM_VARS = {
         'base_name': builder_prefix + '_%(branch)s_%(platform)s',
         'mozconfig': 'NOT-IN-BB-CONF/%(branch)s/debug',
         'src_mozconfig': 'b2g/config/mozconfigs/linux64_gecko/debug',
-        'enable_dep': True,
+        'enable_dep': False,
+        'enable_periodic': True,
         'enable_nightly': False,
         'profiled_build': False,
         'create_snippet': False,
@@ -569,7 +567,8 @@ PLATFORM_VARS = {
         'base_name': builder_prefix + '_%(branch)s_%(platform)s',
         'mozconfig': 'NOT-IN-BB-CONF/%(branch)s/debug',
         'src_mozconfig': 'b2g/config/mozconfigs/macosx64_gecko/debug',
-        'enable_dep': True,
+        'enable_dep': False,
+        'enable_periodic': True,
         'enable_nightly': False,
         'profiled_build': False,
         'create_snippet': False,
@@ -670,7 +669,8 @@ PLATFORM_VARS = {
         'base_name': builder_prefix + '_%(branch)s_%(platform)s',
         'mozconfig': 'NOT-IN-BB-CONF/%(branch)s/nightly',
         'src_mozconfig': 'b2g/config/mozconfigs/win32_gecko/nightly',
-        'enable_dep': True,
+        'enable_dep': False,
+        'enable_periodic': True,
         'profiled_build': False,
         'builds_before_reboot': b2g_localconfig.BUILDS_BEFORE_REBOOT,
         'build_space': 13,
@@ -723,7 +723,8 @@ PLATFORM_VARS = {
         'base_name': builder_prefix + '_%(branch)s_%(platform)s',
         'mozconfig': 'NOT-IN-BB-CONF/%(branch)s/debug',
         'src_mozconfig': 'b2g/config/mozconfigs/win32_gecko/debug',
-        'enable_dep': True,
+        'enable_dep': False,
+        'enable_periodic': True,
         'enable_nightly': False,
         'profiled_build': False,
         'builds_before_reboot': b2g_localconfig.BUILDS_BEFORE_REBOOT,
@@ -1104,51 +1105,6 @@ PLATFORM_VARS = {
         'tooltool_manifest_src': 'b2g/config/tooltool-manifests/win32/releng.manifest',
         'tooltool_script': ['python', '/c/mozilla-build/tooltool.py'],
     },
-    'hamachi': {
-        'mozharness_config': {
-            'script_name': 'scripts/b2g_build.py',
-            # b2g_build.py will checkout gecko from hg and look up a tooltool manifest given by the
-            # --target name below
-            'extra_args': ['--target', 'hamachi', '--config', 'b2g/releng-fota-updates.py',
-                           '--gaia-languages-file', 'locales/languages_dev.json',
-                           '--gecko-languages-file', 'gecko/b2g/locales/all-locales',
-                           '--config', GLOBAL_VARS['mozharness_configs']['balrog']],
-            'reboot_command': ['bash', '-c', 'sudo reboot; sleep 600'],
-            'mozharness_repo_cache': '/tools/checkouts/mozharness',
-            'tools_repo_cache': '/tools/checkouts/build-tools',
-        },
-        'env': {
-            'HG_SHARE_BASE_DIR': '/builds/hg-shared',
-        },
-        'stage_product': 'b2g',
-        'product_name': 'b2g',
-        'base_name': builder_prefix + '_%(branch)s_%(platform)s',
-        'slaves': SLAVES['mock'],
-        'enable_periodic': True,
-        'enable_dep': False,
-    },
-    'hamachi_eng': {
-        'mozharness_config': {
-            'script_name': 'scripts/b2g_build.py',
-            # b2g_build.py will checkout gecko from hg and look up a tooltool manifest given by the
-            # --target name below
-            'extra_args': ['--target', 'hamachi', '--config', 'b2g/releng-fota-eng.py',
-                           '--gaia-languages-file', 'locales/languages_dev.json',
-                           '--gecko-languages-file', 'gecko/b2g/locales/all-locales'],
-            'reboot_command': ['bash', '-c', 'sudo reboot; sleep 600'],
-            'mozharness_repo_cache': '/tools/checkouts/mozharness',
-            'tools_repo_cache': '/tools/checkouts/build-tools',
-        },
-        'env': {
-            'HG_SHARE_BASE_DIR': '/builds/hg-shared',
-        },
-        'stage_product': 'b2g',
-        'product_name': 'b2g',
-        'base_name': builder_prefix + '_%(branch)s_%(platform)s',
-        'slaves': SLAVES['mock'],
-        'enable_periodic': False,
-        'enable_dep': True,
-    },
     'nexus-4': {
         'mozharness_config': {
             'script_name': 'scripts/b2g_build.py',
@@ -1189,29 +1145,6 @@ PLATFORM_VARS = {
         'env': {
             'PATH': '/tools/python27-mercurial/bin:/tools/python27/bin:/usr/local/bin:/usr/lib64/ccache:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/cltbld/bin',
             'PYTHONPATH': '/tools/python27/lib',
-            'HG_SHARE_BASE_DIR': '/builds/hg-shared',
-        },
-        'stage_product': 'b2g',
-        'product_name': 'b2g',
-        'base_name': builder_prefix + '_%(branch)s_%(platform)s',
-        'slaves': SLAVES['mock'],
-        'enable_periodic': True,
-        'enable_dep': False,
-    },
-    'helix': {
-        'mozharness_config': {
-            'script_name': 'scripts/b2g_build.py',
-            # b2g_build.py will checkout gecko from hg and look up a tooltool manifest given by the
-            # --target name below
-            'extra_args': ['--target', 'helix', '--config', 'b2g/releng-private-updates.py',
-                           '--gaia-languages-file', 'locales/languages_dev.json',
-                           '--gecko-languages-file', 'gecko/b2g/locales/all-locales',
-                           '--config', GLOBAL_VARS['mozharness_configs']['balrog']],
-            'reboot_command': ['bash', '-c', 'sudo reboot; sleep 600'],
-            'mozharness_repo_cache': '/tools/checkouts/mozharness',
-            'tools_repo_cache': '/tools/checkouts/build-tools',
-        },
-        'env': {
             'HG_SHARE_BASE_DIR': '/builds/hg-shared',
         },
         'stage_product': 'b2g',
@@ -1383,29 +1316,6 @@ PLATFORM_VARS = {
         'enable_periodic': True,
         'enable_dep': False,
         'maxTime': 6 * 3600,
-    },
-    'wasabi': {
-        'mozharness_config': {
-            'script_name': 'scripts/b2g_build.py',
-            # b2g_build.py will checkout gecko from hg and look up a tooltool manifest given by the
-            # --target name below
-            # using releng-otoro since we are not doing nightlies/updates
-            'extra_args': ['--target', 'wasabi', '--config', 'b2g/releng-otoro.py',
-                           '--gaia-languages-file', 'locales/languages_dev.json',
-                           '--gecko-languages-file', 'gecko/b2g/locales/all-locales'],
-            'reboot_command': ['bash', '-c', 'sudo reboot; sleep 600'],
-            'mozharness_repo_cache': '/tools/checkouts/mozharness',
-            'tools_repo_cache': '/tools/checkouts/build-tools',
-        },
-        'env': {
-            'HG_SHARE_BASE_DIR': '/builds/hg-shared',
-        },
-        'stage_product': 'b2g',
-        'product_name': 'b2g',
-        'base_name': builder_prefix + '_%(branch)s_%(platform)s',
-        'slaves': SLAVES['mock'],
-        'enable_periodic': True,
-        'enable_dep': False,
     },
     'flame': {
         'mozharness_config': {
@@ -1742,14 +1652,9 @@ BRANCHES['mozilla-central']['periodic_start_hours'] = range(1, 24, 3)
 BRANCHES['mozilla-central']['periodic_start_minute'] = 30
 BRANCHES['mozilla-central']['aus2_base_upload_dir'] = 'fake'
 BRANCHES['mozilla-central']['aus2_base_upload_dir_l10n'] = 'fake'
-BRANCHES['mozilla-central']['platforms']['hamachi']['enable_nightly'] = True
-BRANCHES['mozilla-central']['platforms']['hamachi_eng']['enable_nightly'] = True
-BRANCHES['mozilla-central']['platforms']['hamachi_eng']['consider_for_nightly'] = False
 BRANCHES['mozilla-central']['platforms']['nexus-4']['enable_nightly'] = True
 BRANCHES['mozilla-central']['platforms']['nexus-4_eng']['enable_nightly'] = True
 BRANCHES['mozilla-central']['platforms']['nexus-4_eng']['consider_for_nightly'] = False
-BRANCHES['mozilla-central']['platforms']['helix']['enable_nightly'] = True
-BRANCHES['mozilla-central']['platforms']['wasabi']['enable_nightly'] = True
 BRANCHES['mozilla-central']['platforms']['flame-kk']['enable_nightly'] = True
 BRANCHES['mozilla-central']['platforms']['flame-kk_eng']['enable_nightly'] = True
 BRANCHES['mozilla-central']['platforms']['emulator']['enable_nightly'] = True
@@ -1773,14 +1678,9 @@ BRANCHES['mozilla-b2g37_v2_2']['start_minute'] = [25]
 BRANCHES['mozilla-b2g37_v2_2']['periodic_start_minute'] = 30
 BRANCHES['mozilla-b2g37_v2_2']['aus2_base_upload_dir'] = 'fake'
 BRANCHES['mozilla-b2g37_v2_2']['aus2_base_upload_dir_l10n'] = 'fake'
-BRANCHES['mozilla-b2g37_v2_2']['platforms']['hamachi']['enable_nightly'] = True
-BRANCHES['mozilla-b2g37_v2_2']['platforms']['hamachi_eng']['enable_nightly'] = True
-BRANCHES['mozilla-b2g37_v2_2']['platforms']['hamachi_eng']['consider_for_nightly'] = False
 BRANCHES['mozilla-b2g37_v2_2']['platforms']['nexus-4']['enable_nightly'] = True
 BRANCHES['mozilla-b2g37_v2_2']['platforms']['nexus-4_eng']['enable_nightly'] = True
 BRANCHES['mozilla-b2g37_v2_2']['platforms']['nexus-4_eng']['consider_for_nightly'] = False
-BRANCHES['mozilla-b2g37_v2_2']['platforms']['helix']['enable_nightly'] = True
-BRANCHES['mozilla-b2g37_v2_2']['platforms']['wasabi']['enable_nightly'] = True
 BRANCHES['mozilla-b2g37_v2_2']['platforms']['flame-kk']['enable_nightly'] = True
 BRANCHES['mozilla-b2g37_v2_2']['platforms']['flame-kk_eng']['enable_nightly'] = True
 BRANCHES['mozilla-b2g37_v2_2']['platforms']['emulator']['enable_nightly'] = True
@@ -1804,14 +1704,9 @@ BRANCHES['mozilla-b2g34_v2_1']['start_minute'] = [12]
 BRANCHES['mozilla-b2g34_v2_1']['periodic_start_minute'] = 30
 BRANCHES['mozilla-b2g34_v2_1']['aus2_base_upload_dir'] = 'fake'
 BRANCHES['mozilla-b2g34_v2_1']['aus2_base_upload_dir_l10n'] = 'fake'
-BRANCHES['mozilla-b2g34_v2_1']['platforms']['hamachi']['enable_nightly'] = True
-BRANCHES['mozilla-b2g34_v2_1']['platforms']['hamachi_eng']['enable_nightly'] = True
-BRANCHES['mozilla-b2g34_v2_1']['platforms']['hamachi_eng']['consider_for_nightly'] = False
 BRANCHES['mozilla-b2g34_v2_1']['platforms']['nexus-4']['enable_nightly'] = True
 BRANCHES['mozilla-b2g34_v2_1']['platforms']['nexus-4_eng']['enable_nightly'] = True
 BRANCHES['mozilla-b2g34_v2_1']['platforms']['nexus-4_eng']['consider_for_nightly'] = False
-BRANCHES['mozilla-b2g34_v2_1']['platforms']['helix']['enable_nightly'] = True
-BRANCHES['mozilla-b2g34_v2_1']['platforms']['wasabi']['enable_nightly'] = True
 BRANCHES['mozilla-b2g34_v2_1']['platforms']['flame']['enable_nightly'] = True
 BRANCHES['mozilla-b2g34_v2_1']['platforms']['flame_eng']['enable_nightly'] = True
 BRANCHES['mozilla-b2g34_v2_1']['platforms']['flame-kk']['enable_nightly'] = True
@@ -1844,6 +1739,13 @@ BRANCHES['mozilla-b2g34_v2_1s']['platforms']['dolphin']['enable_nightly'] = True
 BRANCHES['mozilla-b2g34_v2_1s']['platforms']['dolphin_eng']['enable_nightly'] = True
 BRANCHES['mozilla-b2g34_v2_1s']['platforms']['dolphin-512']['enable_nightly'] = True
 BRANCHES['mozilla-b2g34_v2_1s']['platforms']['dolphin-512_eng']['enable_nightly'] = True
+BRANCHES['mozilla-b2g34_v2_1s']['platforms']['dolphin-512_eng']['enable_dep'] = True
+BRANCHES['mozilla-b2g34_v2_1s']['platforms']['flame-kk']['enable_periodic'] = False
+BRANCHES['mozilla-b2g34_v2_1s']['platforms']['flame-kk_eng']['enable_periodic'] = False
+BRANCHES['mozilla-b2g34_v2_1s']['platforms']['flame-kk_eng']['enable_dep'] = False
+BRANCHES['mozilla-b2g34_v2_1s']['platforms']['flame-kk_eng-debug']['enable_periodic'] = False
+BRANCHES['mozilla-b2g34_v2_1s']['platforms']['nexus-4']['enable_periodic'] = False
+BRANCHES['mozilla-b2g34_v2_1s']['platforms']['nexus-4_eng']['enable_periodic'] = False
 
 ######## mozilla-b2g32_v2_0
 # This is a path, relative to HGURL, where the repository is located
@@ -1856,12 +1758,7 @@ BRANCHES['mozilla-b2g32_v2_0']['start_minute'] = [2]
 BRANCHES['mozilla-b2g32_v2_0']['periodic_start_minute'] = 30
 BRANCHES['mozilla-b2g32_v2_0']['aus2_base_upload_dir'] = 'fake'
 BRANCHES['mozilla-b2g32_v2_0']['aus2_base_upload_dir_l10n'] = 'fake'
-BRANCHES['mozilla-b2g32_v2_0']['platforms']['hamachi']['enable_nightly'] = True
-BRANCHES['mozilla-b2g32_v2_0']['platforms']['hamachi_eng']['enable_nightly'] = True
-BRANCHES['mozilla-b2g32_v2_0']['platforms']['hamachi_eng']['consider_for_nightly'] = False
 BRANCHES['mozilla-b2g32_v2_0']['platforms']['nexus-4']['enable_nightly'] = True
-BRANCHES['mozilla-b2g32_v2_0']['platforms']['helix']['enable_nightly'] = True
-BRANCHES['mozilla-b2g32_v2_0']['platforms']['wasabi']['enable_nightly'] = True
 BRANCHES['mozilla-b2g32_v2_0']['platforms']['flame-kk']['enable_nightly'] = True
 BRANCHES['mozilla-b2g32_v2_0']['platforms']['flame-kk_eng']['enable_nightly'] = True
 BRANCHES['mozilla-b2g32_v2_0']['platforms']['emulator']['enable_nightly'] = True
@@ -1882,12 +1779,7 @@ BRANCHES['mozilla-b2g30_v1_4']['start_minute'] = [2]
 BRANCHES['mozilla-b2g30_v1_4']['periodic_start_minute'] = 30
 BRANCHES['mozilla-b2g30_v1_4']['aus2_base_upload_dir'] = 'fake'
 BRANCHES['mozilla-b2g30_v1_4']['aus2_base_upload_dir_l10n'] = 'fake'
-BRANCHES['mozilla-b2g30_v1_4']['platforms']['hamachi']['enable_nightly'] = True
-BRANCHES['mozilla-b2g30_v1_4']['platforms']['hamachi_eng']['enable_nightly'] = True
-BRANCHES['mozilla-b2g30_v1_4']['platforms']['hamachi_eng']['consider_for_nightly'] = False
 BRANCHES['mozilla-b2g30_v1_4']['platforms']['nexus-4']['enable_nightly'] = True
-BRANCHES['mozilla-b2g30_v1_4']['platforms']['helix']['enable_nightly'] = True
-BRANCHES['mozilla-b2g30_v1_4']['platforms']['wasabi']['enable_nightly'] = True
 BRANCHES['mozilla-b2g30_v1_4']['platforms']['flame']['enable_nightly'] = True
 BRANCHES['mozilla-b2g30_v1_4']['platforms']['flame_eng']['enable_nightly'] = True
 BRANCHES['mozilla-b2g30_v1_4']['platforms']['emulator']['enable_nightly'] = True
@@ -1964,7 +1856,7 @@ for branch in BRANCHES:
 
 # dolphin-512 is for selected branches only
 for branch in BRANCHES:
-    if branch not in ('mozilla-b2g34_v2_1s'):
+    if branch not in ('mozilla-b2g34_v2_1s',):
         if 'dolphin-512' in BRANCHES[branch]['platforms']:
             del BRANCHES[branch]['platforms']['dolphin-512']
         if 'dolphin-512_eng' in BRANCHES[branch]['platforms']:
