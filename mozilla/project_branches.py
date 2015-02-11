@@ -68,7 +68,7 @@ PROJECT_BRANCHES = {
         'enable_weekly_bundle': True,
         'mozconfig_dir': 'ux',
         'enable_nightly': True,
-        'create_snippet': True,
+        'updates_enabled': True,
         'create_partial': True,
         'enable_talos': False,
         'lock_platforms': True,
@@ -94,41 +94,6 @@ PROJECT_BRANCHES = {
     # 'alder': {},
     'ash': {
         'enable_perproduct_builds': False,
-        'desktop_mozharness_repacks_enabled': True,
-        'enable_nightly': True,
-        'create_snippet': True,
-        'create_partial': True,
-        'create_mobile_snippet': True,
-        'use_mozharness_repo_cache': False,
-        'lock_platforms': True,
-        'talos_suites': {
-            'xperf': 1,
-        },
-        'platforms': {
-            'linux': {},
-            'linux64': {},
-            'win32': {},
-            'macosx64': {},
-            'linux-debug': {},
-            'linux64-debug': {},
-            'linux64-br-haz': {},
-            'linux64-sh-haz': {},
-            'macosx64-debug': {},
-            'win32-debug': {},
-            'win64': {},
-            'win64-debug': {},
-        },
-        'mobile_platforms': {
-            'android-api-9': {
-                'slave_platforms': ['ubuntu64_vm_mobile', 'ubuntu64_vm_large'],
-            },
-            'android-api-10': {
-                'slave_platforms': ['panda_android'],
-            },
-            'android-x86': {
-                'enable_opt_unittests': True,
-            },
-        },
     },
     #'birch': {},  # Bug 1010674
     'cedar': {
@@ -144,26 +109,64 @@ PROJECT_BRANCHES = {
                 'enable_opt_unittests': True,
             },
         },
+        'platforms': {
+            # Bug 1094364 - switch win64 builds to use mozharness mach
+            #   testing on cedar first. to land across trunk: remove below and add to:
+            # win64 - http://hg.mozilla.org/build/buildbot-configs/file/828d626c2603/mozilla/config.py#l948
+            # win64-debug - http://hg.mozilla.org/build/buildbot-configs/file/828d626c2603/mozilla/config.py#l1362
+            'win64': {
+                'mozharness_desktop_build': {
+                    'script_name': 'scripts/fx_desktop_build.py',
+                    'extra_args': [
+                        '--config', 'builds/releng_base_windows_64_builds.py',
+                    ],
+                    'script_timeout': 3 * 3600,
+                    'script_maxtime': int(5.5 * 3600),
+                },
+            },
+            'win64-debug': {
+                'mozharness_desktop_build': {
+                    'script_name': 'scripts/fx_desktop_build.py',
+                    'extra_args': [
+                        '--config', 'builds/releng_base_windows_64_builds.py',
+                        '--custom-build-variant-cfg', 'debug',
+                    ],
+                    'script_timeout': 3 * 3600,
+                    'script_maxtime': int(5.5 * 3600),
+                },
+            }
+        },
     },
     'cypress': {
         'enable_perproduct_builds': False,
-        'mozharness_tag': 'default',
         'enable_talos': True,
     },
     'date': {
+        'gecko_version': 36,
+        'mozharness_repo_path': 'users/nthomas_mozilla.com/mozharness-build-promotion',
+        'mozharness_repo': 'https://hg.mozilla.org/users/nthomas_mozilla.com/mozharness-build-promotion',
+        'mozharness_tag': 'default',
+        'desktop_mozharness_builds_enabled': True,
+        'use_mozharness_repo_cache': False,
+        'branch_projects': [],
+        'enable_talos': True,
         'lock_platforms': True,
         'platforms': {
-            'win32': {
-                'enable_opt_unittests': True,
-            },
-            'win64': {
-                'enable_opt_unittests': True,
-            },
-            'win64-debug': {
-                'enable_debug_unittests': True,
-            },
+            'linux': {},
+            'linux64': {},
+            'win32': {},
+            'macosx64': {},
+            'linux-debug': {},
+            'linux64-debug': {},
+            'linux64-asan': {},
+            'linux64-asan-debug': {},
+            'macosx64-debug': {},
+            'win32-debug': {},
+            'win64': {},
+            'win64-debug': {},
         },
-        'enable_merging': False,
+        'enable_valgrind': False,
+        'pgo_strategy': 'per-checkin',
     },
     'elm': {
         'branch_projects': [],
@@ -182,7 +185,7 @@ PROJECT_BRANCHES = {
         'gecko_version': 35,
         'enable_perproduct_builds': False,
         'enable_nightly': True,
-        'create_snippet': True,
+        'updates_enabled': True,
         'create_partial': True,
         'nightly_signing_servers': 'nightly-signing',
         'l10n_repo_path': 'releases/l10n/mozilla-aurora',
@@ -227,23 +230,23 @@ PROJECT_BRANCHES = {
         'lock_platforms': True,
         'platforms': {
             'android-api-9': {},
-            'android-api-10': {},
-            'android-debug-api-9': {},
-            'android-debug-api-10': {},
+            'android-api-11': {},
+            'android-api-9-debug': {},
+            'android-api-11-debug': {},
             'android-x86': {},
             'android-debug': {},
         },
     },
     'maple': {
         'enable_nightly': True,
-        'create_snippet': True,
+        'updates_enabled': True,
         'create_partial': True,
         'nightly_signing_servers': 'nightly-signing',
     },
     # customizations for integration work for bugs 481815 and 307181
     'oak': {
         'enable_nightly': True,
-        'create_snippet': True,
+        'updates_enabled': True,
         'create_partial': True,
         'enable_talos': False,
         'platforms': {

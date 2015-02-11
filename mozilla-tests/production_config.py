@@ -30,7 +30,7 @@ for i in range(1,166):
 for i in range(1,87) + range(88,101):
     SLAVES['mountainlion']['talos-mtnlion-r5-%03i' % i] = {}
 
-for i in range(1,4):
+for i in range(1,29):
     SLAVES['yosemite']['t-yosemite-r5-%04i' % i] = {}
 
 for i in range(22,910):
@@ -121,10 +121,6 @@ BRANCHES = {
         'tinderbox_tree': 'Mozilla-Esr31',
         'mobile_tinderbox_tree': 'Mozilla-Esr31',
     },
-    'mozilla-b2g28_v1_3t': {
-        'tinderbox_tree': 'Mozilla-B2g28-v1.3t',
-        'mobile_tinderbox_tree': 'Mozilla-B2g28-v1.3t',
-    },
     'mozilla-b2g30_v1_4': {
         'tinderbox_tree': 'Mozilla-B2g30-v1.4',
         'mobile_tinderbox_tree': 'Mozilla-B2g30-v1.4',
@@ -136,6 +132,14 @@ BRANCHES = {
     'mozilla-b2g34_v2_1': {
         'tinderbox_tree': 'Mozilla-B2g34-v2.1',
         'mobile_tinderbox_tree': 'Mozilla-B2g34-v2.1',
+    },
+    'mozilla-b2g34_v2_1s': {
+        'tinderbox_tree': 'Mozilla-B2g34-v2.1s',
+        'mobile_tinderbox_tree': 'Mozilla-B2g34-v2.1s',
+    },
+    'mozilla-b2g37_v2_2': {
+        'tinderbox_tree': 'Mozilla-B2g37-v2.2',
+        'mobile_tinderbox_tree': 'Mozilla-B2g37-v2.2',
     },
     'mozilla-beta': {
         'tinderbox_tree': 'Mozilla-Beta',

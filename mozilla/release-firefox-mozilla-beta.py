@@ -9,7 +9,7 @@ releaseConfig['disable_tinderbox_mail'] = True
 releaseConfig['base_clobber_url'] = 'https://api.pub.build.mozilla.org/clobberer/forceclobber'
 
 # Release Notification
-releaseConfig['AllRecipients']       = ['<release@mozilla.com>',
+releaseConfig['AllRecipients']       = ['<release+releasespam@mozilla.com>',
                                         '<release-mgmt@mozilla.com>',
                                         '<qa-drivers@mozilla.com>']
 releaseConfig['ImportantRecipients'] = ['<release-drivers@mozilla.org>',]
@@ -23,23 +23,23 @@ releaseConfig['productName']         = 'firefox'
 releaseConfig['stage_product']       = 'firefox'
 releaseConfig['appName']             = 'browser'
 #  Current version info
-releaseConfig['version']             = '35.0b3'
-releaseConfig['appVersion']          = '35.0'
+releaseConfig['version']             = '36.0b8'
+releaseConfig['appVersion']          = '36.0'
 releaseConfig['milestone']           = releaseConfig['appVersion']
 releaseConfig['buildNumber']         = 1
-releaseConfig['baseTag']             = 'FIREFOX_35_0b3'
+releaseConfig['baseTag']             = 'FIREFOX_36_0b8'
 releaseConfig['partialUpdates']      = {
 
-    '34.0b9': {
-        'appVersion': '34.0',
+    '36.0b7': {
+        'appVersion': '36.0',
         'buildNumber': 1,
-        'baseTag': 'FIREFOX_34_0b9',
+        'baseTag': 'FIREFOX_36_0b7',
     },
 
-    '35.0b1': {
-        'appVersion': '35.0',
+    '36.0b6': {
+        'appVersion': '36.0',
         'buildNumber': 1,
-        'baseTag': 'FIREFOX_35_0b1',
+        'baseTag': 'FIREFOX_36_0b6',
     },
 
 }
@@ -51,7 +51,7 @@ releaseConfig['sourceRepositories']  = {
     'mozilla': {
         'name': 'mozilla-beta',
         'path': 'releases/mozilla-beta',
-        'revision': 'f7f8ccd5032b',
+        'revision': '1584db7257a6',
         'relbranch': None,
         'bumpFiles': {
             'browser/config/version.txt': {
@@ -102,7 +102,7 @@ releaseConfig['patcherConfig']       = 'mozBeta-branch-patcher2.cfg'
 releaseConfig['ftpServer']           = 'ftp.mozilla.org'
 releaseConfig['stagingServer']       = 'stage.mozilla.org'
 releaseConfig['bouncerServer']       = 'download.mozilla.org'
-releaseConfig['ausServerUrl']        = 'https://aus3.mozilla.org'
+releaseConfig['ausServerUrl']        = 'https://aus4.mozilla.org'
 releaseConfig['ausHost']             = 'aus3-staging.mozilla.org'
 releaseConfig['ausUser']             = 'ffxbld'
 releaseConfig['ausSshKey']           = 'ffxbld_rsa'

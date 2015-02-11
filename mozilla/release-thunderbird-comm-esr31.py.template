@@ -9,7 +9,7 @@ releaseConfig['disable_tinderbox_mail'] = True
 releaseConfig['base_clobber_url'] = 'https://api.pub.build.mozilla.org/clobberer/forceclobber'
 
 # Release Notification
-releaseConfig['AllRecipients']       = ['<release@mozilla.com>']
+releaseConfig['AllRecipients']       = ['<release+releasespam@mozilla.com>']
 releaseConfig['ImportantRecipients'] = ['<thunderbird-drivers@mozilla.org>',]
 releaseConfig['AVVendorsRecipients'] = ['<av-vendor-release-announce@mozilla.org>',]
 releaseConfig['releaseTemplates']    = 'release_templates'
@@ -103,8 +103,8 @@ releaseConfig['patcherConfig']       = 'mozRelease-thunderbird-branch-patcher2.c
 releaseConfig['ftpServer']           = 'ftp.mozilla.org'
 releaseConfig['stagingServer']       = 'stage.mozilla.org'
 releaseConfig['bouncerServer']       = 'download.mozilla.org'
-releaseConfig['ausServerUrl']        = 'https://aus3.mozilla.org'
-releaseConfig['ausHost']             = 'aus3-staging.mozilla.org'
+releaseConfig['ausServerUrl']        = 'https://aus4.mozilla.org'
+releaseConfig['ausHost']             = None
 releaseConfig['ausUser']             = 'tbirdbld'
 releaseConfig['ausSshKey']           = 'tbirdbld_dsa'
 releaseConfig['releaseNotesUrl']     = 'http://live.mozillamessaging.com/thunderbird/releasenotes?locale=%locale%&platform=%platform%&version=%version%'
@@ -123,10 +123,11 @@ releaseConfig['mozconfigs']          = {
     'macosx64': 'mail/config/mozconfigs/macosx-universal/release',
     'win32': 'mail/config/mozconfigs/win32/release',
 }
+releaseConfig['source_mozconfig']      = 'mail/config/mozconfigs/linux64/release'
 releaseConfig['releaseChannel']        = 'release'
-releaseConfig['releaseChannelRuleIds'] = [] # Still on AUS3
-releaseConfig['localTestChannel']      = 'betatest'
-releaseConfig['cdnTestChannel']        = 'releasetest'
+releaseConfig['releaseChannelRuleIds'] = [35]
+releaseConfig['localTestChannel']      = 'release-localtest'
+releaseConfig['cdnTestChannel']        = 'release-cdntest'
 releaseConfig['testChannelRuleIds']    = [61,62]
 
 # Partner repack configuration

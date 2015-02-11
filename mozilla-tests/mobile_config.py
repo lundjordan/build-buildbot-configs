@@ -52,7 +52,7 @@ setMainFirefoxVersions(BRANCHES)
 PLATFORMS = {
     'android': {},
     'android-api-9': {},
-    'android-api-10': {},
+    'android-api-11': {},
     'android-armv6': {},
     'android-x86': {},
 }
@@ -99,15 +99,15 @@ PLATFORMS['android-api-9']['mozharness_config'] = {
     'reboot_command': None,
     'talos_script_maxtime': 10800,
 }
-PLATFORMS['android-api-10']['slave_platforms'] = ['panda_android']
-PLATFORMS['android-api-10']['env_name'] = 'android-perf'
-PLATFORMS['android-api-10']['is_mobile'] = True
-PLATFORMS['android-api-10']['panda_android'] = {
-    'name': "Android 4.0 armv7 API 10+",
+PLATFORMS['android-api-11']['slave_platforms'] = ['panda_android']
+PLATFORMS['android-api-11']['env_name'] = 'android-perf'
+PLATFORMS['android-api-11']['is_mobile'] = True
+PLATFORMS['android-api-11']['panda_android'] = {
+    'name': "Android 4.0 armv7 API 11+",
     'mozharness_talos': True,
 }
-PLATFORMS['android-api-10']['stage_product'] = 'mobile'
-PLATFORMS['android-api-10']['mozharness_config'] = {
+PLATFORMS['android-api-11']['stage_product'] = 'mobile'
+PLATFORMS['android-api-11']['mozharness_config'] = {
     'mozharness_python': '/tools/buildbot/bin/python',
     'hg_bin': 'hg',
     'reboot_command': None,
@@ -205,7 +205,7 @@ BRANCH_UNITTEST_VARS = {
         'android': {},
         'android-debug': {},
         'android-api-9': {},
-        'android-api-10': {},
+        'android-api-11': {},
         'android-armv6': {},
         'android-x86': {},
     },
@@ -1532,7 +1532,6 @@ PLATFORM_UNITTEST_VARS = {
         'app_name': 'browser',
         'brand_name': 'Minefield',
         'is_remote': True,
-        'host_utils_url': 'http://talos-remote.pvt.build.mozilla.org/tegra/tegra-host-utils.%%(foopy_type)s.742597.zip',
         'enable_opt_unittests': True,
         'enable_debug_unittests': True,
         'remote_extras': ANDROID_UNITTEST_REMOTE_EXTRAS,
@@ -1543,17 +1542,15 @@ PLATFORM_UNITTEST_VARS = {
         'app_name': 'browser',
         'brand_name': 'Minefield',
         'is_remote': True,
-        'host_utils_url': 'http://talos-remote.pvt.build.mozilla.org/tegra/tegra-host-utils.%%(foopy_type)s.742597.zip',
         'enable_opt_unittests': True,
         'enable_debug_unittests': True,
         'remote_extras': ANDROID_UNITTEST_REMOTE_EXTRAS,
     },
-    'android-api-10': {
+    'android-api-11': {
         'product_name': 'fennec',
         'app_name': 'browser',
         'brand_name': 'Minefield',
         'is_remote': True,
-        'host_utils_url': 'http://talos-remote.pvt.build.mozilla.org/tegra/tegra-host-utils.%%(foopy_type)s.742597.zip',
         'enable_opt_unittests': True,
         'enable_debug_unittests': True,
         'remote_extras': ANDROID_UNITTEST_REMOTE_EXTRAS,
@@ -1564,7 +1561,6 @@ PLATFORM_UNITTEST_VARS = {
         'app_name': 'browser',
         'brand_name': 'Minefield',
         'is_remote': True,
-        'host_utils_url': 'http://talos-remote.pvt.build.mozilla.org/tegra/tegra-host-utils.%%(foopy_type)s.742597.zip',
         'enable_opt_unittests': True,
         'enable_debug_unittests': False,
         'remote_extras': ANDROID_UNITTEST_REMOTE_EXTRAS,
@@ -1682,7 +1678,7 @@ BRANCHES['mozilla-central']['pgo_strategy'] = 'periodic'
 BRANCHES['mozilla-central']['pgo_platforms'] = []
 BRANCHES['mozilla-central']['platforms']['android']['enable_debug_unittests'] = True
 BRANCHES['mozilla-central']['platforms']['android-api-9']['enable_debug_unittests'] = True
-BRANCHES['mozilla-central']['platforms']['android-api-10']['enable_debug_unittests'] = True
+BRANCHES['mozilla-central']['platforms']['android-api-11']['enable_debug_unittests'] = True
 
 ######### mozilla-release
 BRANCHES['mozilla-release']['repo_path'] = "releases/mozilla-release"
@@ -1711,19 +1707,23 @@ BRANCHES['mozilla-b2g30_v1_4']['pgo_platforms'] = []
 BRANCHES['try']['repo_path'] = "try"
 BRANCHES['try']['platforms']['android']['enable_debug_unittests'] = True
 BRANCHES['try']['platforms']['android-api-9']['enable_debug_unittests'] = True
-BRANCHES['try']['platforms']['android-api-10']['enable_debug_unittests'] = True
+BRANCHES['try']['platforms']['android-api-11']['enable_debug_unittests'] = True
 BRANCHES['try']['pgo_strategy'] = 'try'
 BRANCHES['try']['pgo_platforms'] = []
 BRANCHES['try']['enable_try'] = True
-BRANCHES['try']['script_repo_manifest'] = \
-        "https://hg.mozilla.org/%(repo_path)s/raw-file/%(revision)s/testing/mozharness/mozharness.json"
-
-######## ash 
-BRANCHES['ash']['script_repo_manifest'] = \
-        "https://hg.mozilla.org/%(repo_path)s/raw-file/%(revision)s/testing/mozharness/mozharness.json"
 
 # Until we green out these Android x86 tests
 BRANCHES['cedar']['platforms']['android-x86']['ubuntu64_hw']['opt_unittest_suites'] += ANDROID_X86_NOT_GREEN_DICT[:]
+
+# Enable mozharness pinning
+for _, branch in items_at_least(BRANCHES, 'gecko_version', 30):
+    branch['script_repo_manifest'] = \
+        "https://hg.mozilla.org/%(repo_path)s/raw-file/%(revision)s/" + \
+        "testing/mozharness/mozharness.json"
+
+BRANCHES['mozilla-b2g30_v1_4']['script_repo_manifest'] = \
+    "https://hg.mozilla.org/%(repo_path)s/raw-file/%(revision)s/" + \
+    "testing/mozharness/mozharness.json"
 
 #split 2.3 tests to ones that can run on ix and AWS
 for suite in ANDROID_2_3_MOZHARNESS_DICT:
@@ -1747,8 +1747,8 @@ for name, branch in items_at_least(BRANCHES, 'gecko_version', 37):
 for name, branch in items_before(BRANCHES, 'gecko_version', 37):
     if 'android-api-9' in branch['platforms']:
         del branch['platforms']['android-api-9']
-    if 'android-api-10' in branch['platforms']:
-        del branch['platforms']['android-api-10']
+    if 'android-api-11' in branch['platforms']:
+        del branch['platforms']['android-api-11']
 
 # enable android 2.3 tests to ride the trains bug 1004791
 for name, branch in items_at_least(BRANCHES, 'gecko_version', 32):
@@ -1767,7 +1767,7 @@ for name, branch in items_at_least(BRANCHES, 'gecko_version', 32):
             'debug_unittest_suites': []
         }
 
-for platform_name in ('android', 'android-api-10'):
+for platform_name in ('android', 'android-api-11'):
     if platform_name in BRANCHES['cedar']['platforms']:
         BRANCHES['cedar']['platforms'][platform_name]['enable_debug_unittests'] = True
         BRANCHES['cedar']['platforms'][platform_name]['panda_android']['debug_unittest_suites'] = deepcopy(ANDROID_MOZHARNESS_MOCHITEST + ANDROID_MOZHARNESS_PLAIN_ROBOCOP + ANDROID_MOZHARNESS_JSREFTEST + ANDROID_MOZHARNESS_CRASHTEST + ANDROID_MOZHARNESS_MOCHITESTGL + ANDROID_MOZHARNESS_PLAIN_REFTEST + ANDROID_MOZHARNESS_XPCSHELL + ANDROID_MOZHARNESS_JITTEST + ANDROID_MOZHARNESS_CPPUNITTEST)
@@ -1780,7 +1780,7 @@ for name, branch in items_at_least(BRANCHES, 'gecko_version', 34):
     for platform in branch['platforms']:
         if not platform in PLATFORMS:
             continue
-        if platform not in ('android', 'android-api-10'):
+        if platform not in ('android', 'android-api-11'):
             continue
         for slave_plat in PLATFORMS[platform]['slave_platforms']:
             if not slave_plat in branch['platforms'][platform]:
@@ -1793,11 +1793,6 @@ for name, branch in items_at_least(BRANCHES, 'gecko_version', 34):
                 for type in branch['platforms'][platform][slave_plat]:
                     if 'debug_unittest_suite' in type:
                         BRANCHES[name]['platforms'][platform][slave_plat]['debug_unittest_suites'] = deepcopy(ANDROID_MOZHARNESS_MOCHITEST + ANDROID_MOZHARNESS_JSREFTEST + ANDROID_MOZHARNESS_CRASHTEST + ANDROID_MOZHARNESS_PLAIN_REFTEST)
-
-# have to disable this manually or it blows up in misc.py
-for platform_name in ('android', 'android-api-9', 'android-api-10'):
-    if platform_name in BRANCHES['ash']['platforms']:
-        BRANCHES['ash']['platforms'][platform_name]['enable_debug_unittests'] = False
 
 
 def remove_suite_from_slave_platform(BRANCHES, PLATFORMS, suite_to_remove, slave_platform, branches_to_keep=[]):
@@ -1836,7 +1831,7 @@ remove_suite_from_slave_platform(BRANCHES, PLATFORMS, 'jittest', 'panda_android'
 
 # schedule instrumentation tests for pandas on ash and cedar
 # https://bugzilla.mozilla.org/show_bug.cgi?id=1064010
-remove_suite_from_slave_platform(BRANCHES, PLATFORMS, 'instrumentation', 'panda_android', branches_to_keep=['ash', 'cedar'])
+remove_suite_from_slave_platform(BRANCHES, PLATFORMS, 'instrumentation', 'panda_android', branches_to_keep=['cedar'])
 
 
 if __name__ == "__main__":

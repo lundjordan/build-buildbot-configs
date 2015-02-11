@@ -4,7 +4,7 @@
 # or changing options as part of release automation changes you should be
 # editing the .template instead. This file should only by edited directly if
 # you're starting a release without Release Kickoff. You have been warned.
-EMAIL_RECIPIENTS = ["release@mozilla.com"]
+EMAIL_RECIPIENTS = ["release+releasespam@mozilla.com"]
 
 releaseConfig = {}
 releaseConfig['skip_repo_setup']        = True
@@ -153,5 +153,4 @@ releaseConfig['ftpSymlinkName'] = 'latest'
 releaseConfig['bouncer_aliases'] = {
     'Firefox-%(version)s': 'firefox-latest',
     'Firefox-%(version)s-stub': 'firefox-stub',
-    'Firefox-%(version)s-EUBallot': 'firefox-latest-euballot',
 }
