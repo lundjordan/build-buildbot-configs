@@ -68,7 +68,7 @@ PROJECT_BRANCHES = {
         'enable_weekly_bundle': True,
         'mozconfig_dir': 'ux',
         'enable_nightly': True,
-        'create_snippet': True,
+        'updates_enabled': True,
         'create_partial': True,
         'enable_talos': False,
         'lock_platforms': True,
@@ -185,7 +185,7 @@ PROJECT_BRANCHES = {
         'gecko_version': 35,
         'enable_perproduct_builds': False,
         'enable_nightly': True,
-        'create_snippet': True,
+        'updates_enabled': True,
         'create_partial': True,
         'nightly_signing_servers': 'nightly-signing',
         'l10n_repo_path': 'releases/l10n/mozilla-aurora',
@@ -239,14 +239,14 @@ PROJECT_BRANCHES = {
     },
     'maple': {
         'enable_nightly': True,
-        'create_snippet': True,
+        'updates_enabled': True,
         'create_partial': True,
         'nightly_signing_servers': 'nightly-signing',
     },
     # customizations for integration work for bugs 481815 and 307181
     'oak': {
         'enable_nightly': True,
-        'create_snippet': True,
+        'updates_enabled': True,
         'create_partial': True,
         'enable_talos': False,
         'platforms': {

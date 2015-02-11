@@ -104,7 +104,7 @@ releaseConfig['ftpServer']           = 'ftp.mozilla.org'
 releaseConfig['stagingServer']       = 'stage.mozilla.org'
 releaseConfig['bouncerServer']       = 'download.mozilla.org'
 releaseConfig['ausServerUrl']        = 'https://aus4.mozilla.org'
-releaseConfig['ausHost']             = 'aus3-staging.mozilla.org'
+releaseConfig['ausHost']             = None
 releaseConfig['ausUser']             = 'tbirdbld'
 releaseConfig['ausSshKey']           = 'tbirdbld_dsa'
 releaseConfig['releaseNotesUrl']     = 'http://live.mozillamessaging.com/thunderbird/releasenotes?locale=%locale%&platform=%platform%&version=%version%'
@@ -123,6 +123,7 @@ releaseConfig['mozconfigs']          = {
     'macosx64': 'mail/config/mozconfigs/macosx-universal/release',
     'win32': 'mail/config/mozconfigs/win32/release',
 }
+releaseConfig['source_mozconfig']      = 'mail/config/mozconfigs/linux64/release'
 releaseConfig['releaseChannel']        = 'release'
 releaseConfig['releaseChannelRuleIds'] = [35]
 releaseConfig['localTestChannel']      = 'release-localtest'
