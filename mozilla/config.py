@@ -164,7 +164,7 @@ PLATFORM_VARS = {
             'mozharness_desktop_l10n': {
                 'capable': True,
                 'scriptName': 'scripts/desktop_l10n.py',
-                'l10n_chunks': 1,
+                'l10n_chunks': 3,
                 'use_credentials_file': True,
             },
             'dep_signing_servers': 'dep-signing',
@@ -284,7 +284,7 @@ PLATFORM_VARS = {
             'mozharness_desktop_l10n': {
                 'capable': True,
                 'scriptName': 'scripts/desktop_l10n.py',
-                'l10n_chunks': 1,
+                'l10n_chunks': 3,
                 'use_credentials_file': True,
             },
             'product_name': 'firefox',
@@ -816,7 +816,7 @@ PLATFORM_VARS = {
             'mozharness_desktop_l10n': {
                 'capable': True,
                 'scriptName': 'scripts/desktop_l10n.py',
-                'l10n_chunks': 1,
+                'l10n_chunks': 3,
                 'use_credentials_file': True,
             },
 
@@ -892,7 +892,7 @@ PLATFORM_VARS = {
             'mozharness_desktop_l10n': {
                 'capable': False,
                 'scriptName': 'scripts/desktop_l10n.py',
-                'l10n_chunks': 1,
+                'l10n_chunks': 3,
                 'use_credentials_file': True,
             },
 
@@ -953,7 +953,7 @@ PLATFORM_VARS = {
             'mozharness_desktop_l10n': {
                 'capable': False,
                 'scriptName': 'scripts/desktop_l10n.py',
-                'l10n_chunks': 1,
+                'l10n_chunks': 3,
                 'use_credentials_file': True,
             },
             'reboot_command': [
