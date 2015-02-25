@@ -45,7 +45,58 @@ PROJECT_BRANCHES = {
             'linux64-mulet': {},
         },
     },
-    'ash': {},
+    'ash': {
+        'enable_nightly': True,
+        'platforms': {
+            'nexus-4': {
+                'enable_nightly': True,
+            },
+            'nexus-4_eng': {
+                'enable_nightly': True,
+                'consider_for_nightly': False,
+            },
+            'nexus-5-l': {
+                'enable_nightly': True,
+            },
+            'nexus-5-l_eng': {
+                'enable_nightly': True,
+                'consider_for_nightly': False,
+            },
+            'flame-kk': {
+                'enable_nightly': True,
+            },
+            'flame-kk_eng': {
+                'enable_nightly': True,
+            },
+            'emulator': {
+                'enable_nightly': True,
+            },
+            'emulator-debug': {
+                'enable_nightly': True,
+            },
+            'emulator-jb': {
+                'enable_nightly': True,
+            },
+            'emulator-jb-debug': {
+                'enable_nightly': True,
+            },
+            'linux64-b2g-haz': {
+                'enable_nightly': False,
+            },
+            'emulator-kk': {
+                'enable_nightly': True,
+            },
+            'emulator-kk-debug': {
+                'enable_nightly': True,
+            },
+            'dolphin': {
+                'enable_nightly': True,
+            },
+            'dolphin_eng': {
+                'enable_nightly': True,
+            },
+        },
+    },
     # Not needed on Birch at the moment, bug 977420.
     #'birch': {},
     'cedar': {
@@ -58,12 +109,17 @@ PROJECT_BRANCHES = {
         'lock_platforms': True,
         'platforms': {},
     },
-    'gum': {},
+    # disabled by bug 1134508
+    # 'gum': {},
     # disabled for bug 985718
     #'holly': {},
     'jamun': {},
-    # disabled for bug 1033704
-    #'larch': {},
+    'larch': {
+        "desktop_mozharness_builds_enabled": True,
+        "platforms": {
+            "linux64_graphene": {},
+        },
+    },
     'maple': {},
     # Customizations for integration work for bugs 481815 and 307181
     'oak': {
