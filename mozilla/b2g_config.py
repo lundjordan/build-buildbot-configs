@@ -1668,7 +1668,7 @@ PLATFORM_VARS = {
         "mozharness_desktop_build": {
             "script_name": "scripts/fx_desktop_build.py",
             "extra_args": [
-                "--config", "builds/releng_base_win_64_builds.py",
+                "--config", "builds/releng_base_windows_64_builds.py",
                 "--custom-build-variant-cfg", "graphene"
             ],
             "script_timeout": 3 * 3600,
@@ -1997,8 +1997,10 @@ BRANCHES['try']['platforms']['linux64-b2g-haz']['slaves'] = TRY_SLAVES['mock']
 BRANCHES['try']['platforms']['linux64-mulet']['slaves'] = TRY_SLAVES['mock']
 BRANCHES['try']['platforms']['macosx64_gecko']['slaves'] = TRY_SLAVES['macosx64-lion']
 BRANCHES['try']['platforms']['macosx64_gecko-debug']['slaves'] = TRY_SLAVES['macosx64-lion']
+BRANCHES['try']['platforms']['macosx64-mulet']['slaves'] = TRY_SLAVES['macosx64-lion']
 BRANCHES['try']['platforms']['win32_gecko']['slaves'] = TRY_SLAVES['win64-rev2']
 BRANCHES['try']['platforms']['win32_gecko-debug']['slaves'] = TRY_SLAVES['win64-rev2']
+BRANCHES['try']['platforms']['win32-mulet']['slaves'] = TRY_SLAVES['win64-rev2']
 # Bug 1127482 - Make Windows opt and debug, linux debug, and osx debug B2G Desktop builds periodic
 ## we can't have 1127482 builders be periodic on try so let's revert them back to dep builds
 BRANCHES['try']['platforms']['linux32_gecko-debug']['enable_dep'] = True
