@@ -9,7 +9,7 @@ releaseConfig['disable_tinderbox_mail'] = True
 releaseConfig['base_clobber_url'] = 'https://api.pub.build.mozilla.org/clobberer/forceclobber'
 
 # Release Notification
-releaseConfig['AllRecipients']       = ['<release+releasespam@mozilla.com>']
+releaseConfig['AllRecipients']       = ['<release+releasespam@mozilla.com>', '<thunderbird-drivers@mozilla.org>']
 releaseConfig['ImportantRecipients'] = ['<thunderbird-drivers@mozilla.org>',]
 releaseConfig['AVVendorsRecipients'] = ['<av-vendor-release-announce@mozilla.org>',]
 releaseConfig['releaseTemplates']    = 'release_templates'
@@ -22,17 +22,17 @@ releaseConfig['stage_product']       = 'thunderbird'
 releaseConfig['appName']             = 'mail'
 releaseConfig['mozilla_srcdir']      = 'mozilla'
 #  Current version info
-releaseConfig['version']             = '36.0b1'
-releaseConfig['appVersion']          = '36.0'
+releaseConfig['version']             = '37.0b1'
+releaseConfig['appVersion']          = '37.0'
 releaseConfig['milestone']           = releaseConfig['appVersion']
 releaseConfig['buildNumber']         = 2
-releaseConfig['baseTag']             = 'THUNDERBIRD_36_0b1'
+releaseConfig['baseTag']             = 'THUNDERBIRD_37_0b1'
 releaseConfig['partialUpdates']      = {
 
-    '34.0b1': {
-        'appVersion': '34.0',
-        'buildNumber': 3,
-        'baseTag': 'THUNDERBIRD_34_0b1',
+    '36.0b1': {
+        'appVersion': '36.0',
+        'buildNumber': 2,
+        'baseTag': 'THUNDERBIRD_36_0b1',
     },
 
 }
@@ -44,7 +44,7 @@ releaseConfig['sourceRepositories']  = {
     'comm': {
         'name': 'comm-beta',
         'path': 'releases/comm-beta',
-        'revision': '72cd4a740611',
+        'revision': '658baa0ae1f5',
         'relbranch': None,
         'bumpFiles': {
             'mail/config/version.txt': {
@@ -56,7 +56,7 @@ releaseConfig['sourceRepositories']  = {
     'mozilla': {
         'name': 'mozilla-beta',
         'path': 'releases/mozilla-beta',
-        'revision': '5d83c055e2a9',
+        'revision': '21f52f25675a',
         'relbranch': None,
         'bumpFiles': {
             'config/milestone.txt': {
@@ -98,7 +98,6 @@ releaseConfig['hgUsername']          = 'tbirdbld'
 releaseConfig['hgSshKey']            = '/home/mock_mozilla/.ssh/tbirdbld_dsa'
 
 # Update-specific configuration
-releaseConfig['patcherConfig']       = 'mozBeta-thunderbird-branch-patcher2.cfg'
 releaseConfig['ftpServer']           = 'ftp.mozilla.org'
 releaseConfig['stagingServer']       = 'stage.mozilla.org'
 releaseConfig['bouncerServer']       = 'download.mozilla.org'
@@ -110,12 +109,6 @@ releaseConfig['releaseNotesUrl']     = 'http://live.mozillamessaging.com/thunder
 releaseConfig['testOlderPartials']   = False
 releaseConfig['promptWaitTime']      = None
 releaseConfig['updateVerifyChunks']  = 6
-releaseConfig['verifyConfigs']       = {
-    'linux':  'mozBeta-thunderbird-linux.cfg',
-    'linux64':  'mozBeta-thunderbird-linux64.cfg',
-    'macosx64': 'mozBeta-thunderbird-mac64.cfg',
-    'win32':  'mozBeta-thunderbird-win32.cfg'
-}
 releaseConfig['mozconfigs']          = {
     'linux': 'mail/config/mozconfigs/linux32/release',
     'linux64': 'mail/config/mozconfigs/linux64/release',
@@ -124,10 +117,29 @@ releaseConfig['mozconfigs']          = {
 }
 releaseConfig['source_mozconfig']      = 'mail/config/mozconfigs/linux64/release'
 releaseConfig['releaseChannel']        = 'beta'
-releaseConfig['releaseChannelRuleIds'] = [43]
-releaseConfig['localTestChannel']      = 'beta-localtest'
-releaseConfig['cdnTestChannel']        = 'beta-cdntest'
-releaseConfig['testChannelRuleIds']    = [27,60]
+releaseConfig['updateChannels'] = {
+    "beta": {
+        "versionRegex": r"^.*$",
+        "ruleId": 43,
+        "patcherConfig": "mozBeta-thunderbird-branch-patcher2.cfg",
+        "localTestChannel": "beta-localtest",
+        "cdnTestChannel": "beta-cdntest",
+        "verifyConfigs": {
+            "linux":  "mozBeta-thunderbird-linux.cfg",
+            "linux64":  "mozBeta-thunderbird-linux64.cfg",
+            "macosx64": "mozBeta-thunderbird-mac64.cfg",
+            "win32":  "mozBeta-thunderbird-win32.cfg",
+        },
+        "testChannels": {
+            "beta-cdntest": {
+                "ruleId": 60,
+            },
+            "beta-localtest": {
+                "ruleId": 27,
+            },
+        }
+    }
+}
 
 # Partner repack configuration
 releaseConfig['doPartnerRepacks']    = False

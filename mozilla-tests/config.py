@@ -472,14 +472,14 @@ MOCHITEST_DT_E10S = [
     }),
 ]
 
-MOCHITEST_DT_3 = [
+MOCHITEST_DT_4 = [
     ('mochitest-devtools-chrome', {
         'use_mozharness': True,
         'script_path': 'scripts/desktop_unittest.py',
         'extra_args': ['--mochitest-suite', 'mochitest-devtools-chrome-chunked'],
         'blob_upload': True,
         'script_maxtime': 4800,
-        'totalChunks': 3,
+        'totalChunks': 4,
     }),
 ]
 
@@ -681,6 +681,15 @@ MOZBASE = [
     }),
 ]
 
+LUCIDDREAM = [
+    ('luciddream', {
+        'use_mozharness': True,
+        'script_path': 'scripts/luciddream_unittest.py',
+        'script_maxtime': 7200,
+        'blob_upload': True,
+    }),
+]
+
 WEB_PLATFORM_REFTESTS = [
     ('web-platform-tests-reftests', {
         'use_mozharness': True,
@@ -715,7 +724,7 @@ WEB_PLATFORM_TESTS_CHUNKED = [
 
 UNITTEST_SUITES = {
     'opt_unittest_suites': MOCHITEST + REFTEST_ONE_CHUNK + REFTEST_NO_IPC + XPCSHELL + CPPUNIT + MOCHITEST_DT,
-    'debug_unittest_suites': MOCHITEST + REFTEST_ONE_CHUNK + REFTEST_NO_IPC + XPCSHELL + CPPUNIT + MARIONETTE + MOCHITEST_DT_3,
+    'debug_unittest_suites': MOCHITEST + REFTEST_ONE_CHUNK + REFTEST_NO_IPC + XPCSHELL + CPPUNIT + MARIONETTE + MOCHITEST_DT_4,
 }
 
 
@@ -895,6 +904,9 @@ PLATFORM_UNITTEST_VARS = {
                 },
                 'mozbase': {
                     'config_files': ["unittests/linux_unittest.py"],
+                },
+                'luciddream': {
+                    'config_files': ["luciddream/linux_config.py"],
                 },
             },
         },
@@ -1076,7 +1088,7 @@ PLATFORM_UNITTEST_VARS = {
         'enable_debug_unittests': True,
         'xp-ix': {
             'opt_unittest_suites': UNITTEST_SUITES['opt_unittest_suites'][:],
-            'debug_unittest_suites': MOCHITEST + REFTEST_ONE_CHUNK + REFTEST_NO_IPC + XPCSHELL + MOCHITEST_DT_3,
+            'debug_unittest_suites': MOCHITEST + REFTEST_ONE_CHUNK + REFTEST_NO_IPC + XPCSHELL + MOCHITEST_DT_4,
             'suite_config': {
                 'mochitest': {
                     'config_files': ["unittests/win_unittest.py"],
@@ -1154,7 +1166,7 @@ PLATFORM_UNITTEST_VARS = {
         },
         'win7-ix': {
             'opt_unittest_suites': UNITTEST_SUITES['opt_unittest_suites'][:] + REFTEST_NOACCEL,
-            'debug_unittest_suites': MOCHITEST + REFTEST_ONE_CHUNK + REFTEST_NO_IPC + XPCSHELL + MOCHITEST_DT_3,
+            'debug_unittest_suites': MOCHITEST + REFTEST_ONE_CHUNK + REFTEST_NO_IPC + XPCSHELL + MOCHITEST_DT_4,
             'suite_config': {
                 'mochitest': {
                     'config_files': ["unittests/win_unittest.py"],
@@ -1235,7 +1247,7 @@ PLATFORM_UNITTEST_VARS = {
         },
         'win8': {
             'opt_unittest_suites': UNITTEST_SUITES['opt_unittest_suites'][:] + REFTEST_NOACCEL[:],
-            'debug_unittest_suites': MOCHITEST + REFTEST_ONE_CHUNK + REFTEST_NO_IPC + XPCSHELL + CPPUNIT + MOCHITEST_DT_3,
+            'debug_unittest_suites': MOCHITEST + REFTEST_ONE_CHUNK + REFTEST_NO_IPC + XPCSHELL + CPPUNIT + MOCHITEST_DT_4,
             'suite_config': {
                 'mochitest': {
                     'config_files': ["unittests/win_unittest.py"],
@@ -1327,7 +1339,7 @@ PLATFORM_UNITTEST_VARS = {
         'enable_debug_unittests': True,
         'win8_64': {
             'opt_unittest_suites': UNITTEST_SUITES['opt_unittest_suites'][:] + REFTEST_NOACCEL[:],
-            'debug_unittest_suites': MOCHITEST + REFTEST_ONE_CHUNK + REFTEST_NO_IPC + XPCSHELL + CPPUNIT + MOCHITEST_DT_3,
+            'debug_unittest_suites': MOCHITEST + REFTEST_ONE_CHUNK + REFTEST_NO_IPC + XPCSHELL + CPPUNIT + MOCHITEST_DT_4,
             'suite_config': {
                 'mochitest': {
                     'config_files': ["unittests/win_unittest.py"],
@@ -1562,8 +1574,8 @@ PLATFORM_UNITTEST_VARS = {
             },
         },
         'yosemite': {
-            'opt_unittest_suites': [],
-            'debug_unittest_suites': [],
+            'opt_unittest_suites': UNITTEST_SUITES['opt_unittest_suites'][:],
+            'debug_unittest_suites': UNITTEST_SUITES['debug_unittest_suites'][:],
             'suite_config': {
                 'mochitest': {
                     'config_files': ["unittests/mac_unittest.py"],
@@ -1723,7 +1735,7 @@ PROJECTS = {
                 'debug': True
             },
             'snowleopard': {'ext': '(mac|mac64).dmg', 'debug': True},
-            'mountainlion': {'ext': '(mac|mac64).dmg', 'debug': True},
+            'yosemite': {'ext': '(mac|mac64).dmg', 'debug': True},
             'xp-ix': {
                 'ext': 'win32.zip',
                 'env': PLATFORM_UNITTEST_VARS['win32']['env_name'],
@@ -1802,10 +1814,12 @@ BRANCHES['mozilla-release']['platforms']['linux64']['talos_slave_platforms'] = [
 ######### mozilla-beta
 BRANCHES['mozilla-beta']['repo_path'] = "releases/mozilla-beta"
 BRANCHES['mozilla-beta']['pgo_strategy'] = 'per-checkin'
+BRANCHES['mozilla-beta']['platforms']['macosx64']['talos_slave_platforms'] = ['snowleopard', 'mountainlion']
 
 ######### mozilla-aurora
 BRANCHES['mozilla-aurora']['repo_path'] = "releases/mozilla-aurora"
 BRANCHES['mozilla-aurora']['pgo_strategy'] = 'per-checkin'
+BRANCHES['mozilla-aurora']['platforms']['macosx64']['talos_slave_platforms'] = ['snowleopard', 'yosemite']
 
 ######### mozilla-esr31
 BRANCHES['mozilla-esr31']['repo_path'] = "releases/mozilla-esr31"
@@ -1819,6 +1833,7 @@ BRANCHES['mozilla-esr31']['platforms']['linux64']['talos_slave_platforms'] = []
 BRANCHES['mozilla-b2g30_v1_4']['repo_path'] = "releases/mozilla-b2g30_v1_4"
 BRANCHES['mozilla-b2g30_v1_4']['pgo_strategy'] = None
 BRANCHES['mozilla-b2g30_v1_4']['platforms']['win32']['talos_slave_platforms'] = []
+BRANCHES['mozilla-b2g30_v1_4']['platforms']['macosx64']['slave_platforms'] = ['snowleopard']
 BRANCHES['mozilla-b2g30_v1_4']['platforms']['macosx64']['talos_slave_platforms'] = []
 BRANCHES['mozilla-b2g30_v1_4']['platforms']['linux']['talos_slave_platforms'] = []
 BRANCHES['mozilla-b2g30_v1_4']['platforms']['linux64']['talos_slave_platforms'] = []
@@ -1827,6 +1842,7 @@ BRANCHES['mozilla-b2g30_v1_4']['platforms']['linux64']['talos_slave_platforms'] 
 BRANCHES['mozilla-b2g32_v2_0']['repo_path'] = "releases/mozilla-b2g32_v2_0"
 BRANCHES['mozilla-b2g32_v2_0']['pgo_strategy'] = None
 BRANCHES['mozilla-b2g32_v2_0']['platforms']['win32']['talos_slave_platforms'] = []
+BRANCHES['mozilla-b2g32_v2_0']['platforms']['macosx64']['slave_platforms'] = ['snowleopard']
 BRANCHES['mozilla-b2g32_v2_0']['platforms']['macosx64']['talos_slave_platforms'] = []
 BRANCHES['mozilla-b2g32_v2_0']['platforms']['linux']['talos_slave_platforms'] = []
 BRANCHES['mozilla-b2g32_v2_0']['platforms']['linux64']['talos_slave_platforms'] = []
@@ -1835,6 +1851,7 @@ BRANCHES['mozilla-b2g32_v2_0']['platforms']['linux64']['talos_slave_platforms'] 
 BRANCHES['mozilla-b2g34_v2_1']['repo_path'] = "releases/mozilla-b2g34_v2_1"
 BRANCHES['mozilla-b2g34_v2_1']['pgo_strategy'] = None
 BRANCHES['mozilla-b2g34_v2_1']['platforms']['win32']['talos_slave_platforms'] = []
+BRANCHES['mozilla-b2g34_v2_1']['platforms']['macosx64']['slave_platforms'] = ['snowleopard']
 BRANCHES['mozilla-b2g34_v2_1']['platforms']['macosx64']['talos_slave_platforms'] = []
 BRANCHES['mozilla-b2g34_v2_1']['platforms']['linux']['talos_slave_platforms'] = []
 BRANCHES['mozilla-b2g34_v2_1']['platforms']['linux64']['talos_slave_platforms'] = []
@@ -1842,11 +1859,13 @@ BRANCHES['mozilla-b2g34_v2_1']['platforms']['linux64']['talos_slave_platforms'] 
 ######### mozilla-b2g34_v2_1s
 BRANCHES['mozilla-b2g34_v2_1s']['repo_path'] = "releases/mozilla-b2g34_v2_1s"
 BRANCHES['mozilla-b2g34_v2_1s']['pgo_strategy'] = None
+BRANCHES['mozilla-b2g34_v2_1s']['platforms']['linux']['ubuntu32_vm']['debug_unittest_suites'] = []
 
 ######### mozilla-b2g37_v2_2
 BRANCHES['mozilla-b2g37_v2_2']['repo_path'] = "releases/mozilla-b2g37_v2_2"
 BRANCHES['mozilla-b2g37_v2_2']['pgo_strategy'] = None
 BRANCHES['mozilla-b2g37_v2_2']['platforms']['win32']['talos_slave_platforms'] = []
+BRANCHES['mozilla-b2g37_v2_2']['platforms']['macosx64']['slave_platforms'] = ['snowleopard']
 BRANCHES['mozilla-b2g37_v2_2']['platforms']['macosx64']['talos_slave_platforms'] = []
 BRANCHES['mozilla-b2g37_v2_2']['platforms']['linux']['talos_slave_platforms'] = []
 BRANCHES['mozilla-b2g37_v2_2']['platforms']['linux64']['talos_slave_platforms'] = []
@@ -1870,6 +1889,7 @@ BRANCHES['try']['platforms']['macosx64']['yosemite']['opt_unittest_suites'] = UN
 BRANCHES['try']['platforms']['macosx64']['yosemite']['debug_unittest_suites'] = UNITTEST_SUITES['debug_unittest_suites'][:]
 
 ######## cedar
+BRANCHES['cedar']['platforms']['linux64']['ubuntu64_vm']['opt_unittest_suites'] += LUCIDDREAM[:]
 BRANCHES['cedar']['platforms']['linux64-asan']['ubuntu64-asan_vm']['opt_unittest_suites'] += MARIONETTE[:]
 BRANCHES['cedar']['platforms']['win32']['xp-ix']['opt_unittest_suites'] += REFTEST_OMTC[:]
 BRANCHES['cedar']['platforms']['win32']['win7-ix']['opt_unittest_suites'] += REFTEST_OMTC[:]
@@ -1889,8 +1909,8 @@ BRANCHES['mozilla-inbound']['platforms']['win32']['win7-ix']['opt_unittest_skipc
 BRANCHES['mozilla-inbound']['platforms']['win32']['win7-ix']['opt_unittest_skiptimeout'] = 1800
 BRANCHES['mozilla-inbound']['platforms']['win64']['win8_64']['opt_unittest_skipcount'] = 3
 BRANCHES['mozilla-inbound']['platforms']['win64']['win8_64']['opt_unittest_skiptimeout'] = 1800
-BRANCHES['mozilla-inbound']['platforms']['macosx64']['mountainlion']['opt_unittest_skipcount'] = 3
-BRANCHES['mozilla-inbound']['platforms']['macosx64']['mountainlion']['opt_unittest_skiptimeout'] = 1800
+BRANCHES['mozilla-inbound']['platforms']['macosx64']['mountainlion']['opt_unittest_skipcount'] = 6
+BRANCHES['mozilla-inbound']['platforms']['macosx64']['mountainlion']['opt_unittest_skiptimeout'] = 3200
 BRANCHES['mozilla-inbound']['platforms']['win32']['xp-ix']['debug_unittest_skipcount'] = 2
 BRANCHES['mozilla-inbound']['platforms']['win32']['xp-ix']['debug_unittest_skiptimeout'] = 1800
 BRANCHES['mozilla-inbound']['platforms']['win32']['win7-ix']['debug_unittest_skipcount'] = 2
@@ -1899,8 +1919,8 @@ BRANCHES['mozilla-inbound']['platforms']['win64']['win8_64']['debug_unittest_ski
 BRANCHES['mozilla-inbound']['platforms']['win64']['win8_64']['debug_unittest_skiptimeout'] = 1800
 BRANCHES['mozilla-inbound']['platforms']['macosx64']['snowleopard']['debug_unittest_skipcount'] = 2
 BRANCHES['mozilla-inbound']['platforms']['macosx64']['snowleopard']['debug_unittest_skiptimeout'] = 1800
-BRANCHES['mozilla-inbound']['platforms']['macosx64']['mountainlion']['debug_unittest_skipcount'] = 3
-BRANCHES['mozilla-inbound']['platforms']['macosx64']['mountainlion']['debug_unittest_skiptimeout'] = 1800
+BRANCHES['mozilla-inbound']['platforms']['macosx64']['mountainlion']['debug_unittest_skipcount'] = 6
+BRANCHES['mozilla-inbound']['platforms']['macosx64']['mountainlion']['debug_unittest_skiptimeout'] = 3200
 BRANCHES['mozilla-inbound']['platforms']['macosx64']['yosemite']['debug_unittest_skipcount'] = 2
 BRANCHES['mozilla-inbound']['platforms']['macosx64']['yosemite']['debug_unittest_skiptimeout'] = 1800
 BRANCHES['mozilla-inbound']['platforms']['linux']['ubuntu32_vm']['debug_unittest_skipcount'] = 2
@@ -1924,31 +1944,35 @@ for platform in BRANCHES['holly']['platforms'].keys():
     for slave_platform in PLATFORMS[platform]['slave_platforms']:
         slave_p = BRANCHES['holly']['platforms'][platform][slave_platform]
         slave_p['opt_unittest_suites'] = MOCHITEST + REFTEST_ONE_CHUNK + REFTEST_NO_IPC + MOCHITEST_DT
-        slave_p['debug_unittest_suites'] = MOCHITEST + REFTEST_ONE_CHUNK + REFTEST_NO_IPC + MOCHITEST_DT_3
+        slave_p['debug_unittest_suites'] = MOCHITEST + REFTEST_ONE_CHUNK + REFTEST_NO_IPC + MOCHITEST_DT_4
 
         # Enable content sandbox tests for Windows bit
         if slave_platform in PLATFORMS['win64']['slave_platforms'] or slave_platform in PLATFORMS['win32']['slave_platforms']:
             slave_p['opt_unittest_suites'] += MOCHITEST_CSB
             slave_p['debug_unittest_suites'] += MOCHITEST_CSB
 
-# Enable Yosemite testing on select branches only
-delete_slave_platform(BRANCHES, PLATFORMS, {'macosx64': 'yosemite'}, branch_exclusions=['try'])
+# Run old-style jetpack tests on try only
+for platform in PLATFORMS.keys():
+    for slave_platform in PLATFORMS[platform]['slave_platforms']:
+        if slave_platform not in BRANCHES['try']['platforms'][platform]:
+            continue
+        BRANCHES['try']['platforms'][platform][slave_platform]['opt_unittest_suites'].append(('jetpack', ['jetpack']))
+        BRANCHES['try']['platforms'][platform][slave_platform]['debug_unittest_suites'].append(('jetpack', ['jetpack']))
 
-# Run Jetpack tests everywhere except on versioned B2G branches.
-for name in [x for x in BRANCHES.keys() if not x.startswith('mozilla-b2g')]:
-    branch = BRANCHES[name]
+# Run mochitest-jetpack tests everywhere except on versioned B2G branches
+# starting from 39.
+for name, branch in items_at_least(BRANCHES, 'gecko_version', 39):
+    if name.startswith('mozilla-b2g'):
+        continue
     for pf in PLATFORMS:
         if pf not in branch['platforms']:
-            continue
-        # Skip these platforms
-        if pf in ('linux64-asan', ):
             continue
         for slave_pf in branch['platforms'][pf].get(
                 'slave_platforms', PLATFORMS[pf]['slave_platforms']):
             if slave_pf not in branch['platforms'][pf]:
                 continue
-            branch['platforms'][pf][slave_pf]['opt_unittest_suites'].append(('jetpack', ['jetpack']))
-            branch['platforms'][pf][slave_pf]['debug_unittest_suites'].append(('jetpack', ['jetpack']))
+            branch['platforms'][pf][slave_pf]['opt_unittest_suites'] += MOCHITEST_JP[:]
+            branch['platforms'][pf][slave_pf]['debug_unittest_suites'] += MOCHITEST_JP[:]
 
 # cppunittest jobs ride the train with 28, so they need to be disabled
 # for branches running an older version.
@@ -2014,6 +2038,21 @@ for platform in PLATFORMS.keys():
                 if slave_platform in BRANCHES[name]['platforms'][platform]:
                     BRANCHES[name]['platforms'][platform][slave_platform]['opt_unittest_suites'] += WEB_PLATFORM_TESTS_CHUNKED[:] + WEB_PLATFORM_REFTESTS[:]
 
+# Enable wpt on OSX 10.8 for gecko >= 39
+for platform in PLATFORMS.keys():
+    if platform not in ['macosx64']:
+        continue
+    for name, branch in items_at_least(BRANCHES, 'gecko_version', 39):
+        for slave_platform in PLATFORMS[platform]['slave_platforms']:
+
+            # These are not stable enough on OS X 10.6
+            if slave_platform == "snowleopard":
+                continue
+
+            if platform in BRANCHES[name]['platforms']:
+                if slave_platform in BRANCHES[name]['platforms'][platform]:
+                    BRANCHES[name]['platforms'][platform][slave_platform]['opt_unittest_suites'] += WEB_PLATFORM_TESTS_CHUNKED[:] + WEB_PLATFORM_REFTESTS[:]
+
 # Enable Mn on opt linux/linux64 for gecko >= 32
 for platform in PLATFORMS.keys():
     if platform not in ['linux', 'linux64']:
@@ -2045,6 +2084,18 @@ for platform in PLATFORMS.keys():
                     opt_suites = BRANCHES[name]['platforms'][platform][slave_platform]['opt_unittest_suites']
                     opt_suites = [x for x in opt_suites if x[0] and x[0] != 'reftest'] + REFTEST_TWO_CHUNKS
                     BRANCHES[name]['platforms'][platform][slave_platform]['opt_unittest_suites'] = opt_suites
+                    debug_suites = BRANCHES[name]['platforms'][platform][slave_platform]['debug_unittest_suites']
+                    debug_suites = [x for x in debug_suites if x[0] and x[0] != 'reftest'] + REFTEST_TWO_CHUNKS
+                    BRANCHES[name]['platforms'][platform][slave_platform]['debug_unittest_suites'] = debug_suites
+
+# reftest is chunked on linux64 debug for gecko >= 39
+for platform in PLATFORMS.keys():
+    for name, branch in items_at_least(BRANCHES, 'gecko_version', 39):
+        for slave_platform in PLATFORMS[platform]['slave_platforms']:
+            if slave_platform not in ['ubuntu64_vm']:
+                continue
+            if platform in BRANCHES[name]['platforms']:
+                if slave_platform in BRANCHES[name]['platforms'][platform]:
                     debug_suites = BRANCHES[name]['platforms'][platform][slave_platform]['debug_unittest_suites']
                     debug_suites = [x for x in debug_suites if x[0] and x[0] != 'reftest'] + REFTEST_TWO_CHUNKS
                     BRANCHES[name]['platforms'][platform][slave_platform]['debug_unittest_suites'] = debug_suites
@@ -2095,7 +2146,8 @@ for platform in PLATFORMS.keys():
         if slave_platform not in BRANCHES['cedar']['platforms'][platform]:
             continue
 
-        if platform not in ('linux64', 'linux', 'win32', 'win64'):
+        if not (platform in ('linux64', 'linux', 'win32', 'win64') or
+                (platform == "macosx64" and slave_platform != "snowleopard")):
             BRANCHES['cedar']['platforms'][platform][slave_platform]['opt_unittest_suites'] += WEB_PLATFORM_REFTESTS[:]
             BRANCHES['cedar']['platforms'][platform][slave_platform]['opt_unittest_suites'] += WEB_PLATFORM_TESTS_CHUNKED[:]
         BRANCHES['cedar']['platforms'][platform][slave_platform]['debug_unittest_suites'] += WEB_PLATFORM_TESTS_CHUNKED[:] + WEB_PLATFORM_REFTESTS
@@ -2109,14 +2161,6 @@ for platform in PLATFORMS.keys():
         if slave_platform in BRANCHES['cedar']['platforms'][platform]:
             BRANCHES['cedar']['platforms'][platform][slave_platform]['opt_unittest_suites'] += MOZBASE[:]
             BRANCHES['cedar']['platforms'][platform][slave_platform]['debug_unittest_suites'] += MOZBASE[:]
-
-# Enable mochitest-jetpack tests on try
-for platform in PLATFORMS.keys():
-    for slave_platform in PLATFORMS[platform]['slave_platforms']:
-        if slave_platform not in BRANCHES['try']['platforms'][platform]:
-            continue
-        BRANCHES['try']['platforms'][platform][slave_platform]['opt_unittest_suites'] += MOCHITEST_JP[:]
-        BRANCHES['try']['platforms'][platform][slave_platform]['debug_unittest_suites'] += MOCHITEST_JP[:]
 
 # Enable e10s Linux mochitests on trunk branches
 # Enable e10s browser-chrome mochitests on trunk branches, opt builds only for all platforms (not ready for Xp).
@@ -2163,6 +2207,30 @@ for name, branch in items_at_least(BRANCHES, 'gecko_version', 36):
     else:
         branch['platforms']['win32']['talos_slave_platforms'] = ['xp-ix', 'win7-ix']
 
+# bug 1126493 Enable Yosemite testing on select branches only
+# keep debug tests on 10.8 until the source of the slowness is found in bug 1125998
+include_yosemite = ['try']
+for platform in PLATFORMS.keys():
+    # See Bug 997946 - skip these on OS X 10.8 due to limited capacity
+    for name, branch in items_at_least(BRANCHES, 'gecko_version', 38):
+        if platform not in branch['platforms']:
+            continue
+        for slave_platform in branch['platforms'][platform]:
+            if slave_platform not in ['mountainlion', 'yosemite']:
+                continue
+            if name not in include_yosemite:
+                include_yosemite.append(name)
+delete_slave_platform(BRANCHES, PLATFORMS, {'macosx64': 'yosemite'}, branch_exclusions=include_yosemite)
+for branch in include_yosemite:
+    if branch in ['try']:
+        continue
+    BRANCHES[branch]['platforms']['macosx64']['mountainlion']['opt_unittest_suites'] = []
+    BRANCHES[branch]['platforms']['macosx64']['mountainlion']['debug_unittest_suites'] = []
+    #disable talos on branches that have 10.10 enabled excluding b2g-inbound 
+    #which idn't have talos tests before
+    if branch in ['b2g-inbound']:
+       continue
+    BRANCHES[branch]['platforms']['macosx64']['talos_slave_platforms'] = ['snowleopard','yosemite']
 
 # TALOS: If you set 'talos_slave_platforms' for a branch you will only get that subset of platforms
 for branch in BRANCHES.keys():
@@ -2183,18 +2251,12 @@ for branch in BRANCHES.keys():
 # Versioned b2g branches shouldn't run mochitest-browser-chrome on linux debug builds
 for name in [x for x in BRANCHES.keys() if x.startswith('mozilla-b2g')]:
     branch = BRANCHES[name]
-    if 'linux' in branch['platforms'] and 'ubuntu32_vm' in branch['platforms']['linux']:
-        for chunked_bc in MOCHITEST_BC_3:
-            branch['platforms']['linux']['ubuntu32_vm']['debug_unittest_suites'].remove(chunked_bc)
-    if 'linux64' in branch['platforms'] and 'ubuntu64_vm' in branch['platforms']['linux64']:
-        for chunked_bc in MOCHITEST_BC_3:
-            branch['platforms']['linux64']['ubuntu64_vm']['debug_unittest_suites'].remove(chunked_bc)
-    if 'linux64-asan' in branch['platforms'] and 'ubuntu64-asan_vm' in branch['platforms']['linux64-asan']:
-        for chunked_bc in MOCHITEST_BC_3:
-            branch['platforms']['linux64-asan']['ubuntu64-asan_vm']['debug_unittest_suites'].remove(chunked_bc)
-    if 'linux64-cc' in branch['platforms'] and 'ubuntu64_vm' in branch['platforms']['linux64-cc']:
-        for chunked_bc in MOCHITEST_BC_3:
-            branch['platforms']['linux64-cc']['ubuntu64_vm']['debug_unittest_suites'].remove(chunked_bc)
+    for platform in ('linux', 'linux64', 'linux64-asan', 'linux64-cc'):
+        for slave_platform in PLATFORMS[platform]['slave_platforms']:
+            if platform in branch['platforms'] and slave_platform in branch['platforms'][platform]:
+                for chunked_bc in MOCHITEST_BC_3:
+                    if chunked_bc in branch['platforms'][platform][slave_platform]['debug_unittest_suites']:
+                        branch['platforms'][platform][slave_platform]['debug_unittest_suites'].remove(chunked_bc)
 
 
 # remove mochitest-browser-chrome and mochitest-devtools-chrome
@@ -2254,7 +2316,7 @@ for name, branch in items_before(BRANCHES, 'gecko_version', 30):
             except ValueError:
                 # wasn't there anyways
                 pass
-            for dt in MOCHITEST_DT_3:
+            for dt in MOCHITEST_DT_4:
                 try:
                     branch['platforms'][platform][slave_platform]['debug_unittest_suites'].remove(dt)
                 except ValueError:

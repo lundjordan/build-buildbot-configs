@@ -36,7 +36,6 @@ BRANCHES = {
         'platforms': {
             'linux32_gecko': {},
             'linux64_gecko': {},
-            'linux64-mulet': {},
         },
     },
     'ash': {},
@@ -45,6 +44,7 @@ BRANCHES = {
     'cedar': {},
     'cypress': {},
     'jamun': {},
+    'maple': {},
     'pine': {},
     'fx-team': {},
     'mozilla-b2g30_v1_4': {
@@ -87,7 +87,6 @@ setMainFirefoxVersions(BRANCHES)
 PLATFORMS = {
     'linux32_gecko': {},
     'linux64_gecko': {},
-    'linux64-mulet': {},
     'macosx64_gecko': {},
     'macosx64-mulet': {},
     'emulator': {},
@@ -113,17 +112,6 @@ PLATFORMS['linux64_gecko']['env_name'] = 'linux-perf'
 PLATFORMS['linux64_gecko']['ubuntu64_vm-b2gdt'] = {'name': builder_prefix + "_ubuntu64_vm"}
 PLATFORMS['linux64_gecko']['stage_product'] = 'b2g'
 PLATFORMS['linux64_gecko']['mozharness_config'] = {
-    'mozharness_python': '/tools/buildbot/bin/python',
-    'use_mozharness': True,
-    'hg_bin': 'hg',
-    'reboot_command': ['/tools/buildbot/bin/python'] + MOZHARNESS_REBOOT_CMD,
-}
-
-PLATFORMS['linux64-mulet']['slave_platforms'] = ['ubuntu64_vm-mulet']
-PLATFORMS['linux64-mulet']['env_name'] = 'linux-perf'
-PLATFORMS['linux64-mulet']['ubuntu64_vm-mulet'] = {'name': 'Ubuntu VM 12.04 x64 Mulet'}
-PLATFORMS['linux64-mulet']['stage_product'] = 'b2g'
-PLATFORMS['linux64-mulet']['mozharness_config'] = {
     'mozharness_python': '/tools/buildbot/bin/python',
     'use_mozharness': True,
     'hg_bin': 'hg',
@@ -205,7 +193,6 @@ BRANCH_UNITTEST_VARS = {
     'platforms': {
         'linux32_gecko': {},
         'linux64_gecko': {},
-        'linux64-mulet': {},
         'macosx64_gecko': {},
         'macosx64-mulet': {},
         'emulator': {},
@@ -979,110 +966,6 @@ UNITTEST_SUITES = {
 # You must define opt_unittest_suites when enable_opt_unittests is True for a
 # platform. Likewise debug_unittest_suites for enable_debug_unittests
 PLATFORM_UNITTEST_VARS = {
-    'linux64-mulet': {
-        'product_name': 'b2g',
-        'app_name': 'firefox',
-        'brand_name': 'Mulet',
-        'builds_before_reboot': 1,
-        'unittest-env': {'DISPLAY': ':0'},
-        'enable_opt_unittests': True,
-        'enable_debug_unittests': False,
-        'ubuntu64_vm-mulet': {
-            'opt_unittest_suites': [],
-            'debug_unittest_suites': [],
-            'suite_config': {
-                'mochitest-1': {
-                    'extra_args': [
-                      '--cfg', 'unittests/linux_unittest.py',
-                      '--total-chunks', 5, '--this-chunk', 1,
-                      '--mochitest-suite', 'plain-chunked',
-                    ]
-                },
-                'mochitest-2': {
-                    'extra_args': [
-                      '--cfg', 'unittests/linux_unittest.py',
-                      '--total-chunks', 5, '--this-chunk', 2,
-                      '--mochitest-suite', 'plain-chunked',
-                    ]
-                },
-                'mochitest-3': {
-                    'extra_args': [
-                      '--cfg', 'unittests/linux_unittest.py',
-                      '--total-chunks', 5, '--this-chunk', 3,
-                      '--mochitest-suite', 'plain-chunked',
-                    ]
-                },
-                'mochitest-4': {
-                    'extra_args': [
-                      '--cfg', 'unittests/linux_unittest.py',
-                      '--total-chunks', 5, '--this-chunk', 4,
-                      '--mochitest-suite', 'plain-chunked',
-                    ]
-                },
-                'mochitest-5': {
-                    'extra_args': [
-                      '--cfg', 'unittests/linux_unittest.py',
-                      '--total-chunks', 5, '--this-chunk', 5,
-                      '--mochitest-suite', 'plain-chunked',
-                    ]
-                },
-                'reftest-1': {
-                    'extra_args': [
-                      '--cfg', 'b2g/generic_config.py',
-                      '--cfg', 'b2g/mulet_config.py',
-                      '--test-suite', 'reftest',
-                      '--test-manifest', 'tests/layout/reftests/reftest.list',
-                      '--total-chunks', 6, '--this-chunk', 1,
-                    ]
-                },
-                'reftest-2': {
-                    'extra_args': [
-                      '--cfg', 'b2g/generic_config.py',
-                      '--cfg', 'b2g/mulet_config.py',
-                      '--test-suite', 'reftest',
-                      '--test-manifest', 'tests/layout/reftests/reftest.list',
-                      '--total-chunks', 6, '--this-chunk', 2,
-                    ]
-                },
-                'reftest-3': {
-                    'extra_args': [
-                      '--cfg', 'b2g/generic_config.py',
-                      '--cfg', 'b2g/mulet_config.py',
-                      '--test-suite', 'reftest',
-                      '--test-manifest', 'tests/layout/reftests/reftest.list',
-                      '--total-chunks', 6, '--this-chunk', 3,
-                    ]
-                },
-                'reftest-4': {
-                    'extra_args': [
-                      '--cfg', 'b2g/generic_config.py',
-                      '--cfg', 'b2g/mulet_config.py',
-                      '--test-suite', 'reftest',
-                      '--test-manifest', 'tests/layout/reftests/reftest.list',
-                      '--total-chunks', 6, '--this-chunk', 4,
-                    ]
-                },
-                'reftest-5': {
-                    'extra_args': [
-                      '--cfg', 'b2g/generic_config.py',
-                      '--cfg', 'b2g/mulet_config.py',
-                      '--test-suite', 'reftest',
-                      '--test-manifest', 'tests/layout/reftests/reftest.list',
-                      '--total-chunks', 6, '--this-chunk', 5,
-                    ]
-                },
-                'reftest-6': {
-                    'extra_args': [
-                      '--cfg', 'b2g/generic_config.py',
-                      '--cfg', 'b2g/mulet_config.py',
-                      '--test-suite', 'reftest',
-                      '--test-manifest', 'tests/layout/reftests/reftest.list',
-                      '--total-chunks', 6, '--this-chunk', 6,
-                    ]
-                },
-            },
-        },
-    },
     'macosx64-mulet': {
         'product_name': 'b2g',
         'app_name': 'firefox',
@@ -1503,7 +1386,7 @@ PLATFORM_UNITTEST_VARS = {
             # for extracting dmg's
             "PAGER": '/bin/cat',
         },
-        'enable_opt_unittests': True,
+        'enable_opt_unittests': False,
         'enable_debug_unittests': False,
         'mountainlion-b2gdt': {
             'opt_unittest_suites': [],
@@ -2749,7 +2632,7 @@ BRANCHES['cedar']['branch_name'] = "Cedar"
 BRANCHES['cedar']['repo_path'] = "projects/cedar"
 BRANCHES['cedar']['mozharness_tag'] = "default"
 BRANCHES['cedar']['platforms']['emulator']['ubuntu64_vm-b2g-emulator']['opt_unittest_suites'] = \
-    MOCHITEST + REFTEST_20 + CRASHTEST + XPCSHELL + MARIONETTE + MARIONETTE_UNIT + JSREFTEST + CPPUNIT + MOCHITEST_CHROME
+    MOCHITEST + REFTEST_20 + CRASHTEST + XPCSHELL + MARIONETTE + MARIONETTE_UNIT + JSREFTEST + CPPUNIT
 BRANCHES['cedar']['platforms']['emulator']['ubuntu64_vm-b2g-emulator']['debug_unittest_suites'] = \
     MOCHITEST_EMULATOR_DEBUG[:] + REFTEST + CRASHTEST + MARIONETTE + MARIONETTE_UNIT + XPCSHELL_CHUNKED + CPPUNIT
 BRANCHES['cedar']['platforms']['emulator']['ubuntu64_vm-b2g-lg-emulator']['opt_unittest_suites'] = MOCHITEST_MEDIA
@@ -2762,7 +2645,8 @@ BRANCHES['cedar']['platforms']['linux64_gecko']['ubuntu64_vm-b2gdt']['opt_unitte
   REFTEST_DESKTOP + GAIA_UI_OOP + GAIA_UNITTESTS_OOP
 BRANCHES['cedar']['platforms']['linux64_gecko']['ubuntu64_vm-b2gdt']['debug_unittest_suites'] += GAIA_JS_INTEGRATION[:]
 BRANCHES['cedar']['platforms']['macosx64_gecko']['mountainlion-b2gdt']['opt_unittest_suites'] += MOCHITEST_DESKTOP + REFTEST_DESKTOP_SANITY
-BRANCHES['cedar']['platforms']['linux64-mulet']['ubuntu64_vm-mulet']['opt_unittest_suites'] += GAIA_JS_INTEGRATION[:]
+BRANCHES['maple']['branch_name'] = "Maple"
+BRANCHES['maple']['repo_path'] = "projects/maple"
 BRANCHES['pine']['branch_name'] = "Pine"
 BRANCHES['pine']['repo_path'] = "projects/pine"
 BRANCHES['pine']['platforms']['emulator']['ubuntu64_vm-b2g-emulator']['opt_unittest_suites'] = \
@@ -2811,12 +2695,6 @@ def exclude_suites(slave_platform, branch, suites_to_be_excluded, from_opt_unitt
 exclude_suites(('linux64_gecko', 'ubuntu64_vm-b2gdt'), 'cedar', ('gaia-ui-test',), True, True)
 exclude_suites(('macosx64_gecko', 'mountainlion-b2gdt'), 'cedar', ('gaia-ui-test',), True, True)
 
-# Enable mulet reftests on Ash, Cedar and Try
-BRANCHES['try']['platforms']['linux64-mulet']['ubuntu64_vm-mulet']['opt_unittest_suites'] += \
-    REFTEST_MULET + MOCHITEST_MULET_PLAIN
-BRANCHES['cedar']['platforms']['linux64-mulet']['ubuntu64_vm-mulet']['opt_unittest_suites'] += \
-    REFTEST_MULET + MOCHITEST_MULET_PLAIN
-
 # new linux64_gecko tests as of gecko 32; OOP replaces their non-OOP variants
 for name, branch in items_at_least(BRANCHES, 'gecko_version', 32):
     BRANCHES[name]['platforms']['linux64_gecko']['ubuntu64_vm-b2gdt']['opt_unittest_suites'] += \
@@ -2830,6 +2708,12 @@ for name, branch in items_at_least(BRANCHES, 'gecko_version', 32):
 for name, branch in items_at_least(BRANCHES, 'gecko_version', 34):
     BRANCHES[name]['platforms']['linux64_gecko']['ubuntu64_vm-b2gdt']['opt_unittest_suites'] += \
       GAIA_BUILD_UNIT
+
+# add mochitest-chrome on B2G emulators as of gecko 38
+for name, branch in items_at_least(BRANCHES, 'gecko_version', 38):
+    if nested_haskey(BRANCHES[name]['platforms'], 'emulator', 'ubuntu64_vm-b2g-emulator'):
+        BRANCHES[name]['platforms']['emulator']['ubuntu64_vm-b2g-emulator']['opt_unittest_suites'] += \
+            MOCHITEST_CHROME
 
 # Use chunked Gip, Gij in 36+ (bug 1081246)
 for name, branch in items_at_least(BRANCHES, 'gecko_version', 36):
@@ -2896,11 +2780,6 @@ for name in BRANCHES.keys():
     for platform in ('macosx64-mulet', ):
         if platform in BRANCHES[name]['platforms']:
             del BRANCHES[name]['platforms'][platform]
-
-# Enable linux64-mulet only in gecko 34+
-for name, branch in items_before(BRANCHES, 'gecko_version', 34):
-    if 'linux64-mulet' in branch['platforms']:
-        del branch['platforms']['linux64-mulet']
 
 ### PROJECTS ###
 PROJECTS = {

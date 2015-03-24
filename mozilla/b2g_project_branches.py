@@ -42,10 +42,60 @@ PROJECT_BRANCHES = {
             'linux32_gecko': {},
             'linux64_gecko': {},
             'linux64_gecko-debug': {},
-            'linux64-mulet': {},
         },
     },
-    'ash': {},
+    'ash': {
+        'enable_nightly': True,
+        'platforms': {
+            'nexus-4': {
+                'enable_nightly': True,
+            },
+            'nexus-4_eng': {
+                'enable_nightly': True,
+                'consider_for_nightly': False,
+            },
+            'nexus-5-l': {
+                'enable_nightly': True,
+            },
+            'nexus-5-l_eng': {
+                'enable_nightly': True,
+                'consider_for_nightly': False,
+            },
+            'flame-kk': {
+                'enable_nightly': True,
+            },
+            'flame-kk_eng': {
+                'enable_nightly': True,
+            },
+            'emulator': {
+                'enable_nightly': True,
+            },
+            'emulator-debug': {
+                'enable_nightly': True,
+            },
+            'emulator-jb': {
+                'enable_nightly': True,
+            },
+            'emulator-jb-debug': {
+                'enable_nightly': True,
+            },
+            'linux64-b2g-haz': {
+                'enable_nightly': False,
+            },
+            'emulator-kk': {
+                'enable_nightly': True,
+            },
+            'emulator-kk-debug': {
+                'enable_nightly': True,
+            },
+            'dolphin': {
+                'enable_nightly': True,
+            },
+            'dolphin_eng': {
+                'enable_nightly': True,
+            },
+        },
+    },
     # Not needed on Birch at the moment, bug 977420.
     #'birch': {},
     'cedar': {
@@ -58,13 +108,100 @@ PROJECT_BRANCHES = {
         'lock_platforms': True,
         'platforms': {},
     },
-    'gum': {},
+    # disabled by bug 1134508
+    # 'gum': {},
     # disabled for bug 985718
     #'holly': {},
     'jamun': {},
-    # disabled for bug 1033704
-    #'larch': {},
-    'maple': {},
+    'larch': {
+        "desktop_mozharness_builds_enabled": True,
+        'enable_nightly': True,
+        "lock_platforms": True,
+        "platforms": {
+            "linux64_graphene": {},
+            "macosx64_graphene": {},
+            "win64_graphene": {},
+        }
+    },
+    'maple': {
+        'enable_nightly': True,
+        'platforms': {
+            'linux32_gecko': {
+                'mozharness_desktop_build': {
+                    'script_name': 'scripts/b2g_desktop_build.py',
+                    'extra_args': ['--config', 'b2g/desktop_linux32.py'],
+                    'reboot_command': ['echo', 'true'],
+                    'mozharness_repo_cache': '/tools/checkouts/mozharness',
+                    'tools_repo_cache': '/tools/checkouts/build-tools',
+                },
+            },
+            'linux32_gecko-debug': {
+                'mozharness_desktop_build': {
+                    'script_name': 'scripts/b2g_desktop_build.py',
+                    'extra_args': [
+                        '--config', 'b2g/desktop_linux32.py',
+                    '--custom-build-variant-cfg', 'b2g-debug',
+                    ],
+                    'reboot_command': ['echo', 'true'],
+                    'mozharness_repo_cache': '/tools/checkouts/mozharness',
+                    'tools_repo_cache': '/tools/checkouts/build-tools',
+                },
+            },
+            'linux64_gecko': {
+                'mozharness_desktop_build': {
+                    'script_name': 'scripts/b2g_desktop_build.py',
+                    'extra_args': ['--config', 'b2g/desktop_linux64.py'],
+                    'reboot_command': ['echo', 'true'],
+                    'mozharness_repo_cache': '/tools/checkouts/mozharness',
+                    'tools_repo_cache': '/tools/checkouts/build-tools',
+                },
+            },
+            'linux64_gecko-debug': {
+                'mozharness_desktop_build': {
+                    'script_name': 'scripts/b2g_desktop_build.py',
+                    'extra_args': [
+                        '--config', 'b2g/desktop_linux64.py',
+                    '--custom-build-variant-cfg', 'b2g-debug',
+                    ],
+                    'reboot_command': ['echo', 'true'],
+                    'mozharness_repo_cache': '/tools/checkouts/mozharness',
+                    'tools_repo_cache': '/tools/checkouts/build-tools',
+                },
+            },
+            'macosx64_gecko': {
+                'mozharness_desktop_build': {
+                    'script_name': 'scripts/b2g_desktop_build.py',
+                    'extra_args': ['--config', 'b2g/desktop_macosx64.py'],
+                },
+            },
+            'macosx64_gecko-debug': {
+                'mozharness_desktop_build': {
+                    'script_name': 'scripts/b2g_desktop_build.py',
+                    'extra_args': [
+                        '--config', 'b2g/desktop_macosx64.py',
+                    '--custom-build-variant-cfg', 'b2g-debug',
+                    ],
+                },
+            },
+            'win32_gecko': {
+                'mozharness_python': ['c:/mozilla-build/python27/python', '-u'],
+                'mozharness_desktop_build': {
+                    'script_name': 'scripts/b2g_desktop_build.py',
+                    'extra_args': ['--config', 'b2g/desktop_windows32.py'],
+                },
+            },
+            'win32_gecko-debug': {
+                'mozharness_python': ['c:/mozilla-build/python27/python', '-u'],
+                'mozharness_desktop_build': {
+                    'script_name': 'scripts/b2g_desktop_build.py',
+                    'extra_args': [
+                        '--config', 'b2g/desktop_windows32.py',
+                    '--custom-build-variant-cfg', 'b2g-debug',
+                    ],
+                },
+            },
+        },
+    },
     # Customizations for integration work for bugs 481815 and 307181
     'oak': {
         'enable_nightly': True
