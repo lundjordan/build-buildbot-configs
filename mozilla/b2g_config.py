@@ -26,17 +26,12 @@ GLOBAL_VARS.update({
         'linux32_gecko-debug': {},
         'linux64_gecko': {},
         'linux64_gecko-debug': {},
-        'linux64-mulet': {},
         'macosx64_gecko': {},
         'macosx64_gecko-debug': {},
         'macosx64-mulet': {},
         'win32_gecko': {},
         'win32_gecko-debug': {},
         'win32-mulet': {},
-        'linux32_gecko_localizer': {},
-        'linux64_gecko_localizer': {},
-        'macosx64_gecko_localizer': {},
-        'win32_gecko_localizer': {},
         'nexus-4': {},
         'nexus-4_eng': {},
         'nexus-5-l': {},
@@ -179,6 +174,7 @@ PLATFORM_VARS = {
             ('/home/cltbld/.hgrc', '/builds/.hgrc'),
             ('/home/cltbld/.ssh', '/home/mock_mozilla/.ssh'),
             ('/home/cltbld/.boto', '/builds/.boto'),
+            ('/builds/crash-stats-api.token', '/builds/crash-stats-api.token'),
         ],
         'multi_locale': True,
         'multi_config_name': 'multi_locale/b2g_linux32.py',
@@ -278,6 +274,7 @@ PLATFORM_VARS = {
             ('/home/cltbld/.hgrc', '/builds/.hgrc'),
             ('/home/cltbld/.ssh', '/home/mock_mozilla/.ssh'),
             ('/home/cltbld/.boto', '/builds/.boto'),
+            ('/builds/crash-stats-api.token', '/builds/crash-stats-api.token'),
         ],
         'multi_locale': True,
         'multi_config_name': 'multi_locale/b2g_linux32.py',
@@ -353,6 +350,7 @@ PLATFORM_VARS = {
             ('/home/cltbld/.hgrc', '/builds/.hgrc'),
             ('/home/cltbld/.ssh', '/home/mock_mozilla/.ssh'),
             ('/home/cltbld/.boto', '/builds/.boto'),
+            ('/builds/crash-stats-api.token', '/builds/crash-stats-api.token'),
         ],
         'multi_locale': True,
         'multi_config_name': 'multi_locale/b2g_linux64.py',
@@ -428,6 +426,7 @@ PLATFORM_VARS = {
             ('/home/cltbld/.hgrc', '/builds/.hgrc'),
             ('/home/cltbld/.ssh', '/home/mock_mozilla/.ssh'),
             ('/home/cltbld/.boto', '/builds/.boto'),
+            ('/builds/crash-stats-api.token', '/builds/crash-stats-api.token'),
         ],
         'multi_locale': True,
         'multi_config_name': 'multi_locale/b2g_linux64.py',
@@ -438,85 +437,6 @@ PLATFORM_VARS = {
         ],
         'gecko_languages_file': 'build/b2g/locales/all-locales',
     },
-    'linux64-mulet': {
-        'mozharness_python': '/tools/buildbot/bin/python',
-        'reboot_command': ['scripts/external_tools/count_and_reboot.py',
-                           '-f', '../reboot_count.txt','-n', '1', '-z'],
-        'mozharness_desktop_build': {
-            'script_name': 'scripts/fx_desktop_build.py',
-            'extra_args': [
-                '--config', 'builds/releng_base_linux_64_builds.py',
-                '--custom-build-variant-cfg', 'mulet',
-            ],
-            'script_timeout': 3 * 3600,
-            'script_maxtime': int(5.5 * 3600),
-        },
-
-        'consider_for_nightly': False,
-        'build_space': 15,
-        'multi_locale': False,
-        'enable_nightly': True,
-        'enable_xulrunner': False,
-        'enable_opt_unittests': True,
-        'try_by_default': True,
-        'upload_symbols': False,
-        'update_platform': 'Linux_x86_64-gcc3',
-        'packageTests': True,
-        'dep_signing_servers': None,
-
-        'product_name': 'firefox',
-        'unittest_platform': 'linux64-mulet-opt',
-        'base_name': 'Linux x86-64 Mulet %(branch)s',
-        'slaves': SLAVES['mock'],
-        'mozconfig': 'in_tree',
-        'src_mozconfig': 'b2g/dev/config/mozconfigs/linux64/mulet',
-        'builds_before_reboot': b2g_localconfig.BUILDS_BEFORE_REBOOT,
-        'platform_objdir': OBJDIR,
-        'stage_product': 'b2g',
-        'stage_platform': 'linux64-mulet',
-        'enable_shared_checkouts': True,
-        'env': {
-            'DISPLAY': ':2',
-            'HG_SHARE_BASE_DIR': '/builds/hg-shared',
-            'TOOLTOOL_CACHE': '/builds/tooltool_cache',
-            'TOOLTOOL_HOME': '/builds',
-            'MOZ_OBJDIR': OBJDIR,
-            'CCACHE_DIR': '/builds/ccache',
-            'CCACHE_COMPRESS': '1',
-            'CCACHE_UMASK': '002',
-            'LC_ALL': 'C',
-            'PATH': '/tools/buildbot/bin:/usr/local/bin:/usr/lib64/ccache:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/tools/git/bin:/tools/python27/bin:/tools/python27-mercurial/bin:/home/cltbld/bin',
-        },
-        'tooltool_manifest_src': 'b2g/dev/config/tooltool-manifests/linux64/releng.manifest',
-        'tooltool_script': ['/builds/tooltool.py'],
-        'use_mock': True,
-        'mock_target': 'mozilla-centos6-x86_64',
-        'mock_packages': \
-                   ['autoconf213', 'python', 'zip', 'mozilla-python27-mercurial', 'git', 'ccache',
-                    'glibc-static', 'libstdc++-static', 'perl-Test-Simple', 'perl-Config-General',
-                    'gtk2-devel', 'libnotify-devel', 'yasm',
-                    'alsa-lib-devel', 'libcurl-devel',
-                    'wireless-tools-devel', 'libX11-devel',
-                    'libXt-devel', 'mesa-libGL-devel',
-                    'gnome-vfs2-devel', 'GConf2-devel', 'wget',
-                    'mpfr', # required for system compiler
-                    'xorg-x11-font*', # fonts required for PGO
-                    'imake', # required for makedepend!?!
-                    'gcc45_0moz3', 'gcc454_0moz1', 'gcc472_0moz1', 'gcc473_0moz1', 'yasm', 'ccache', # <-- from releng repo
-                    'valgrind', 'dbus-x11',
-                    'pulseaudio-libs-devel',
-                    'gstreamer-devel', 'gstreamer-plugins-base-devel',
-                    'freetype-2.3.11-6.el6_1.8.x86_64',
-                    'freetype-devel-2.3.11-6.el6_1.8.x86_64',
-                    ],
-        'mock_copyin_files': [
-            ('/home/cltbld/.ssh', '/home/mock_mozilla/.ssh'),
-            ('/home/cltbld/.hgrc', '/builds/.hgrc'),
-            ('/home/cltbld/.boto', '/builds/.boto'),
-            ('/builds/gapi.data', '/builds/gapi.data'),
-            ('/tools/tooltool.py', '/builds/tooltool.py'),
-        ],
-    },
     'macosx64_gecko': {
         'product_name': 'b2g',
         'app_name': 'b2g',
@@ -524,7 +444,8 @@ PLATFORM_VARS = {
         'base_name': builder_prefix + '_%(branch)s_%(platform)s',
         'mozconfig': 'NOT-IN-BB-CONF/%(branch)s/nightly',
         'src_mozconfig': 'b2g/config/mozconfigs/macosx64_gecko/nightly',
-        'enable_dep': True,
+        'enable_dep': False,
+        'enable_periodic': True,
         'profiled_build': False,
         'updates_enabled': False,
         'create_partial': False,
@@ -627,6 +548,16 @@ PLATFORM_VARS = {
     },
     'macosx64-mulet': {
         'product_name': 'firefox',
+        'mozharness_desktop_build': {
+            'script_name': 'scripts/fx_desktop_build.py',
+            'extra_args': [
+                '--config', 'builds/releng_base_mac_64_builds.py',
+                '--custom-build-variant-cfg', 'mulet',
+                '--config', GLOBAL_VARS['mozharness_configs']['balrog'],
+            ],
+            'script_timeout': 3 * 3600,
+            'script_maxtime': int(5.5 * 3600),
+        },
         'multi_locale': False,
         'unittest_platform': 'macosx64-mulet-opt',
         'app_name': 'browser',
@@ -783,107 +714,19 @@ PLATFORM_VARS = {
         'tooltool_manifest_src': 'b2g/config/tooltool-manifests/win32/releng.manifest',
         'tooltool_script': ['python', '/c/mozilla-build/tooltool.py'],
     },
-    'linux32_gecko_localizer': {
-        'product_name': 'b2g',
-        'app_name': 'b2g',
-        'base_name': builder_prefix + '_%(branch)s_%(platform)s',
-        'mozconfig': 'NOT-IN-BB-CONF/%(branch)s/nightly',
-        'src_mozconfig': 'b2g/config/mozconfigs/linux32_gecko/nightly',
-        'enable_dep': False,
-        'profiled_build': False,
-        'updates_enabled': False,
-        'create_partial': False,
-        'builds_before_reboot': b2g_localconfig.BUILDS_BEFORE_REBOOT,
-        'build_space': 13,
-        'upload_symbols': False,
-        'packageTests': False,
-        'slaves': SLAVES['mock'],
-        'platform_objdir': OBJDIR,
-        'unittest_masters': [],
-        'stage_product': 'b2g',
-        'stage_platform': 'linux32_gecko_localizer',
-        'update_platform': 'Linux_x86-gcc3',
-        'enable_ccache': True,
-        'enable_shared_checkouts': True,
-        'env': {
-            'HG_SHARE_BASE_DIR': '/builds/hg-shared',
-            'TOOLTOOL_CACHE': '/builds/tooltool_cache',
-            'TOOLTOOL_HOME': '/builds',
-            'MOZ_OBJDIR': OBJDIR,
-            'SYMBOL_SERVER_HOST': b2g_localconfig.SYMBOL_SERVER_HOST,
-            'SYMBOL_SERVER_USER': 'ffxbld',
-            'SYMBOL_SERVER_PATH': SYMBOL_SERVER_PATH,
-            'POST_SYMBOL_UPLOAD_CMD': SYMBOL_SERVER_POST_UPLOAD_CMD,
-            'SYMBOL_SERVER_SSH_KEY': "/home/cltbld/.ssh/ffxbld_rsa",
-            'CCACHE_DIR': '/builds/ccache',
-            'CCACHE_COMPRESS': '1',
-            'CCACHE_UMASK': '002',
-            'LC_ALL': 'C',
-            'PATH': '/tools/python27-mercurial/bin:/tools/python27/bin:${PATH}:/tools/buildbot/bin',
-            # Necessary to avoid conflicting with the dev-focused builds'
-            # filenames
-            'MOZ_PKG_SPECIAL': 'localizer',
-            'WGET_OPTS': '-q -c',
-        },
-        'enable_opt_unittests': False,
-        'enable_checktests': False,
-        'enable_build_analysis': True,
-        'test_pretty_names': False,
-        'l10n_check_test': False,
-        'use_mock': True,
-        'mock_target': 'mozilla-centos6-x86_64',
-        'mock_packages': ['autoconf213', 'mozilla-python27', 'zip', 'mozilla-python27-mercurial', 'git', 'ccache',
-                          'glibc-static.i686', 'libstdc++-static.i686', 'perl-Test-Simple',
-                          'perl-Config-General', 'gtk2-devel.i686', 'libnotify-devel.i686',
-                          'yasm', 'alsa-lib-devel.i686', 'libcurl-devel.i686', 'wireless-tools-devel.i686',
-                          'libX11-devel.i686', 'libXt-devel.i686', 'mesa-libGL-devel.i686',
-                          'gnome-vfs2-devel.i686', 'mpfr', 'xorg-x11-font',
-                          'imake', 'ccache', 'wget',
-                          'gcc472_0moz1', 'gcc473_0moz1',
-                          'freetype-2.3.11-6.el6_1.8.i686', 'freetype-devel-2.3.11-6.el6_1.8.i686',
-                          'freetype-2.3.11-6.el6_1.8.x86_64',
-                          'gstreamer-devel.i686', 'gstreamer-plugins-base-devel.i686',
-                          # Packages already installed in the mock environment, as x86_64
-                          # packages.
-                          'glibc-devel.i686', 'libgcc.i686', 'libstdc++-devel.i686',
-                          # yum likes to install .x86_64 -devel packages that satisfy .i686
-                          # -devel packages dependencies. So manually install the dependencies
-                          # of the above packages.
-                          'ORBit2-devel.i686', 'atk-devel.i686', 'cairo-devel.i686',
-                          'check-devel.i686', 'dbus-devel.i686', 'dbus-glib-devel.i686',
-                          'fontconfig-devel.i686', 'glib2-devel.i686',
-                          'hal-devel.i686', 'libICE-devel.i686', 'libIDL-devel.i686',
-                          'libSM-devel.i686', 'libXau-devel.i686', 'libXcomposite-devel.i686',
-                          'libXcursor-devel.i686', 'libXdamage-devel.i686', 'libXdmcp-devel.i686',
-                          'libXext-devel.i686', 'libXfixes-devel.i686', 'libXft-devel.i686',
-                          'libXi-devel.i686', 'libXinerama-devel.i686', 'libXrandr-devel.i686',
-                          'libXrender-devel.i686', 'libXxf86vm-devel.i686', 'libdrm-devel.i686',
-                          'libidn-devel.i686', 'libpng-devel.i686', 'libxcb-devel.i686',
-                          'libxml2-devel.i686', 'pango-devel.i686', 'perl-devel.i686',
-                          'pixman-devel.i686', 'zlib-devel.i686',
-                          # Packages necessary to run host xpcshell
-                          'libXt.x86_64',
-                          ],
-        'tooltool_manifest_src': 'b2g/config/tooltool-manifests/linux32/releng.manifest',
-        'gaia_repo': gaia_repo,
-        'gaia_revision_file': gaia_revision_file,
-        'gaia_languages_file': 'locales/languages_all.json',
-        'mock_copyin_files': [
-            ('/home/cltbld/.hgrc', '/builds/.hgrc'),
-            ('/home/cltbld/.ssh', '/home/mock_mozilla/.ssh'),
-            ('/home/cltbld/.boto', '/builds/.boto'),
-        ],
-        'multi_locale': True,
-        'multi_config_name': 'multi_locale/b2g_linux32.py',
-        'mozharness_multi_options': [
-            '--build',
-            '--summary',
-            '--gecko-languages-file', 'build/b2g/locales/all-locales',
-        ],
-        'gecko_languages_file': 'build/b2g/locales/all-locales',
-    },
     'win32-mulet': {
         'product_name': 'firefox',
+        'mozharness_python': ['c:/mozilla-build/python27/python', '-u'],
+        'mozharness_desktop_build': {
+            'script_name': 'scripts/fx_desktop_build.py',
+            'extra_args': [
+                '--config', 'builds/releng_base_windows_32_builds.py',
+                '--custom-build-variant-cfg', 'mulet',
+                '--config', GLOBAL_VARS['mozharness_configs']['balrog'],
+            ],
+            'script_timeout': 3 * 3600,
+            'script_maxtime': int(5.5 * 3600),
+        },
         'app_name': 'browser',
         'base_name': 'Win32 Mulet %(branch)s',
         'mozconfig': 'in_tree',
@@ -925,195 +768,6 @@ PLATFORM_VARS = {
         'l10n_check_test': False,
         'multi_locale': False,
         'tooltool_manifest_src': 'b2g/dev/config/tooltool-manifests/win32/releng.manifest',
-        'tooltool_script': ['python', '/c/mozilla-build/tooltool.py'],
-    },
-    'linux64_gecko_localizer': {
-        'product_name': 'b2g',
-        'app_name': 'b2g',
-        'base_name': builder_prefix + '_%(branch)s_%(platform)s',
-        'mozconfig': 'NOT-IN-BB-CONF/%(branch)s/nightly',
-        'src_mozconfig': 'b2g/config/mozconfigs/linux64_gecko/nightly',
-        'enable_dep': False,
-        'profiled_build': False,
-        'updates_enabled': False,
-        'create_partial': False,
-        'builds_before_reboot': b2g_localconfig.BUILDS_BEFORE_REBOOT,
-        'build_space': 13,
-        'upload_symbols': False,
-        'packageTests': False,
-        'slaves': SLAVES['mock'],
-        'platform_objdir': OBJDIR,
-        'unittest_masters': [],
-        'stage_product': 'b2g',
-        'stage_platform': 'linux64_gecko_localizer',
-        'update_platform': 'Linux_x86_64-gcc3',
-        'enable_ccache': True,
-        'enable_shared_checkouts': True,
-        'env': {
-            'HG_SHARE_BASE_DIR': '/builds/hg-shared',
-            'TOOLTOOL_CACHE': '/builds/tooltool_cache',
-            'TOOLTOOL_HOME': '/builds',
-            'MOZ_OBJDIR': OBJDIR,
-            'SYMBOL_SERVER_HOST': b2g_localconfig.SYMBOL_SERVER_HOST,
-            'SYMBOL_SERVER_USER': 'ffxbld',
-            'SYMBOL_SERVER_PATH': SYMBOL_SERVER_PATH,
-            'POST_SYMBOL_UPLOAD_CMD': SYMBOL_SERVER_POST_UPLOAD_CMD,
-            'SYMBOL_SERVER_SSH_KEY': "/home/cltbld/.ssh/ffxbld_rsa",
-            'CCACHE_DIR': '/builds/ccache',
-            'CCACHE_COMPRESS': '1',
-            'CCACHE_UMASK': '002',
-            'LC_ALL': 'C',
-            'PATH': '/tools/python27-mercurial/bin:/tools/python27/bin:${PATH}:/tools/buildbot/bin',
-            # Necessary to avoid conflicting with the dev-focused builds'
-            # filenames
-            'MOZ_PKG_SPECIAL': 'localizer',
-            'WGET_OPTS': '-q -c',
-        },
-        'enable_opt_unittests': False,
-        'enable_checktests': False,
-        'enable_build_analysis': True,
-        'test_pretty_names': False,
-        'l10n_check_test': False,
-        'use_mock': True,
-        'mock_target': 'mozilla-centos6-x86_64',
-        'mock_packages': ['autoconf213', 'mozilla-python27', 'zip', 'mozilla-python27-mercurial', 'git', 'ccache',
-                          'glibc-static', 'libstdc++-static', 'gtk2-devel',
-                          'libnotify-devel', 'yasm', 'alsa-lib-devel',
-                          'libcurl-devel', 'wireless-tools-devel',
-                          'libX11-devel', 'libXt-devel', 'mesa-libGL-devel',
-                          'gnome-vfs2-devel', 'mpfr', 'xorg-x11-font',
-                          'imake', 'ccache', 'wget',
-                          'freetype-2.3.11-6.el6_2.9', 'freetype-devel-2.3.11-6.el6_2.9',
-                          'gstreamer-devel', 'gstreamer-plugins-base-devel',
-                          'gcc472_0moz1', 'gcc473_0moz1'],
-        'tooltool_manifest_src': 'b2g/config/tooltool-manifests/linux64/releng.manifest',
-        'gaia_repo': gaia_repo,
-        'gaia_revision_file': gaia_revision_file,
-        'gaia_languages_file': 'locales/languages_all.json',
-        'mock_copyin_files': [
-            ('/home/cltbld/.hgrc', '/builds/.hgrc'),
-            ('/home/cltbld/.ssh', '/home/mock_mozilla/.ssh'),
-            ('/home/cltbld/.boto', '/builds/.boto'),
-        ],
-        'multi_locale': True,
-        'multi_config_name': 'multi_locale/b2g_linux64.py',
-        'mozharness_multi_options': [
-            '--build',
-            '--summary',
-            '--gecko-languages-file', 'build/b2g/locales/all-locales',
-        ],
-        'gecko_languages_file': 'build/b2g/locales/all-locales',
-    },
-    'macosx64_gecko_localizer': {
-        'product_name': 'b2g',
-        'app_name': 'b2g',
-        'base_name': builder_prefix + '_%(branch)s_%(platform)s',
-        'mozconfig': 'NOT-IN-BB-CONF/%(branch)s/nightly',
-        'src_mozconfig': 'b2g/config/mozconfigs/macosx64_gecko/nightly',
-        'enable_dep': False,
-        'profiled_build': False,
-        'updates_enabled': False,
-        'create_partial': False,
-        'builds_before_reboot': b2g_localconfig.BUILDS_BEFORE_REBOOT,
-        'build_space': 13,
-        'upload_symbols': True,
-        'packageTests': False,
-        'slaves': SLAVES['macosx64-lion'],
-        'platform_objdir': OBJDIR,
-        'unittest_masters': [],
-        'stage_product': 'b2g',
-        'stage_platform': 'macosx64_gecko_localizer',
-        'update_platform': 'Darwin_x86_64-gcc3',
-        'enable_shared_checkouts': True,
-        'env': {
-            'MOZ_OBJDIR': OBJDIR,
-            'HG_SHARE_BASE_DIR': '/builds/hg-shared',
-            'TOOLTOOL_CACHE': '/builds/tooltool_cache',
-            'TOOLTOOL_HOME': '/builds',
-            'SYMBOL_SERVER_HOST': b2g_localconfig.SYMBOL_SERVER_HOST,
-            'SYMBOL_SERVER_USER': 'ffxbld',
-            'SYMBOL_SERVER_PATH': SYMBOL_SERVER_PATH,
-            'POST_SYMBOL_UPLOAD_CMD': SYMBOL_SERVER_POST_UPLOAD_CMD,
-            'SYMBOL_SERVER_SSH_KEY': "/Users/cltbld/.ssh/ffxbld_rsa",
-            'CHOWN_ROOT': '~/bin/chown_root',
-            'CHOWN_REVERT': '~/bin/chown_revert',
-            'LC_ALL': 'C',
-            'PATH': '/tools/python/bin:${PATH}',
-            # Necessary to avoid conflicting with the dev-focused builds'
-            # filenames
-            'MOZ_PKG_SPECIAL': 'localizer',
-            'WGET_OPTS': '-q -c',
-        },
-        'enable_opt_unittests': False,
-        'enable_checktests': False,
-        'test_pretty_names': False,
-        'tooltool_manifest_src': 'b2g/config/tooltool-manifests/macosx64/releng.manifest',
-        'gaia_repo': gaia_repo,
-        'gaia_revision_file': gaia_revision_file,
-        'gaia_languages_file': 'locales/languages_all.json',
-        'multi_locale': True,
-        'multi_config_name': 'multi_locale/b2g_macosx64.py',
-        'mozharness_multi_options': [
-            '--build',
-            '--summary',
-            '--gecko-languages-file', 'build/b2g/locales/all-locales',
-        ],
-        'gecko_languages_file': 'build/b2g/locales/all-locales',
-    },
-    'win32_gecko_localizer': {
-        'product_name': 'b2g',
-        'app_name': 'b2g',
-        'base_name': builder_prefix + '_%(branch)s_%(platform)s',
-        'mozconfig': 'NOT-IN-BB-CONF/%(branch)s/nightly',
-        'src_mozconfig': 'b2g/config/mozconfigs/win32_gecko/nightly',
-        'enable_dep': False,
-        'profiled_build': False,
-        'builds_before_reboot': b2g_localconfig.BUILDS_BEFORE_REBOOT,
-        'build_space': 13,
-        'upload_symbols': False,
-        'packageTests': True,
-        'updates_enabled': False,
-        'create_partial': False,
-        'slaves': SLAVES['win64-rev2'],
-        'platform_objdir': OBJDIR,
-        'unittest_masters': [],
-        'stage_product': 'b2g',
-        'stage_platform': 'win32_gecko_localizer',
-        'update_platform': 'WINNT_x86-msvc',
-        'enable_shared_checkouts': True,
-        'env': {
-            'MOZ_OBJDIR': OBJDIR,
-            'SYMBOL_SERVER_HOST': b2g_localconfig.SYMBOL_SERVER_HOST,
-            'SYMBOL_SERVER_USER': 'ffxbld',
-            'SYMBOL_SERVER_PATH': SYMBOL_SERVER_PATH,
-            'POST_SYMBOL_UPLOAD_CMD': SYMBOL_SERVER_POST_UPLOAD_CMD,
-            'SYMBOL_SERVER_SSH_KEY': "/c/Users/cltbld/.ssh/ffxbld_rsa",
-            'PDBSTR_PATH': '/c/Program Files (x86)/Windows Kits/8.0/Debuggers/x64/srcsrv/pdbstr.exe',
-            'HG_SHARE_BASE_DIR': 'c:/builds/hg-shared',
-            'BINSCOPE': 'C:\Program Files (x86)\Microsoft\SDL BinScope\BinScope.exe',
-            'PATH': "${MOZILLABUILD}python27;${MOZILLABUILD}buildbotve\\scripts;${PATH}",
-            # Necessary to avoid conflicting with the dev-focused builds'
-            # filenames
-            'MOZ_PKG_SPECIAL': 'localizer',
-            'WGET_OPTS': '-q -c',
-        },
-        'enable_opt_unittests': False,
-        'enable_checktests': False,
-        'talos_masters': GLOBAL_VARS['talos_masters'],
-        'test_pretty_names': False,
-        'l10n_check_test': False,
-        'gaia_repo': gaia_repo,
-        'gaia_revision_file': gaia_revision_file,
-        'gaia_languages_file': 'locales/languages_all.json',
-        'multi_locale': True,
-        'multi_config_name': 'multi_locale/b2g_win32.py',
-        'mozharness_multi_options': [
-            '--build',
-            '--summary',
-            '--gecko-languages-file', 'build/b2g/locales/all-locales',
-        ],
-        'gecko_languages_file': 'build/b2g/locales/all-locales',
-        'tooltool_manifest_src': 'b2g/config/tooltool-manifests/win32/releng.manifest',
         'tooltool_script': ['python', '/c/mozilla-build/tooltool.py'],
     },
     'nexus-4': {
@@ -1631,6 +1285,7 @@ PLATFORM_VARS = {
             "extra_args": [
                 "--config", "builds/releng_base_linux_64_builds.py",
                 "--custom-build-variant-cfg", "graphene"
+                '--config', GLOBAL_VARS['mozharness_configs']['balrog'],
             ],
             "script_timeout": 3 * 3600,
             "script_maxtime": int(5.5 * 3600),
@@ -1639,6 +1294,7 @@ PLATFORM_VARS = {
         "base_name": "graphene_%(branch)s_linux64",
         "platform_objdir": OBJDIR,
         "slaves": SLAVES["mock"],
+        "try_by_default": False,
     },
     "macosx64_graphene": {
         "mozharness_python": "/tools/buildbot/bin/python",
@@ -1649,6 +1305,7 @@ PLATFORM_VARS = {
             "extra_args": [
                 "--config", "builds/releng_base_mac_64_builds.py",
                 "--custom-build-variant-cfg", "graphene"
+                '--config', GLOBAL_VARS['mozharness_configs']['balrog'],
             ],
             "script_timeout": 3 * 3600,
             "script_maxtime": int(5.5 * 3600),
@@ -1657,6 +1314,7 @@ PLATFORM_VARS = {
         "base_name": "graphene_%(branch)s_macosx64",
         "platform_objdir": OBJDIR,
         "slaves": SLAVES["macosx64-lion"],
+        "try_by_default": False,
     },
     "win64_graphene": {
         "mozharness_python": ["c:/mozilla-build/python27/python", "-u"],
@@ -1670,6 +1328,7 @@ PLATFORM_VARS = {
             "extra_args": [
                 "--config", "builds/releng_base_windows_64_builds.py",
                 "--custom-build-variant-cfg", "graphene"
+                '--config', GLOBAL_VARS['mozharness_configs']['balrog'],
             ],
             "script_timeout": 3 * 3600,
             "script_maxtime": int(5.5 * 3600),
@@ -1678,6 +1337,7 @@ PLATFORM_VARS = {
         "base_name": "graphene_%(branch)s_win64",
         "platform_objdir": OBJDIR,
         "slaves": SLAVES["win64-rev2"],
+        "try_by_default": False,
     },
 }
 
@@ -1720,7 +1380,6 @@ BRANCHES = {
             'linux32_gecko-debug': {},
             'linux64_gecko': {},
             'linux64_gecko-debug': {},
-            'linux64-mulet': {},
             'linux64-b2g-haz': {},
             'macosx64_gecko': {},
             'macosx64_gecko-debug': {},
@@ -1728,6 +1387,9 @@ BRANCHES = {
             'win32_gecko': {},
             'win32_gecko-debug': {},
             'win32-mulet': {},
+            'linux64_graphene': {},
+            'macosx64_graphene': {},
+            'win64_graphene': {},
             'emulator': {},
             'emulator-debug': {},
             'emulator-jb': {},
@@ -1994,7 +1656,6 @@ BRANCHES['try']['platforms']['linux32_gecko-debug']['slaves'] = TRY_SLAVES['mock
 BRANCHES['try']['platforms']['linux64_gecko']['slaves'] = TRY_SLAVES['mock']
 BRANCHES['try']['platforms']['linux64_gecko-debug']['slaves'] = TRY_SLAVES['mock']
 BRANCHES['try']['platforms']['linux64-b2g-haz']['slaves'] = TRY_SLAVES['mock']
-BRANCHES['try']['platforms']['linux64-mulet']['slaves'] = TRY_SLAVES['mock']
 BRANCHES['try']['platforms']['macosx64_gecko']['slaves'] = TRY_SLAVES['macosx64-lion']
 BRANCHES['try']['platforms']['macosx64_gecko-debug']['slaves'] = TRY_SLAVES['macosx64-lion']
 BRANCHES['try']['platforms']['macosx64-mulet']['slaves'] = TRY_SLAVES['macosx64-lion']
@@ -2007,12 +1668,17 @@ BRANCHES['try']['platforms']['linux32_gecko-debug']['enable_dep'] = True
 BRANCHES['try']['platforms']['linux32_gecko-debug']['enable_periodic'] = False
 BRANCHES['try']['platforms']['linux64_gecko-debug']['enable_dep'] = True
 BRANCHES['try']['platforms']['linux64_gecko-debug']['enable_periodic'] = False
+BRANCHES['try']['platforms']['macosx64_gecko']['enable_dep'] = True
+BRANCHES['try']['platforms']['macosx64_gecko']['enable_periodic'] = False
 BRANCHES['try']['platforms']['macosx64_gecko-debug']['enable_dep'] = True
 BRANCHES['try']['platforms']['macosx64_gecko-debug']['enable_periodic'] = False
 BRANCHES['try']['platforms']['win32_gecko']['enable_dep'] = True
 BRANCHES['try']['platforms']['win32_gecko']['enable_periodic'] = False
 BRANCHES['try']['platforms']['win32_gecko-debug']['enable_dep'] = True
 BRANCHES['try']['platforms']['win32_gecko-debug']['enable_periodic'] = False
+BRANCHES['try']['platforms']['linux64_graphene']['slaves'] = TRY_SLAVES['mock']
+BRANCHES['try']['platforms']['macosx64_graphene']['slaves'] = TRY_SLAVES['macosx64-lion']
+BRANCHES['try']['platforms']['win64_graphene']['slaves'] = TRY_SLAVES['win64-rev2']
 
 BRANCHES['try']['platforms']['emulator']['slaves'] = TRY_SLAVES['mock']
 BRANCHES['try']['platforms']['emulator']['mozharness_config']['extra_args'] = ['--target', 'emulator', '--config', 'b2g/releng-try.py', '--gaia-languages-file', 'locales/languages_dev.json', '--gecko-languages-file', 'gecko/b2g/locales/all-locales']
@@ -2039,20 +1705,15 @@ BRANCHES['try']['platforms']['emulator-l-debug']['mozharness_config']['extra_arg
 BRANCHES['try']['platforms']['emulator-l-debug']['enable_dep'] = True
 BRANCHES['try']['platforms']['emulator-l-debug']['enable_periodic'] = False
 
-# Graphene is only enabled on Larch for now.
+# Graphene is only enabled on Larch and Try for now.
 for name, branch in BRANCHES.iteritems():
-    if name != "larch":
+    if name not in ("larch", "try"):
         if "linux64_graphene" in branch["platforms"]:
             del branch["platforms"]["linux64_graphene"]
         if "macosx64_graphene" in branch["platforms"]:
             del branch["platforms"]["macosx64_graphene"]
         if "win64_graphene" in branch["platforms"]:
             del branch["platforms"]["win64_graphene"]
-
-# Mulet landed in gecko 34
-for name, branch in items_before(BRANCHES, 'gecko_version', 34):
-    if 'linux64-mulet' in branch['platforms']:
-        del branch['platforms']['linux64-mulet']
 
 # Enable win32/macosx64 mulet in gecko 36+
 for name, branch in items_before(BRANCHES, 'gecko_version', 36):
@@ -2112,12 +1773,27 @@ for name, branch in items_before(BRANCHES, 'gecko_version', 37):
         if p in branch['platforms']:
             del branch['platforms'][p]
 
+# Disable emulators for gecko 39 and higher, they're now in TC
+# See bug 1143766
+for name, branch in items_at_least(BRANCHES, 'gecko_version', 39):
+    for p in ('emulator-l', 'emulator-kk', 'emulator-jb',
+              'emulator-l-debug', 'emulator-kk-debug', 'emulator-jb-debug'):
+        if p in branch['platforms']:
+            del branch['platforms'][p]
+
+
 # Enable mozharness pinning
 for name, branch in items_at_least(BRANCHES, 'gecko_version', 38):
     if name in ('ash', 'try', 'fx-team', 'mozilla-central', 'b2g-inbound'):
         branch['script_repo_manifest'] = \
             "https://hg.mozilla.org/%(repo_path)s/raw-file/%(revision)s/" + \
             "testing/mozharness/mozharness.json"
+
+# Enable mozharness desktop builds
+for name, branch in items_at_least(BRANCHES, 'gecko_version', 39):
+    # if true, any platform with mozharness_desktop_build in its config
+    # will use mozharness instead of MozillaBuildFactory
+    branch['desktop_mozharness_builds_enabled'] = True
 
 ######## generic branch configs
 for branch in ACTIVE_PROJECT_BRANCHES:

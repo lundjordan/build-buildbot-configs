@@ -76,7 +76,6 @@ GLOBAL_VARS = {
         'android-api-9': {},
         'android-api-11': {},
         'android-x86': {},
-        'android-armv6': {},
         'android-debug': {},
         'android-api-11-debug': {},
         'android-api-9-debug': {},
@@ -157,6 +156,7 @@ PLATFORM_VARS = {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
                     '--config', 'builds/releng_base_linux_32_builds.py',
+                    '--config', GLOBAL_VARS['mozharness_configs']['balrog'],
                 ],
                 'script_timeout': 3 * 3600,
                 'script_maxtime': int(5.5 * 3600),
@@ -263,6 +263,7 @@ PLATFORM_VARS = {
                 ('/tools/tooltool.py', '/builds/tooltool.py'),
                 ('/builds/google-oauth-api.key', '/builds/google-oauth-api.key'),
                 ('/builds/mozilla-desktop-geoloc-api.key', '/builds/mozilla-desktop-geoloc-api.key'),
+                ('/builds/crash-stats-api.token', '/builds/crash-stats-api.token'),
             ],
         },
         'linux64': {
@@ -277,6 +278,7 @@ PLATFORM_VARS = {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
                     '--config', 'builds/releng_base_linux_64_builds.py',
+                    '--config', GLOBAL_VARS['mozharness_configs']['balrog'],
                 ],
                 'script_timeout': 3 * 3600,
                 'script_maxtime': int(5.5 * 3600),
@@ -364,6 +366,7 @@ PLATFORM_VARS = {
                 ('/tools/tooltool.py', '/builds/tooltool.py'),
                 ('/builds/google-oauth-api.key', '/builds/google-oauth-api.key'),
                 ('/builds/mozilla-desktop-geoloc-api.key', '/builds/mozilla-desktop-geoloc-api.key'),
+                ('/builds/crash-stats-api.token', '/builds/crash-stats-api.token'),
             ],
         },
         'linux64-asan': {
@@ -379,6 +382,7 @@ PLATFORM_VARS = {
                 'extra_args': [
                     '--config', 'builds/releng_base_linux_64_builds.py',
                     '--custom-build-variant-cfg', 'asan',
+                    '--config', GLOBAL_VARS['mozharness_configs']['balrog'],
                 ],
                 'script_timeout': 3 * 3600,
                 'script_maxtime': int(5.5 * 3600),
@@ -458,6 +462,7 @@ PLATFORM_VARS = {
                 ('/builds/gapi.data', '/builds/gapi.data'),
                 ('/builds/google-oauth-api.key', '/builds/google-oauth-api.key'),
                 ('/builds/mozilla-desktop-geoloc-api.key', '/builds/mozilla-desktop-geoloc-api.key'),
+                ('/builds/crash-stats-api.token', '/builds/crash-stats-api.token'),
             ],
             # The status of this build doesn't affect the last good revision
             # algorithm for nightlies
@@ -476,6 +481,7 @@ PLATFORM_VARS = {
                 'extra_args': [
                     '--config', 'builds/releng_base_linux_64_builds.py',
                     '--custom-build-variant-cfg', 'asan-and-debug',
+                    '--config', GLOBAL_VARS['mozharness_configs']['balrog'],
                 ],
                 'script_timeout': 3 * 3600,
                 'script_maxtime': int(5.5 * 3600),
@@ -556,6 +562,7 @@ PLATFORM_VARS = {
                 ('/builds/gapi.data', '/builds/gapi.data'),
                 ('/builds/google-oauth-api.key', '/builds/google-oauth-api.key'),
                 ('/builds/mozilla-desktop-geoloc-api.key', '/builds/mozilla-desktop-geoloc-api.key'),
+                ('/builds/crash-stats-api.token', '/builds/crash-stats-api.token'),
             ],
             # The status of this build doesn't affect the last good revision
             # algorithm for nightlies
@@ -574,6 +581,7 @@ PLATFORM_VARS = {
                 'extra_args': [
                     '--config', 'builds/releng_base_linux_64_builds.py',
                     '--custom-build-variant-cfg', 'stat-and-debug',
+                    '--config', GLOBAL_VARS['mozharness_configs']['balrog'],
                 ],
                 'script_timeout': 3 * 3600,
                 'script_maxtime': int(5.5 * 3600),
@@ -654,6 +662,7 @@ PLATFORM_VARS = {
                 ('/builds/gapi.data', '/builds/gapi.data'),
                 ('/builds/google-oauth-api.key', '/builds/google-oauth-api.key'),
                 ('/builds/mozilla-desktop-geoloc-api.key', '/builds/mozilla-desktop-geoloc-api.key'),
+                ('/builds/crash-stats-api.token', '/builds/crash-stats-api.token'),
             ],
             # The status of this build doesn't affect the last good revision
             # algorithm for nightlies
@@ -721,6 +730,7 @@ PLATFORM_VARS = {
                 'extra_args': [
                     '--config', 'builds/releng_base_linux_64_builds.py',
                     '--custom-build-variant-cfg', 'code-coverage',
+                    '--config', GLOBAL_VARS['mozharness_configs']['balrog'],
                 ],
                 'script_timeout': 3 * 3600,
                 'script_maxtime': int(5.5 * 3600),
@@ -799,6 +809,7 @@ PLATFORM_VARS = {
                 ('/tools/tooltool.py', '/builds/tooltool.py'),
                 ('/builds/google-oauth-api.key', '/builds/google-oauth-api.key'),
                 ('/builds/mozilla-desktop-geoloc-api.key', '/builds/mozilla-desktop-geoloc-api.key'),
+                ('/builds/crash-stats-api.token', '/builds/crash-stats-api.token'),
             ],
         },
         'macosx64': {
@@ -809,6 +820,7 @@ PLATFORM_VARS = {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
                     '--config', 'builds/releng_base_mac_64_builds.py',
+                    '--config', GLOBAL_VARS['mozharness_configs']['balrog'],
                 ],
                 'script_timeout': 3 * 3600,
                 'script_maxtime': int(5.5 * 3600),
@@ -885,6 +897,7 @@ PLATFORM_VARS = {
                 'script_name': 'scripts/fx_desktop_build.py',
                 'extra_args': [
                     '--config', 'builds/releng_base_windows_32_builds.py',
+                    '--config', GLOBAL_VARS['mozharness_configs']['balrog'],
                 ],
                 'script_timeout': 3 * 3600,
                 'script_maxtime': int(5.5 * 3600),
@@ -950,8 +963,17 @@ PLATFORM_VARS = {
         },
         'win64': {
             'mozharness_python': ['c:/mozilla-build/python27/python', '-u'],
+            'mozharness_desktop_build': {
+                'script_name': 'scripts/fx_desktop_build.py',
+                'extra_args': [
+                    '--config', 'builds/releng_base_windows_64_builds.py',
+                    '--config', GLOBAL_VARS['mozharness_configs']['balrog'],
+                ],
+                'script_timeout': 3 * 3600,
+                'script_maxtime': int(5.5 * 3600),
+            },
             'mozharness_desktop_l10n': {
-                'capable': False,
+                'capable': True,
                 'scriptName': 'scripts/desktop_l10n.py',
                 'l10n_chunks': 3,
                 'use_credentials_file': True,
@@ -969,8 +991,7 @@ PLATFORM_VARS = {
             'base_name': 'WINNT 6.1 x86-64 %(branch)s',
             'src_mozconfig': 'browser/config/mozconfigs/win64/nightly',
             'mozconfig': 'win64/%(branch)s/nightly',
-            # XXX we cannot build xulrunner on Win64 -- see bug 575912
-            'enable_xulrunner': False,
+            'src_xulrunner_mozconfig': 'xulrunner/config/mozconfigs/win64/xulrunner',
             'profiled_build': True,
             'builds_before_reboot': localconfig.BUILDS_BEFORE_REBOOT,
             'build_space': 12,
@@ -1030,6 +1051,7 @@ PLATFORM_VARS = {
                 'extra_args': [
                     '--config', 'builds/releng_base_linux_32_builds.py',
                     '--custom-build-variant-cfg', 'debug',
+                    '--config', GLOBAL_VARS['mozharness_configs']['balrog'],
                 ],
                 'script_timeout': 3 * 3600,
                 'script_maxtime': int(5.5 * 3600),
@@ -1119,6 +1141,7 @@ PLATFORM_VARS = {
                 ('/builds/gapi.data', '/builds/gapi.data'),
                 ('/builds/google-oauth-api.key', '/builds/google-oauth-api.key'),
                 ('/builds/mozilla-desktop-geoloc-api.key', '/builds/mozilla-desktop-geoloc-api.key'),
+                ('/builds/crash-stats-api.token', '/builds/crash-stats-api.token'),
             ],
         },
         'linux64-debug': {
@@ -1134,6 +1157,7 @@ PLATFORM_VARS = {
                 'extra_args': [
                     '--config', 'builds/releng_base_linux_64_builds.py',
                     '--custom-build-variant-cfg', 'debug',
+                    '--config', GLOBAL_VARS['mozharness_configs']['balrog'],
                 ],
                 'script_timeout': 3 * 3600,
                 'script_maxtime': int(5.5 * 3600),
@@ -1202,6 +1226,7 @@ PLATFORM_VARS = {
                 ('/builds/gapi.data', '/builds/gapi.data'),
                 ('/builds/google-oauth-api.key', '/builds/google-oauth-api.key'),
                 ('/builds/mozilla-desktop-geoloc-api.key', '/builds/mozilla-desktop-geoloc-api.key'),
+                ('/builds/crash-stats-api.token', '/builds/crash-stats-api.token'),
             ],
         },
         'macosx64-debug': {
@@ -1213,6 +1238,7 @@ PLATFORM_VARS = {
                 'extra_args': [
                     '--config', 'builds/releng_base_mac_64_builds.py',
                     '--custom-build-variant-cfg', 'debug',
+                    '--config', GLOBAL_VARS['mozharness_configs']['balrog'],
                 ],
                 'script_timeout': 3 * 3600,
                 'script_maxtime': int(5.5 * 3600),
@@ -1270,6 +1296,7 @@ PLATFORM_VARS = {
                 'extra_args': [
                     '--config', 'builds/releng_base_mac_64_builds.py',
                     '--custom-build-variant-cfg', 'stat-and-debug',
+                    '--config', GLOBAL_VARS['mozharness_configs']['balrog'],
                 ],
                 'script_timeout': 3 * 3600,
                 'script_maxtime': int(5.5 * 3600),
@@ -1323,6 +1350,7 @@ PLATFORM_VARS = {
                 'extra_args': [
                     '--config', 'builds/releng_base_windows_32_builds.py',
                     '--custom-build-variant-cfg', 'debug',
+                    '--config', GLOBAL_VARS['mozharness_configs']['balrog'],
                 ],
                 'script_timeout': 3 * 3600,
                 'script_maxtime': int(5.5 * 3600),
@@ -1364,6 +1392,16 @@ PLATFORM_VARS = {
         },
         'win64-debug': {
             'mozharness_python': ['c:/mozilla-build/python27/python', '-u'],
+            'mozharness_desktop_build': {
+                'script_name': 'scripts/fx_desktop_build.py',
+                'extra_args': [
+                    '--config', 'builds/releng_base_windows_64_builds.py',
+                    '--custom-build-variant-cfg', 'debug',
+                    '--config', GLOBAL_VARS['mozharness_configs']['balrog'],
+                ],
+                'script_timeout': 3 * 3600,
+                'script_maxtime': int(5.5 * 3600),
+            },
             'reboot_command': [
                 'c:/mozilla-build/python27/python', '-u',
                 'scripts/external_tools/count_and_reboot.py',
@@ -1444,6 +1482,7 @@ PLATFORM_VARS = {
                 ('/home/cltbld/.boto', '/builds/.boto'),
                 ('/builds/mozilla-api.key', '/builds/mozilla-api.key'),
                 ('/builds/mozilla-fennec-geoloc-api.key', '/builds/mozilla-fennec-geoloc-api.key'),
+                ('/builds/crash-stats-api.token', '/builds/crash-stats-api.token'),
             ],
             'env': {
                 'DISPLAY': ':2',
@@ -1514,6 +1553,7 @@ PLATFORM_VARS = {
                 ('/home/cltbld/.boto', '/builds/.boto'),
                 ('/builds/mozilla-api.key', '/builds/mozilla-api.key'),
                 ('/builds/mozilla-fennec-geoloc-api.key', '/builds/mozilla-fennec-geoloc-api.key'),
+                ('/builds/crash-stats-api.token', '/builds/crash-stats-api.token'),
             ],
             'env': {
                 'DISPLAY': ':2',
@@ -1586,6 +1626,7 @@ PLATFORM_VARS = {
                 ('/home/cltbld/.boto', '/builds/.boto'),
                 ('/builds/mozilla-api.key', '/builds/mozilla-api.key'),
                 ('/builds/mozilla-fennec-geoloc-api.key', '/builds/mozilla-fennec-geoloc-api.key'),
+                ('/builds/crash-stats-api.token', '/builds/crash-stats-api.token'),
             ],
             'env': {
                 'DISPLAY': ':2',
@@ -1618,74 +1659,6 @@ PLATFORM_VARS = {
             'multi_locale_config_platform': 'android',
             'tooltool_manifest_src': 'mobile/android/config/tooltool-manifests/android/releng.manifest',
             'update_platform': 'Android_arm-eabi-gcc3',
-            'updates_enabled': False,
-        },
-        'android-armv6': {
-            'enable_nightly': True,
-            'product_name': 'firefox',
-            'unittest_platform': 'android-armv6-opt',
-            'app_name': 'browser',
-            'base_name': 'Android 2.3 Armv6 %(branch)s',
-            'mozconfig': 'android-armv6/%(branch)s/nightly',
-            'src_mozconfig': 'mobile/android/config/mozconfigs/android-armv6/nightly',
-            'mobile_dir': 'mobile/android',
-            'builds_before_reboot': localconfig.BUILDS_BEFORE_REBOOT,
-            'build_space': 14,
-            'upload_symbols': True,
-            'packageTests': True,
-            'enable_xulrunner': False,
-            'profiled_build': False,
-            'slaves': SLAVES['mock'],
-            'platform_objdir': OBJDIR,
-            'update_platform': 'Android_arm-eabi-gcc3-armv6',
-            'enable_ccache': True,
-            'enable_shared_checkouts': True,
-            'nightly_signing_servers': 'dep-signing',
-            'dep_signing_servers': 'dep-signing',
-            'use_mock': True,
-            'mock_target': 'mozilla-centos6-x86_64-android',
-            'mock_packages': ['autoconf213', 'mozilla-python27-mercurial',
-                              'ccache', 'zip',
-                              'java-1.7.0-openjdk-devel', 'zlib-devel',
-                              'glibc-static', 'openssh-clients', 'mpfr', 'bc',
-                              "gcc472_0moz1", "gcc473_0moz1", 'wget', 'glibc.i686',
-                              'libstdc++.i686', 'zlib.i686',
-                              'freetype-2.3.11-6.el6_1.8.x86_64', 'ant', 'ant-apache-regexp'],
-            'mock_copyin_files': [
-                ('/home/cltbld/.ssh', '/home/mock_mozilla/.ssh'),
-                ('/home/cltbld/.hgrc', '/builds/.hgrc'),
-                ('/home/cltbld/.boto', '/builds/.boto'),
-                ('/builds/mozilla-api.key', '/builds/mozilla-api.key'),
-                ('/builds/mozilla-fennec-geoloc-api.key', '/builds/mozilla-fennec-geoloc-api.key'),
-            ],
-            'env': {
-                'DISPLAY': ':2',
-                'HG_SHARE_BASE_DIR': '/builds/hg-shared',
-                'TOOLTOOL_CACHE': '/builds/tooltool_cache',
-                'TOOLTOOL_HOME': '/builds',
-                'MOZ_OBJDIR': OBJDIR,
-                'SYMBOL_SERVER_HOST': localconfig.SYMBOL_SERVER_HOST,
-                'SYMBOL_SERVER_USER': 'ffxbld',
-                'SYMBOL_SERVER_PATH': SYMBOL_SERVER_MOBILE_PATH,
-                'SYMBOL_SERVER_SSH_KEY': "/home/mock_mozilla/.ssh/ffxbld_rsa",
-                'POST_SYMBOL_UPLOAD_CMD': SYMBOL_SERVER_POST_UPLOAD_CMD,
-                'SHIP_LICENSED_FONTS': '1',
-                'CCACHE_DIR': '/builds/ccache',
-                'CCACHE_COMPRESS': '1',
-                'CCACHE_UMASK': '002',
-                'LC_ALL': 'C',
-                'PATH': '/tools/buildbot/bin:/usr/local/bin:/bin:/usr/bin',
-            },
-            'enable_opt_unittests': False,
-            'talos_masters': GLOBAL_VARS['talos_masters'],
-            'unittest_masters': GLOBAL_VARS['unittest_masters'],
-            'stage_platform': "android-armv6",
-            'stage_product': 'mobile',
-            'post_upload_include_platform': True,
-            'is_mobile_l10n': False,
-            'multi_locale': True,
-            'multi_locale_script': 'scripts/multil10n.py',
-            'tooltool_manifest_src': 'mobile/android/config/tooltool-manifests/android-armv6/releng.manifest',
             'updates_enabled': False,
         },
         'android-x86': {
@@ -1723,6 +1696,7 @@ PLATFORM_VARS = {
                 ('/home/cltbld/.boto', '/builds/.boto'),
                 ('/builds/mozilla-api.key', '/builds/mozilla-api.key'),
                 ('/builds/mozilla-fennec-geoloc-api.key', '/builds/mozilla-fennec-geoloc-api.key'),
+                ('/builds/crash-stats-api.token', '/builds/crash-stats-api.token'),
             ],
             'env': {
                 'DISPLAY': ':2',
@@ -1792,6 +1766,7 @@ PLATFORM_VARS = {
                 ('/home/cltbld/.boto', '/builds/.boto'),
                 ('/builds/mozilla-api.key', '/builds/mozilla-api.key'),
                 ('/builds/mozilla-fennec-geoloc-api.key', '/builds/mozilla-fennec-geoloc-api.key'),
+                ('/builds/crash-stats-api.token', '/builds/crash-stats-api.token'),
             ],
             'env': {
                 'DISPLAY': ':2',
@@ -1858,6 +1833,7 @@ PLATFORM_VARS = {
                 ('/home/cltbld/.boto', '/builds/.boto'),
                 ('/builds/mozilla-api.key', '/builds/mozilla-api.key'),
                 ('/builds/mozilla-fennec-geoloc-api.key', '/builds/mozilla-fennec-geoloc-api.key'),
+                ('/builds/crash-stats-api.token', '/builds/crash-stats-api.token'),
             ],
             'env': {
                 'DISPLAY': ':2',
@@ -1925,6 +1901,7 @@ PLATFORM_VARS = {
                 ('/home/cltbld/.boto', '/builds/.boto'),
                 ('/builds/mozilla-api.key', '/builds/mozilla-api.key'),
                 ('/builds/mozilla-fennec-geoloc-api.key', '/builds/mozilla-fennec-geoloc-api.key'),
+                ('/builds/crash-stats-api.token', '/builds/crash-stats-api.token'),
             ],
             'env': {
                 'DISPLAY': ':2',
@@ -2008,7 +1985,7 @@ apply_localconfig(PROJECTS, localconfig.PROJECTS)
 #
 #  variants - mapping of platforms (with build configuration, eg linux64-debug)
 #    to an array of variant names. These names correspond to files in
-#    build-tools/scripts/spidermonkey_builds/.
+#    <gecko>/js/src/devtools/automation/variants/.
 #
 #  enable_try - this project should be active for the try server
 #
@@ -2025,10 +2002,10 @@ BRANCH_PROJECTS = {
     # feeding into mozilla-central.
     'spidermonkey_tier_1': {
         'variants': {
-            'linux64-debug':  ['rootanalysis', 'generational'],
+            'linux64-debug':  ['rootanalysis', 'compacting'],
             'linux-debug': ['arm-sim'],
-            'win32-debug': ['warnaserrdebug', 'generational'],
-            'win32': ['warnaserr'],
+            'win32-debug': ['plaindebug', 'compacting'],
+            'win32': ['plain'],
         },
         'platforms': {
             'linux': {},
@@ -2050,18 +2027,18 @@ BRANCH_PROJECTS = {
         'enable_try': True,
         'try_by_default': {
             'rootanalysis': True, # all platforms for which it is defined
-            'generational': set(['linux64-debug', 'win32-debug']),
+            'compacting': set(['linux64-debug', 'win32-debug']),
             'arm-sim': True,
         },
         'variants': {
             'linux': ['warnaserr'],
             'linux-debug': ['arm-sim', 'warnaserrdebug'],
             'linux64':  ['warnaserr'],
-            'linux64-debug':  ['rootanalysis', 'generational', 'exactrooting', 'warnaserrdebug'],
-            'win32': ['generational', 'warnaserr'],
-            'win32-debug': ['generational', 'warnaserrdebug'],
-            'win64': ['generational', 'warnaserr'],
-            'win64-debug': ['generational', 'warnaserrdebug'],
+            'linux64-debug':  ['rootanalysis', 'compacting', 'warnaserrdebug'],
+            'win32': ['compacting', 'plain'],
+            'win32-debug': ['compacting', 'plaindebug'],
+            'win64': ['compacting', 'plain'],
+            'win64-debug': ['compacting', 'plaindebug'],
         },
         'platforms': {
             'linux': {},
@@ -2079,12 +2056,10 @@ BRANCH_PROJECTS = {
     },
 
     # Non-tier-1 builds that provide useful information but are hidden on tbpl.
-    # These will probably be run on the subset of the trees that the relevant
-    # developers will actually look.
+    # These should be run on the (small) subset of trees looked at by the
+    # relevant developers.
     'spidermonkey_info': {
         'variants': {
-            'linux':          ['warnaserr'],
-            'linux-debug':    ['warnaserrdebug'],
             'linux64':        ['warnaserr'],
             'linux64-debug':  ['warnaserrdebug'],
         },
@@ -2359,7 +2334,6 @@ BRANCHES['mozilla-central']['create_partial_l10n'] = True
 BRANCHES['mozilla-central']['enable_blocklist_update'] = True
 BRANCHES['mozilla-central']['enable_hsts_update'] = True
 BRANCHES['mozilla-central']['enable_hpkp_update'] = True
-BRANCHES['mozilla-central']['platforms']['android-armv6']['env']['MOZ_SYMBOLS_EXTRA_BUILDID'] = 'android-armv6'
 BRANCHES['mozilla-central']['platforms']['android-x86']['env']['MOZ_SYMBOLS_EXTRA_BUILDID'] = 'android-x86'
 BRANCHES['mozilla-central']['platforms']['android-x86']['updates_enabled'] = True
 BRANCHES['mozilla-central']['platforms']['android-api-9']['env']['MOZ_SYMBOLS_EXTRA_BUILDID'] = 'android-api-9'
@@ -2371,7 +2345,6 @@ BRANCHES['mozilla-central']['platforms']['linux64']['nightly_signing_servers'] =
 BRANCHES['mozilla-central']['platforms']['win32']['nightly_signing_servers'] = 'nightly-signing'
 BRANCHES['mozilla-central']['platforms']['win64']['nightly_signing_servers'] = 'nightly-signing'
 BRANCHES['mozilla-central']['platforms']['android']['nightly_signing_servers'] = 'nightly-signing'
-BRANCHES['mozilla-central']['platforms']['android-armv6']['nightly_signing_servers'] = 'nightly-signing'
 BRANCHES['mozilla-central']['platforms']['android-api-9']['nightly_signing_servers'] = 'nightly-signing'
 BRANCHES['mozilla-central']['platforms']['android-api-11']['nightly_signing_servers'] = 'nightly-signing'
 BRANCHES['mozilla-central']['platforms']['macosx64']['nightly_signing_servers'] = 'nightly-signing'
@@ -2408,7 +2381,6 @@ BRANCHES['mozilla-release']['enable_nightly'] = False
 BRANCHES['mozilla-release']['enable_blocklist_update'] = True
 BRANCHES['mozilla-release']['enable_valgrind'] = False
 BRANCHES['mozilla-release']['enabled_products'] = ['firefox', 'mobile']
-BRANCHES['mozilla-release']['platforms']['android-armv6']['env']['MOZ_SYMBOLS_EXTRA_BUILDID'] = 'android-armv6'
 BRANCHES['mozilla-release']['platforms']['android-x86']['env']['MOZ_SYMBOLS_EXTRA_BUILDID'] = 'android-x86'
 BRANCHES['mozilla-release']['platforms']['android-api-9']['env']['MOZ_SYMBOLS_EXTRA_BUILDID'] = 'android-api-9'
 BRANCHES['mozilla-release']['platforms']['android-api-11']['env']['MOZ_SYMBOLS_EXTRA_BUILDID'] = 'android-api-11'
@@ -2451,7 +2423,6 @@ BRANCHES['mozilla-beta']['enable_nightly'] = False
 # generated.
 BRANCHES['mozilla-beta']['enable_blocklist_update'] = True
 BRANCHES['mozilla-beta']['enable_valgrind'] = False
-BRANCHES['mozilla-beta']['platforms']['android-armv6']['env']['MOZ_SYMBOLS_EXTRA_BUILDID'] = 'android-armv6'
 BRANCHES['mozilla-beta']['platforms']['android-x86']['env']['MOZ_SYMBOLS_EXTRA_BUILDID'] = 'android-x86'
 BRANCHES['mozilla-beta']['platforms']['android-api-9']['env']['MOZ_SYMBOLS_EXTRA_BUILDID'] = 'android-api-9'
 BRANCHES['mozilla-beta']['platforms']['android-api-11']['env']['MOZ_SYMBOLS_EXTRA_BUILDID'] = 'android-api-11'
@@ -2509,7 +2480,6 @@ BRANCHES['mozilla-aurora']['enable_blocklist_update'] = True
 BRANCHES['mozilla-aurora']['enable_hsts_update'] = True
 BRANCHES['mozilla-aurora']['enable_hpkp_update'] = True
 BRANCHES['mozilla-aurora']['enable_valgrind'] = False
-BRANCHES['mozilla-aurora']['platforms']['android-armv6']['env']['MOZ_SYMBOLS_EXTRA_BUILDID'] = 'android-armv6'
 BRANCHES['mozilla-aurora']['platforms']['android-api-9']['env']['MOZ_SYMBOLS_EXTRA_BUILDID'] = 'android-api-9'
 BRANCHES['mozilla-aurora']['platforms']['android-api-9']['updates_enabled'] = True
 BRANCHES['mozilla-aurora']['platforms']['android-api-11']['env']['MOZ_SYMBOLS_EXTRA_BUILDID'] = 'android-api-11'
@@ -2531,7 +2501,7 @@ BRANCHES['mozilla-esr31']['update_channel'] = 'nightly-esr31'
 BRANCHES['mozilla-esr31']['l10n_repo_path'] = 'releases/l10n/mozilla-release'
 BRANCHES['mozilla-esr31']['enable_weekly_bundle'] = True
 BRANCHES['mozilla-esr31']['start_hour'] = [0]
-BRANCHES['mozilla-esr31']['start_minute'] = [05]
+BRANCHES['mozilla-esr31']['start_minute'] = [5]
 BRANCHES['mozilla-esr31']['enable_xulrunner'] = False
 BRANCHES['mozilla-esr31']['pgo_strategy'] = 'per-checkin'
 BRANCHES['mozilla-esr31']['enable_mac_a11y'] = True
@@ -2552,7 +2522,7 @@ BRANCHES['mozilla-esr31']['create_partial'] = False
 BRANCHES['mozilla-esr31']['enable_blocklist_update'] = True
 BRANCHES['mozilla-esr31']['enable_hsts_update'] = True
 BRANCHES['mozilla-esr31']['enable_valgrind'] = False
-BRANCHES['mozilla-esr31']['enabled_products'] = ['firefox', 'mobile']
+BRANCHES['mozilla-esr31']['enabled_products'] = ['firefox']
 
 ######## mozilla-b2g30_v1_4
 BRANCHES['mozilla-b2g30_v1_4']['repo_path'] = 'releases/mozilla-b2g30_v1_4'
@@ -2581,7 +2551,7 @@ BRANCHES['mozilla-b2g30_v1_4']['enable_blocklist_update'] = False
 BRANCHES['mozilla-b2g30_v1_4']['enable_hsts_update'] = True
 BRANCHES['mozilla-b2g30_v1_4']['enable_hpkp_update'] = False
 BRANCHES['mozilla-b2g30_v1_4']['enable_valgrind'] = False
-BRANCHES['mozilla-b2g30_v1_4']['enabled_products'] = ['firefox', 'mobile']
+BRANCHES['mozilla-b2g30_v1_4']['enabled_products'] = ['firefox']
 
 ######## mozilla-b2g32_v2_0
 BRANCHES['mozilla-b2g32_v2_0']['repo_path'] = 'releases/mozilla-b2g32_v2_0'
@@ -2610,7 +2580,7 @@ BRANCHES['mozilla-b2g32_v2_0']['enable_blocklist_update'] = False
 BRANCHES['mozilla-b2g32_v2_0']['enable_hsts_update'] = True
 BRANCHES['mozilla-b2g32_v2_0']['enable_hpkp_update'] = True
 BRANCHES['mozilla-b2g32_v2_0']['enable_valgrind'] = False
-BRANCHES['mozilla-b2g32_v2_0']['enabled_products'] = ['firefox', 'mobile']
+BRANCHES['mozilla-b2g32_v2_0']['enabled_products'] = ['firefox']
 
 ######## mozilla-b2g34_v2_1
 BRANCHES['mozilla-b2g34_v2_1']['repo_path'] = 'releases/mozilla-b2g34_v2_1'
@@ -2639,7 +2609,7 @@ BRANCHES['mozilla-b2g34_v2_1']['enable_blocklist_update'] = False
 BRANCHES['mozilla-b2g34_v2_1']['enable_hsts_update'] = True
 BRANCHES['mozilla-b2g34_v2_1']['enable_hpkp_update'] = True
 BRANCHES['mozilla-b2g34_v2_1']['enable_valgrind'] = False
-BRANCHES['mozilla-b2g34_v2_1']['enabled_products'] = ['firefox', 'mobile']
+BRANCHES['mozilla-b2g34_v2_1']['enabled_products'] = ['firefox']
 
 ######## mozilla-b2g34_v2_1s
 BRANCHES['mozilla-b2g34_v2_1s']['repo_path'] = 'releases/mozilla-b2g34_v2_1s'
@@ -2667,7 +2637,7 @@ BRANCHES['mozilla-b2g34_v2_1s']['enable_blocklist_update'] = False
 BRANCHES['mozilla-b2g34_v2_1s']['enable_hsts_update'] = True
 BRANCHES['mozilla-b2g34_v2_1s']['enable_hpkp_update'] = True
 BRANCHES['mozilla-b2g34_v2_1s']['enable_valgrind'] = False
-BRANCHES['mozilla-b2g34_v2_1s']['enabled_products'] = ['firefox', 'mobile']
+BRANCHES['mozilla-b2g34_v2_1s']['enabled_products'] = ['firefox']
 
 ######## mozilla-b2g37_v2_2
 BRANCHES['mozilla-b2g37_v2_2']['repo_path'] = 'releases/mozilla-b2g37_v2_2'
@@ -2696,7 +2666,7 @@ BRANCHES['mozilla-b2g37_v2_2']['enable_blocklist_update'] = False
 BRANCHES['mozilla-b2g37_v2_2']['enable_hsts_update'] = True
 BRANCHES['mozilla-b2g37_v2_2']['enable_hpkp_update'] = True
 BRANCHES['mozilla-b2g37_v2_2']['enable_valgrind'] = False
-BRANCHES['mozilla-b2g37_v2_2']['enabled_products'] = ['firefox', 'mobile']
+BRANCHES['mozilla-b2g37_v2_2']['enabled_products'] = ['firefox']
 
 
 ######## try
@@ -2745,7 +2715,6 @@ BRANCHES['try']['platforms']['win32-debug']['slaves'] = TRY_SLAVES['win64-rev2']
 BRANCHES['try']['platforms']['macosx64-debug']['slaves'] = TRY_SLAVES['macosx64-lion']
 BRANCHES['try']['platforms']['macosx64-st-an-debug']['slaves'] = TRY_SLAVES['macosx64-lion']
 BRANCHES['try']['platforms']['android']['slaves'] = TRY_SLAVES['mock']
-BRANCHES['try']['platforms']['android-armv6']['slaves'] = TRY_SLAVES['mock']
 BRANCHES['try']['platforms']['android-api-9']['slaves'] = TRY_SLAVES['mock']
 BRANCHES['try']['platforms']['android-api-11']['slaves'] = TRY_SLAVES['mock']
 BRANCHES['try']['platforms']['android-debug']['slaves'] = TRY_SLAVES['mock']
@@ -2812,8 +2781,6 @@ for branch in ACTIVE_PROJECT_BRANCHES:
         BRANCHES[branch]['platforms']['android-api-9']['env']['MOZ_SYMBOLS_EXTRA_BUILDID'] = 'android-api-9-' + branch
     if 'android-api-11' in BRANCHES[branch]['platforms']:
         BRANCHES[branch]['platforms']['android-api-11']['env']['MOZ_SYMBOLS_EXTRA_BUILDID'] = 'android-api-11-' + branch
-    if 'android-armv6' in BRANCHES[branch]['platforms']:
-        BRANCHES[branch]['platforms']['android-armv6']['env']['MOZ_SYMBOLS_EXTRA_BUILDID'] = 'android-armv6-' + branch
     if 'android-x86' in BRANCHES[branch]['platforms']:
         BRANCHES[branch]['platforms']['android-x86']['env']['MOZ_SYMBOLS_EXTRA_BUILDID'] = 'android-x86-' + branch
     if 'linux64' in BRANCHES[branch]['platforms']:
@@ -2841,15 +2808,6 @@ for branch in ACTIVE_PROJECT_BRANCHES:
             branchConfig.get('nightly_signing_servers', branchConfig.get('platforms', {}).get(
                              platform, {}).get('nightly_signing_servers',
                              BRANCHES[branch]['platforms'][platform]['dep_signing_servers']))
-
-#bug 1042835 Disable armv6 builds and tests everywhere apart from esr31
-branches = BRANCHES.keys()
-branches.extend(ACTIVE_PROJECT_BRANCHES)
-for branch in branches:
-    if branch == 'mozilla-esr31':
-        continue
-    if 'android-armv6' in BRANCHES[branch]['platforms']:
-        del BRANCHES[branch]['platforms']['android-armv6']
 
 # Bug 578880, remove the following block after gcc-4.5 switch
 branches = BRANCHES.keys()
