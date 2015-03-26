@@ -9,9 +9,7 @@ releaseConfig['disable_tinderbox_mail'] = True
 releaseConfig['base_clobber_url'] = 'https://api.pub.build.mozilla.org/clobberer/forceclobber'
 
 # Release Notification
-releaseConfig['AllRecipients']       = ['<release+releasespam@mozilla.com>',
-                                        '<release-automation-notifications@mozilla.com>',
-                                        '<qa-drivers@mozilla.com>']
+releaseConfig['AllRecipients']       = ['<release-automation-notifications@mozilla.com>',]
 releaseConfig['ImportantRecipients'] = ['<release-drivers@mozilla.org>',]
 releaseConfig['AVVendorsRecipients'] = ['<av-vendor-release-announce@mozilla.org>',]
 releaseConfig['releaseTemplates']    = 'release_templates'
@@ -23,23 +21,23 @@ releaseConfig['productName']         = 'firefox'
 releaseConfig['stage_product']       = 'firefox'
 releaseConfig['appName']             = 'browser'
 #  Current version info
-releaseConfig['version']             = '37.0b2'
+releaseConfig['version']             = '37.0b7'
 releaseConfig['appVersion']          = '37.0'
 releaseConfig['milestone']           = releaseConfig['appVersion']
 releaseConfig['buildNumber']         = 1
-releaseConfig['baseTag']             = 'FIREFOX_37_0b2'
+releaseConfig['baseTag']             = 'FIREFOX_37_0b7'
 releaseConfig['partialUpdates']      = {
 
-    '36.0b10': {
-        'appVersion': '36.0',
-        'buildNumber': 1,
-        'baseTag': 'FIREFOX_36_0b10',
-    },
-
-    '37.0b1': {
+    '37.0b5': {
         'appVersion': '37.0',
         'buildNumber': 1,
-        'baseTag': 'FIREFOX_37_0b1',
+        'baseTag': 'FIREFOX_37_0b5',
+    },
+
+    '37.0b6': {
+        'appVersion': '37.0',
+        'buildNumber': 1,
+        'baseTag': 'FIREFOX_37_0b6',
     },
 
 }
@@ -54,7 +52,7 @@ releaseConfig['sourceRepositories']  = {
     'mozilla': {
         'name': 'mozilla-beta',
         'path': 'releases/mozilla-beta',
-        'revision': '7b3c7ba30dfe',
+        'revision': '9b93e6033d5d',
         'relbranch': None,
         'bumpFiles': {
             'browser/config/version.txt': {
@@ -101,7 +99,6 @@ releaseConfig['hgUsername']          = 'ffxbld'
 releaseConfig['hgSshKey']            = '/home/mock_mozilla/.ssh/ffxbld_rsa'
 
 # Update-specific configuration
-releaseConfig['patcherConfig']       = 'mozBeta-branch-patcher2.cfg'
 releaseConfig['ftpServer']           = 'ftp.mozilla.org'
 releaseConfig['stagingServer']       = 'stage.mozilla.org'
 releaseConfig['bouncerServer']       = 'download.mozilla.org'
@@ -113,13 +110,6 @@ releaseConfig['releaseNotesUrl']     = None
 releaseConfig['testOlderPartials']   = False
 releaseConfig['promptWaitTime']      = None
 releaseConfig['updateVerifyChunks']  = 6
-releaseConfig['verifyConfigs']       = {
-    'linux':  'mozBeta-firefox-linux.cfg',
-    'linux64':  'mozBeta-firefox-linux64.cfg',
-    'macosx64': 'mozBeta-firefox-mac64.cfg',
-    'win32':  'mozBeta-firefox-win32.cfg',
-    'win64':  'mozBeta-firefox-win64.cfg',
-}
 releaseConfig['mozconfigs']          = {
     'linux': 'browser/config/mozconfigs/linux32/beta',
     'linux64': 'browser/config/mozconfigs/linux64/beta',
@@ -135,10 +125,30 @@ releaseConfig['xulrunner_mozconfigs']          = {
     'win64': 'xulrunner/config/mozconfigs/win64/xulrunner',
 }
 releaseConfig['releaseChannel']        = 'beta'
-releaseConfig['releaseChannelRuleIds'] = [32]
-releaseConfig['localTestChannel']      = 'beta-localtest'
-releaseConfig['cdnTestChannel']        = 'beta-cdntest'
-releaseConfig['testChannelRuleIds']    = [25,45]
+releaseConfig['updateChannels'] = {
+    "beta": {
+        "versionRegex": r"^.*$",
+        "ruleId": 32,
+        "patcherConfig": "mozBeta-branch-patcher2.cfg",
+        "localTestChannel": "beta-localtest",
+        "cdnTestChannel": "beta-cdntest",
+        "verifyConfigs": {
+            "linux":  "mozBeta-firefox-linux.cfg",
+            "linux64":  "mozBeta-firefox-linux64.cfg",
+            "macosx64": "mozBeta-firefox-mac64.cfg",
+            "win32":  "mozBeta-firefox-win32.cfg",
+            "win64":  "mozBeta-firefox-win64.cfg",
+        },
+        "testChannels": {
+            "beta-cdntest": {
+                "ruleId": 45,
+            },
+            "beta-localtest": {
+                "ruleId": 25,
+            },
+        }
+    }
+}
 
 # Partner repack configuration
 releaseConfig['doPartnerRepacks']    = True
@@ -147,6 +157,11 @@ releaseConfig['partnersRepoPath']    = 'build/partner-repacks'
 # Tuxedo/Bouncer configuration
 releaseConfig['tuxedoServerUrl']     = 'https://bounceradmin.mozilla.com/api'
 releaseConfig['bouncer_submitter_config'] = 'releases/bouncer_firefox_beta.py'
+
+# Product details config
+releaseConfig["productDetailsRepo"] = "svn+ssh://ffxbld@svn.mozilla.org/libs/product-details"
+releaseConfig["mozillaComRepo"]     = "svn+ssh://ffxbld@svn.mozilla.org/projects/mozilla.com"
+releaseConfig["svnSshKey"]          = "/home/cltbld/.ssh/ffxbld_dsa"
 
 # Misc configuration
 releaseConfig['enable_repo_setup'] = False

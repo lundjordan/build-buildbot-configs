@@ -37,13 +37,7 @@ BRANCHES = {
     'mozilla-aurora':      {},
     'mozilla-release':     {},
     'mozilla-beta':        {},
-    'mozilla-b2g30_v1_4': {
-        'gecko_version': 30,
-    },
     'try': {'coallesce_jobs': False},
-    'mozilla-esr31':     {
-        'gecko_version': 31,
-    },
 }
 
 setMainFirefoxVersions(BRANCHES)
@@ -53,7 +47,6 @@ PLATFORMS = {
     'android': {},
     'android-api-9': {},
     'android-api-11': {},
-    'android-armv6': {},
     'android-x86': {},
 }
 
@@ -114,18 +107,6 @@ PLATFORMS['android-api-11']['mozharness_config'] = {
     'talos_script_maxtime': 10800,
 }
 
-PLATFORMS['android-armv6']['slave_platforms'] = ['ubuntu64_vm_armv6_mobile', 'ubuntu64_vm_armv6_large']
-PLATFORMS['android-armv6']['env_name'] = 'android-perf'
-PLATFORMS['android-armv6']['is_mobile'] = True
-PLATFORMS['android-armv6']['ubuntu64_vm_armv6_mobile'] = {'name': "Android 2.3 Armv6 Emulator"}
-PLATFORMS['android-armv6']['ubuntu64_vm_armv6_large'] = {'name': "Android 2.3 Armv6 Emulator"}
-PLATFORMS['android-armv6']['stage_product'] = 'mobile'
-PLATFORMS['android-armv6']['mozharness_config'] = {
-    'mozharness_python': '/tools/buildbot/bin/python',
-    'hg_bin': 'hg',
-    'reboot_command': ['/tools/buildbot/bin/python'] + MOZHARNESS_REBOOT_CMD,
-}
-
 PLATFORMS['android-x86']['slave_platforms'] = ['ubuntu64_hw']
 PLATFORMS['android-x86']['env_name'] = 'android-perf'
 PLATFORMS['android-x86']['is_mobile'] = True
@@ -151,21 +132,6 @@ ANDROID = ["panda_android"]
 ANDROID_NOT_PANDA = [slave_plat for slave_plat in ANDROID if 'panda' not in slave_plat]
 
 SUITES = {
-    'remote-ts': {
-        'enable_by_default': False,
-        'suites': GRAPH_CONFIG + ['--activeTests', 'ts', '--mozAfterPaint', '--noChrome'],
-        'options': (TALOS_REMOTE_FENNEC_OPTS, ANDROID),
-    },
-    'remote-tspaint': {
-        'enable_by_default': True,
-        'suites': GRAPH_CONFIG + ['--activeTests', 'ts_paint', '--mozAfterPaint'],
-        'options': (TALOS_REMOTE_FENNEC_OPTS, ANDROID),
-    },
-    'remote-tsvg': {
-        'enable_by_default': False,
-        'suites': GRAPH_CONFIG + ['--activeTests', 'tsvg', '--noChrome'],
-        'options': (TALOS_REMOTE_FENNEC_OPTS, ANDROID),
-    },
     'remote-tsvgx': {
         'enable_by_default': True,
         'suites': GRAPH_CONFIG + ['--activeTests', 'tsvgx', '--noChrome', '--tppagecycles', '10'],
@@ -175,16 +141,6 @@ SUITES = {
         'enable_by_default': True,
         'suites': GRAPH_CONFIG + ['--activeTests', 'tcanvasmark', '--noChrome'],
         'options': (TALOS_REMOTE_FENNEC_OPTS, ANDROID_NOT_PANDA),
-    },
-    'remote-trobopan': {
-        'enable_by_default': True,
-        'suites': GRAPH_CONFIG + ['--activeTests', 'trobopan', '--noChrome', '--fennecIDs', '../fennec_ids.txt'],
-        'options': (TALOS_REMOTE_FENNEC_OPTS, ANDROID),
-    },
-    'remote-troboprovider': {
-        'enable_by_default': True,
-        'suites': GRAPH_CONFIG + ['--activeTests', 'tprovider', '--noChrome', '--fennecIDs', '../fennec_ids.txt'],
-        'options': (TALOS_REMOTE_FENNEC_OPTS, ANDROID),
     },
     'remote-trobocheck2': {
         'enable_by_default': True,
@@ -206,7 +162,6 @@ BRANCH_UNITTEST_VARS = {
         'android-debug': {},
         'android-api-9': {},
         'android-api-11': {},
-        'android-armv6': {},
         'android-x86': {},
     },
 }
@@ -706,6 +661,36 @@ ANDROID_MOZHARNESS_PLAIN_ROBOCOP = [
       'use_mozharness': True,
       'script_path': 'scripts/android_panda.py',
       'extra_args': ['--cfg', 'android/android_panda_releng.py', '--robocop-suite', 'robocop-7'],
+      'blob_upload': True,
+      'timeout': 2400,
+      'script_maxtime': 14400,
+      },
+     ),
+     ('robocop-8',
+     {'suite': 'mochitest-robocop',
+      'use_mozharness': True,
+      'script_path': 'scripts/android_panda.py',
+      'extra_args': ['--cfg', 'android/android_panda_releng.py', '--robocop-suite', 'robocop-8'],
+      'blob_upload': True,
+      'timeout': 2400,
+      'script_maxtime': 14400,
+      },
+     ),
+     ('robocop-9',
+     {'suite': 'mochitest-robocop',
+      'use_mozharness': True,
+      'script_path': 'scripts/android_panda.py',
+      'extra_args': ['--cfg', 'android/android_panda_releng.py', '--robocop-suite', 'robocop-9'],
+      'blob_upload': True,
+      'timeout': 2400,
+      'script_maxtime': 14400,
+      },
+     ),
+     ('robocop-10',
+     {'suite': 'mochitest-robocop',
+      'use_mozharness': True,
+      'script_path': 'scripts/android_panda.py',
+      'extra_args': ['--cfg', 'android/android_panda_releng.py', '--robocop-suite', 'robocop-10'],
       'blob_upload': True,
       'timeout': 2400,
       'script_maxtime': 14400,
@@ -1216,6 +1201,30 @@ ANDROID_2_3_MOZHARNESS_DICT = [
         'script_maxtime': 14400,
     },
     ),
+    ('mochitest-gl-3', {
+        'use_mozharness': True,
+        'script_path': 'scripts/android_emulator_unittest.py',
+        'extra_args': [
+            '--cfg', 'android/androidarm.py',
+            '--test-suite', 'mochitest-gl-3',
+        ],
+        'blob_upload': True,
+        'timeout': 2400,
+        'script_maxtime': 14400,
+    },
+    ),
+    ('mochitest-gl-4', {
+        'use_mozharness': True,
+        'script_path': 'scripts/android_emulator_unittest.py',
+        'extra_args': [
+            '--cfg', 'android/androidarm.py',
+            '--test-suite', 'mochitest-gl-4',
+        ],
+        'blob_upload': True,
+        'timeout': 2400,
+        'script_maxtime': 14400,
+    },
+    ),
     ('jsreftest-1', {
         'use_mozharness': True,
         'script_path': 'scripts/android_emulator_unittest.py',
@@ -1553,23 +1562,6 @@ PLATFORM_UNITTEST_VARS = {
         'remote_extras': ANDROID_UNITTEST_REMOTE_EXTRAS,
         'panda_android': deepcopy(ANDROID_MOZHARNESS_PANDA_UNITTEST_DICT),
     },
-    'android-armv6': {
-        'product_name': 'fennec',
-        'app_name': 'browser',
-        'brand_name': 'Minefield',
-        'is_remote': True,
-        'enable_opt_unittests': True,
-        'enable_debug_unittests': False,
-        'remote_extras': ANDROID_UNITTEST_REMOTE_EXTRAS,
-        'ubuntu64_vm_armv6_mobile': {
-            'opt_unittest_suites': [],
-            'debug_unittest_suites': [],
-        },
-        'ubuntu64_vm_armv6_large': {
-            'opt_unittest_suites': [],
-            'debug_unittest_suites': [],
-        },
-    },
     'android-x86': {
         'product_name': 'fennec',
         'enable_opt_unittests': True,
@@ -1644,13 +1636,6 @@ for branch in BRANCHES.keys():
                 BRANCHES[branch]['platforms'][platform][key] = value
 
 
-BRANCHES['mozilla-esr31']['platforms']['android-armv6']['ubuntu64_vm_armv6_large'] = {
-    'opt_unittest_suites': deepcopy(ANDROID_2_3_ARMV6_C3_DICT['opt_unittest_suites']),
-}
-BRANCHES['mozilla-esr31']['platforms']['android-armv6']['ubuntu64_vm_armv6_mobile'] = {
-    'opt_unittest_suites': deepcopy(ANDROID_2_3_ARMV6_AWS_DICT['opt_unittest_suites']),
-}
-
 #
 # Entries in BRANCHES for tests should be a tuple of:
 # - Number of tests to run per build
@@ -1692,14 +1677,6 @@ BRANCHES['mozilla-aurora']['repo_path'] = "releases/mozilla-aurora"
 BRANCHES['mozilla-aurora']['pgo_strategy'] = 'per-checkin'
 BRANCHES['mozilla-aurora']['pgo_platforms'] = []
 
-######### mozilla-esr31
-BRANCHES['mozilla-esr31']['repo_path'] = "releases/mozilla-esr31"
-
-######### mozilla-b2g30_v1_4
-BRANCHES['mozilla-b2g30_v1_4']['repo_path'] = "releases/mozilla-b2g30_v1_4"
-BRANCHES['mozilla-b2g30_v1_4']['pgo_strategy'] = 'per-checkin'
-BRANCHES['mozilla-b2g30_v1_4']['pgo_platforms'] = []
-
 ######## try
 BRANCHES['try']['repo_path'] = "try"
 BRANCHES['try']['platforms']['android']['enable_debug_unittests'] = True
@@ -1717,10 +1694,6 @@ for _, branch in items_at_least(BRANCHES, 'gecko_version', 30):
     branch['script_repo_manifest'] = \
         "https://hg.mozilla.org/%(repo_path)s/raw-file/%(revision)s/" + \
         "testing/mozharness/mozharness.json"
-
-BRANCHES['mozilla-b2g30_v1_4']['script_repo_manifest'] = \
-    "https://hg.mozilla.org/%(repo_path)s/raw-file/%(revision)s/" + \
-    "testing/mozharness/mozharness.json"
 
 #split 2.3 tests to ones that can run on ix and AWS
 for suite in ANDROID_2_3_MOZHARNESS_DICT:
@@ -1791,6 +1764,24 @@ for name, branch in items_at_least(BRANCHES, 'gecko_version', 34):
                     if 'debug_unittest_suite' in type:
                         BRANCHES[name]['platforms'][platform][slave_plat]['debug_unittest_suites'] = deepcopy(ANDROID_MOZHARNESS_MOCHITEST + ANDROID_MOZHARNESS_JSREFTEST + ANDROID_MOZHARNESS_CRASHTEST + ANDROID_MOZHARNESS_PLAIN_REFTEST)
 
+## Bug 1142765 - Schedule Android 4.0 Debug xpcshell tests on 
+## all trunk trees and let them ride the trains 
+for name, branch in items_at_least(BRANCHES, 'gecko_version', 39):
+    # Loop removes it from any branch that gets beyond here
+    if name in ('cedar', ):
+        continue
+    for platform in branch['platforms']:
+        if not platform in PLATFORMS:
+            continue
+        if platform not in ('android-api-11'):
+            continue
+        for slave_plat in PLATFORMS[platform]['slave_platforms']:
+            if not slave_plat in branch['platforms'][platform]:
+                continue
+            if not 'panda' in slave_plat:
+                continue          
+            if branch['platforms'][platform]['enable_debug_unittests'] is True:
+                BRANCHES[name]['platforms'][platform][slave_plat]['debug_unittest_suites'] = deepcopy(ANDROID_MOZHARNESS_MOCHITEST + ANDROID_MOZHARNESS_JSREFTEST + ANDROID_MOZHARNESS_CRASHTEST + ANDROID_MOZHARNESS_PLAIN_REFTEST + ANDROID_MOZHARNESS_XPCSHELL)
 
 def remove_suite_from_slave_platform(BRANCHES, PLATFORMS, suite_to_remove, slave_platform, branches_to_keep=[]):
     """Remove suites named like |suite_to_remove| from all branches on slave platforms named like |slave_platform|.

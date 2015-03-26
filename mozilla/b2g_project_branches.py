@@ -37,13 +37,6 @@ PROJECT_BRANCHES = {
     #},
     #####  TWIGS aka RENTABLE BRANCHES
     'alder': {
-        'lock_platforms': True,
-        'platforms': {
-            'linux32_gecko': {},
-            'linux64_gecko': {},
-            'linux64_gecko-debug': {},
-            'linux64-mulet': {},
-        },
     },
     'ash': {
         'enable_nightly': True,
@@ -117,8 +110,50 @@ PROJECT_BRANCHES = {
     'larch': {
         "desktop_mozharness_builds_enabled": True,
         'enable_nightly': True,
+        "lock_platforms": True,
+        "platforms": {
+            "linux64_graphene": {},
+            "macosx64_graphene": {},
+            "win64_graphene": {},
+        }
     },
-    'maple': {},
+    'maple': {
+        'enable_nightly': True,
+        'platforms': {
+            'macosx64_gecko': {
+                'mozharness_desktop_build': {
+                    'script_name': 'scripts/b2g_desktop_build.py',
+                    'extra_args': ['--config', 'b2g/desktop_macosx64.py'],
+                },
+            },
+            'macosx64_gecko-debug': {
+                'mozharness_desktop_build': {
+                    'script_name': 'scripts/b2g_desktop_build.py',
+                    'extra_args': [
+                        '--config', 'b2g/desktop_macosx64.py',
+                    '--custom-build-variant-cfg', 'b2g-debug',
+                    ],
+                },
+            },
+            'win32_gecko': {
+                'mozharness_python': ['c:/mozilla-build/python27/python', '-u'],
+                'mozharness_desktop_build': {
+                    'script_name': 'scripts/b2g_desktop_build.py',
+                    'extra_args': ['--config', 'b2g/desktop_windows32.py'],
+                },
+            },
+            'win32_gecko-debug': {
+                'mozharness_python': ['c:/mozilla-build/python27/python', '-u'],
+                'mozharness_desktop_build': {
+                    'script_name': 'scripts/b2g_desktop_build.py',
+                    'extra_args': [
+                        '--config', 'b2g/desktop_windows32.py',
+                    '--custom-build-variant-cfg', 'b2g-debug',
+                    ],
+                },
+            },
+        },
+    },
     # Customizations for integration work for bugs 481815 and 307181
     'oak': {
         'enable_nightly': True
