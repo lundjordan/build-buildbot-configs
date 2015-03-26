@@ -44,6 +44,10 @@ for i in range(1, 100) + range(300, 360):
 for i in range(1, 800) + range(1000, 1100):
     SLAVES['ubuntu32_vm']['tst-linux32-spot-%03i' % i] = {}
 
+SLAVES.append('tst-linux32-ec2-jlund2')
+SLAVES.append('tst-linux32-ec2-jlund3')
+SLAVES.append('tst-linux32-ec2-jlund4')
+
 for i in range(1, 100) + range(301, 400):
     SLAVES['ubuntu64_vm']['tst-linux64-ec2-%03i' % i] = {}
 
