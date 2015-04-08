@@ -2001,6 +2001,7 @@ BRANCH_PROJECTS = {
         'variants': {
             'linux64-debug':  ['rootanalysis', 'compacting'],
             'linux-debug': ['arm-sim'],
+            'macosx64-debug': [],
             'win32-debug': ['plaindebug', 'compacting'],
             'win32': ['plain'],
         },
@@ -2026,12 +2027,14 @@ BRANCH_PROJECTS = {
             'rootanalysis': True, # all platforms for which it is defined
             'compacting': set(['linux64-debug', 'win32-debug']),
             'arm-sim': True,
+            'arm-sim-osx': set([]),
         },
         'variants': {
             'linux': ['warnaserr'],
             'linux-debug': ['arm-sim', 'warnaserrdebug'],
             'linux64':  ['warnaserr'],
             'linux64-debug':  ['rootanalysis', 'compacting', 'warnaserrdebug'],
+            'macosx64-debug': ['arm-sim-osx'],
             'win32': ['compacting', 'plain'],
             'win32-debug': ['compacting', 'plaindebug'],
             'win64': ['compacting', 'plain'],
@@ -2309,7 +2312,7 @@ BRANCHES['mozilla-central']['l10n_platforms'] = ['linux', 'linux64', 'win32',
                                                  'macosx64', 'win64']
 BRANCHES['mozilla-central']['l10nDatedDirs'] = True
 BRANCHES['mozilla-central']['l10n_tree'] = 'fxcentral'
-#make sure it has an ending slash
+# make sure it has an ending slash
 BRANCHES['mozilla-central']['l10nUploadPath'] = \
     '/home/ftp/pub/mozilla.org/firefox/nightly/latest-mozilla-central-l10n/'
 BRANCHES['mozilla-central']['enUS_binaryURL'] = \
@@ -2318,6 +2321,9 @@ BRANCHES['mozilla-central']['localesURL'] = \
     '%s/build/buildbot-configs/raw-file/production/mozilla/l10n/all-locales.mozilla-central' % (GLOBAL_VARS['hgurl'])
 BRANCHES['mozilla-central']['enable_multi_locale'] = True
 BRANCHES['mozilla-central']['upload_mobile_symbols'] = True
+# Enable desktop repacks with mozharness
+BRANCHES['mozilla-central']['desktop_mozharness_repacks_enabled'] = True
+
 # If True, a complete update snippet for this branch will be generated and
 # uploaded to. Any platforms with 'debug' in them will not have snippets
 # generated.
@@ -2912,7 +2918,7 @@ for b in ('b2g-inbound',):
 # END B2G's INBOUND
 
 # enable mozharness desktop builds across m-c and related branches
-for name, branch in items_at_least(BRANCHES, 'gecko_version', 38):
+for name, branch in items_at_least(BRANCHES, 'gecko_version', 39):
     # if true, any platform with mozharness_desktop_build in its config
     # will use mozharness instead of MozillaBuildFactory
     branch['desktop_mozharness_builds_enabled'] = True
