@@ -31,14 +31,14 @@ GLOBAL_VARS = {
     # and if a failure to notify the talos master should result in a warning,
     # and sendchange retry count before give up
     'talos_masters': [
-        ('dev-master1.srv.releng.scl3.mozilla.com:9038', True, 1),
+        ('dev-master2.bb.releng.use1.mozilla.com:8038', True, 1),
     ],
     # List of unittest masters to notify of new builds to test,
     # if a failure to notify the master should result in a warning,
     # and sendchange retry count before give up
     'unittest_masters': [
-        ('dev-master1.srv.releng.scl3.mozilla.com:9038', True, 1),
-        ],
+        ('dev-master2.bb.releng.use1.mozilla.com:8038', True, 1),
+    ],
     'xulrunner_tinderbox_tree': 'MozillaTest',
     'weekly_tinderbox_tree': 'MozillaTest',
     'l10n_tinderbox_tree': 'MozillaStaging',
