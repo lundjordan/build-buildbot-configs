@@ -107,35 +107,48 @@ releaseConfig['hgUsername']          = 'stage-ffxbld'
 releaseConfig['hgSshKey']            = '~cltbld/.ssh/ffxbld_rsa'
 
 # Update-specific configuration
-releaseConfig['patcherConfig']       = 'mozRelease-thunderbird-branch-patcher2.cfg'
 releaseConfig['ftpServer']           = 'dev-stage01.srv.releng.scl3.mozilla.com'
 releaseConfig['stagingServer']       = 'dev-stage01.srv.releng.scl3.mozilla.com'
 releaseConfig['previousReleasesStagingServer'] = 'stage.mozilla.org'
 releaseConfig['bouncerServer']       = 'download.mozilla.org'
-releaseConfig['ausServerUrl']        = 'http://dev-stage01.srv.releng.scl3.mozilla.com'
-releaseConfig['ausHost']             = 'dev-stage01.srv.releng.scl3.mozilla.com'
+releaseConfig['ausServerUrl']        = 'https://aus4-dev.allizom.org'
+releaseConfig['ausHost']             = None
 releaseConfig['ausUser']             = 'tbirdbld'
 releaseConfig['ausSshKey']           = 'tbirdbld_dsa'
 releaseConfig['releaseNotesUrl']     = 'http://live.mozillamessaging.com/thunderbird/releasenotes?locale=%locale%&platform=%platform%&version=%version%'
 releaseConfig['testOlderPartials']   = False
 releaseConfig['promptWaitTime']      = {{ promptWaitTime }}
-releaseConfig['verifyConfigs']       = {
-    'linux':  'mozRelease-thunderbird-linux.cfg',
-    'linux64':  'mozRelease-thunderbird-linux64.cfg',
-    'macosx64': 'mozRelease-thunderbird-mac64.cfg',
-    'win32':  'mozRelease-thunderbird-win32.cfg'
-}
 releaseConfig['mozconfigs']          = {
     'linux': 'mail/config/mozconfigs/linux32/release',
     'linux64': 'mail/config/mozconfigs/linux64/release',
     'macosx64': 'mail/config/mozconfigs/macosx-universal/release',
     'win32': 'mail/config/mozconfigs/win32/release',
 }
+releaseConfig['source_mozconfig']      = 'mail/config/mozconfigs/linux64/release'
 releaseConfig['releaseChannel']        = 'release'
-releaseConfig['releaseChannelRuleIds'] = [45]
-releaseConfig['localTestChannel']      = 'betatest'
-releaseConfig['cdnTestChannel']        = 'releasetest'
-releaseConfig['testChannelRuleIds']    = [22,44]
+releaseConfig['updateChannels'] = {
+    "release": {
+        "versionRegex": r"^.*$",
+        "ruleId": 45,
+        "patcherConfig": "mozRelease-thunderbird-branch-patcher2.cfg",
+        "localTestChannel": "release-localtest",
+        "cdnTestChannel": "release-cdntest",
+        "verifyConfigs": {
+            "linux":  "mozRelease-thunderbird-linux.cfg",
+            "linux64":  "mozRelease-thunderbird-linux64.cfg",
+            "macosx64": "mozRelease-thunderbird-mac64.cfg",
+            "win32":  "mozRelease-thunderbird-win32.cfg",
+        },
+        "testChannels": {
+            "release-localtest": {
+                "ruleId": 44,
+            },
+            "release-cdntest": {
+                "ruleId": 22,
+            },
+        },
+    },
+}
 
 # Partner repack configuration
 releaseConfig['doPartnerRepacks']    = False
@@ -144,6 +157,11 @@ releaseConfig['partnersRepoPath']    = 'users/stage-ffxbld/partner-repacks'
 # Tuxedo/Bouncer configuration
 releaseConfig['tuxedoServerUrl']     = 'https://bounceradmin.allizom.org/api'
 releaseConfig['bouncer_submitter_config'] = 'releases/bouncer_thunderbird.py'
+
+# Product details config
+releaseConfig["productDetailsRepo"] = "svn+ssh://tbirdbld@dev-stage01.srv.releng.scl3.mozilla.com/libs/product-details"
+releaseConfig["mozillaComRepo"]     = "svn+ssh://tbirdbld@dev-stage01.srv.releng.scl3.mozilla.com/projects/mozilla.com"
+releaseConfig["svnSshKey"]          = "/home/cltbld/.ssh/tbirdbld_dsa"
 
 # Misc configuration
 releaseConfig['enable_repo_setup'] = False
