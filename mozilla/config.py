@@ -2676,12 +2676,6 @@ BRANCHES['mozilla-b2g37_v2_2']['enabled_products'] = ['firefox']
 
 ######## try
 # Try-specific configs
-
-# XXX JLUND tmp add try to desktop mozharness builds
-# if true, any platform with mozharness_desktop_build in its config
-# will use mozharness instead of MozharnessBuildFactory
-BRANCHES['try']['desktop_mozharness_builds_enabled'] = True
-
 BRANCHES['try']['stage_username'] = 'trybld'
 BRANCHES['try']['stage_username_mobile'] = 'trybld'
 BRANCHES['try']['stage_ssh_key'] = 'trybld_dsa'
