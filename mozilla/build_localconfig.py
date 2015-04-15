@@ -32,11 +32,11 @@ else:
         'mozilla-aurora',
         'mozilla-release',
         'mozilla-esr31',
-        'mozilla-b2g28_v1_3t',
         'mozilla-b2g30_v1_4',
         'mozilla-b2g32_v2_0',
         'mozilla-b2g34_v2_1',
         'mozilla-b2g34_v2_1s',
+        'mozilla-b2g37_v2_2',
     ])
 if 'limit_tb_branches' in master_config:
     ACTIVE_THUNDERBIRD_BRANCHES = [x.encode("utf-8") for x in master_config['limit_tb_branches']]
@@ -54,11 +54,11 @@ else:
     ACTIVE_B2G_BRANCHES = ACTIVE_B2G_PROJECT_BRANCHES[:]
     ACTIVE_B2G_BRANCHES.extend([
         'mozilla-central',
-        'mozilla-b2g28_v1_3t',
         'mozilla-b2g30_v1_4',
         'mozilla-b2g32_v2_0',
         'mozilla-b2g34_v2_1',
         'mozilla-b2g34_v2_1s',
+        'mozilla-b2g37_v2_2',
     ])
     # MERGE DAY: Remove the following block when we are sure b2g CI is moved to
     # taskcluster
@@ -97,3 +97,5 @@ if 'mobile_release_branches' in master_config:
     ENABLE_RELEASES = True
 
 QUEUEDIR = master_config.get("queuedir", "/dev/shm/queue")
+
+ENABLE_JACUZZIS = True

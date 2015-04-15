@@ -9,9 +9,7 @@ releaseConfig['disable_tinderbox_mail'] = True
 releaseConfig['base_clobber_url'] = 'https://api.pub.build.mozilla.org/clobberer/forceclobber'
 
 # Release Notification
-releaseConfig['AllRecipients']       = ['<release@mozilla.com>',
-                                        '<release-mgmt@mozilla.com>',
-                                        '<qa-drivers@mozilla.com>']
+releaseConfig['AllRecipients']       = ['<release-automation-notifications@mozilla.com>',]
 releaseConfig['ImportantRecipients'] = ['<release-drivers@mozilla.org>',]
 releaseConfig['releaseTemplates']    = 'release_templates'
 releaseConfig['messagePrefix']       = '[release] '
@@ -23,11 +21,11 @@ releaseConfig['stage_product']       = 'mobile'
 releaseConfig['appName']             = 'mobile'
 releaseConfig['relbranchPrefix']     = 'MOBILE'
 #  Current version info
-releaseConfig['version']             = '34.0'
-releaseConfig['appVersion']          = '34.0'
+releaseConfig['version']             = '37.0.2'
+releaseConfig['appVersion']          = '37.0.2'
 releaseConfig['milestone']           = releaseConfig['appVersion']
-releaseConfig['buildNumber']         = 3
-releaseConfig['baseTag']             = 'FENNEC_34_0'
+releaseConfig['buildNumber']         = 1
+releaseConfig['baseTag']             = 'FENNEC_37_0_2'
 #  Next (nightly) version info
 releaseConfig['nextAppVersion']      = releaseConfig['version']
 releaseConfig['nextMilestone']       = releaseConfig['version']
@@ -36,7 +34,7 @@ releaseConfig['sourceRepositories']  = {
     'mobile': {
         'name': 'mozilla-release',
         'path': 'releases/mozilla-release',
-        'revision': '1433202c33b9',
+        'revision': 'c8866e34cbf3',
         'relbranch': None,
         'bumpFiles': {
             'mobile/android/confvars.sh': {
@@ -68,14 +66,14 @@ releaseConfig['otherReposToTag']     = {
 }
 
 # Platform configuration
-releaseConfig['enUSPlatforms']        = ('android', 'android-x86')
+releaseConfig['enUSPlatforms']        = ('android-api-9', 'android-api-11', 'android-x86')
 releaseConfig['notifyPlatforms']      = releaseConfig['enUSPlatforms']
 releaseConfig['unittestPlatforms']    = ()
 releaseConfig['talosTestPlatforms']   = ()
 releaseConfig['enableUnittests']      = False
 
 # L10n configuration
-releaseConfig['l10nPlatforms']       = ('android',)
+releaseConfig['l10nPlatforms']       = ('android-api-9', 'android-api-11')
 releaseConfig['l10nNotifyPlatforms'] = releaseConfig['l10nPlatforms']
 releaseConfig['mergeLocales']        = True
 releaseConfig['enableMultiLocale']   = True
@@ -87,7 +85,7 @@ releaseConfig['hgSshKey']            = '/home/mock_mozilla/.ssh/ffxbld_rsa'
 # Update-specific configuration
 releaseConfig['ftpServer']           = 'ftp.mozilla.org'
 releaseConfig['stagingServer']       = 'stage.mozilla.org'
-releaseConfig['ausServerUrl']        = 'https://aus3.mozilla.org'
+releaseConfig['ausServerUrl']        = 'https://aus4.mozilla.org'
 releaseConfig['ausHost']             = 'aus3-staging.mozilla.org'
 releaseConfig['ausUser']             = 'ffxbld'
 releaseConfig['ausSshKey']           = 'ffxbld_rsa'
@@ -108,13 +106,34 @@ releaseConfig['partnerRepackConfig'] = {
 
 # mozconfigs
 releaseConfig['mozconfigs']          = {
-    'android': 'mobile/android/config/mozconfigs/android/release',
+    'android-api-9': 'mobile/android/config/mozconfigs/android-api-9-10-constrained/release',
+    'android-api-11': 'mobile/android/config/mozconfigs/android-api-11/release',
     'android-x86': 'mobile/android/config/mozconfigs/android-x86/release',
 }
-releaseConfig['releaseChannel']      = 'release'
+releaseConfig['releaseChannel']        = 'release'
+releaseConfig["updateChannels"] = {
+    "release": {
+        "ruleId": -1, # TBD
+        "localTestChannel": "release-localtest",
+        "cdnTestChannel": "release-cdntest",
+        "testChannels": {
+            "release-localtest": {
+                "ruleId": -1, # TBD
+            },
+            "release-cdntest": {
+                "ruleId": -1, # TBD
+            }
+        }
+    }
+}
 
 # Misc configuration
 releaseConfig['enable_repo_setup']       = False
+
+# Product details config
+releaseConfig["productDetailsRepo"] = "svn+ssh://ffxbld@svn.mozilla.org/libs/product-details"
+releaseConfig["mozillaComRepo"]     = "svn+ssh://ffxbld@svn.mozilla.org/projects/mozilla.com"
+releaseConfig["svnSshKey"]          = "/home/cltbld/.ssh/ffxbld_dsa"
 
 # Fennec specific
 releaseConfig['usePrettyNames']           = False
@@ -125,16 +144,23 @@ releaseConfig['enableUpdatePackaging']    = False
 releaseConfig['balrog_api_root']          = None
 
 releaseConfig['single_locale_options'] = {
-    'android': [
+    'android-api-9': [
         '--cfg',
-        'single_locale/release_mozilla-release_android.py',
+        'single_locale/release_mozilla-release_android_api_9.py',
+        '--tag-override', '%s_RELEASE' % releaseConfig['baseTag'],
+    ],
+    'android-api-11': [
+        '--cfg',
+        'single_locale/release_mozilla-release_android_api_11.py',
         '--tag-override', '%s_RELEASE' % releaseConfig['baseTag'],
     ],
 }
 
 releaseConfig['multilocale_config'] = {
     'platforms': {
-        'android':
+        'android-api-9':
+            'multi_locale/release_mozilla-release_android.json',
+        'android-api-11':
             'multi_locale/release_mozilla-release_android.json',
         'android-x86':
             'multi_locale/release_mozilla-release_android-x86.json',
@@ -151,17 +177,14 @@ releaseConfig['enableSigningAtBuildTime'] = True
 releaseConfig['enablePartialMarsAtBuildTime'] = False
 releaseConfig['autoGenerateChecksums'] = False
 releaseConfig['use_mock'] = True
-releaseConfig['mock_platforms'] = ('android', 'android-x86', 'linux')
+releaseConfig['mock_platforms'] = ('android-api-9', 'android-api-11', 'android-x86', 'linux')
 releaseConfig['ftpSymlinkName'] = 'latest'
 releaseConfig['partialUpdates']      = {}
 releaseConfig['bouncerServer']       = 'download.mozilla.org'
-releaseConfig['localTestChannel']      = 'betatest'
-releaseConfig['cdnTestChannel']        = 'releasetest'
+
 releaseConfig['tuxedoServerUrl']     = 'https://bounceradmin.mozilla.com/api'
 releaseConfig['bouncer_submitter_config'] = 'releases/bouncer_fennec.py'
 releaseConfig['bouncerServer']       = 'download.mozilla.org'
-releaseConfig['testChannelRuleIds']    = []
-releaseConfig['releaseChannelRuleIds'] = []
 releaseConfig['bouncer_aliases'] = {
     'Fennec-%(version)s': 'fennec-latest',
 }

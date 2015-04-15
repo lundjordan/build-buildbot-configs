@@ -1,11 +1,6 @@
-MAC_LION_MINIS = ['bld-lion-r5-%03d' % x for x in range(1,16) + range(41,69) + \
-                                                  range(70,87) + range(88,95)]
-LINUX_IXS      = []
-LINUX64_IXS    = []
-WIN32_IXS      = []
-WIN64_IXS      = []
+MAC_LION_MINIS = ['bld-lion-r5-%03d' % x for x in range(1,7) + range(41,69) + \
+                  range(70,87) + range(88,95)]
 WIN64_REV2     = ['b-2008-ix-%04i' % x for x in range(1,18) + range(65,89) + range(90,159) + range(161,173)]
-MOCK_DL120G7   = ['b-linux64-hp-%04d' % x for x in range(20,36)]
 LINUX64_EC2    = ['bld-linux64-ec2-%03d' % x for x in range(1, 50) + range(301, 350)] + \
                  ['bld-linux64-spot-%03d' % x for x in range(1, 300) + range(300, 600)] + \
                  ['bld-linux64-spot-%d' % x for x in range(1000, 1100)]
@@ -13,48 +8,28 @@ LINUX64_EC2    = ['bld-linux64-ec2-%03d' % x for x in range(1, 50) + range(301, 
 # XXX JLUND LOCAL DEV STAGING CHANGE
 LINUX64_EC2.append('dev-linux64-ec2-jlund2')
 
-MOCK_IX        = ['b-linux64-ix-%04d' % x for x in range(1, 12)]
-
-if set(WIN64_REV2).intersection(set(WIN64_IXS)):
-    raise Exception('WIN64_REV2 and WIN64_IXS overlap')
-
 SLAVES = {
-    'linux':            LINUX_IXS,
-    'linux64':          LINUX64_IXS,
-    'win32':            WIN32_IXS,
-    'win64':            WIN64_IXS,
     'win64-rev2':       WIN64_REV2,
     'macosx64-lion':    MAC_LION_MINIS,
-    'mock':             MOCK_DL120G7 + LINUX64_EC2 + MOCK_IX,
-    'mock-hw':          MOCK_DL120G7 + MOCK_IX,
+    'mock':             LINUX64_EC2,
 }
 
-TRY_LINUX      = []
-TRY_LINUX_IXS  = []
-TRY_LINUX64    = []
-TRY_LINUX64_IXS= []
 TRY_MAC64      = []
-TRY_WIN32_IXS  = []
-TRY_WIN64_IXS  = []
 TRY_LINUX64_EC2 = ['try-linux64-ec2-%03d' % x for x in range(1, 60) + range(301,340)] + \
     ['try-linux64-spot-%03d' % x for x in range(1, 200) + range(300,500)] + \
     ['try-linux64-spot-%d' % x for x in range(1000, 1100)]
-TRY_WIN64_REV2 = ['b-2008-ix-%04i' % x for x in range(18, 65) + range(173,185)]
-TRY_MOCK_DL120G7 = ['b-linux64-hp-%04d' % x for x in range(1, 20)]
-TRY_MOCK_IX      = ['b-linux64-ix-%04d' % x for x in range(12,14)]
-TRY_LION         = ['bld-lion-r5-%03d' % x for x in range(16,37)]
-if set(TRY_WIN64_REV2).intersection(set(TRY_WIN64_IXS)):
-    raise Exception('TRY_WIN64_REV2 and TRY_WIN64_IXS overlap')
-if set(TRY_WIN64_IXS + TRY_WIN64_REV2).intersection(WIN64_IXS + WIN64_REV2):
-    raise Exception('(TRY_WIN64_IXS + TRY_WIN64_REV2) and (WIN64_IXS + WIN64_REV2) overlap')
+TRY_WIN64_REV2 = ['b-2008-ix-%04i' % x for x in range(18, 65) + range(173,185)] + \
+    ['b-2008-ec2-%04d' % x for x in range(1,6)]
+TRY_LION       = ['bld-lion-r5-%03d' % x for x in range(7,37)] + \
+                 ['bld-lion-r5-%03d' % x for x in range(95,97)]
+if set(TRY_WIN64_REV2).intersection(WIN64_REV2):
+    raise Exception('TRY_WIN64_REV2 and WIN64_REV2 overlap')
 
 TRY_SLAVES = {
-    'win32':       TRY_WIN32_IXS,
-    'win64':       TRY_WIN64_IXS,
     'win64-rev2':  TRY_WIN64_REV2,
     'macosx64':    TRY_MAC64,
     'macosx64-lion': TRY_LION,
-    'mock':        TRY_MOCK_DL120G7 + TRY_LINUX64_EC2 + TRY_MOCK_IX,
+    'mock':        TRY_LINUX64_EC2,
 }
 
 # Local overrides for default values
@@ -62,14 +37,13 @@ GLOBAL_VARS = {
     'config_repo_path': 'build/buildbot-configs',
     'buildbotcustom_repo_path': 'build/buildbotcustom',
     'stage_server': 'stage.mozilla.org',
-    'aus2_host': 'aus3-staging.mozilla.org',
-    'aus2_user': 'ffxbld',
-    'aus2_ssh_key': 'ffxbld_rsa',
     'download_base_url': 'http://ftp.mozilla.org/pub/mozilla.org/firefox',
     'mobile_download_base_url': 'http://ftp.mozilla.org/pub/mozilla.org/mobile',
     'graph_server': 'graphs.mozilla.org',
-    'balrog_api_root': 'https://aus4-admin.mozilla.org',
+    'balrog_api_root': 'https://aus4-admin.mozilla.org/api',
     'balrog_username': 'ffxbld',
+    'balrog_submitter_extra_args': ['--url-replacement',
+                                    'ftp.mozilla.org,download.cdn.mozilla.net'],
     'build_tools_repo_path': 'build/tools',
     'base_clobber_url': 'https://api.pub.build.mozilla.org/clobberer/lastclobber',
     'disable_tinderbox_mail': True,
@@ -89,7 +63,7 @@ GLOBAL_VARS = {
     'weekly_tinderbox_tree': 'Testing',
     'l10n_tinderbox_tree': 'Mozilla-l10n',
     'base_bundle_urls': ['https://ftp-ssl.mozilla.org/pub/mozilla.org/firefox/bundles'],
-    'tooltool_url_list': ['http://runtime-binaries.pvt.build.mozilla.org/tooltool'],
+    'tooltool_url_list': ['http://tooltool.pvt.build.mozilla.org/build'],
     'blob_upload': True,
     'mozharness_configs': {
         'balrog': 'balrog/production.py',
@@ -136,6 +110,11 @@ BRANCHES = {
         'packaged_unittest_tinderbox_tree': 'Mozilla-B2g34-v2.1s',
         'tinderbox_tree': 'Mozilla-B2g34-v2.1s',
         'mobile_tinderbox_tree': 'Mozilla-B2g34-v2.1s',
+    },
+    'mozilla-b2g37_v2_2': {
+        'packaged_unittest_tinderbox_tree': 'Mozilla-B2g37-v2.2',
+        'tinderbox_tree': 'Mozilla-B2g37-v2.2',
+        'mobile_tinderbox_tree': 'Mozilla-B2g37-v2.2',
     },
     'mozilla-beta': {
         'packaged_unittest_tinderbox_tree': 'Mozilla-Beta',
@@ -185,7 +164,8 @@ PROJECTS = {
         'fuzzing_remote_host': 'ffxbld@stage.mozilla.org',
         # Path needs extra leading slash due to optparse expansion on Win32
         'fuzzing_base_dir': '//mnt/pvt_builds/fuzzing/',
-        'idle_slaves': 3,
+        # This is # of idle slaves per master
+        'idle_slaves': 2,
         'disable_tinderbox_mail': False,
     },
 }

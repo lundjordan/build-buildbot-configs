@@ -1,0 +1,43 @@
+language: python
+python:
+  - "2.7"
+
+sudo: false
+
+env:
+  global:
+    - PIP_FIND_LINKS=file://$HOME/.cache/pip
+    - PIP_CACHE_DIR=$HOME/.cache/pip
+  matrix:
+    - TOX_ENV=flake8 IGNORE_FAILURES=true
+    - TOX_ENV=py27
+    - TOX_ENV=py27-unittests
+
+cache:
+  directories:
+    - $HOME/.cache/pip
+    - $TRAVIS_BUILD_DIR/.tox
+
+install:
+  - pip install tox
+
+script:
+  - if [[ $IGNORE_FAILURES == true ]]; then tox -e $TOX_ENV || true; else tox -e $TOX_ENV; fi
+  # Remove logs to avoid cache uploads
+  - rm -rf $HOME/.cache/pip/log
+
+
+# currently cannot customise per user fork, see:
+# https://github.com/travis-ci/travis-ci/issues/1094
+# please comment out this section in your personal fork!
+notifications:
+  irc:
+    channels:
+      - "irc.mozilla.org#releng"
+    on_success: always
+    on_failure: always
+    template:
+      - "\x02%{repository}\x0314#%{build_number}\x03\x02 (%{branch} - %{commit} : %{author}): \x02\x0312%{message}\x02\x03"
+      - "\x02Change view\x02 : \x0314%{compare_url}\x03"
+      - "\x02Build details\x02 : \x0314%{build_url}\x03"
+      - "\x02Commit message\x02 : \x0314%{commit_message}\x03"
