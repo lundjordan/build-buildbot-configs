@@ -26,6 +26,13 @@ import thunderbird_config
 import b2g_config
 from b2g_config import PROJECTS as B2G_PROJECTS
 import mobile_config
+# ACTIVE_BRANCHES = ['mozilla-central']
+# ACTIVE_BRANCHES = []
+# ACTIVE_THUNDERBIRD_BRANCHES = []
+# ACTIVE_B2G_BRANCHES = []
+# ACTIVE_MOBILE_BRANCHES = []
+# ACTIVE_PROJECTS = []
+
 # Do everything!
 ACTIVE_BRANCHES = BRANCHES.keys()
 ACTIVE_THUNDERBIRD_BRANCHES = thunderbird_config.BRANCHES.keys()

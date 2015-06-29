@@ -2,6 +2,13 @@ from copy import deepcopy
 import production_config as pc
 
 SLAVES = deepcopy(pc.SLAVES)
+# XXX DELETE THIS LOCAL CODE BEFORE PATCH
+# throw in my slave so my master knows about it
+# STLAVES['ubuntu32_vm'] = {
+#         'tst-linux32-ec2-jlund2': {}
+#         'tst-linux32-ec2-jlund3': {}
+#         'tst-linux32-ec2-jlund4': {}
+# }
 TRY_SLAVES = deepcopy(SLAVES)
 
 GRAPH_CONFIG = ['--resultsServer', 'graphs.allizom.org',
