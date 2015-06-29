@@ -5,6 +5,9 @@ LINUX64_EC2    = ['bld-linux64-ec2-%03d' % x for x in range(1, 50) + range(301, 
                  ['bld-linux64-spot-%03d' % x for x in range(1, 300) + range(300, 600)] + \
                  ['bld-linux64-spot-%d' % x for x in range(1000, 1100)]
 
+# XXX JLUND LOCAL DEV STAGING CHANGE
+LINUX64_EC2.append('dev-linux64-ec2-jlund2')
+
 SLAVES = {
     'win64-rev2':       WIN64_REV2,
     'macosx64-lion':    MAC_LION_MINIS,
@@ -21,6 +24,9 @@ TRY_LION       = ['bld-lion-r5-%03d' % x for x in range(7,31) + range(32,37)] + 
                  ['bld-lion-r5-%03d' % x for x in range(95,97)]
 if set(TRY_WIN64_REV2).intersection(WIN64_REV2):
     raise Exception('TRY_WIN64_REV2 and WIN64_REV2 overlap')
+
+# XXX JLUND LOCAL DEV STAGING CHANGE
+TRY_LINUX64_EC2.append('dev-linux64-ec2-jlund2')
 
 TRY_SLAVES = {
     'win64-rev2':  TRY_WIN64_REV2,

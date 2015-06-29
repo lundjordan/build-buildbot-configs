@@ -37,6 +37,9 @@ GLOBAL_VARS = {
     'graph_selector': '/server/collect.cgi',
     'compare_locales_repo_path': 'build/compare-locales',
     'compare_locales_tag': 'RELEASE_AUTOMATION',
+    # XXX JLUND
+    # 'mozharness_repo_path': 'users/jlund_mozilla.com/mozharness',
+    # 'mozharness_tag': 'default',
     'mozharness_repo_path': 'build/mozharness',
     'mozharness_tag': 'production',
     'script_repo_manifest': 'https://hg.mozilla.org/%(repo_path)s/raw-file/%(revision)s/' + \
@@ -2369,7 +2372,10 @@ for branch in BRANCHES.keys():
 ######## mozilla-central
 # This is a path, relative to HGURL, where the repository is located
 # HGURL + repo_path should be a valid repository
+# XXX JLUND STAGING CHANGE
 BRANCHES['mozilla-central']['repo_path'] = 'mozilla-central'
+# BRANCHES['mozilla-central']['repo_path'] = 'users/jlund_mozilla.com/mozilla-central'
+# BRANCHES['mozilla-central']['repo_path'] = 'users/users/mshal_mozilla.com/mozilla-central'
 BRANCHES['mozilla-central']['l10n_repo_path'] = 'l10n-central'
 BRANCHES['mozilla-central']['enable_perproduct_builds'] = True
 BRANCHES['mozilla-central']['enable_weekly_bundle'] = True

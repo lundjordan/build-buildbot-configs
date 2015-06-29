@@ -5,6 +5,7 @@ import production_config as pc
 SLAVES = deepcopy(pc.SLAVES)
 TRY_SLAVES = deepcopy(pc.TRY_SLAVES)
 
+
 # Add a small stockpile of AWS dev instances.
 LINUX64_EC2_DEV    = ['dev-linux64-ec2-%03d' % x for x in range(1, 50)]
 SLAVES['mock'].extend(LINUX64_EC2_DEV)
@@ -16,28 +17,28 @@ TRY_SLAVES['win64-rev2'].extend(WIN64_RELOPS)
 
 GLOBAL_VARS = {
     'staging': True,
-    'config_repo_path': 'users/stage-ffxbld/buildbot-configs',
-    'buildbotcustom_repo_path': 'users/stage-ffxbld/buildbotcustom',
+    'config_repo_path': 'build/buildbot-configs',
+    'buildbotcustom_repo_path': 'build/buildbotcustom',
     'stage_server': 'dev-stage01.srv.releng.scl3.mozilla.com',
     'download_base_url': 'http://dev-stage01.srv.releng.scl3.mozilla.com/pub/mozilla.org/firefox',
     'mobile_download_base_url': 'http://dev-stage01.srv.releng.scl3.mozilla.com/pub/mozilla.org/mobile',
     'graph_server': 'graphs.allizom.org',
     'balrog_api_root': 'https://aus4-admin-dev.allizom.org/api',
     'balrog_username': 'stage-ffxbld',
-    'build_tools_repo_path': 'users/stage-ffxbld/tools',
-    'base_clobber_url': 'https://api-pub-build.allizom.org/clobberer/lastclobber',
+    'build_tools_repo_path': 'build/tools',
+    'base_clobber_url': 'http://clobberer-stage.pvt.build.mozilla.org/index.php',
     'disable_tinderbox_mail': True,
     # List of talos masters to notify of new builds,
     # and if a failure to notify the talos master should result in a warning,
     # and sendchange retry count before give up
     'talos_masters': [
-        ('dev-master1.srv.releng.scl3.mozilla.com:9901', True, 1),
+        ('dev-master1.srv.releng.scl3.mozilla.com:9038', True, 1),
     ],
     # List of unittest masters to notify of new builds to test,
     # if a failure to notify the master should result in a warning,
     # and sendchange retry count before give up
     'unittest_masters': [
-        ('dev-master1.srv.releng.scl3.mozilla.com:9901', True, 1),
+        ('dev-master1.srv.releng.scl3.mozilla.com:9038', True, 1),
         ],
     'xulrunner_tinderbox_tree': 'MozillaTest',
     'weekly_tinderbox_tree': 'MozillaTest',
