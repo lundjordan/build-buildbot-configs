@@ -40,6 +40,7 @@ GLOBAL_VARS = {
     # XXX JLUND
     # 'mozharness_repo_path': 'users/jlund_mozilla.com/mozharness',
     # 'mozharness_tag': 'default',
+    'mozharness_archiver_endpoint': 'mozharness',
     'mozharness_repo_path': 'build/mozharness',
     'mozharness_tag': 'production',
     'script_repo_manifest': 'https://hg.mozilla.org/%(repo_path)s/raw-file/%(revision)s/' + \
