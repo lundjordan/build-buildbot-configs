@@ -1856,7 +1856,8 @@ for branch in BRANCHES.keys():
 
 ######## mozilla-central
 BRANCHES['mozilla-central']['branch_name'] = "Firefox"
-BRANCHES['mozilla-central']['repo_path'] = "mozilla-central"
+# BRANCHES['mozilla-central']['repo_path'] = "mozilla-central"
+BRANCHES['mozilla-central']['repo_path'] = 'users/jlund_mozilla.com/mozilla-central'
 BRANCHES['mozilla-central']['build_branch'] = "1.9.2"
 BRANCHES['mozilla-central']['pgo_strategy'] = 'periodic'
 BRANCHES['mozilla-central']['xperf-e10s_tests'] = (1, False, TALOS_TP_NEW_OPTS, WIN7_ONLY)
