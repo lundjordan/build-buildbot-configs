@@ -26,18 +26,18 @@ import thunderbird_config
 import b2g_config
 from b2g_config import PROJECTS as B2G_PROJECTS
 import mobile_config
-# ACTIVE_BRANCHES = ['mozilla-central']
-# ACTIVE_BRANCHES = []
-# ACTIVE_THUNDERBIRD_BRANCHES = []
-# ACTIVE_B2G_BRANCHES = []
-# ACTIVE_MOBILE_BRANCHES = []
-# ACTIVE_PROJECTS = []
+ACTIVE_BRANCHES = ['ash']
+ACTIVE_THUNDERBIRD_BRANCHES = []
+ACTIVE_B2G_BRANCHES = []
+ACTIVE_MOBILE_BRANCHES = []
+ACTIVE_PROJECTS = []
+ACTIVE_B2G_PROJECTS = []
 
 # Do everything!
-ACTIVE_BRANCHES = BRANCHES.keys()
-ACTIVE_THUNDERBIRD_BRANCHES = thunderbird_config.BRANCHES.keys()
-ACTIVE_B2G_BRANCHES = b2g_config.BRANCHES.keys()
-ACTIVE_MOBILE_BRANCHES = mobile_config.BRANCHES.keys()
+# ACTIVE_BRANCHES = BRANCHES.keys()
+# ACTIVE_THUNDERBIRD_BRANCHES = thunderbird_config.BRANCHES.keys()
+# ACTIVE_B2G_BRANCHES = b2g_config.BRANCHES.keys()
+# ACTIVE_MOBILE_BRANCHES = mobile_config.BRANCHES.keys()
 if 'limit_fx_platforms' in master_config:
     ACTIVE_PLATFORMS = dict((p, None) for p in master_config['limit_fx_platforms'])
 else:
@@ -62,7 +62,8 @@ if 'limit_mobile_platforms' in master_config:
     ACTIVE_MOBILE_PLATFORMS = dict((p, None) for p in master_config['limit_mobile_platforms'])
 else:
     ACTIVE_MOBILE_PLATFORMS = dict((k, None) for k in MOBILE_PLATFORMS.keys())
-ACTIVE_PROJECTS = PROJECTS.keys()
-ACTIVE_B2G_PROJECTS = B2G_PROJECTS.keys()
+# ACTIVE_PROJECTS = PROJECTS.keys()
+# ACTIVE_B2G_PROJECTS = B2G_PROJECTS.keys()
 
-QUEUEDIR = master_config.get("queuedir", "/dev/shm/queue")
+QUEUEDIR = master_config.get("queuedir", "/dev/shm/jlund")
+
