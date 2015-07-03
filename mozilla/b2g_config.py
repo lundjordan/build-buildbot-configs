@@ -1608,6 +1608,7 @@ for name, branch in items_at_least(BRANCHES, 'gecko_version', 30):
     branch['script_repo_manifest'] = \
         "https://hg.mozilla.org/%(repo_path)s/raw-file/%(revision)s/" + \
         "testing/mozharness/mozharness.json"
+    branch['mozharness_archiver_endpoint'] = 'mozharness'
 
 # Enable mozharness desktop builds
 for name, branch in items_at_least(BRANCHES, 'gecko_version', 39):
