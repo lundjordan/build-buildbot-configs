@@ -2636,6 +2636,7 @@ BRANCHES['mozilla-esr38']['updates_enabled'] = False
 BRANCHES['mozilla-esr38']['create_partial'] = False
 BRANCHES['mozilla-esr38']['enable_blocklist_update'] = True
 BRANCHES['mozilla-esr38']['enable_hsts_update'] = True
+BRANCHES['mozilla-esr38']['enable_hpkp_update'] = True
 BRANCHES['mozilla-esr38']['enable_valgrind'] = False
 BRANCHES['mozilla-esr38']['enabled_products'] = ['firefox']
 
