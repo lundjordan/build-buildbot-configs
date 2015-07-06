@@ -2507,6 +2507,7 @@ for branch in BRANCHES.keys():
     BRANCHES[branch]['pgo_platforms'] = []
     BRANCHES[branch]['script_repo_manifest'] = "https://hg.mozilla.org/%(repo_path)s/raw-file/%(revision)s/" + \
                                                "testing/mozharness/mozharness.json"
+    BRANCHES[branch]['mozharness_archiver_endpoint'] = 'mozharness'
 
 # The following are exceptions to the defaults
 

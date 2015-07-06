@@ -1069,6 +1069,7 @@ for _, branch in items_at_least(BRANCHES, 'gecko_version', 30):
     branch['script_repo_manifest'] = \
         "https://hg.mozilla.org/%(moz_repo_path)s/raw-file/default/" + \
         "testing/mozharness/mozharness.json"
+    branch['mozharness_archiver_endpoint'] = 'mozharness'
 
 if __name__ == "__main__":
     import sys
