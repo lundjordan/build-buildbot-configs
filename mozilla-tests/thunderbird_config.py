@@ -450,7 +450,11 @@ for _, branch in items_at_least(BRANCHES, 'gecko_version', 30):
     branch['script_repo_manifest'] = \
         "https://hg.mozilla.org/%(moz_repo_path)s/raw-file/default/" + \
         "testing/mozharness/mozharness.json"
-    branch['mozharness_archiver_endpoint'] = 'mozharness'
+    # mozharness_archiver_repo_path tells the factory to use a copy of mozharness from within the
+    #  gecko tree and also allows us to overwrite which gecko repo to use. Useful for platforms
+    # like Thunderbird
+    branch['mozharness_archiver_repo_path'] = '%(moz_repo_path)s'
+
 if __name__ == "__main__":
     import sys
     import pprint
