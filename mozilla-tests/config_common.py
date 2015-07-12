@@ -19,7 +19,6 @@ def loadDefaultValues(BRANCHES, branch, branchConfig):
     BRANCHES[branch]['mozharness_talos'] = True
     BRANCHES[branch]['script_repo_manifest'] = "https://hg.mozilla.org/%(repo_path)s/raw-file/%(revision)s/" + \
                                                "testing/mozharness/mozharness.json"
-    BRANCHES[branch]['mozharness_archiver_endpoint'] = 'mozharness'
 
 
 def loadCustomTalosSuites(BRANCHES, SUITES, branch, branchConfig):

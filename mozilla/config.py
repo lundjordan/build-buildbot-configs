@@ -41,7 +41,6 @@ GLOBAL_VARS = {
     'mozharness_tag': 'production',
     'script_repo_manifest': 'https://hg.mozilla.org/%(repo_path)s/raw-file/%(revision)s/' + \
                             'testing/mozharness/mozharness.json',
-    'mozharness_archiver_endpoint': 'mozharness',
     'use_mozharness_repo_cache': True,
     'multi_locale_merge': True,
     'default_build_space': 5,
