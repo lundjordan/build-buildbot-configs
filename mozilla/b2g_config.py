@@ -1446,8 +1446,8 @@ BRANCHES['mozilla-b2g34_v2_1s']['platforms']['nexus-5-l_eng']['enable_periodic']
 ######## mozilla-b2g32_v2_0
 # This is a path, relative to HGURL, where the repository is located
 # HGURL + repo_path should be a valid repository
-# BRANCHES['mozilla-b2g32_v2_0']['repo_path'] = 'releases/mozilla-b2g32_v2_0'
-BRANCHES['mozilla-b2g32_v2_0']['repo_path'] = 'users/jlund_mozilla.com/mozilla-central'
+# BRANCHES['mozilla-b2g32_v2_0']['repo_path'] = 'users/jlund_mozilla.com/mozilla-central'
+BRANCHES['mozilla-b2g32_v2_0']['repo_path'] = 'releases/mozilla-b2g32_v2_0'
 BRANCHES['mozilla-b2g32_v2_0']['gaia_l10n_root'] = 'https://hg.mozilla.org/releases/gaia-l10n/v2_0/'
 BRANCHES['mozilla-b2g32_v2_0']['gecko_l10n_root'] = 'https://hg.mozilla.org/releases/l10n/mozilla-beta'
 BRANCHES['mozilla-b2g32_v2_0']['start_hour'] = [0, 16]

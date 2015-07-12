@@ -26,7 +26,7 @@ import thunderbird_config
 import b2g_config
 from b2g_config import PROJECTS as B2G_PROJECTS
 import mobile_config
-ACTIVE_BRANCHES = ['ash']
+ACTIVE_BRANCHES = ['mozilla-beta']
 ACTIVE_THUNDERBIRD_BRANCHES = []
 ACTIVE_B2G_BRANCHES = []
 ACTIVE_MOBILE_BRANCHES = []
