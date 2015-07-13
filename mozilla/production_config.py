@@ -6,7 +6,7 @@ LINUX64_EC2    = ['bld-linux64-ec2-%03d' % x for x in range(1, 50) + range(301, 
                  ['bld-linux64-spot-%d' % x for x in range(1000, 1100)]
 
 # XXX JLUND LOCAL DEV STAGING CHANGE
-LINUX64_EC2 = 'dev-linux64-ec2-012'
+LINUX64_EC2 = ['dev-linux64-ec2-012']
 
 SLAVES = {
     'win64-rev2':       WIN64_REV2,
