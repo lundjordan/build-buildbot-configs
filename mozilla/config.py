@@ -71,6 +71,7 @@ GLOBAL_VARS = {
         'linux64-asan': {},
         'linux64-asan-debug': {},
         'linux64-st-an-debug': {},
+        'linux64-no-add-on-sign': {},
         'macosx64-debug': {},
         'macosx64-st-an-debug': {},
         'win32-debug': {},
@@ -365,6 +366,112 @@ PLATFORM_VARS = {
                         'freetype-2.3.11-6.el6_1.8.x86_64',
                         'freetype-devel-2.3.11-6.el6_1.8.x86_64',
                         ],
+            'mock_copyin_files': [
+                ('/home/cltbld/.ssh', '/home/mock_mozilla/.ssh'),
+                ('/home/cltbld/.hgrc', '/builds/.hgrc'),
+                ('/home/cltbld/.boto', '/builds/.boto'),
+                ('/builds/gapi.data', '/builds/gapi.data'),
+                ('/tools/tooltool.py', '/builds/tooltool.py'),
+                ('/builds/google-oauth-api.key', '/builds/google-oauth-api.key'),
+                ('/builds/mozilla-desktop-geoloc-api.key', '/builds/mozilla-desktop-geoloc-api.key'),
+                ('/builds/crash-stats-api.token', '/builds/crash-stats-api.token'),
+            ],
+        },
+        'linux64-no-add-on-sign': {
+            'mozharness_python': '/tools/buildbot/bin/python',
+            'reboot_command': [
+                '/tools/checkouts/mozharness/external_tools/count_and_reboot.py',
+                '-f', '../reboot_count.txt', '-n', '1', '-z'
+            ],
+            'mozharness_repo_cache': '/tools/checkouts/mozharness',
+            'tools_repo_cache': '/tools/checkouts/build-tools',
+            'mozharness_desktop_build': {
+                'script_name': 'scripts/fx_desktop_build.py',
+                'extra_args': [
+                    '--config', 'builds/releng_base_linux_64_builds.py',
+                    '--custom-build-variant-cfg', 'no-add-on-sign',
+                    '--config', GLOBAL_VARS['mozharness_configs']['balrog'],
+                ],
+                'script_timeout': 3 * 3600,
+                'script_maxtime': int(5.5 * 3600),
+            },
+            'mozharness_desktop_l10n': {
+                'capable': True,
+                'scriptName': 'scripts/desktop_l10n.py',
+                'l10n_chunks': 6,
+                'use_credentials_file': True,
+                'script_timeout': 1800,
+                'script_maxtime': 2 * 3600,
+            },
+            'product_name': 'firefox',
+            'unittest_platform': 'linux64-no-add-on-sign-opt',
+            'app_name': 'browser',
+            'brand_name': 'Minefield',
+            'base_name': 'Linux x86-64 %(branch)s no add-on signing',
+            # mozconfig is no longer used. src_mozconfig is the source of truth
+            'mozconfig': 'linux64/%(branch)s/nightly',
+            'src_mozconfig': 'browser/config/mozconfigs/linux64/nightly-no-add-on-sign',
+            'profiled_build': False,
+            'builds_before_reboot': localconfig.BUILDS_BEFORE_REBOOT,
+            'build_space': 14,
+            'upload_symbols': True,
+            'download_symbols': False,
+            'packageTests': True,
+            'slaves': SLAVES['mock'],
+            'platform_objdir': OBJDIR,
+            'stage_product': 'firefox',
+            'stage_platform': 'linux64-no-add-on-sign',
+            'update_platform': 'Linux_x86_64-gcc3',
+            'enable_ccache': True,
+            'enable_shared_checkouts': True,
+            'env': {
+                'DISPLAY': ':2',
+                'HG_SHARE_BASE_DIR': '/builds/hg-shared',
+                'TOOLTOOL_CACHE': '/builds/tooltool_cache',
+                'TOOLTOOL_HOME': '/builds',
+                'MOZ_OBJDIR': OBJDIR,
+                'SYMBOL_SERVER_HOST': localconfig.SYMBOL_SERVER_HOST,
+                'SYMBOL_SERVER_USER': 'ffxbld',
+                'SYMBOL_SERVER_PATH': SYMBOL_SERVER_PATH,
+                'POST_SYMBOL_UPLOAD_CMD': SYMBOL_SERVER_POST_UPLOAD_CMD,
+                'SYMBOL_SERVER_SSH_KEY': "/home/mock_mozilla/.ssh/ffxbld_rsa",
+                'MOZ_SYMBOLS_EXTRA_BUILDID': 'linux64-no-add-on-sign',
+                'CCACHE_DIR': '/builds/ccache',
+                'CCACHE_COMPRESS': '1',
+                'CCACHE_UMASK': '002',
+                'LC_ALL': 'C',
+                'PATH': '/tools/buildbot/bin:/usr/local/bin:/usr/lib64/ccache:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/tools/git/bin:/tools/python27/bin:/tools/python27-mercurial/bin:/home/cltbld/bin',
+            },
+            'enable_checktests': True,
+            'enable_build_analysis': True,
+            'talos_masters': GLOBAL_VARS['talos_masters'],
+            'test_pretty_names': False,
+            'l10n_check_test': True,
+            'nightly_signing_servers': 'dep-signing',
+            'dep_signing_servers': 'dep-signing',
+            'tooltool_manifest_src': 'browser/config/tooltool-manifests/linux64/releng.manifest',
+            'tooltool_l10n_manifest_src': 'browser/config/tooltool-manifests/linux64/l10n.manifest',
+            'tooltool_script': ['/builds/tooltool.py'],
+            'use_mock': True,
+            'mock_target': 'mozilla-centos6-x86_64',
+            'mock_packages': \
+                ['autoconf213', 'python', 'zip', 'mozilla-python27-mercurial', 'git', 'ccache',
+                 'glibc-static', 'libstdc++-static', 'perl-Test-Simple', 'perl-Config-General',
+                 'gtk2-devel', 'libnotify-devel', 'yasm',
+                 'alsa-lib-devel', 'libcurl-devel',
+                 'wireless-tools-devel', 'libX11-devel',
+                 'libXt-devel', 'mesa-libGL-devel',
+                 'gnome-vfs2-devel', 'GConf2-devel', 'wget',
+                 'mpfr', # required for system compiler
+                 'xorg-x11-font*', # fonts required for PGO
+                 'imake', # required for makedepend!?!
+                 'gcc45_0moz3', 'gcc454_0moz1', 'gcc472_0moz1', 'gcc473_0moz1', 'yasm', 'ccache', # <-- from releng repo
+                 'valgrind', 'dbus-x11',
+                 'pulseaudio-libs-devel',
+                 'gstreamer-devel', 'gstreamer-plugins-base-devel',
+                 'freetype-2.3.11-6.el6_1.8.x86_64',
+                 'freetype-devel-2.3.11-6.el6_1.8.x86_64',
+                 ],
             'mock_copyin_files': [
                 ('/home/cltbld/.ssh', '/home/mock_mozilla/.ssh'),
                 ('/home/cltbld/.hgrc', '/builds/.hgrc'),
@@ -3022,6 +3129,14 @@ for name, branch in items_before(BRANCHES, 'gecko_version', 36):
     for p in ('win64', 'win64-debug'):
         if p in branch['platforms']:
             del branch['platforms'][p]
+
+# Bug 1135781 - generate builds per checkin on beta/release/esr that allow unsigned add-ons
+for name, branch in BRANCHES.items():
+    if name in ['mozilla-beta']:
+        continue
+    for platform in ['linux64-no-add-on-sign']:
+        if platform in branch['platforms']:
+            del branch['platforms'][platform]
 
 if __name__ == "__main__":
     import sys
