@@ -3133,12 +3133,21 @@ for name, branch in items_before(BRANCHES, 'gecko_version', 36):
             del branch['platforms'][p]
 
 # Bug 1135781 - generate builds per checkin on beta/release/esr that allow unsigned add-ons
-for name, branch in BRANCHES.items():
-    if name in ['mozilla-beta']:
-        continue
+#   essentially, ride the trains of a target set of branches by:
+#      1) rm all no-add-on-sign builds from any branch less than gecko version 40
+#      2) rm all no-add-on-sign builds from any branch at least gecko version 40 unless that
+#         branch is in an allowed branch: m-b, m-r, or esr38.
+for name, branch in items_before(BRANCHES, 'gecko_version', 40):
     for platform in ['linux64-no-add-on-sign']:
         if platform in branch['platforms']:
             del branch['platforms'][platform]
+for name, branch in items_at_least(BRANCHES, 'gecko_version', 40):
+    if name in ['mozilla-beta', 'mozilla-release', 'mozilla-esr38']:
+        continue
+    else:
+        for platform in ['linux64-no-add-on-sign']:
+            if platform in branch['platforms']:
+                del branch['platforms'][platform]
 
 if __name__ == "__main__":
     import sys
