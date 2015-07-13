@@ -7,9 +7,9 @@ TRY_SLAVES = deepcopy(pc.TRY_SLAVES)
 
 
 # Add a small stockpile of AWS dev instances.
-LINUX64_EC2_DEV    = ['dev-linux64-ec2-%03d' % x for x in range(1, 50)]
-SLAVES['mock'].extend(LINUX64_EC2_DEV)
-TRY_SLAVES['mock'].extend(LINUX64_EC2_DEV)
+# LINUX64_EC2_DEV    = ['dev-linux64-ec2-%03d' % x for x in range(1, 50)]
+# SLAVES['mock'].extend(LINUX64_EC2_DEV)
+# TRY_SLAVES['mock'].extend(LINUX64_EC2_DEV)
 
 WIN64_RELOPS     = ['ix-mn-w0864-%03d' % x for x in range(1,3)]
 SLAVES['win64-rev2'].extend(WIN64_RELOPS)
