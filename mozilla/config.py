@@ -2584,7 +2584,9 @@ BRANCHES['mozilla-release']['platforms']['android-api-9']['env']['MOZ_SYMBOLS_EX
 BRANCHES['mozilla-release']['platforms']['android-api-11']['env']['MOZ_SYMBOLS_EXTRA_BUILDID'] = 'android-api-11'
 
 ######## mozilla-beta
-BRANCHES['mozilla-beta']['repo_path'] = 'releases/mozilla-beta'
+### XXX JLUND
+# BRANCHES['mozilla-beta']['repo_path'] = 'releases/mozilla-beta'
+BRANCHES['mozilla-beta']['repo_path'] = 'users/jlund_mozilla.com/mozilla-beta'
 BRANCHES['mozilla-beta']['l10n_repo_path'] = 'releases/l10n/mozilla-beta'
 BRANCHES['mozilla-beta']['enable_weekly_bundle'] = True
 BRANCHES['mozilla-beta']['update_channel'] = 'beta'
