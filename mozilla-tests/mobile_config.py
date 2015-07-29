@@ -102,6 +102,7 @@ PLATFORMS['android-api-11']['is_mobile'] = True
 PLATFORMS['android-api-11']['panda_android'] = {
     'name': "Android 4.0 armv7 API 11+",
     'mozharness_talos': True,
+    'try_by_default': False,
 }
 PLATFORMS['android-api-11']['ubuntu64_vm_armv7_mobile'] = {
     'name': "Android 4.3 armv7 API 11+",
@@ -1123,6 +1124,18 @@ ANDROID_2_3_MOZHARNESS_DICT = [
         'script_maxtime': 14400,
     },
     ),
+    ('mochitest-chrome', {
+        'use_mozharness': True,
+        'script_path': 'scripts/android_emulator_unittest.py',
+        'extra_args': [
+            '--cfg', 'android/androidarm.py',
+            '--test-suite', 'mochitest-chrome',
+        ],
+        'blob_upload': True,
+        'timeout': 2400,
+        'script_maxtime': 14400,
+    },
+    ),
     ('robocop-1', {
         'use_mozharness': True,
         'script_path': 'scripts/android_emulator_unittest.py',
@@ -1734,6 +1747,18 @@ ANDROID_4_3_MOZHARNESS_DICT = [
         'extra_args': [
             '--cfg', 'android/androidarm_4_3.py',
             '--test-suite', 'mochitest-16',
+        ],
+        'blob_upload': True,
+        'timeout': 2400,
+        'script_maxtime': 14400,
+    },
+    ),
+    ('mochitest-chrome', {
+        'use_mozharness': True,
+        'script_path': 'scripts/android_emulator_unittest.py',
+        'extra_args': [
+            '--cfg', 'android/androidarm_4_3.py',
+            '--test-suite', 'mochitest-chrome',
         ],
         'blob_upload': True,
         'timeout': 2400,
@@ -2548,8 +2573,6 @@ effects. Does not remove any suites from the specified
                     # This replaces the contents of the unittest_suites list in place with the filtered list.
                     unittest_suites[:] = [ suite for suite in unittest_suites if not suite_to_remove in suite[0] ]
 
-loadSkipConfig(BRANCHES,"mobile")
-
 # schedule jittests for pandas on cedar and try
 # https://bugzilla.mozilla.org/show_bug.cgi?id=912997
 # https://bugzilla.mozilla.org/show_bug.cgi?id=931874
@@ -2559,6 +2582,17 @@ remove_suite_from_slave_platform(BRANCHES, PLATFORMS, 'jittest', 'panda_android'
 # https://bugzilla.mozilla.org/show_bug.cgi?id=1064010
 remove_suite_from_slave_platform(BRANCHES, PLATFORMS, 'instrumentation', 'panda_android', branches_to_keep=['cedar'])
 
+# Bug 1182691 - Run Android 2.3 and Android 4.3 mochitest-chrome on trunk
+trunk_branches = []
+for name, branch in items_at_least(BRANCHES, 'gecko_version', 42):
+    trunk_branches.append(name)
+
+remove_suite_from_slave_platform(BRANCHES, PLATFORMS, 'mochitest-chrome', 'ubuntu64_vm_armv7_mobile', branches_to_keep=trunk_branches)
+remove_suite_from_slave_platform(BRANCHES, PLATFORMS, 'mochitest-chrome', 'ubuntu64_vm_armv7_large', branches_to_keep=trunk_branches)
+remove_suite_from_slave_platform(BRANCHES, PLATFORMS, 'mochitest-chrome', 'ubuntu64_vm_mobile', branches_to_keep=trunk_branches)
+remove_suite_from_slave_platform(BRANCHES, PLATFORMS, 'mochitest-chrome', 'ubuntu64_vm_large', branches_to_keep=trunk_branches)
+
+loadSkipConfig(BRANCHES,"mobile")
 
 if __name__ == "__main__":
     import sys

@@ -14,13 +14,13 @@ SLAVES = {
     'win64_vm': {},
 }
 
-for i in range(1, 163):
+for i in range(1, 173):
     SLAVES['xp-ix']['t-xp32-ix-%03i' % i] = {}
 
-for i in range(1, 163):
+for i in range(1, 173):
     SLAVES['win7-ix']['t-w732-ix-%03i' % i] = {}
 
-for i in range(1, 171):
+for i in range(1, 181):
     SLAVES['win8']['t-w864-ix-%03i' % i] = {}
 
 for i in range(1, 166):
@@ -117,14 +117,6 @@ BRANCHES = {
         'tinderbox_tree': 'Mozilla-Esr38',
         'mobile_tinderbox_tree': 'Mozilla-Esr38',
     },
-    'mozilla-b2g32_v2_0': {
-        'tinderbox_tree': 'Mozilla-B2g32-v2.0',
-        'mobile_tinderbox_tree': 'Mozilla-B2g32-v2.0',
-    },
-    'mozilla-b2g34_v2_1': {
-        'tinderbox_tree': 'Mozilla-B2g34-v2.1',
-        'mobile_tinderbox_tree': 'Mozilla-B2g34-v2.1',
-    },
     'mozilla-b2g34_v2_1s': {
         'tinderbox_tree': 'Mozilla-B2g34-v2.1s',
         'mobile_tinderbox_tree': 'Mozilla-B2g34-v2.1s',
@@ -132,6 +124,10 @@ BRANCHES = {
     'mozilla-b2g37_v2_2': {
         'tinderbox_tree': 'Mozilla-B2g37-v2.2',
         'mobile_tinderbox_tree': 'Mozilla-B2g37-v2.2',
+    },
+    'mozilla-b2g37_v2_2r': {
+        'tinderbox_tree': 'Mozilla-B2g37-v2.2r',
+        'mobile_tinderbox_tree': 'Mozilla-B2g37-v2.2r',
     },
     'mozilla-beta': {
         'tinderbox_tree': 'Mozilla-Beta',

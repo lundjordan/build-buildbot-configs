@@ -93,16 +93,6 @@ BRANCHES = {
         'tinderbox_tree': 'Mozilla-Esr38',
         'mobile_tinderbox_tree': 'Mozilla-Esr38',
     },
-    'mozilla-b2g32_v2_0': {
-        'packaged_unittest_tinderbox_tree': 'Mozilla-B2g32-v2.0',
-        'tinderbox_tree': 'Mozilla-B2g32-v2.0',
-        'mobile_tinderbox_tree': 'Mozilla-B2g32-v2.0',
-    },
-    'mozilla-b2g34_v2_1': {
-        'packaged_unittest_tinderbox_tree': 'Mozilla-B2g34-v2.1',
-        'tinderbox_tree': 'Mozilla-B2g34-v2.1',
-        'mobile_tinderbox_tree': 'Mozilla-B2g34-v2.1',
-    },
     'mozilla-b2g34_v2_1s': {
         'packaged_unittest_tinderbox_tree': 'Mozilla-B2g34-v2.1s',
         'tinderbox_tree': 'Mozilla-B2g34-v2.1s',
@@ -112,6 +102,11 @@ BRANCHES = {
         'packaged_unittest_tinderbox_tree': 'Mozilla-B2g37-v2.2',
         'tinderbox_tree': 'Mozilla-B2g37-v2.2',
         'mobile_tinderbox_tree': 'Mozilla-B2g37-v2.2',
+    },
+    'mozilla-b2g37_v2_2r': {
+        'packaged_unittest_tinderbox_tree': 'Mozilla-B2g37-v2.2r',
+        'tinderbox_tree': 'Mozilla-B2g37-v2.2r',
+        'mobile_tinderbox_tree': 'Mozilla-B2g37-v2.2r',
     },
     'mozilla-beta': {
         'packaged_unittest_tinderbox_tree': 'Mozilla-Beta',
@@ -144,7 +139,7 @@ BRANCHES = {
                     'PDBSTR_PATH': '/c/Program Files (x86)/Windows Kits/8.0/Debuggers/x64/srcsrv/pdbstr.exe',
                     'HG_SHARE_BASE_DIR': 'c:/builds/hg-shared',
                     'BINSCOPE': 'C:\Program Files\Microsoft\SDL BinScope\Binscope.exe',
-                    'PATH': "${MOZILLABUILD}python27;${MOZILLABUILD}buildbotve\\scripts;${PATH}",
+                    'PATH': "${MOZILLABUILD}\\python27;${MOZILLABUILD}\\buildbotve\\scripts;${PATH}",
                 }
             }
         }
