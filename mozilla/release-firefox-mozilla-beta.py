@@ -21,29 +21,29 @@ releaseConfig['productName']         = 'firefox'
 releaseConfig['stage_product']       = 'firefox'
 releaseConfig['appName']             = 'browser'
 #  Current version info
-releaseConfig['version']             = '40.0b3'
+releaseConfig['version']             = '40.0b8'
 releaseConfig['appVersion']          = '40.0'
 releaseConfig['milestone']           = releaseConfig['appVersion']
 releaseConfig['buildNumber']         = 1
-releaseConfig['baseTag']             = 'FIREFOX_40_0b3'
+releaseConfig['baseTag']             = 'FIREFOX_40_0b8'
 releaseConfig['partialUpdates']      = {
 
-    '40.0b2': {
+    '40.0b6': {
         'appVersion': '40.0',
         'buildNumber': 1,
-        'baseTag': 'FIREFOX_40_0b2',
+        'baseTag': 'FIREFOX_40_0b6',
     },
 
-    '39.0b7': {
-        'appVersion': '39.0',
-        'buildNumber': 1,
-        'baseTag': 'FIREFOX_39_0b7',
-    },
-
-    '40.0b1': {
+    '40.0b7': {
         'appVersion': '40.0',
-        'buildNumber': 2,
-        'baseTag': 'FIREFOX_40_0b1',
+        'buildNumber': 1,
+        'baseTag': 'FIREFOX_40_0b7',
+    },
+
+    '40.0b4': {
+        'appVersion': '40.0',
+        'buildNumber': 1,
+        'baseTag': 'FIREFOX_40_0b4',
     },
 
 }
@@ -60,7 +60,7 @@ releaseConfig['sourceRepositories']  = {
     'mozilla': {
         'name': 'mozilla-beta',
         'path': 'releases/mozilla-beta',
-        'revision': '93c0c5e4ec30',
+        'revision': '64fb14a330e3',
         'relbranch': None,
         'bumpFiles': {
             'browser/config/version.txt': {
@@ -172,7 +172,6 @@ releaseConfig["mozillaComRepo"]     = "svn+ssh://ffxbld@svn.mozilla.org/projects
 releaseConfig["svnSshKey"]          = "/home/cltbld/.ssh/ffxbld_rsa"
 
 # Misc configuration
-releaseConfig['enable_repo_setup'] = False
 releaseConfig['enableAutomaticPushToMirrors'] = True
 releaseConfig['use_mock'] = True
 releaseConfig['mock_platforms'] = ('linux','linux64')

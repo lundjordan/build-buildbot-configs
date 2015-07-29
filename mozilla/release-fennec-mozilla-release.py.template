@@ -62,7 +62,6 @@ releaseConfig['otherReposToTag']     = {
     'build/compare-locales': 'RELEASE_AUTOMATION',
     'build/buildbot': 'production-0.8',
     'build/partner-repacks': 'default',
-    'build/mozharness': 'production',
 }
 
 # Platform configuration
@@ -126,9 +125,6 @@ releaseConfig["updateChannels"] = {
         }
     }
 }
-
-# Misc configuration
-releaseConfig['enable_repo_setup']       = False
 
 # Product details config
 releaseConfig["productDetailsRepo"] = "svn+ssh://ffxbld@svn.mozilla.org/libs/product-details"

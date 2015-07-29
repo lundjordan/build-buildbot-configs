@@ -62,7 +62,7 @@ PROJECT_BRANCHES = {
         "enable_nightly": True,
         'desktop_mozharness_repacks_enabled': True,
         "enable_weekly_bundle": True,
-        "pgo_strategy": "periodic",
+        "pgo_strategy": None,
         "platforms": {
             "android-api-9": {
                 "is_mobile_l10n": True,
@@ -86,7 +86,6 @@ PROJECT_BRANCHES = {
         'talos_suites': {
             'xperf': 1,
         },
-        'mozharness_archiver_endpoint': 'mozharness',
     },
     #'birch': {},  # Bug 1010674
     'cedar': {
@@ -166,7 +165,7 @@ PROJECT_BRANCHES = {
     # 'fig': {},
     'gum': {
         'enable_nightly': True,
-        'pgo_strategy': 'per-checkin',
+        'pgo_strategy': None,
         'branch_projects': [],
         'lock_platforms': True,
         'platforms': {

@@ -96,13 +96,7 @@ BRANCHES = {
         'enable_hpkp_update': False,
         'file_update_on_closed_tree': False,
     },
-    'mozilla-b2g32_v2_0': {
-        'enable_blocklist_update': False,
-        'enable_hsts_update': False,
-        'enable_hpkp_update': False,
-        'file_update_on_closed_tree': False,
-    },
-    'mozilla-b2g34_v2_1': {
+    'mozilla-b2g34_v2_1s': {
         'enable_blocklist_update': False,
         'enable_hsts_update': False,
         'enable_hpkp_update': False,
@@ -114,7 +108,7 @@ BRANCHES = {
         'enable_hpkp_update': False,
         'file_update_on_closed_tree': False,
     },
-    'mozilla-b2g34_v2_1s': {
+    'mozilla-b2g37_v2_2r': {
         'enable_blocklist_update': False,
         'enable_hsts_update': False,
         'enable_hpkp_update': False,
@@ -138,7 +132,7 @@ BRANCHES = {
                     'PDBSTR_PATH': '/c/Program Files (x86)/Windows Kits/8.0/Debuggers/x64/srcsrv/pdbstr.exe',
                     'HG_SHARE_BASE_DIR': 'c:/builds/hg-shared',
                     'BINSCOPE': 'C:\Program Files\Microsoft\SDL BinScope\Binscope.exe',
-                    'PATH': "${MOZILLABUILD}python27;${MOZILLABUILD}buildbotve\\scripts;${PATH}",
+                    'PATH': "${MOZILLABUILD}\\python27;${MOZILLABUILD}\\buildbotve\\scripts;${PATH}",
                 }
             }
         }

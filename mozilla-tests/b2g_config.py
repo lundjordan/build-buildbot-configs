@@ -35,19 +35,15 @@ BRANCHES = {
     'maple': {},
     'pine': {},
     'fx-team': {},
-    'mozilla-b2g32_v2_0': {
-        'gecko_version': 32,
-        'b2g_version': (2, 0, 0),
-    },
-    'mozilla-b2g34_v2_1': {
-        'gecko_version': 34,
-        'b2g_version': (2, 1, 0),
-    },
     'mozilla-b2g34_v2_1s': {
         'gecko_version': 34,
         'b2g_version': (2, 1, 0),
     },
     'mozilla-b2g37_v2_2': {
+        'gecko_version': 37,
+        'b2g_version': (2, 2, 0),
+    },
+    'mozilla-b2g37_v2_2r': {
         'gecko_version': 37,
         'b2g_version': (2, 2, 0),
     },
@@ -63,7 +59,6 @@ setMainFirefoxVersions(BRANCHES)
 PLATFORMS = {
     'linux64_gecko': {},
     'macosx64_gecko': {},
-    'macosx64-mulet': {},
     'emulator': {},
     'emulator-jb': {},
     'emulator-kk': {},
@@ -87,21 +82,6 @@ PLATFORMS['macosx64_gecko']['env_name'] = 'linux-perf'
 PLATFORMS['macosx64_gecko']['mountainlion-b2gdt'] = {'name': builder_prefix + "_macosx64"}
 PLATFORMS['macosx64_gecko']['stage_product'] = 'b2g'
 PLATFORMS['macosx64_gecko']['mozharness_config'] = {
-    'mozharness_python': '/tools/buildbot/bin/python',
-    'use_mozharness': True,
-    'hg_bin': 'hg',
-    'reboot_command': ['/tools/buildbot/bin/python'] + MOZHARNESS_REBOOT_CMD,
-}
-
-PLATFORMS['macosx64-mulet']['slave_platforms'] = ['snowleopard']
-PLATFORMS['macosx64-mulet']['env_name'] = 'mac-perf'
-PLATFORMS['macosx64-mulet']['snowleopard'] = {
-    'name': 'Rev4 MacOSX Mulet Snow Leopard 10.6',
-    'build_dir_prefix': 'snowleopard_mulet',
-    'scheduler_slave_platform_identifier': 'snowleopard_mulet'
-}
-PLATFORMS['macosx64-mulet']['stage_product'] = 'b2g'
-PLATFORMS['macosx64-mulet']['mozharness_config'] = {
     'mozharness_python': '/tools/buildbot/bin/python',
     'use_mozharness': True,
     'hg_bin': 'hg',
@@ -157,7 +137,6 @@ BRANCH_UNITTEST_VARS = {
     'platforms': {
         'linux64_gecko': {},
         'macosx64_gecko': {},
-        'macosx64-mulet': {},
         'emulator': {},
         'emulator-jb': {},
         'emulator-kk': {},
@@ -238,87 +217,6 @@ MOCHITEST_CHROME = [
                           'blob_upload': True,
                          },
     ),
-]
-
-MOCHITEST_EMULATOR_JB = [
-    ('mochitest-1', {'suite': 'mochitest-plain',
-                     'use_mozharness': True,
-                     'script_path': 'scripts/b2g_emulator_unittest.py',
-                     'blob_upload': True,
-                     },
-     ),
-]
-
-MOCHITEST_MULET_PLAIN = [
-    ('mochitest-1', {'suite': 'mochitest-plain',
-                                 'use_mozharness': True,
-                                 'script_path': 'scripts/desktop_unittest.py',
-                                 'blob_upload': True,
-                                }
-    ),
-    ('mochitest-2', {'suite': 'mochitest-plain',
-                                 'use_mozharness': True,
-                                 'script_path': 'scripts/desktop_unittest.py',
-                                 'blob_upload': True,
-                                }
-    ),
-    ('mochitest-3', {'suite': 'mochitest-plain',
-                                 'use_mozharness': True,
-                                 'script_path': 'scripts/desktop_unittest.py',
-                                 'blob_upload': True,
-                                }
-    ),
-    ('mochitest-4', {'suite': 'mochitest-plain',
-                                 'use_mozharness': True,
-                                 'script_path': 'scripts/desktop_unittest.py',
-                                 'blob_upload': True,
-                                }
-    ),
-    ('mochitest-5', {'suite': 'mochitest-plain',
-                                 'use_mozharness': True,
-                                 'script_path': 'scripts/desktop_unittest.py',
-                                 'blob_upload': True,
-                                }
-    ),
-]
-
-REFTEST_MULET = [
-    ('reftest-1', {
-        'suite': 'reftest',
-        'use_mozharness': True,
-        'script_path': 'scripts/mulet_unittest.py',
-        'blob_upload': True,
-    }),
-    ('reftest-2', {
-        'suite': 'reftest',
-        'use_mozharness': True,
-        'script_path': 'scripts/mulet_unittest.py',
-        'blob_upload': True,
-    }),
-    ('reftest-3', {
-        'suite': 'reftest',
-        'use_mozharness': True,
-        'script_path': 'scripts/mulet_unittest.py',
-        'blob_upload': True,
-    }),
-    ('reftest-4', {
-        'suite': 'reftest',
-        'use_mozharness': True,
-        'script_path': 'scripts/mulet_unittest.py',
-        'blob_upload': True,
-    }),
-    ('reftest-5', {
-        'suite': 'reftest',
-        'use_mozharness': True,
-        'script_path': 'scripts/mulet_unittest.py',
-        'blob_upload': True,
-    }),
-    ('reftest-6', {
-        'suite': 'reftest',
-        'use_mozharness': True,
-        'script_path': 'scripts/mulet_unittest.py',
-        'blob_upload': True,
-    }),
 ]
 
 MOCHITEST_EMULATOR_DEBUG = [
@@ -456,6 +354,41 @@ MOCHITEST_EMULATOR_DEBUG = [
                             },
      ),
     ('mochitest-debug-20', {'suite': 'mochitest-plain',
+                            'use_mozharness': True,
+                            'script_path': 'scripts/b2g_emulator_unittest.py',
+                            'blob_upload': True,
+                            'script_maxtime': 14400,
+                            },
+     ),
+    ('mochitest-debug-21', {'suite': 'mochitest-plain',
+                            'use_mozharness': True,
+                            'script_path': 'scripts/b2g_emulator_unittest.py',
+                            'blob_upload': True,
+                            'script_maxtime': 14400,
+                            },
+     ),
+    ('mochitest-debug-22', {'suite': 'mochitest-plain',
+                            'use_mozharness': True,
+                            'script_path': 'scripts/b2g_emulator_unittest.py',
+                            'blob_upload': True,
+                            'script_maxtime': 14400,
+                            },
+     ),
+    ('mochitest-debug-23', {'suite': 'mochitest-plain',
+                            'use_mozharness': True,
+                            'script_path': 'scripts/b2g_emulator_unittest.py',
+                            'blob_upload': True,
+                            'script_maxtime': 14400,
+                            },
+     ),
+    ('mochitest-debug-24', {'suite': 'mochitest-plain',
+                            'use_mozharness': True,
+                            'script_path': 'scripts/b2g_emulator_unittest.py',
+                            'blob_upload': True,
+                            'script_maxtime': 14400,
+                            },
+     ),
+    ('mochitest-debug-25', {'suite': 'mochitest-plain',
                             'use_mozharness': True,
                             'script_path': 'scripts/b2g_emulator_unittest.py',
                             'blob_upload': True,
@@ -878,57 +811,6 @@ GAIA_UNITTESTS = [(
 
 GAIA_UNITTESTS_OOP = [('gaia-unit-oop', GAIA_UNITTESTS[0][1])]
 
-GAIA_UI = [(
-    'gaia-ui-test', {
-        'suite': 'gaia-ui-test',
-        'use_mozharness': True,
-        'script_path': 'scripts/marionette.py',
-        'blob_upload': True,
-    },
-)]
-
-#Gaia Python Integration Tests
-# will replae GAIA_UI, Bug 1046694
-GIP = [
-    ('gaia-ui-test-functional-1', {
-                                    'suite': 'gip',
-                                    'use_mozharness': True,
-                                    'script_path': 'scripts/marionette.py',
-                                    'blob_upload': True,
-                                   },
-    ),
-    ('gaia-ui-test-functional-2', {
-                                    'suite': 'gip',
-                                    'use_mozharness': True,
-                                    'script_path': 'scripts/marionette.py',
-                                    'blob_upload': True,
-                                   },
-    ),
-    ('gaia-ui-test-functional-3', {
-                                    'suite': 'gip',
-                                    'use_mozharness': True,
-                                    'script_path': 'scripts/marionette.py',
-                                    'blob_upload': True,
-                                   },
-    ),
-    ('gaia-ui-test-unit', {
-                            'suite': 'gip',
-                            'use_mozharness': True,
-                            'script_path': 'scripts/marionette.py',
-                            'blob_upload': True,
-                           },
-    ),
-    ('gaia-ui-test-accessibility', {
-                                     'suite': 'gip',
-                                     'use_mozharness': True,
-                                     'script_path': 'scripts/marionette.py',
-                                     'blob_upload': True,
-                                   },
-    )
-]
-
-GAIA_UI_OOP = [('gaia-ui-test-oop', GAIA_UI[0][1])]
-
 CPPUNIT = [(
     'cppunit', {
         'suite': 'cppunit',
@@ -949,63 +831,6 @@ UNITTEST_SUITES = {
 # You must define opt_unittest_suites when enable_opt_unittests is True for a
 # platform. Likewise debug_unittest_suites for enable_debug_unittests
 PLATFORM_UNITTEST_VARS = {
-    'macosx64-mulet': {
-        'product_name': 'b2g',
-        'app_name': 'firefox',
-        'brand_name': 'Mulet',
-        'builds_before_reboot': 1,
-        'unittest-env': {
-            "MOZ_NO_REMOTE": '1',
-            "NO_EM_RESTART": '1',
-            "XPCOM_DEBUG_BREAK": 'warn',
-            "MOZ_CRASHREPORTER_NO_REPORT": '1',
-            # for extracting dmg's
-            "PAGER": '/bin/cat',
-        },
-        'enable_opt_unittests': True,
-        'enable_debug_unittests': False,
-        'snowleopard': {
-            'opt_unittest_suites': MOCHITEST_MULET_PLAIN[:],
-            'debug_unittest_suites': [],
-            'suite_config': {
-                'mochitest-1': {
-                    'extra_args': [
-                      '--cfg', 'unittests/mac_unittest.py',
-                      '--total-chunks', 5, '--this-chunk', 1,
-                      '--mochitest-suite', 'plain-chunked',
-                    ]
-                },
-                'mochitest-2': {
-                    'extra_args': [
-                      '--cfg', 'unittests/mac_unittest.py',
-                      '--total-chunks', 5, '--this-chunk', 2,
-                      '--mochitest-suite', 'plain-chunked',
-                    ]
-                },
-                'mochitest-3': {
-                    'extra_args': [
-                      '--cfg', 'unittests/mac_unittest.py',
-                      '--total-chunks', 5, '--this-chunk', 3,
-                      '--mochitest-suite', 'plain-chunked',
-                    ]
-                },
-                'mochitest-4': {
-                    'extra_args': [
-                      '--cfg', 'unittests/mac_unittest.py',
-                      '--total-chunks', 5, '--this-chunk', 4,
-                      '--mochitest-suite', 'plain-chunked',
-                    ]
-                },
-                'mochitest-5': {
-                    'extra_args': [
-                      '--cfg', 'unittests/mac_unittest.py',
-                      '--total-chunks', 5, '--this-chunk', 5,
-                      '--mochitest-suite', 'plain-chunked',
-                    ]
-                },
-            },
-        },
-    },
     'linux64_gecko': {
         'product_name': 'b2g',
         'app_name': 'b2g',
@@ -1108,50 +933,6 @@ PLATFORM_UNITTEST_VARS = {
                     'extra_args': [
                         '--cfg', 'b2g/gaia_unit_production_config.py',
                         '--browser-arg', '-oop',
-                    ],
-                },
-                'gaia-ui-test': {
-                    'extra_args': [
-                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
-                    ],
-                },
-                'gaia-ui-test-functional-1': {
-                    'extra_args': [
-                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
-                        '--gip-suite', 'functional',
-                        '--this-chunk', '1', '--total-chunks', 3,
-                    ],
-                },
-                'gaia-ui-test-functional-2': {
-                    'extra_args': [
-                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
-                        '--gip-suite', 'functional',
-                       '--this-chunk', '2', '--total-chunks', 3,
-                    ],
-                },
-                'gaia-ui-test-functional-3': {
-                    'extra_args': [
-                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
-                        '--gip-suite', 'functional',
-                        '--this-chunk', '3', '--total-chunks', 3,
-                    ],
-                },
-                'gaia-ui-test-unit': {
-                    'extra_args': [
-                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
-                        '--gip-suite', 'unit',
-                    ],
-                },
-                'gaia-ui-test-accessibility': {
-                    'extra_args': [
-                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
-                        '--gip-suite', 'accessibility',
-                    ],
-                },
-                'gaia-ui-test-oop': {
-                    'extra_args': [
-                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
-                        '--app-arg', '-oop',
                     ],
                 },
                 'mochitest-1': {
@@ -1305,44 +1086,6 @@ PLATFORM_UNITTEST_VARS = {
                             '--this-chunk', 4, '--total-chunks', 4,
                         ],
                 },
-                'gaia-ui-test': {
-                    'extra_args': [
-                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
-                    ],
-                },
-                'gaia-ui-test-functional-1': {
-                    'extra_args': [
-                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
-                        '--gip-suite', 'functional',
-                        '--this-chunk', '1', '--total-chunks', 3,
-                    ],
-                },
-                'gaia-ui-test-functional-2': {
-                    'extra_args': [
-                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
-                        '--gip-suite', 'functional',
-                       '--this-chunk', '2', '--total-chunks', 3,
-                    ],
-                },
-                'gaia-ui-test-functional-3': {
-                    'extra_args': [
-                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
-                        '--gip-suite', 'functional',
-                        '--this-chunk', '3', '--total-chunks', 3,
-                    ],
-                },
-                'gaia-ui-test-unit': {
-                    'extra_args': [
-                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
-                        '--gip-suite', 'unit',
-                    ],
-                },
-                'gaia-ui-test-accessibility': {
-                    'extra_args': [
-                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
-                        '--gip-suite', 'accessibility',
-                    ],
-                },
                 'mochitest-1': {
                     'extra_args': [
                         '--cfg', 'b2g/desktop_automation_config.py',
@@ -1381,45 +1124,6 @@ PLATFORM_UNITTEST_VARS = {
                     'extra_args': [
                         "--cfg", "marionette/automation_emulator_config.py",
                         "--test-manifest", "webapi-tests.ini"
-                    ],
-                },
-                'gaia-ui-test': {
-                    'extra_args': [
-                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
-                        '--cfg', 'marionette/gaia_ui_test_emu_config.py',
-                    ],
-                },
-                'gaia-ui-test-functional-1': {
-                    'extra_args': [
-                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
-                        '--gip-suite', 'functional',
-                        '--this-chunk', '1', '--total-chunks', 3,
-                    ],
-                },
-                'gaia-ui-test-functional-2': {
-                    'extra_args': [
-                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
-                        '--gip-suite', 'functional',
-                       '--this-chunk', '2', '--total-chunks', 3,
-                    ],
-                },
-                'gaia-ui-test-functional-3': {
-                    'extra_args': [
-                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
-                        '--gip-suite', 'functional',
-                        '--this-chunk', '3', '--total-chunks', 3,
-                    ],
-                },
-                'gaia-ui-test-unit': {
-                    'extra_args': [
-                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
-                        '--gip-suite', 'unit',
-                    ],
-                },
-                'gaia-ui-test-accessibility': {
-                    'extra_args': [
-                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
-                        '--gip-suite', 'accessibility',
                     ],
                 },
                 'mochitest-media': {
@@ -1502,140 +1206,175 @@ PLATFORM_UNITTEST_VARS = {
                     'extra_args': [
                         '--cfg', 'b2g/emulator_automation_config.py',
                         '--test-suite', 'mochitest',
-                        '--this-chunk', '1', '--total-chunks', '20',
+                        '--this-chunk', '1', '--total-chunks', '25',
                     ],
                 },
                 'mochitest-debug-2': {
                     'extra_args': [
                         '--cfg', 'b2g/emulator_automation_config.py',
                         '--test-suite', 'mochitest',
-                        '--this-chunk', '2', '--total-chunks', '20',
+                        '--this-chunk', '2', '--total-chunks', '25',
                     ],
                 },
                 'mochitest-debug-3': {
                     'extra_args': [
                         '--cfg', 'b2g/emulator_automation_config.py',
                         '--test-suite', 'mochitest',
-                        '--this-chunk', '3', '--total-chunks', '20',
+                        '--this-chunk', '3', '--total-chunks', '25',
                     ],
                 },
                 'mochitest-debug-4': {
                     'extra_args': [
                         '--cfg', 'b2g/emulator_automation_config.py',
                         '--test-suite', 'mochitest',
-                        '--this-chunk', '4', '--total-chunks', '20',
+                        '--this-chunk', '4', '--total-chunks', '25',
                     ],
                 },
                 'mochitest-debug-5': {
                     'extra_args': [
                         '--cfg', 'b2g/emulator_automation_config.py',
                         '--test-suite', 'mochitest',
-                        '--this-chunk', '5', '--total-chunks', '20',
+                        '--this-chunk', '5', '--total-chunks', '25',
                     ],
                 },
                 'mochitest-debug-6': {
                     'extra_args': [
                         '--cfg', 'b2g/emulator_automation_config.py',
                         '--test-suite', 'mochitest',
-                        '--this-chunk', '6', '--total-chunks', '20',
+                        '--this-chunk', '6', '--total-chunks', '25',
                     ],
                 },
                 'mochitest-debug-7': {
                     'extra_args': [
                         '--cfg', 'b2g/emulator_automation_config.py',
                         '--test-suite', 'mochitest',
-                        '--this-chunk', '7', '--total-chunks', '20',
+                        '--this-chunk', '7', '--total-chunks', '25',
                     ],
                 },
                 'mochitest-debug-8': {
                     'extra_args': [
                         '--cfg', 'b2g/emulator_automation_config.py',
                         '--test-suite', 'mochitest',
-                        '--this-chunk', '8', '--total-chunks', '20',
+                        '--this-chunk', '8', '--total-chunks', '25',
                     ],
                 },
                 'mochitest-debug-9': {
                     'extra_args': [
                         '--cfg', 'b2g/emulator_automation_config.py',
                         '--test-suite', 'mochitest',
-                        '--this-chunk', '9', '--total-chunks', '20',
+                        '--this-chunk', '9', '--total-chunks', '25',
                     ],
                 },
                 'mochitest-debug-10': {
                     'extra_args': [
                         '--cfg', 'b2g/emulator_automation_config.py',
                         '--test-suite', 'mochitest',
-                        '--this-chunk', '10', '--total-chunks', '20',
+                        '--this-chunk', '10', '--total-chunks', '25',
                     ],
                 },
                 'mochitest-debug-11': {
                     'extra_args': [
                         '--cfg', 'b2g/emulator_automation_config.py',
                         '--test-suite', 'mochitest',
-                        '--this-chunk', '11', '--total-chunks', '20',
+                        '--this-chunk', '11', '--total-chunks', '25',
                     ],
                 },
                 'mochitest-debug-12': {
                     'extra_args': [
                         '--cfg', 'b2g/emulator_automation_config.py',
                         '--test-suite', 'mochitest',
-                        '--this-chunk', '12', '--total-chunks', '20',
+                        '--this-chunk', '12', '--total-chunks', '25',
                     ],
                 },
                 'mochitest-debug-13': {
                     'extra_args': [
                         '--cfg', 'b2g/emulator_automation_config.py',
                         '--test-suite', 'mochitest',
-                        '--this-chunk', '13', '--total-chunks', '20',
+                        '--this-chunk', '13', '--total-chunks', '25',
                     ],
                 },
                 'mochitest-debug-14': {
                     'extra_args': [
                         '--cfg', 'b2g/emulator_automation_config.py',
                         '--test-suite', 'mochitest',
-                        '--this-chunk', '14', '--total-chunks', '20',
+                        '--this-chunk', '14', '--total-chunks', '25',
                     ],
                 },
                 'mochitest-debug-15': {
                     'extra_args': [
                         '--cfg', 'b2g/emulator_automation_config.py',
                         '--test-suite', 'mochitest',
-                        '--this-chunk', '15', '--total-chunks', '20',
+                        '--this-chunk', '15', '--total-chunks', '25',
                     ],
                 },
                 'mochitest-debug-16': {
                     'extra_args': [
                         '--cfg', 'b2g/emulator_automation_config.py',
                         '--test-suite', 'mochitest',
-                        '--this-chunk', '16', '--total-chunks', '20',
+                        '--this-chunk', '16', '--total-chunks', '25',
                     ],
                 },
                 'mochitest-debug-17': {
                     'extra_args': [
                         '--cfg', 'b2g/emulator_automation_config.py',
                         '--test-suite', 'mochitest',
-                        '--this-chunk', '17', '--total-chunks', '20',
+                        '--this-chunk', '17', '--total-chunks', '25',
                     ],
                 },
                 'mochitest-debug-18': {
                     'extra_args': [
                         '--cfg', 'b2g/emulator_automation_config.py',
                         '--test-suite', 'mochitest',
-                        '--this-chunk', '18', '--total-chunks', '20',
+                        '--this-chunk', '18', '--total-chunks', '25',
                     ],
                 },
                 'mochitest-debug-19': {
                     'extra_args': [
                         '--cfg', 'b2g/emulator_automation_config.py',
                         '--test-suite', 'mochitest',
-                        '--this-chunk', '19', '--total-chunks', '20',
+                        '--this-chunk', '19', '--total-chunks', '25',
                     ],
                 },
                 'mochitest-debug-20': {
                     'extra_args': [
                         '--cfg', 'b2g/emulator_automation_config.py',
                         '--test-suite', 'mochitest',
-                        '--this-chunk', '20', '--total-chunks', '20',
+                        '--this-chunk', '20', '--total-chunks', '25',
+                    ],
+                },
+                'mochitest-debug-21': {
+                    'extra_args': [
+                        '--cfg', 'b2g/emulator_automation_config.py',
+                        '--test-suite', 'mochitest',
+                        '--this-chunk', '21', '--total-chunks', '25',
+                    ],
+                },
+                'mochitest-debug-22': {
+                    'extra_args': [
+                        '--cfg', 'b2g/emulator_automation_config.py',
+                        '--test-suite', 'mochitest',
+                        '--this-chunk', '22', '--total-chunks', '25',
+                    ],
+                },
+                'mochitest-debug-23': {
+                    'extra_args': [
+                        '--cfg', 'b2g/emulator_automation_config.py',
+                        '--test-suite', 'mochitest',
+                        '--this-chunk', '23', '--total-chunks', '25',
+                    ],
+                },
+                'mochitest-debug-24': {
+                    'extra_args': [
+                        '--cfg', 'b2g/emulator_automation_config.py',
+                        '--test-suite', 'mochitest',
+                        '--this-chunk', '24', '--total-chunks', '25',
+                    ],
+                },
+                'mochitest-debug-25': {
+                    'extra_args': [
+                        '--cfg', 'b2g/emulator_automation_config.py',
+                        '--test-suite', 'mochitest',
+                        '--this-chunk', '25', '--total-chunks', '25',
                     ],
                 },
                 'xpcshell': {
@@ -1859,45 +1598,6 @@ PLATFORM_UNITTEST_VARS = {
            'opt_unittest_suites': [],
            'debug_unittest_suites': [],
            'suite_config': {
-               'gaia-ui-test': {
-                   'extra_args': [
-                       '--cfg', 'marionette/gaia_ui_test_prod_config.py',
-                       '--cfg', 'marionette/gaia_ui_test_emu_config.py',
-                   ],
-               },
-               'gaia-ui-test-functional-1': {
-                   'extra_args': [
-                       '--cfg', 'marionette/gaia_ui_test_prod_config.py',
-                       '--gip-suite', 'functional',
-                       '--this-chunk', '1', '--total-chunks', 3,
-                   ],
-               },
-               'gaia-ui-test-functional-2': {
-                   'extra_args': [
-                       '--cfg', 'marionette/gaia_ui_test_prod_config.py',
-                       '--gip-suite', 'functional',
-                      '--this-chunk', '2', '--total-chunks', 3,
-                   ],
-               },
-               'gaia-ui-test-functional-3': {
-                   'extra_args': [
-                       '--cfg', 'marionette/gaia_ui_test_prod_config.py',
-                       '--gip-suite', 'functional',
-                       '--this-chunk', '3', '--total-chunks', 3,
-                   ],
-               },
-               'gaia-ui-test-unit': {
-                   'extra_args': [
-                       '--cfg', 'marionette/gaia_ui_test_prod_config.py',
-                       '--gip-suite', 'unit',
-                   ],
-               },
-               'gaia-ui-test-accessibility': {
-                   'extra_args': [
-                       '--cfg', 'marionette/gaia_ui_test_prod_config.py',
-                       '--gip-suite', 'accessibility',
-                   ],
-               },
                 'mochitest-media': {
                     'extra_args': [
                         '--cfg', 'b2g/emulator_automation_config.py',
@@ -1963,45 +1663,6 @@ PLATFORM_UNITTEST_VARS = {
                     'extra_args': [
                         "--cfg", "marionette/automation_emulator_config.py",
                         "--test-manifest", "webapi-tests.ini",
-                    ],
-                },
-                'gaia-ui-test': {
-                    'extra_args': [
-                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
-                        '--cfg', 'marionette/gaia_ui_test_emu_config.py',
-                    ],
-                },
-                'gaia-ui-test-functional-1': {
-                    'extra_args': [
-                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
-                        '--gip-suite', 'functional',
-                        '--this-chunk', '1', '--total-chunks', 3,
-                    ],
-                },
-                'gaia-ui-test-functional-2': {
-                    'extra_args': [
-                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
-                        '--gip-suite', 'functional',
-                       '--this-chunk', '2', '--total-chunks', 3,
-                    ],
-                },
-                'gaia-ui-test-functional-3': {
-                    'extra_args': [
-                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
-                        '--gip-suite', 'functional',
-                        '--this-chunk', '3', '--total-chunks', 3,
-                    ],
-                },
-                'gaia-ui-test-unit': {
-                    'extra_args': [
-                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
-                        '--gip-suite', 'unit',
-                    ],
-                },
-                'gaia-ui-test-accessibility': {
-                    'extra_args': [
-                        '--cfg', 'marionette/gaia_ui_test_prod_config.py',
-                        '--gip-suite', 'accessibility',
                     ],
                 },
                 'mochitest-media': {
@@ -2084,140 +1745,175 @@ PLATFORM_UNITTEST_VARS = {
                     'extra_args': [
                         '--cfg', 'b2g/emulator_automation_config.py',
                         '--test-suite', 'mochitest',
-                        '--this-chunk', '1', '--total-chunks', '20',
+                        '--this-chunk', '1', '--total-chunks', '25',
                     ],
                 },
                 'mochitest-debug-2': {
                     'extra_args': [
                         '--cfg', 'b2g/emulator_automation_config.py',
                         '--test-suite', 'mochitest',
-                        '--this-chunk', '2', '--total-chunks', '20',
+                        '--this-chunk', '2', '--total-chunks', '25',
                     ],
                 },
                 'mochitest-debug-3': {
                     'extra_args': [
                         '--cfg', 'b2g/emulator_automation_config.py',
                         '--test-suite', 'mochitest',
-                        '--this-chunk', '3', '--total-chunks', '20',
+                        '--this-chunk', '3', '--total-chunks', '25',
                     ],
                 },
                 'mochitest-debug-4': {
                     'extra_args': [
                         '--cfg', 'b2g/emulator_automation_config.py',
                         '--test-suite', 'mochitest',
-                        '--this-chunk', '4', '--total-chunks', '20',
+                        '--this-chunk', '4', '--total-chunks', '25',
                     ],
                 },
                 'mochitest-debug-5': {
                     'extra_args': [
                         '--cfg', 'b2g/emulator_automation_config.py',
                         '--test-suite', 'mochitest',
-                        '--this-chunk', '5', '--total-chunks', '20',
+                        '--this-chunk', '5', '--total-chunks', '25',
                     ],
                 },
                 'mochitest-debug-6': {
                     'extra_args': [
                         '--cfg', 'b2g/emulator_automation_config.py',
                         '--test-suite', 'mochitest',
-                        '--this-chunk', '6', '--total-chunks', '20',
+                        '--this-chunk', '6', '--total-chunks', '25',
                     ],
                 },
                 'mochitest-debug-7': {
                     'extra_args': [
                         '--cfg', 'b2g/emulator_automation_config.py',
                         '--test-suite', 'mochitest',
-                        '--this-chunk', '7', '--total-chunks', '20',
+                        '--this-chunk', '7', '--total-chunks', '25',
                     ],
                 },
                 'mochitest-debug-8': {
                     'extra_args': [
                         '--cfg', 'b2g/emulator_automation_config.py',
                         '--test-suite', 'mochitest',
-                        '--this-chunk', '8', '--total-chunks', '20',
+                        '--this-chunk', '8', '--total-chunks', '25',
                     ],
                 },
                 'mochitest-debug-9': {
                     'extra_args': [
                         '--cfg', 'b2g/emulator_automation_config.py',
                         '--test-suite', 'mochitest',
-                        '--this-chunk', '9', '--total-chunks', '20',
+                        '--this-chunk', '9', '--total-chunks', '25',
                     ],
                 },
                 'mochitest-debug-10': {
                     'extra_args': [
                         '--cfg', 'b2g/emulator_automation_config.py',
                         '--test-suite', 'mochitest',
-                        '--this-chunk', '10', '--total-chunks', '20',
+                        '--this-chunk', '10', '--total-chunks', '25',
                     ],
                 },
                 'mochitest-debug-11': {
                     'extra_args': [
                         '--cfg', 'b2g/emulator_automation_config.py',
                         '--test-suite', 'mochitest',
-                        '--this-chunk', '11', '--total-chunks', '20',
+                        '--this-chunk', '11', '--total-chunks', '25',
                     ],
                 },
                 'mochitest-debug-12': {
                     'extra_args': [
                         '--cfg', 'b2g/emulator_automation_config.py',
                         '--test-suite', 'mochitest',
-                        '--this-chunk', '12', '--total-chunks', '20',
+                        '--this-chunk', '12', '--total-chunks', '25',
                     ],
                 },
                 'mochitest-debug-13': {
                     'extra_args': [
                         '--cfg', 'b2g/emulator_automation_config.py',
                         '--test-suite', 'mochitest',
-                        '--this-chunk', '13', '--total-chunks', '20',
+                        '--this-chunk', '13', '--total-chunks', '25',
                     ],
                 },
                 'mochitest-debug-14': {
                     'extra_args': [
                         '--cfg', 'b2g/emulator_automation_config.py',
                         '--test-suite', 'mochitest',
-                        '--this-chunk', '14', '--total-chunks', '20',
+                        '--this-chunk', '14', '--total-chunks', '25',
                     ],
                 },
                 'mochitest-debug-15': {
                     'extra_args': [
                         '--cfg', 'b2g/emulator_automation_config.py',
                         '--test-suite', 'mochitest',
-                        '--this-chunk', '15', '--total-chunks', '20',
+                        '--this-chunk', '15', '--total-chunks', '25',
                     ],
                 },
                 'mochitest-debug-16': {
                     'extra_args': [
                         '--cfg', 'b2g/emulator_automation_config.py',
                         '--test-suite', 'mochitest',
-                        '--this-chunk', '16', '--total-chunks', '20',
+                        '--this-chunk', '16', '--total-chunks', '25',
                     ],
                 },
                 'mochitest-debug-17': {
                     'extra_args': [
                         '--cfg', 'b2g/emulator_automation_config.py',
                         '--test-suite', 'mochitest',
-                        '--this-chunk', '17', '--total-chunks', '20',
+                        '--this-chunk', '17', '--total-chunks', '25',
                     ],
                 },
                 'mochitest-debug-18': {
                     'extra_args': [
                         '--cfg', 'b2g/emulator_automation_config.py',
                         '--test-suite', 'mochitest',
-                        '--this-chunk', '18', '--total-chunks', '20',
+                        '--this-chunk', '18', '--total-chunks', '25',
                     ],
                 },
                 'mochitest-debug-19': {
                     'extra_args': [
                         '--cfg', 'b2g/emulator_automation_config.py',
                         '--test-suite', 'mochitest',
-                        '--this-chunk', '19', '--total-chunks', '20',
+                        '--this-chunk', '19', '--total-chunks', '25',
                     ],
                 },
                 'mochitest-debug-20': {
                     'extra_args': [
                         '--cfg', 'b2g/emulator_automation_config.py',
                         '--test-suite', 'mochitest',
-                        '--this-chunk', '20', '--total-chunks', '20',
+                        '--this-chunk', '20', '--total-chunks', '25',
+                    ],
+                },
+                'mochitest-debug-21': {
+                    'extra_args': [
+                        '--cfg', 'b2g/emulator_automation_config.py',
+                        '--test-suite', 'mochitest',
+                        '--this-chunk', '21', '--total-chunks', '25',
+                    ],
+                },
+                'mochitest-debug-22': {
+                    'extra_args': [
+                        '--cfg', 'b2g/emulator_automation_config.py',
+                        '--test-suite', 'mochitest',
+                        '--this-chunk', '22', '--total-chunks', '25',
+                    ],
+                },
+                'mochitest-debug-23': {
+                    'extra_args': [
+                        '--cfg', 'b2g/emulator_automation_config.py',
+                        '--test-suite', 'mochitest',
+                        '--this-chunk', '23', '--total-chunks', '25',
+                    ],
+                },
+                'mochitest-debug-24': {
+                    'extra_args': [
+                        '--cfg', 'b2g/emulator_automation_config.py',
+                        '--test-suite', 'mochitest',
+                        '--this-chunk', '24', '--total-chunks', '25',
+                    ],
+                },
+                'mochitest-debug-25': {
+                    'extra_args': [
+                        '--cfg', 'b2g/emulator_automation_config.py',
+                        '--test-suite', 'mochitest',
+                        '--this-chunk', '25', '--total-chunks', '25',
                     ],
                 },
                 'xpcshell': {
@@ -2507,6 +2203,10 @@ for branch in BRANCHES.keys():
     BRANCHES[branch]['pgo_platforms'] = []
     BRANCHES[branch]['script_repo_manifest'] = "https://hg.mozilla.org/%(repo_path)s/raw-file/%(revision)s/" + \
                                                "testing/mozharness/mozharness.json"
+    # mozharness_archiver_repo_path tells the factory to use a copy of mozharness from within the
+    #  gecko tree and also allows us to overwrite which gecko repo to use. Useful for platforms
+    # like Thunderbird
+    BRANCHES[branch]['mozharness_archiver_repo_path'] = '%(repo_path)s'
 
 # The following are exceptions to the defaults
 
@@ -2522,14 +2222,10 @@ BRANCHES['cedar']['platforms']['emulator']['ubuntu64_vm-b2g-emulator']['opt_unit
 BRANCHES['cedar']['platforms']['emulator']['ubuntu64_vm-b2g-emulator']['debug_unittest_suites'] = \
     MOCHITEST_EMULATOR_DEBUG[:] + REFTEST + CRASHTEST + MARIONETTE + XPCSHELL_CHUNKED + CPPUNIT
 BRANCHES['cedar']['platforms']['emulator']['ubuntu64_vm-b2g-lg-emulator']['opt_unittest_suites'] = MOCHITEST_MEDIA
-BRANCHES['cedar']['platforms']['emulator-jb']['ubuntu64_vm-b2g-emulator-jb']['opt_unittest_suites'] = MOCHITEST_EMULATOR_JB[:]
 BRANCHES['cedar']['platforms']['emulator-kk']['ubuntu64_vm-b2g-emulator-kk']['opt_unittest_suites'] = \
     MOCHITEST + REFTEST_20 + CRASHTEST + XPCSHELL + MARIONETTE + JSREFTEST + CPPUNIT + MOCHITEST_CHROME
 BRANCHES['cedar']['platforms']['emulator-kk']['ubuntu64_vm-b2g-emulator-kk']['debug_unittest_suites'] = \
     MOCHITEST_EMULATOR_DEBUG[:] + REFTEST + CRASHTEST + MARIONETTE + XPCSHELL_CHUNKED + CPPUNIT
-BRANCHES['cedar']['platforms']['linux64_gecko']['ubuntu64_vm-b2gdt']['opt_unittest_suites'] += \
-  REFTEST_DESKTOP + GAIA_UI_OOP + GAIA_UNITTESTS_OOP
-BRANCHES['cedar']['platforms']['linux64_gecko']['ubuntu64_vm-b2gdt']['debug_unittest_suites'] += GAIA_JS_INTEGRATION[:]
 BRANCHES['cedar']['platforms']['macosx64_gecko']['mountainlion-b2gdt']['opt_unittest_suites'] += MOCHITEST_DESKTOP + REFTEST_DESKTOP_SANITY
 BRANCHES['maple']['branch_name'] = "Maple"
 BRANCHES['maple']['repo_path'] = "projects/maple"
@@ -2542,10 +2238,9 @@ BRANCHES['pine']['platforms']['emulator']['ubuntu64_vm-b2g-emulator']['debug_uni
 # disabled for Bug 1150320
 # BRANCHES['jamun']['repo_path'] = "projects/jamun"
 BRANCHES['fx-team']['repo_path'] = "integration/fx-team"
-BRANCHES['mozilla-b2g32_v2_0']['repo_path'] = "releases/mozilla-b2g32_v2_0"
-BRANCHES['mozilla-b2g34_v2_1']['repo_path'] = "releases/mozilla-b2g34_v2_1"
 BRANCHES['mozilla-b2g34_v2_1s']['repo_path'] = "releases/mozilla-b2g34_v2_1s"
 BRANCHES['mozilla-b2g37_v2_2']['repo_path'] = "releases/mozilla-b2g37_v2_2"
+BRANCHES['mozilla-b2g37_v2_2r']['repo_path'] = "releases/mozilla-b2g37_v2_2r"
 BRANCHES['mozilla-central']['branch_name'] = "Firefox"
 BRANCHES['mozilla-inbound']['repo_path'] = "integration/mozilla-inbound"
 BRANCHES['b2g-inbound']['branch_name'] = "B2g-Inbound"
@@ -2564,9 +2259,6 @@ def exclude_suites(slave_platform, branch, suites_to_be_excluded, from_opt_unitt
         if from_debug_unittests:
             slave_p['debug_unittest_suites'] = [x for x in slave_p['debug_unittest_suites']
                                             if x[0] if x[0] not in suites_to_be_excluded]
-
-exclude_suites(('linux64_gecko', 'ubuntu64_vm-b2gdt'), 'cedar', ('gaia-ui-test',), True, True)
-exclude_suites(('macosx64_gecko', 'mountainlion-b2gdt'), 'cedar', ('gaia-ui-test',), True, True)
 
 # new linux64_gecko tests as of gecko 32; OOP replaces their non-OOP variants
 for name, branch in items_at_least(BRANCHES, 'gecko_version', 32):
@@ -2588,23 +2280,19 @@ for name, branch in items_at_least(BRANCHES, 'gecko_version', 38):
         BRANCHES[name]['platforms']['emulator']['ubuntu64_vm-b2g-emulator']['opt_unittest_suites'] += \
             MOCHITEST_CHROME
 
-# Use chunked Gip, Gij in 36+ (bug 1081246)
+# Use chunked Gij in 36+ (bug 1081246)
 for name, branch in items_at_least(BRANCHES, 'gecko_version', 36):
     for slave_platform in (('linux64_gecko', 'ubuntu64_vm-b2gdt'),
                            ('macosx64_gecko', 'mountainlion-b2gdt')):
         if slave_platform[0] in BRANCHES[name]['platforms']:
-            BRANCHES[name]['platforms'][slave_platform[0]][slave_platform[1]]['opt_unittest_suites'] += GIP[:]
             if slave_platform[0] == 'linux64_gecko':
-                BRANCHES[name]['platforms'][slave_platform[0]][slave_platform[1]]['debug_unittest_suites'] += GIP[:]
                 BRANCHES[name]['platforms'][slave_platform[0]][slave_platform[1]]['opt_unittest_suites'] += GAIA_JS_INTEGRATION[:]
-# ...and non-chunked Gip in earlier branches
+# ...and non-chunked Gij in earlier branches
 for name, branch in items_before(BRANCHES, 'gecko_version', 36):
     for slave_platform in (('linux64_gecko', 'ubuntu64_vm-b2gdt'),
                            ('macosx64_gecko', 'mountainlion-b2gdt')):
         if slave_platform[0] in BRANCHES[name]['platforms']:
-            BRANCHES[name]['platforms'][slave_platform[0]][slave_platform[1]]['opt_unittest_suites'] += GAIA_UI[:]
             if slave_platform[0] == 'linux64_gecko':
-                BRANCHES[name]['platforms'][slave_platform[0]][slave_platform[1]]['debug_unittest_suites'] += GAIA_UI[:]
                 BRANCHES[name]['platforms'][slave_platform[0]][slave_platform[1]]['opt_unittest_suites'] += GAIA_INTEGRATION[:]
 
 # explicitly set slave platforms per branch
@@ -2612,25 +2300,6 @@ for branch in BRANCHES.keys():
     for platform in BRANCHES[branch]['platforms']:
         if 'slave_platforms' not in BRANCHES[branch]['platforms'][platform]:
             BRANCHES[branch]['platforms'][platform]['slave_platforms'] = list(PLATFORMS[platform]['slave_platforms'])
-
-# Disable emulator cppunit tests on older branches
-OLD_BRANCHES = set([name for name, branch in items_before(BRANCHES, 'gecko_version', 34)])
-for b in BRANCHES.keys():
-    branch = BRANCHES[b]
-    if b in OLD_BRANCHES:
-        if nested_haskey(branch['platforms'], 'emulator', 'ubuntu64_vm-b2g-emulator'):
-            slave_p = branch['platforms']['emulator']['ubuntu64_vm-b2g-emulator']
-            for suites in ['opt_unittest_suites', 'debug_unittest_suites']:
-                slave_p[suites] = [x for x in slave_p[suites]
-                                   if not x[0].startswith('cppunit')]
-
-# Disable OSX Mulet in every branch except cedar
-for name in BRANCHES.keys():
-    if name in ('cedar', ):
-        continue
-    for platform in ('macosx64-mulet', ):
-        if platform in BRANCHES[name]['platforms']:
-            del BRANCHES[name]['platforms'][platform]
 
 # Disable tests jobs of builds that have been moved to TC
 for _, branch in items_at_least(BRANCHES, 'gecko_version', 39):
