@@ -1433,40 +1433,6 @@ BRANCHES['mozilla-b2g34_v2_1s']['platforms']['dolphin_eng']['enable_nightly'] = 
 BRANCHES['mozilla-b2g34_v2_1s']['platforms']['dolphin-512']['enable_nightly'] = True
 BRANCHES['mozilla-b2g34_v2_1s']['platforms']['dolphin-512_eng']['enable_nightly'] = True
 BRANCHES['mozilla-b2g34_v2_1s']['platforms']['dolphin-512_eng']['enable_dep'] = True
-BRANCHES['mozilla-b2g34_v2_1s']['platforms']['macosx64_gecko']['enable_nightly'] = False
-BRANCHES['mozilla-b2g34_v2_1s']['platforms']['macosx64_gecko-debug']['enable_nightly'] = False
-BRANCHES['mozilla-b2g34_v2_1s']['platforms']['win32_gecko']['enable_nightly'] = False
-BRANCHES['mozilla-b2g34_v2_1s']['platforms']['win32_gecko-debug']['enable_nightly'] = False
-BRANCHES['mozilla-b2g34_v2_1s']['platforms']['flame-kk']['enable_periodic'] = False
-BRANCHES['mozilla-b2g34_v2_1s']['platforms']['flame-kk_eng']['enable_periodic'] = False
-BRANCHES['mozilla-b2g34_v2_1s']['platforms']['flame-kk_eng']['enable_dep'] = False
-BRANCHES['mozilla-b2g34_v2_1s']['platforms']['flame-kk_eng-debug']['enable_periodic'] = False
-BRANCHES['mozilla-b2g34_v2_1s']['platforms']['nexus-4']['enable_periodic'] = False
-BRANCHES['mozilla-b2g34_v2_1s']['platforms']['nexus-4_eng']['enable_periodic'] = False
-BRANCHES['mozilla-b2g34_v2_1s']['platforms']['nexus-5-l']['enable_periodic'] = False
-BRANCHES['mozilla-b2g34_v2_1s']['platforms']['nexus-5-l_eng']['enable_periodic'] = False
-
-######## mozilla-b2g32_v2_0
-# This is a path, relative to HGURL, where the repository is located
-# HGURL + repo_path should be a valid repository
-# BRANCHES['mozilla-b2g32_v2_0']['repo_path'] = 'users/jlund_mozilla.com/mozilla-central'
-BRANCHES['mozilla-b2g32_v2_0']['repo_path'] = 'releases/mozilla-b2g32_v2_0'
-BRANCHES['mozilla-b2g32_v2_0']['gaia_l10n_root'] = 'https://hg.mozilla.org/releases/gaia-l10n/v2_0/'
-BRANCHES['mozilla-b2g32_v2_0']['gecko_l10n_root'] = 'https://hg.mozilla.org/releases/l10n/mozilla-beta'
-BRANCHES['mozilla-b2g32_v2_0']['start_hour'] = [0, 16]
-BRANCHES['mozilla-b2g32_v2_0']['start_minute'] = [2]
-BRANCHES['mozilla-b2g32_v2_0']['periodic_start_minute'] = 30
-BRANCHES['mozilla-b2g32_v2_0']['platforms']['nexus-4']['enable_nightly'] = True
-BRANCHES['mozilla-b2g32_v2_0']['platforms']['flame-kk']['enable_nightly'] = True
-BRANCHES['mozilla-b2g32_v2_0']['platforms']['flame-kk_eng']['enable_nightly'] = True
-BRANCHES['mozilla-b2g32_v2_0']['platforms']['emulator']['enable_nightly'] = True
-BRANCHES['mozilla-b2g32_v2_0']['platforms']['emulator-debug']['enable_nightly'] = True
-BRANCHES['mozilla-b2g32_v2_0']['platforms']['emulator-jb']['enable_nightly'] = True
-BRANCHES['mozilla-b2g32_v2_0']['platforms']['emulator-jb-debug']['enable_nightly'] = True
-BRANCHES['mozilla-b2g32_v2_0']['platforms']['emulator-kk']['enable_nightly'] = True
-BRANCHES['mozilla-b2g32_v2_0']['platforms']['emulator-kk-debug']['enable_nightly'] = True
-BRANCHES['mozilla-b2g32_v2_0']['platforms']['nexus-5-l']['enable_periodic'] = False
-BRANCHES['mozilla-b2g32_v2_0']['platforms']['nexus-5-l_eng']['enable_periodic'] = False
 
 ######## try
 # Try-specific configs
